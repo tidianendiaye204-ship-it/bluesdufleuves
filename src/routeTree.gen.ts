@@ -11,9 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as NannkaTvRouteImport } from './routes/nannka-tv'
 import { Route as NannKMediaRouteImport } from './routes/nann-k-media'
-import { Route as CentreCulturelRouteImport } from './routes/centre-culturel'
 import { Route as BluesDuFleuveRouteImport } from './routes/blues-du-fleuve'
-import { Route as BaabaMaalRouteImport } from './routes/baaba-maal'
 import { Route as IndexRouteImport } from './routes/index'
 
 const NannkaTvRoute = NannkaTvRouteImport.update({
@@ -26,19 +24,9 @@ const NannKMediaRoute = NannKMediaRouteImport.update({
   path: '/nann-k-media',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CentreCulturelRoute = CentreCulturelRouteImport.update({
-  id: '/centre-culturel',
-  path: '/centre-culturel',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BluesDuFleuveRoute = BluesDuFleuveRouteImport.update({
   id: '/blues-du-fleuve',
   path: '/blues-du-fleuve',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BaabaMaalRoute = BaabaMaalRouteImport.update({
-  id: '/baaba-maal',
-  path: '/baaba-maal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,61 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/baaba-maal': typeof BaabaMaalRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
-  '/centre-culturel': typeof CentreCulturelRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/baaba-maal': typeof BaabaMaalRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
-  '/centre-culturel': typeof CentreCulturelRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/baaba-maal': typeof BaabaMaalRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
-  '/centre-culturel': typeof CentreCulturelRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/baaba-maal'
-    | '/blues-du-fleuve'
-    | '/centre-culturel'
-    | '/nann-k-media'
-    | '/nannka-tv'
+  fullPaths: '/' | '/blues-du-fleuve' | '/nann-k-media' | '/nannka-tv'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/baaba-maal'
-    | '/blues-du-fleuve'
-    | '/centre-culturel'
-    | '/nann-k-media'
-    | '/nannka-tv'
-  id:
-    | '__root__'
-    | '/'
-    | '/baaba-maal'
-    | '/blues-du-fleuve'
-    | '/centre-culturel'
-    | '/nann-k-media'
-    | '/nannka-tv'
+  to: '/' | '/blues-du-fleuve' | '/nann-k-media' | '/nannka-tv'
+  id: '__root__' | '/' | '/blues-du-fleuve' | '/nann-k-media' | '/nannka-tv'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BaabaMaalRoute: typeof BaabaMaalRoute
   BluesDuFleuveRoute: typeof BluesDuFleuveRoute
-  CentreCulturelRoute: typeof CentreCulturelRoute
   NannKMediaRoute: typeof NannKMediaRoute
   NannkaTvRoute: typeof NannkaTvRoute
 }
@@ -124,25 +85,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NannKMediaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/centre-culturel': {
-      id: '/centre-culturel'
-      path: '/centre-culturel'
-      fullPath: '/centre-culturel'
-      preLoaderRoute: typeof CentreCulturelRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blues-du-fleuve': {
       id: '/blues-du-fleuve'
       path: '/blues-du-fleuve'
       fullPath: '/blues-du-fleuve'
       preLoaderRoute: typeof BluesDuFleuveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/baaba-maal': {
-      id: '/baaba-maal'
-      path: '/baaba-maal'
-      fullPath: '/baaba-maal'
-      preLoaderRoute: typeof BaabaMaalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,9 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BaabaMaalRoute: BaabaMaalRoute,
   BluesDuFleuveRoute: BluesDuFleuveRoute,
-  CentreCulturelRoute: CentreCulturelRoute,
   NannKMediaRoute: NannKMediaRoute,
   NannkaTvRoute: NannkaTvRoute,
 }

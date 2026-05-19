@@ -3,11 +3,9 @@ import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const links = [
-  { to: "/", label: "À la Une" },
-  { to: "/baaba-maal", label: "Baaba Maal" },
+  { to: "/", label: "Le Complexe" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
-  { to: "/nann-k-media", label: "NANN-k" },
-  { to: "/centre-culturel", label: "Musée" },
+  { to: "/nann-k-media", label: "NANN-k Media" },
 ] as const;
 
 export function Navbar() {
