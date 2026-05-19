@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Music, Wrench, Sprout, HandMetal, Globe, ShoppingBag, Calendar, Monitor, Smartphone } from "lucide-react";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
@@ -167,9 +167,9 @@ function Formations() {
             </div>
 
             <div className="mt-12 pt-8 border-t border-border text-center">
-              <button className="w-full bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md">
+              <Link to="/" className="w-full inline-block bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md">
                 Accéder à la plateforme
-              </button>
+              </Link>
             </div>
           </div>
 
