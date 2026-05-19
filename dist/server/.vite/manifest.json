@@ -6,7 +6,7 @@
     "isDynamicEntry": true
   },
   "C:/Users/DELL/Downloads/bluesdufleuve/src/styles.css": {
-    "file": "assets/styles-DpqCC-qZ.css",
+    "file": "assets/styles-DSbI2_B3.css",
     "src": "C:/Users/DELL/Downloads/bluesdufleuve/src/styles.css"
   },
   "_baaba-maal-CFblE9PW.js": {
@@ -31,67 +31,82 @@
       "assets/festival-crowd-B85lOwNE.jpg"
     ]
   },
-  "_fleuve-Bopw1vrN.js": {
-    "file": "assets/fleuve-Bopw1vrN.js",
+  "_fleuve-DLgoJLXC.js": {
+    "file": "assets/fleuve-DLgoJLXC.js",
     "name": "fleuve",
+    "imports": [
+      "_router-BNR4sXn6.js"
+    ],
     "assets": [
       "assets/fleuve--modIL_7.jpg"
     ]
   },
-  "_instruments-BP6xbc3a.js": {
-    "file": "assets/instruments-BP6xbc3a.js",
+  "_instruments-i2gV3lym.js": {
+    "file": "assets/instruments-i2gV3lym.js",
     "name": "instruments",
-    "imports": [
-      "_router-D4-rYBJG.js"
-    ],
     "assets": [
       "assets/instruments-DUbn1fGv.jpg"
     ]
   },
-  "_router-D4-rYBJG.js": {
-    "file": "assets/router-D4-rYBJG.js",
+  "_router-BNR4sXn6.js": {
+    "file": "assets/router-BNR4sXn6.js",
     "name": "router",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js"
+      "_server-DgHei5dY.js"
     ],
     "dynamicImports": [
       "src/routes/nannka-tv.tsx?tsr-split=component",
       "src/routes/nann-k-media.tsx?tsr-split=component",
-      "src/routes/centre-culturel.tsx?tsr-split=component",
+      "src/routes/formations.tsx?tsr-split=component",
       "src/routes/blues-du-fleuve.tsx?tsr-split=component",
-      "src/routes/baaba-maal.tsx?tsr-split=component",
       "src/routes/index.tsx?tsr-split=component"
     ],
     "assets": [
-      "assets/styles-DpqCC-qZ.css"
+      "assets/styles-DSbI2_B3.css"
     ]
   },
-  "_server-DQCQGl94.js": {
-    "file": "assets/server-DQCQGl94.js",
+  "_server-DgHei5dY.js": {
+    "file": "assets/server-DgHei5dY.js",
     "name": "server",
     "isDynamicEntry": true,
     "dynamicImports": [
       "tanstack-start-manifest:v",
-      "_router-D4-rYBJG.js",
+      "_router-BNR4sXn6.js",
       "src/start.ts",
       "%23tanstack-start-plugin-adapters"
     ]
   },
-  "_worker-entry-T6iyp1yw.js": {
-    "file": "assets/worker-entry-T6iyp1yw.js",
+  "_worker-entry-Q5ri6AaV.js": {
+    "file": "assets/worker-entry-Q5ri6AaV.js",
     "name": "worker-entry",
     "dynamicImports": [
-      "_server-DQCQGl94.js"
+      "_server-DgHei5dY.js"
     ]
+  },
+  "src/assets/ABdou camera.jpg": {
+    "file": "assets/ABdou camera-DTynFRMP.jpg",
+    "src": "src/assets/ABdou camera.jpg"
+  },
+  "src/assets/authentique.jpg": {
+    "file": "assets/authentique-CcRZq8SD.jpg",
+    "src": "src/assets/authentique.jpg"
   },
   "src/assets/baaba-maal.jpg": {
     "file": "assets/baaba-maal-D-RIM0E5.jpg",
     "src": "src/assets/baaba-maal.jpg"
   },
+  "src/assets/boydiarra.jpg": {
+    "file": "assets/boydiarra-C9mw8-Ah.jpg",
+    "src": "src/assets/boydiarra.jpg"
+  },
   "src/assets/centre-podor.jpg": {
     "file": "assets/centre-podor-DuDdZ0FL.jpg",
     "src": "src/assets/centre-podor.jpg"
+  },
+  "src/assets/choupi-mabllo.jpg": {
+    "file": "assets/choupi-mabllo-DrqCbXC2.jpg",
+    "src": "src/assets/choupi-mabllo.jpg"
   },
   "src/assets/festival-crowd.jpg": {
     "file": "assets/festival-crowd-B85lOwNE.jpg",
@@ -105,105 +120,112 @@
     "file": "assets/instruments-DUbn1fGv.jpg",
     "src": "src/assets/instruments.jpg"
   },
+  "src/assets/jeeba.jpg": {
+    "file": "assets/jeeba-DijxIkWP.jpg",
+    "src": "src/assets/jeeba.jpg"
+  },
   "src/assets/logo-nannk.png": {
     "file": "assets/logo-nannk-CsxIUls-.png",
     "src": "src/assets/logo-nannk.png"
+  },
+  "src/assets/mia-guiss.jpg": {
+    "file": "assets/mia-guiss-CBUopbg5.jpg",
+    "src": "src/assets/mia-guiss.jpg"
   },
   "src/assets/pirogues.jpg": {
     "file": "assets/pirogues-XHMjIoQa.jpg",
     "src": "src/assets/pirogues.jpg"
   },
-  "src/routes/baaba-maal.tsx?tsr-split=component": {
-    "file": "assets/baaba-maal-CC6-M_W-.js",
-    "name": "baaba-maal",
-    "src": "src/routes/baaba-maal.tsx?tsr-split=component",
-    "isDynamicEntry": true,
-    "imports": [
-      "_server-DQCQGl94.js",
-      "_baaba-maal-CFblE9PW.js"
-    ]
-  },
   "src/routes/blues-du-fleuve.tsx?tsr-split=component": {
-    "file": "assets/blues-du-fleuve-O78cNBTG.js",
+    "file": "assets/blues-du-fleuve-CG3I-8Bo.js",
     "name": "blues-du-fleuve",
     "src": "src/routes/blues-du-fleuve.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js",
+      "_server-DgHei5dY.js",
       "_baaba-maal-CFblE9PW.js",
       "_festival-crowd-BvJ5twAQ.js",
-      "_fleuve-Bopw1vrN.js",
-      "_instruments-BP6xbc3a.js",
+      "_fleuve-DLgoJLXC.js",
+      "_instruments-i2gV3lym.js",
       "_centre-podor-ZV8xvsix.js",
-      "_router-D4-rYBJG.js"
+      "_router-BNR4sXn6.js"
+    ],
+    "assets": [
+      "assets/mia-guiss-CBUopbg5.jpg",
+      "assets/jeeba-DijxIkWP.jpg",
+      "assets/authentique-CcRZq8SD.jpg",
+      "assets/boydiarra-C9mw8-Ah.jpg",
+      "assets/choupi-mabllo-DrqCbXC2.jpg",
+      "assets/ABdou camera-DTynFRMP.jpg"
     ]
   },
-  "src/routes/centre-culturel.tsx?tsr-split=component": {
-    "file": "assets/centre-culturel-CmEo5zVr.js",
-    "name": "centre-culturel",
-    "src": "src/routes/centre-culturel.tsx?tsr-split=component",
+  "src/routes/formations.tsx?tsr-split=component": {
+    "file": "assets/formations-BIUAZ-Z4.js",
+    "name": "formations",
+    "src": "src/routes/formations.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js",
+      "_server-DgHei5dY.js",
       "_centre-podor-ZV8xvsix.js",
-      "_instruments-BP6xbc3a.js",
-      "_router-D4-rYBJG.js"
+      "_instruments-i2gV3lym.js",
+      "_router-BNR4sXn6.js"
     ]
   },
   "src/routes/index.tsx?tsr-split=component": {
-    "file": "assets/index-aT5iwn6p.js",
+    "file": "assets/index-DmYiLI7I.js",
     "name": "index",
     "src": "src/routes/index.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js",
-      "_router-D4-rYBJG.js",
-      "_fleuve-Bopw1vrN.js",
+      "_server-DgHei5dY.js",
+      "_router-BNR4sXn6.js",
+      "_fleuve-DLgoJLXC.js",
       "_baaba-maal-CFblE9PW.js",
-      "_centre-podor-ZV8xvsix.js"
+      "_centre-podor-ZV8xvsix.js",
+      "_instruments-i2gV3lym.js"
     ]
   },
   "src/routes/nann-k-media.tsx?tsr-split=component": {
-    "file": "assets/nann-k-media-CBO2Jy5Z.js",
+    "file": "assets/nann-k-media-DlRYZl6_.js",
     "name": "nann-k-media",
     "src": "src/routes/nann-k-media.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js",
-      "_instruments-BP6xbc3a.js",
+      "_server-DgHei5dY.js",
+      "_instruments-i2gV3lym.js",
       "_festival-crowd-BvJ5twAQ.js",
-      "_fleuve-Bopw1vrN.js",
-      "_router-D4-rYBJG.js"
+      "_fleuve-DLgoJLXC.js",
+      "_router-BNR4sXn6.js"
     ],
     "assets": [
       "assets/logo-nannk-CsxIUls-.png"
     ]
   },
   "src/routes/nannka-tv.tsx?tsr-split=component": {
-    "file": "assets/nannka-tv-befs6xFS.js",
+    "file": "assets/nannka-tv-_vm3qfRJ.js",
     "name": "nannka-tv",
     "src": "src/routes/nannka-tv.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_server-DQCQGl94.js",
-      "_instruments-BP6xbc3a.js",
+      "_server-DgHei5dY.js",
+      "_instruments-i2gV3lym.js",
       "_festival-crowd-BvJ5twAQ.js",
-      "_fleuve-Bopw1vrN.js",
-      "_router-D4-rYBJG.js"
+      "_fleuve-DLgoJLXC.js",
+      "_router-BNR4sXn6.js"
     ]
   },
   "src/start.ts": {
-    "file": "assets/start-DyXRb-KZ.js",
+    "file": "assets/start-C3zx7ULC.js",
     "name": "start",
     "src": "src/start.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_worker-entry-T6iyp1yw.js",
-      "_server-DQCQGl94.js"
+      "_worker-entry-Q5ri6AaV.js",
+      "_server-DgHei5dY.js"
     ]
   },
   "tanstack-start-manifest:v": {
-    "file": "assets/_tanstack-start-manifest_v-DU7iz7GC.js",
+    "file": "assets/_tanstack-start-manifest_v-D5CRrp6i.js",
     "name": "_tanstack-start-manifest_v",
     "src": "tanstack-start-manifest:v",
     "isDynamicEntry": true
@@ -214,7 +236,7 @@
     "src": "virtual:cloudflare/worker-entry",
     "isEntry": true,
     "imports": [
-      "_worker-entry-T6iyp1yw.js"
+      "_worker-entry-Q5ri6AaV.js"
     ]
   }
 }

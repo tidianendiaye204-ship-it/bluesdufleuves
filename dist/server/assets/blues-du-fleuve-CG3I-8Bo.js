@@ -1,10 +1,10 @@
-import { P as reactExports, H as jsxRuntimeExports } from "./server-DQCQGl94.js";
+import { P as reactExports, H as jsxRuntimeExports } from "./server-DgHei5dY.js";
 import { b as baabaImg } from "./baaba-maal-CFblE9PW.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
-import { i as instrumentsImg, P as Play } from "./instruments-BP6xbc3a.js";
+import { f as fleuveImg, P as Play } from "./fleuve-DLgoJLXC.js";
+import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
-import { c as createLucideIcon } from "./router-D4-rYBJG.js";
+import { c as createLucideIcon } from "./router-BNR4sXn6.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -51,41 +51,54 @@ const __iconNode = [
   ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor", key: "fotxhn" }]
 ];
 const Palette = createLucideIcon("palette", __iconNode);
+const miaGuissImg = "/assets/mia-guiss-CBUopbg5.jpg";
+const jeebaImg = "/assets/jeeba-DijxIkWP.jpg";
+const authentiqueImg = "/assets/authentique-CcRZq8SD.jpg";
+const boyDiarraImg = "/assets/boydiarra-C9mw8-Ah.jpg";
+const choupiMballoImg = "/assets/choupi-mabllo-DrqCbXC2.jpg";
+const abdouCamaraImg = "/assets/ABdou%20camera-DTynFRMP.jpg";
 const artistes = [{
   nom: "Baaba Maal",
   role: "Fondateur · Légende",
   origine: "Podor, Sénégal",
-  desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays."
+  desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays.",
+  img: baabaImg
 }, {
   nom: "Mia Guissé",
   role: "Auteure-compositrice",
   origine: "Tambacounda, Sénégal",
-  desc: "Née à Tambacounda, au Sénégal, Aïssata Guissé aka Mia Guissé est auteure-compositrice, interprète et styliste naviguant entre mbalax, musique acoustique, folk-pop, afro-pop, afrobeat."
+  desc: "Née à Tambacounda, au Sénégal, Aïssata Guissé aka Mia Guissé est auteure-compositrice, interprète et styliste naviguant entre mbalax, musique acoustique, folk-pop, afro-pop, afrobeat.",
+  img: miaGuissImg
 }, {
   nom: "JEEBA",
   role: "Auteur-compositeur",
   origine: "Thiès, Sénégal",
-  desc: "Jeeba ou Jeeba Abdn de son vrai nom Djibril Ba, né à Thiès, est un auteur-compositeur-interprète et chanteur sénégalais. Il développe une musique qu'il appelle « Jolofbeats »."
+  desc: "Jeeba ou Jeeba Abdn de son vrai nom Djibril Ba, né à Thiès, est un auteur-compositeur-interprète et chanteur sénégalais. Il développe une musique qu'il appelle « Jolofbeats ».",
+  img: jeebaImg
 }, {
   nom: "Authentique BD",
   role: "Artiste Rappeur",
   origine: "Mauritanie",
-  desc: "Authentique Bd artiste rappeur mauritanien."
+  desc: "Authentique Bd artiste rappeur mauritanien.",
+  img: authentiqueImg
 }, {
   nom: "Boy Diarra",
   role: "Artiste",
   origine: "Sénégal",
-  desc: "Artiste Sénégalais."
+  desc: "Artiste Sénégalais.",
+  img: boyDiarraImg
 }, {
   nom: "Choupi Mballo",
   role: "Artiste Invitée",
   origine: "Sénégal",
-  desc: "Artiste invitée pour cette édition du festival."
+  desc: "Artiste invitée pour cette édition du festival.",
+  img: choupiMballoImg
 }, {
   nom: "Abdou Camara",
   role: "Artiste Invité",
   origine: "Sénégal",
-  desc: "Artiste invité pour cette édition du festival."
+  desc: "Artiste invité pour cette édition du festival.",
+  img: abdouCamaraImg
 }];
 const piliers = [{
   Icon: Music2,
@@ -229,7 +242,7 @@ function BluesDuFleuve() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-4", children: artistes.map((a) => /* @__PURE__ */ jsxRuntimeExports.jsxs("article", { className: "rounded-2xl border border-border bg-card overflow-hidden transition hover:border-primary", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "aspect-4/5 bg-muted relative overflow-hidden", style: {
           backgroundImage: "linear-gradient(135deg, oklch(0.3 0.04 250), oklch(0.25 0.06 80))"
-        }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/30", children: a.nom.charAt(0) }) }),
+        }, children: a.img ? /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: a.img, alt: a.nom, className: "absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105" }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/30", children: a.nom.charAt(0) }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-5", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-display text-xl font-semibold", children: a.nom }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs uppercase tracking-wider text-primary mt-1", children: a.role }),

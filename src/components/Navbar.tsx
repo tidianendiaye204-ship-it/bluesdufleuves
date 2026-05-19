@@ -6,6 +6,7 @@ const links = [
   { to: "/", label: "Le Complexe" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/nann-k-media", label: "Nann-k" },
+  { to: "/formations", label: "Formations" },
 ] as const;
 
 export function Navbar() {

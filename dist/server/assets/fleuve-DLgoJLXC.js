@@ -1,4 +1,4 @@
-import { c as createLucideIcon } from "./router-D4-rYBJG.js";
+import { c as createLucideIcon } from "./router-BNR4sXn6.js";
 const __iconNode = [
   [
     "path",
@@ -9,8 +9,8 @@ const __iconNode = [
   ]
 ];
 const Play = createLucideIcon("play", __iconNode);
-const instrumentsImg = "/assets/instruments-DUbn1fGv.jpg";
+const fleuveImg = "/assets/fleuve--modIL_7.jpg";
 export {
   Play as P,
-  instrumentsImg as i
+  fleuveImg as f
 };

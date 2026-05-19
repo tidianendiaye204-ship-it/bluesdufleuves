@@ -1,4 +1,4 @@
-import { P as reactExports, t as functionalUpdate$1, a as arraysEqual, g as createLRUCache, C as isPromise, E as isRedirect, B as isNotFound, x as invariant, f as createControlledPromise, Y as rootRouteId, F as isServer$1, d as compileDecodeCharMap, _ as trimPath, X as rewriteBasepath, e as composeRewrites, N as processRouteTree, M as processRouteMasks, W as resolvePath, c as cleanPath, a0 as trimPathRight, L as parseHref, o as executeRewriteInput, y as isDangerousProtocol, Q as redirect, s as findSingleMatch, j as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, w as interpolatePath, K as nullReplaceEqualDeep, T as replaceEqualDeep$1, I as last, i as decodePath, q as findFlatMatch, r as findRouteMatch, v as hasKeys, p as executeRewriteOutput, l as encodePathLikeUrl, $ as trimPathLeft, G as joinPaths, a2 as useRouter, k as dummyMatchContext, J as matchContext, U as requireReactDom, n as exactPathTest, S as removeTrailingSlash, R as React, H as jsxRuntimeExports, A as isModuleNotFoundError, a1 as useHydrated, m as escapeHtml, z as isInlinableStylesheet, u as getAssetCrossOrigin, V as resolveManifestAssetLink, O as Outlet } from "./server-DQCQGl94.js";
+import { P as reactExports, t as functionalUpdate$1, a as arraysEqual, g as createLRUCache, C as isPromise, E as isRedirect, B as isNotFound, x as invariant, f as createControlledPromise, Y as rootRouteId, F as isServer$1, d as compileDecodeCharMap, _ as trimPath, X as rewriteBasepath, e as composeRewrites, N as processRouteTree, M as processRouteMasks, W as resolvePath, c as cleanPath, a0 as trimPathRight, L as parseHref, o as executeRewriteInput, y as isDangerousProtocol, Q as redirect, s as findSingleMatch, j as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, w as interpolatePath, K as nullReplaceEqualDeep, T as replaceEqualDeep$1, I as last, i as decodePath, q as findFlatMatch, r as findRouteMatch, v as hasKeys, p as executeRewriteOutput, l as encodePathLikeUrl, $ as trimPathLeft, G as joinPaths, a2 as useRouter, k as dummyMatchContext, J as matchContext, U as requireReactDom, n as exactPathTest, S as removeTrailingSlash, R as React, H as jsxRuntimeExports, A as isModuleNotFoundError, a1 as useHydrated, m as escapeHtml, z as isInlinableStylesheet, u as getAssetCrossOrigin, V as resolveManifestAssetLink, O as Outlet } from "./server-DgHei5dY.js";
 var reactUse = reactExports.use;
 function useForwardedRef(ref) {
   const innerRef = reactExports.useRef(null);
@@ -2229,7 +2229,7 @@ var Link = reactExports.forwardRef((props, ref) => {
   }
   return reactExports.createElement(_asChild, linkProps, children);
 });
-var Route$7 = class Route extends BaseRoute {
+var Route$6 = class Route extends BaseRoute {
   /**
   * @deprecated Use the `createRoute` function instead.
   */
@@ -2287,7 +2287,7 @@ var Route$7 = class Route extends BaseRoute {
   }
 };
 function createRoute(options) {
-  return new Route$7(options);
+  return new Route$6(options);
 }
 function createRootRouteWithContext() {
   return (options) => {
@@ -4660,7 +4660,7 @@ var QueryClientProvider = ({
   }, [client]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientContext.Provider, { value: client, children });
 };
-const appCss = "/assets/styles-DpqCC-qZ.css";
+const appCss = "/assets/styles-DSbI2_B3.css";
 const mergeClasses = (...classes) => classes.filter((className, index, array) => {
   return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
@@ -4783,11 +4783,10 @@ const __iconNode = [
 ];
 const Youtube = createLucideIcon("youtube", __iconNode);
 const links = [
-  { to: "/", label: "À la Une" },
-  { to: "/baaba-maal", label: "Baaba Maal" },
+  { to: "/", label: "Le Complexe" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
-  { to: "/nann-k-media", label: "Nannka Media" },
-  { to: "/centre-culturel", label: "Musée" }
+  { to: "/nann-k-media", label: "Nann-k" },
+  { to: "/formations", label: "Formations" }
 ];
 function Navbar() {
   const [open, setOpen] = reactExports.useState(false);
@@ -4822,7 +4821,7 @@ function Navbar() {
             "The ",
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Village" })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans", children: "Le Journal de la Vallée" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans", children: "blues des fleuves - NANN-K" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: "md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground", "aria-label": "Search", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 22 }) })
       ] }),
@@ -4864,7 +4863,7 @@ function Footer() {
           "The ",
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient-gold", children: "Village" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-3 text-sm text-muted-foreground max-w-xs", children: "Hub culturel & numérique du projet Nannka — Centre Culturel de Podor, vallée du fleuve Sénégal." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-3 text-sm text-muted-foreground max-w-xs", children: "Hub culturel & numérique du projet NANN-k — Centre Culturel de Podor, vallée du fleuve Sénégal." }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-5 space-y-2 text-sm text-muted-foreground", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "contact@thevillage.com" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "Podor, Sénégal" })
@@ -4923,7 +4922,7 @@ function Footer() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
         "© ",
         (/* @__PURE__ */ new Date()).getFullYear(),
-        " The Village — Projet Nannka. Tous droits réservés."
+        " The Village — Projet NANN-k. Tous droits réservés."
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Podor, Sénégal · Vallée du Fleuve" })
     ] }) })
@@ -4973,15 +4972,15 @@ function ErrorComponent({ error, reset }) {
     ] })
   ] }) });
 }
-const Route$6 = createRootRouteWithContext()({
+const Route$5 = createRootRouteWithContext()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Village — Projet Nannka & Centre Culturel de Podor" },
-      { name: "description", content: "Plateforme culturelle Nannka : Blues du Fleuve, Nannka TV, et Centre Culturel de Podor — vallée du fleuve Sénégal." },
+      { title: "The Village — Projet NANN-k & Centre Culturel de Podor" },
+      { name: "description", content: "Plateforme culturelle NANN-k : Blues du Fleuve, NANN-k TV, et Centre Culturel de Podor — vallée du fleuve Sénégal." },
       { name: "author", content: "The Village" },
-      { property: "og:title", content: "The Village — Projet Nannka" },
+      { property: "og:title", content: "The Village — Projet NANN-k" },
       { property: "og:description", content: "Culture, musique et patrimoine de la vallée du fleuve Sénégal." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
@@ -5021,51 +5020,51 @@ function RootShell({ children }) {
   ] });
 }
 function RootComponent() {
-  const { queryClient } = Route$6.useRouteContext();
+  const { queryClient } = Route$5.useRouteContext();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] }) });
 }
-const $$splitComponentImporter$5 = () => import("./nannka-tv-befs6xFS.js");
-const Route$5 = createFileRoute("/nannka-tv")({
+const $$splitComponentImporter$4 = () => import("./nannka-tv-_vm3qfRJ.js");
+const Route$4 = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [{
-      title: "Nannka TV Média — Conservatoire Numérique de la Vallée"
+      title: "NANN-k TV Média — Conservatoire Numérique de la Vallée"
     }, {
       name: "description",
       content: "Chaîne média dédiée au patrimoine : émissions, concerts live, archives festivals et musée virtuel."
     }]
   }),
-  component: lazyRouteComponent($$splitComponentImporter$5, "component")
-});
-const $$splitComponentImporter$4 = () => import("./nann-k-media-CBO2Jy5Z.js");
-const Route$4 = createFileRoute("/nann-k-media")({
-  head: () => ({
-    meta: [{
-      title: "Nannka Media — The Village"
-    }, {
-      name: "description",
-      content: "Nannka Media : Pôle de production, communication et musée virtuel numérique de la Vallée."
-    }]
-  }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./centre-culturel-CmEo5zVr.js");
-const Route$3 = createFileRoute("/centre-culturel")({
+const $$splitComponentImporter$3 = () => import("./nann-k-media-DlRYZl6_.js");
+const Route$3 = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [{
-      title: "Centre Culturel de Podor — The Village"
+      title: "Nann-k — The Village"
     }, {
       name: "description",
-      content: "Le Centre Culturel de Podor : musée vivant, scène d'événements et cœur du projet Nannka."
+      content: "Nann-k : Pôle de production, communication et musée virtuel numérique de la Vallée."
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./blues-du-fleuve-O78cNBTG.js");
-const Route$2 = createFileRoute("/blues-du-fleuve")({
+const $$splitComponentImporter$2 = () => import("./formations-BIUAZ-Z4.js");
+const Route$2 = createFileRoute("/formations")({
+  head: () => ({
+    meta: [{
+      title: "Formations & Recherche — The Village"
+    }, {
+      name: "description",
+      content: "Centre de Formation et de Recherche : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie."
+    }]
+  }),
+  component: lazyRouteComponent($$splitComponentImporter$2, "component")
+});
+const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-CG3I-8Bo.js");
+const Route$1 = createFileRoute("/blues-du-fleuve")({
   head: () => ({
     meta: [{
       title: "Blues du Fleuve — The Village"
@@ -5074,71 +5073,53 @@ const Route$2 = createFileRoute("/blues-du-fleuve")({
       content: "Festival fondé par Baaba Maal, célébrant l'intégration et la solidarité des pays de la vallée du fleuve."
     }]
   }),
-  component: lazyRouteComponent($$splitComponentImporter$2, "component")
-});
-const $$splitComponentImporter$1 = () => import("./baaba-maal-CC6-M_W-.js");
-const Route$1 = createFileRoute("/baaba-maal")({
-  head: () => ({
-    meta: [{
-      title: "Biographie de Baaba Maal — The Village"
-    }, {
-      name: "description",
-      content: "Découvrez la biographie de Baaba Maal, l'enfant prodige de Podor et ambassadeur de la culture peule."
-    }]
-  }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-aT5iwn6p.js");
+const $$splitComponentImporter = () => import("./index-DmYiLI7I.js");
 const Route2 = createFileRoute("/")({
   head: () => ({
     meta: [{
-      title: "The Village — L'actualité de la Vallée du Fleuve"
+      title: "Le Complexe NANN-k — The Village"
     }, {
       name: "description",
-      content: "Toute l'information culturelle, sociale et économique de Podor et de la vallée du fleuve Sénégal."
+      content: "Présentation du projet NANN-k, de Baaba Maal, du Centre Culturel et de l'actualité de la vallée du fleuve."
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter, "component")
 });
-const NannkaTvRoute = Route$5.update({
+const NannkaTvRoute = Route$4.update({
   id: "/nannka-tv",
   path: "/nannka-tv",
-  getParentRoute: () => Route$6
+  getParentRoute: () => Route$5
 });
-const NannKMediaRoute = Route$4.update({
+const NannKMediaRoute = Route$3.update({
   id: "/nann-k-media",
   path: "/nann-k-media",
-  getParentRoute: () => Route$6
+  getParentRoute: () => Route$5
 });
-const CentreCulturelRoute = Route$3.update({
-  id: "/centre-culturel",
-  path: "/centre-culturel",
-  getParentRoute: () => Route$6
+const FormationsRoute = Route$2.update({
+  id: "/formations",
+  path: "/formations",
+  getParentRoute: () => Route$5
 });
-const BluesDuFleuveRoute = Route$2.update({
+const BluesDuFleuveRoute = Route$1.update({
   id: "/blues-du-fleuve",
   path: "/blues-du-fleuve",
-  getParentRoute: () => Route$6
-});
-const BaabaMaalRoute = Route$1.update({
-  id: "/baaba-maal",
-  path: "/baaba-maal",
-  getParentRoute: () => Route$6
+  getParentRoute: () => Route$5
 });
 const IndexRoute = Route2.update({
   id: "/",
   path: "/",
-  getParentRoute: () => Route$6
+  getParentRoute: () => Route$5
 });
 const rootRouteChildren = {
   IndexRoute,
-  BaabaMaalRoute,
   BluesDuFleuveRoute,
-  CentreCulturelRoute,
+  FormationsRoute,
   NannKMediaRoute,
   NannkaTvRoute
 };
-const routeTree = Route$6._addFileChildren(rootRouteChildren)._addFileTypes();
+const routeTree = Route$5._addFileChildren(rootRouteChildren)._addFileTypes();
 const getRouter = () => {
   const queryClient = new QueryClient();
   const router2 = createRouter({

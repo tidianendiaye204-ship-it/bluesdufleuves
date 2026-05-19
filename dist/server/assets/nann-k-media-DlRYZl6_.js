@@ -1,8 +1,8 @@
-import { P as reactExports, H as jsxRuntimeExports } from "./server-DQCQGl94.js";
-import { P as Play, i as instrumentsImg } from "./instruments-BP6xbc3a.js";
+import { P as reactExports, H as jsxRuntimeExports } from "./server-DgHei5dY.js";
+import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
-import { X } from "./router-D4-rYBJG.js";
+import { f as fleuveImg, P as Play } from "./fleuve-DLgoJLXC.js";
+import { X } from "./router-BNR4sXn6.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -61,17 +61,14 @@ function NannkMedia() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-background min-h-screen", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "bg-muted border-b border-border py-16 md:py-20", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page text-center max-w-4xl mx-auto", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold", children: "Pôle Stratégique & Diffusion" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground", children: [
-        "Nannka ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Media" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg md:text-xl font-serif text-muted-foreground leading-relaxed", children: "Le pôle central de communication, de production audiovisuelle et d'archivage numérique, associé à notre espace de diffusion Nannka TV." })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Nann-k" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg md:text-xl font-serif text-muted-foreground leading-relaxed", children: "Le pôle central de communication, de production audiovisuelle et d'archivage numérique, associé à notre espace de diffusion NANN-k TV." })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "container-page py-20 border-b border-border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-16 items-center", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs uppercase tracking-widest text-primary mb-3 block font-bold", children: "Le Bureau des Médias" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs uppercase tracking-widest text-primary mb-3 block font-bold", children: "Le Bureau" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground", children: "Notre Mission" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-serif text-muted-foreground mb-8 text-lg leading-relaxed", children: "Nann-K Media Office constitue l'organe nerveux du projet culturel global. Il centralise la production de contenus, assure la couverture médiatique des événements majeurs comme les Blues du Fleuve, et pilote la stratégie de relations publiques." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-serif text-muted-foreground mb-8 text-lg leading-relaxed", children: "Le pôle Nann-k constitue l'organe nerveux du projet culturel global. Il centralise la production de contenus, assure la couverture médiatique des événements majeurs comme les Blues du Fleuve, et pilote la stratégie de relations publiques." }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6 font-serif text-muted-foreground", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-4", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]" }),
@@ -100,18 +97,18 @@ function NannkMedia() {
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "container-page py-20", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-[180px_1fr] gap-8 items-center mb-12 bg-card border border-border p-8 rounded-3xl shadow-sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logoNannk, alt: "Nannka TV Logo", className: "w-full h-full object-contain" }) }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: logoNannk, alt: "NANN-k TV Logo", className: "w-full h-full object-contain" }) }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col mb-4", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs uppercase tracking-widest text-primary mb-2 font-bold", children: "Espace de Diffusion" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-4xl font-bold uppercase tracking-tight", children: "Nannka TV" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-4xl font-bold uppercase tracking-tight", children: "NANN-k TV" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4 font-serif text-muted-foreground text-base leading-relaxed", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "NannKa TV" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "NANN-k TV" }),
               " est le canal audiovisuel de The Village — voix du patrimoine musical de la vallée du Fleuve Sénégal. Documentaires, concerts en live, émissions culturelles, portraits de griots et masterclasses d'instruments traditionnels."
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Disponible sur toutes les plateformes numériques, NannKa TV ambitionne d'être la mémoire vivante et diffusée du Fouta Toro — accessible depuis Podor comme depuis Paris, New York ou Dakar." })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Disponible sur toutes les plateformes numériques, NANN-k TV ambitionne d'être la mémoire vivante et diffusée du Fouta Toro — accessible depuis Podor comme depuis Paris, New York ou Dakar." })
           ] })
         ] })
       ] }),

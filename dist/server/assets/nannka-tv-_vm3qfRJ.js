@@ -1,8 +1,8 @@
-import { P as reactExports, H as jsxRuntimeExports } from "./server-DQCQGl94.js";
-import { P as Play, i as instrumentsImg } from "./instruments-BP6xbc3a.js";
+import { P as reactExports, H as jsxRuntimeExports } from "./server-DgHei5dY.js";
+import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
-import { X } from "./router-D4-rYBJG.js";
+import { f as fleuveImg, P as Play } from "./fleuve-DLgoJLXC.js";
+import { X } from "./router-BNR4sXn6.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -63,7 +63,7 @@ function NannkaTV() {
     }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page py-16 md:py-20", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-5", children: "Patrimoine en images" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-display text-5xl md:text-6xl font-bold", children: [
-        "Nannka ",
+        "NANN-k ",
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient-gold", children: "TV Média" })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-5 max-w-2xl text-lg text-muted-foreground", children: "Documentaires, concerts live et préservation des traditions de la vallée du fleuve." })
