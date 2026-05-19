@@ -18,7 +18,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="border-b border-foreground bg-background text-foreground font-sans">
+    <header className="sticky top-0 z-50 border-b border-foreground bg-background text-foreground font-sans shadow-sm">
       {/* Top bar (News style) */}
       <div className="border-b border-border py-1 hidden md:block">
         <div className="container-page flex items-center justify-between text-[11px] text-muted-foreground uppercase tracking-widest font-bold">
