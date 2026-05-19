@@ -12,7 +12,7 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [
-      { title: "Nannka TV Média — Conservatoire Numérique de la Vallée" },
+      { title: "NANN-k TV Média — Conservatoire Numérique de la Vallée" },
       { name: "description", content: "Chaîne média dédiée au patrimoine : émissions, concerts live, archives festivals et musée virtuel." },
     ],
   }),
@@ -59,7 +59,7 @@ function NannkaTV() {
         <div className="container-page py-16 md:py-20">
           <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">Patrimoine en images</p>
           <h1 className="font-display text-5xl md:text-6xl font-bold">
-            Nannka <span className="text-gradient-gold">TV Média</span>
+            NANN-k <span className="text-gradient-gold">TV Média</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
             Documentaires, concerts live et préservation des traditions de la vallée du fleuve.

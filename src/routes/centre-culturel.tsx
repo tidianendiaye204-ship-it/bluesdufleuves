@@ -8,7 +8,7 @@ export const Route = createFileRoute("/centre-culturel")({
   head: () => ({
     meta: [
       { title: "Centre Culturel de Podor — The Village" },
-      { name: "description", content: "Le Centre Culturel de Podor : musée vivant, scène d'événements et cœur du projet Nannka." },
+      { name: "description", content: "Le Centre Culturel de Podor : musée vivant, scène d'événements et cœur du projet NANN-k." },
     ],
   }),
   component: CentreCulturel,

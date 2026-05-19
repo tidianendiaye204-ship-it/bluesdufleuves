@@ -74,10 +74,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Village — Projet Nannka & Centre Culturel de Podor" },
-      { name: "description", content: "Plateforme culturelle Nannka : Blues du Fleuve, Nannka TV, et Centre Culturel de Podor — vallée du fleuve Sénégal." },
+      { title: "The Village — Projet NANN-k & Centre Culturel de Podor" },
+      { name: "description", content: "Plateforme culturelle NANN-k : Blues du Fleuve, NANN-k TV, et Centre Culturel de Podor — vallée du fleuve Sénégal." },
       { name: "author", content: "The Village" },
-      { property: "og:title", content: "The Village — Projet Nannka" },
+      { property: "og:title", content: "The Village — Projet NANN-k" },
       { property: "og:description", content: "Culture, musique et patrimoine de la vallée du fleuve Sénégal." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

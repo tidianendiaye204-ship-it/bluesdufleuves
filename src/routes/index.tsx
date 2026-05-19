@@ -18,7 +18,7 @@ const articles = [
   {
     to: "/nann-k-media" as const,
     category: "Médias",
-    title: "Nannka TV lance son grand musée virtuel numérique",
+    title: "NANN-k TV lance son grand musée virtuel numérique",
     excerpt: "Découvrez des archives inédites et des documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
     date: "Aujourd'hui",
     img: fleuveImg,

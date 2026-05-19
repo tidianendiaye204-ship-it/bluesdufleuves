@@ -6,7 +6,7 @@ const links = [
   { to: "/", label: "À la Une" },
   { to: "/baaba-maal", label: "Baaba Maal" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
-  { to: "/nann-k-media", label: "Nannka Media" },
+  { to: "/nann-k-media", label: "NANN-k" },
   { to: "/centre-culturel", label: "Musée" },
 ] as const;
 
@@ -45,7 +45,7 @@ export function Navbar() {
             <span className="font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors">
               The <span className="text-primary">Village</span>
             </span>
-            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans">Le Journal de la Vallée</span>
+            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans">blues des fleuves - NANN-K</span>
           </Link>
 
           <button className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground" aria-label="Search">

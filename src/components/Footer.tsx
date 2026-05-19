@@ -10,7 +10,7 @@ export function Footer() {
             The <span className="text-gradient-gold">Village</span>
           </h3>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-            Hub culturel & numérique du projet Nannka — Centre Culturel de Podor, vallée du fleuve Sénégal.
+            Hub culturel & numérique du projet NANN-k — Centre Culturel de Podor, vallée du fleuve Sénégal.
           </p>
           <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
             <li>contact@thevillage.com</li>
@@ -71,7 +71,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container-page py-5 text-xs text-muted-foreground flex flex-col md:flex-row justify-between gap-2">
-          <p>© {new Date().getFullYear()} The Village — Projet Nannka. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} The Village — Projet NANN-k. Tous droits réservés.</p>
           <p>Podor, Sénégal · Vallée du Fleuve</p>
         </div>
       </div>

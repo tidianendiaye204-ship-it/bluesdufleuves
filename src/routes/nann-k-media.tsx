@@ -13,8 +13,8 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [
-      { title: "Nannka Media — The Village" },
-      { name: "description", content: "Nannka Media : Pôle de production, communication et musée virtuel numérique de la Vallée." },
+      { title: "NANN-k Media — The Village" },
+      { name: "description", content: "NANN-k Media : Pôle de production, communication et musée virtuel numérique de la Vallée." },
     ],
   }),
   component: NannkMedia,
@@ -61,10 +61,10 @@ function NannkMedia() {
         <div className="container-page text-center max-w-4xl mx-auto">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">Pôle Stratégique & Diffusion</div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground">
-            Nannka <span className="text-primary">Media</span>
+            NANN-k <span className="text-primary">Media</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-            Le pôle central de communication, de production audiovisuelle et d'archivage numérique, associé à notre espace de diffusion Nannka TV.
+            Le pôle central de communication, de production audiovisuelle et d'archivage numérique, associé à notre espace de diffusion NANN-k TV.
           </p>
         </div>
       </section>
@@ -110,25 +110,25 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Nannka TV Player Section */}
+      {/* NANN-k TV Player Section */}
       <section className="container-page py-20">
         <div className="grid md:grid-cols-[180px_1fr] gap-8 items-center mb-12 bg-card border border-border p-8 rounded-3xl shadow-sm">
           <div className="flex justify-center">
             <div className="w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm">
-              <img src={logoNannk} alt="Nannka TV Logo" className="w-full h-full object-contain" />
+              <img src={logoNannk} alt="NANN-k TV Logo" className="w-full h-full object-contain" />
             </div>
           </div>
           <div>
             <div className="flex flex-col mb-4">
               <span className="text-xs uppercase tracking-widest text-primary mb-2 font-bold">Espace de Diffusion</span>
-              <h2 className="font-display text-4xl font-bold uppercase tracking-tight">Nannka TV</h2>
+              <h2 className="font-display text-4xl font-bold uppercase tracking-tight">NANN-k TV</h2>
             </div>
             <div className="space-y-4 font-serif text-muted-foreground text-base leading-relaxed">
               <p>
-                <strong>NannKa TV</strong> est le canal audiovisuel de The Village — voix du patrimoine musical de la vallée du Fleuve Sénégal. Documentaires, concerts en live, émissions culturelles, portraits de griots et masterclasses d'instruments traditionnels.
+                <strong>NANN-k TV</strong> est le canal audiovisuel de The Village — voix du patrimoine musical de la vallée du Fleuve Sénégal. Documentaires, concerts en live, émissions culturelles, portraits de griots et masterclasses d'instruments traditionnels.
               </p>
               <p>
-                Disponible sur toutes les plateformes numériques, NannKa TV ambitionne d'être la mémoire vivante et diffusée du Fouta Toro — accessible depuis Podor comme depuis Paris, New York ou Dakar.
+                Disponible sur toutes les plateformes numériques, NANN-k TV ambitionne d'être la mémoire vivante et diffusée du Fouta Toro — accessible depuis Podor comme depuis Paris, New York ou Dakar.
               </p>
             </div>
           </div>
