@@ -13,8 +13,8 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [
-      { title: "NANN-k Media — The Village" },
-      { name: "description", content: "NANN-k Media : Pôle de production, communication et musée virtuel numérique de la Vallée." },
+      { title: "Nann-k — The Village" },
+      { name: "description", content: "Nann-k : Pôle de production, communication et musée virtuel numérique de la Vallée." },
     ],
   }),
   component: NannkMedia,
@@ -61,7 +61,7 @@ function NannkMedia() {
         <div className="container-page text-center max-w-4xl mx-auto">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">Pôle Stratégique & Diffusion</div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground">
-            NANN-k <span className="text-primary">Media</span>
+            <span className="text-primary">Nann-k</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
             Le pôle central de communication, de production audiovisuelle et d'archivage numérique, associé à notre espace de diffusion NANN-k TV.
@@ -73,10 +73,10 @@ function NannkMedia() {
       <section className="container-page py-20 border-b border-border">
         <div className="grid md:grid-cols-2 gap-16 items-center">
            <div>
-             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">Le Bureau des Médias</span>
+             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">Le Bureau</span>
              <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground">Notre Mission</h2>
              <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-               Nann-K Media Office constitue l'organe nerveux du projet culturel global. Il centralise la production de contenus, assure la couverture médiatique des événements majeurs comme les Blues du Fleuve, et pilote la stratégie de relations publiques.
+               Le pôle Nann-k constitue l'organe nerveux du projet culturel global. Il centralise la production de contenus, assure la couverture médiatique des événements majeurs comme les Blues du Fleuve, et pilote la stratégie de relations publiques.
              </p>
              <div className="space-y-6 font-serif text-muted-foreground">
                <div className="flex items-start gap-4">

@@ -60,7 +60,7 @@ const instruments = [
 
 const espaces = [
   { nom: "Musée Numérique", desc: "Exposition interactive du patrimoine matériel et immatériel." },
-  { nom: "NANN-k Media Studio", desc: "Studio de production et d'enregistrement pour les artistes de la vallée." },
+  { nom: "Studio Nann-k", desc: "Studio de production et d'enregistrement pour les artistes de la vallée." },
   { nom: "Salle de Spectacle", desc: "Espace de diffusion pour les concerts, le théâtre et les arts vivants." },
   { nom: "Bibliothèque", desc: "Médiathèque et centre de documentation sur l'histoire du Fouta." },
   { nom: "Espace d'Exposition", desc: "Galerie dédiée aux arts plastiques et à l'artisanat local." },
