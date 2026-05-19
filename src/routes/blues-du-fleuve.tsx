@@ -8,6 +8,7 @@ import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
 import centreImg from "@/assets/centre-podor.jpg";
 import miaGuissImg from "@/assets/mia-guiss.jpg";
+import jeebaImg from "@/assets/jeeba.jpg";
 
 export const Route = createFileRoute("/blues-du-fleuve")({
   head: () => ({
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
 const artistes = [
   { nom: "Baaba Maal", role: "Fondateur · Légende", origine: "Podor, Sénégal", desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays.", img: baabaImg },
   { nom: "Mia Guissé", role: "Auteure-compositrice", origine: "Tambacounda, Sénégal", desc: "Née à Tambacounda, au Sénégal, Aïssata Guissé aka Mia Guissé est auteure-compositrice, interprète et styliste naviguant entre mbalax, musique acoustique, folk-pop, afro-pop, afrobeat.", img: miaGuissImg },
-  { nom: "JEEBA", role: "Auteur-compositeur", origine: "Thiès, Sénégal", desc: "Jeeba ou Jeeba Abdn de son vrai nom Djibril Ba, né à Thiès, est un auteur-compositeur-interprète et chanteur sénégalais. Il développe une musique qu'il appelle « Jolofbeats »." },
+  { nom: "JEEBA", role: "Auteur-compositeur", origine: "Thiès, Sénégal", desc: "Jeeba ou Jeeba Abdn de son vrai nom Djibril Ba, né à Thiès, est un auteur-compositeur-interprète et chanteur sénégalais. Il développe une musique qu'il appelle « Jolofbeats ».", img: jeebaImg },
   { nom: "Authentique BD", role: "Artiste Rappeur", origine: "Mauritanie", desc: "Authentique Bd artiste rappeur mauritanien." },
   { nom: "Boy Diarra", role: "Artiste", origine: "Sénégal", desc: "Artiste Sénégalais." },
   { nom: "Choupi Mballo", role: "Artiste Invitée", origine: "Sénégal", desc: "Artiste invitée pour cette édition du festival." },
