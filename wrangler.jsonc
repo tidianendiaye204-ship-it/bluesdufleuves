@@ -8,8 +8,8 @@
     {
       "binding": "DB",
       "database_name": "bluesdufleuve-db",
-      "database_id": "REPLACE_WITH_YOUR_DB_ID_LATER"
-    }
+      "database_id": "6132ece7-8c11-4e42-88e1-6732542544d6",
+    },
   ],
   // "routes": [
   //   { "pattern": "lesbluesdufleuve.sn", "custom_domain": true }

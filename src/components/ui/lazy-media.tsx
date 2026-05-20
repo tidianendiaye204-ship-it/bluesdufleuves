@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface LazyYoutubeProps {
   videoId: string;
@@ -59,13 +59,13 @@ interface LazySpotifyProps {
 export const LazySpotify: React.FC<LazySpotifyProps> = ({ episodeId }) => {
   return (
     <div className="w-full h-[152px] rounded-xl overflow-hidden">
-      <iframe 
+      <iframe
         src={`https://open.spotify.com/embed/track/${episodeId}?utm_source=generator&theme=0`}
-        width="100%" 
-        height="152" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        width="100%"
+        height="152"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        style={{ borderRadius: '12px', border: 'none' }}
+        style={{ borderRadius: "12px", border: "none" }}
       ></iframe>
     </div>
   );

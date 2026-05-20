@@ -1,13 +1,14 @@
-import { P as reactExports, H as jsxRuntimeExports } from "./server-DgHei5dY.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-hB6X1bMd.js";
 import { b as baabaImg } from "./baaba-maal-CFblE9PW.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg, P as Play } from "./fleuve-DLgoJLXC.js";
+import { f as fleuveImg, P as Play } from "./fleuve-DmNdC5Hc.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
-import { c as createLucideIcon } from "./router-BNR4sXn6.js";
+import { c as createLucideIcon } from "./router-B8YflhIQ.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
+import "./types-DGfzljZx.js";
 const __iconNode$4 = [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
@@ -182,39 +183,41 @@ function BluesDuFleuve() {
   });
   const [sent, setSent] = reactExports.useState(false);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "relative overflow-hidden border-b border-border", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "relative overflow-hidden border-b border-border text-white", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0", style: {
         background: "var(--gradient-hero)"
       } }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-5", children: "Festival International · 15ème & 16ème éditions" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs uppercase tracking-[0.3em] text-white/70 mb-5", children: "Festival International · 15ème & 16ème éditions" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05]", children: [
             "Blues du ",
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient-gold", children: "Fleuve" })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6 space-y-4 max-w-2xl text-lg text-muted-foreground", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6 space-y-4 max-w-2xl text-lg text-white/90", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
-              "Porté sur les fonds baptismaux par l’artiste international Sénégalais ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-foreground font-medium", children: "Baaba MAAL" }),
+              "Porté sur les fonds baptismaux par l’artiste international Sénégalais",
+              " ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-medium", children: "Baaba MAAL" }),
               " le festival les Blues du fleuve célèbre sa 15ème édition du 13 au 15 Décembre 2024 à Podor (Sénégal)."
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Seul Festival d’intégration en Afrique de l’ouest le Blues du Fleuve symbolise la solidarité des pays riverains du fleuve Sénégal." }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Le Festival les Blues du Fleuve consacre ses éditions à travers diverses expressions des peuples dont la culture est fortement influencée par l’eau. Cette culture est représentée essentiellement par les arts vivants : musique, danse spectacle traditionnels, Festival multicolores, l’artisanat, ce patrimoine populaire et les préoccupations de développement des populations sont représenté aussi à travers des expositions thématiques et des conférences." }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité, la convivialité autour des peuples unis par le fleuve dans la diversité, d’autre part sur l’émergence du Sénégal." })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 flex flex-wrap gap-6 text-sm text-white/80", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { size: 16, className: "text-primary" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { size: 16, className: "text-white" }),
               " Podor, Sénégal"
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { size: 16, className: "text-primary" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { size: 16, className: "text-white" }),
               " 13–15 Décembre 2024"
             ] })
-          ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-8", children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "#", onClick: (e) => e.preventDefault(), className: "btn-billetterie opacity-60 cursor-not-allowed", children: "Réserver mon Pass Festival (Bientôt disponible)" }) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-3xl overflow-hidden border border-border aspect-4/5 shadow-(--shadow-elegant)", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: baabaImg, alt: "Baaba Maal", className: "h-full w-full object-cover" }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-3xl overflow-hidden border border-border/20 aspect-4/5 shadow-(--shadow-elegant)", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: baabaImg, alt: "Baaba Maal", className: "h-full w-full object-cover", loading: "lazy" }) })
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "border-b border-border bg-card/30", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page py-16", children: [
@@ -234,6 +237,69 @@ function BluesDuFleuve() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-2 text-sm text-muted-foreground", children: desc })
       ] }, titre)) })
     ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { id: "billetterie", className: "festival-container py-20 border-b border-border", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "font-display text-3xl md:text-5xl font-bold mb-10", children: [
+        "Programme & ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient-gold", children: "Billetterie" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "programme-grid", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "programme-item", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-display text-xl font-bold", children: "Jour 1 : Ouverture & Traditions" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground mt-2", children: "13 Décembre 2024 • Centre Culturel de Podor" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-4 space-y-2 text-sm", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "10:00" }),
+              " - Cérémonie d'ouverture"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "15:00" }),
+              " - Course de pirogues traditionnelles"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "21:00" }),
+              " - Concert acoustique (Baaba Maal & Invités)"
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "programme-item", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-display text-xl font-bold", children: "Jour 2 : La Nuit du Fleuve" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground mt-2", children: "14 Décembre 2024 • Scène Principale" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-4 space-y-2 text-sm", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "10:00" }),
+              " - Panels et conférences (Environnement)"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "16:00" }),
+              " - Animations artistiques dans la ville"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "22:00" }),
+              " - Grand Concert (Mia Guissé, Jeeba...)"
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "programme-item", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-display text-xl font-bold", children: "Jour 3 : Clôture & Daande Lenol" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground mt-2", children: "15 Décembre 2024 • Scène Principale" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-4 space-y-2 text-sm", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "09:00" }),
+              " - Exposition artisanale"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "15:00" }),
+              " - Danse et folklore Halpulaar"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "22:00" }),
+              " - Concert de Clôture (Baaba Maal & Le Daande Lenol)"
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-10 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "#", onClick: (e) => e.preventDefault(), className: "btn-billetterie opacity-60 cursor-not-allowed", children: "Acheter un Pass 3 Jours (Bientôt disponible)" }) })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "container-page py-20", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-end justify-between mb-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-3xl md:text-4xl font-bold", children: "Artistes" }),
@@ -264,7 +330,7 @@ function BluesDuFleuve() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-3xl md:text-4xl font-bold", children: "Archives média" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-2 text-muted-foreground", children: "Revivez les moments forts du festival." }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-10 grid gap-6 sm:grid-cols-2", children: videos.map((v) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "rounded-2xl overflow-hidden border border-border bg-card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "aspect-video bg-black/40 relative", children: /* @__PURE__ */ jsxRuntimeExports.jsx("iframe", { className: "absolute inset-0 w-full h-full", src: `https://www.youtube.com/embed/${v.id}`, title: v.title, loading: "lazy", allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowFullScreen: true }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "aspect-video bg-black/40 relative", children: /* @__PURE__ */ jsxRuntimeExports.jsx("iframe", { className: "absolute inset-0 w-full h-full", src: `https://www.youtube.com/embed/${v.id}`, srcDoc: `<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}'><span>▶</span></a>`, title: v.title, loading: "lazy", allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", allowFullScreen: true }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 text-sm font-medium", children: v.title })
       ] }, v.id)) })
     ] }),

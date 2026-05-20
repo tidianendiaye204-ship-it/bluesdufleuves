@@ -1579,6 +1579,9 @@ function isRedirect(obj) {
 function isResolvedRedirect(obj) {
   return isRedirect(obj) && !!obj.options.href;
 }
+function parseRedirect(obj) {
+  if (obj !== null && typeof obj === "object" && obj.isSerializedRedirect) return redirect(obj);
+}
 function composeRewrites(rewrites) {
   return {
     input: ({ url }) => {
@@ -15971,7 +15974,7 @@ function getResponse() {
 }
 var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 async function getStartManifest(matchedRoutes) {
-  const { tsrStartManifest } = await import("./_tanstack-start-manifest_v-D5CRrp6i.js");
+  const { tsrStartManifest } = await import("./_tanstack-start-manifest_v-ojHajZRo.js");
   const startManifest = tsrStartManifest();
   const rootRoute = startManifest.routes[rootRouteId] = startManifest.routes[rootRouteId] || {};
   rootRoute.assets = rootRoute.assets || [];
@@ -15998,7 +16001,12 @@ async function getStartManifest(matchedRoutes) {
     injectedHeadScripts
   };
 }
-const manifest = {};
+const manifest = {
+  "c9426a028804a61ba850d9ff6a96cda44ae6a6770b4200230bb9f743a5414807": {
+    functionName: "soumettreInscription_createServerFn_handler",
+    importer: () => import("./formations-a59av7cB.js")
+  }
+};
 async function getServerFnById(id, access) {
   const serverFnInfo = manifest[id];
   if (!serverFnInfo) {
@@ -16016,6 +16024,7 @@ async function getServerFnById(id, access) {
 }
 var TSS_FORMDATA_CONTEXT = "__TSS_CONTEXT";
 var TSS_SERVER_FUNCTION = /* @__PURE__ */ Symbol.for("TSS_SERVER_FUNCTION");
+var TSS_SERVER_FUNCTION_FACTORY = /* @__PURE__ */ Symbol.for("TSS_SERVER_FUNCTION_FACTORY");
 var X_TSS_SERIALIZED = "x-tss-serialized";
 var X_TSS_RAW_RESPONSE = "x-tss-raw";
 var TSS_CONTENT_TYPE_FRAMED = "application/x-tss-framed";
@@ -16059,6 +16068,146 @@ function getStartContext(opts) {
   return context;
 }
 var getStartOptions = () => getStartContext().startOptions;
+var getStartContextServerOnly = getStartContext;
+var createServerFn = (options, __opts) => {
+  const resolvedOptions = __opts || options || {};
+  if (typeof resolvedOptions.method === "undefined") resolvedOptions.method = "GET";
+  const res = {
+    options: resolvedOptions,
+    middleware: (middleware) => {
+      const newMiddleware = [...resolvedOptions.middleware || []];
+      middleware.map((m2) => {
+        if (TSS_SERVER_FUNCTION_FACTORY in m2) {
+          if (m2.options.middleware) newMiddleware.push(...m2.options.middleware);
+        } else newMiddleware.push(m2);
+      });
+      const res2 = createServerFn(void 0, {
+        ...resolvedOptions,
+        middleware: newMiddleware
+      });
+      res2[TSS_SERVER_FUNCTION_FACTORY] = true;
+      return res2;
+    },
+    inputValidator: (inputValidator) => {
+      return createServerFn(void 0, {
+        ...resolvedOptions,
+        inputValidator
+      });
+    },
+    handler: (...args) => {
+      const [extractedFn, serverFn] = args;
+      const newOptions = {
+        ...resolvedOptions,
+        extractedFn,
+        serverFn
+      };
+      const resolvedMiddleware = [...newOptions.middleware || [], serverFnBaseToMiddleware(newOptions)];
+      extractedFn.method = resolvedOptions.method;
+      return Object.assign(async (opts) => {
+        const result = await executeMiddleware$1(resolvedMiddleware, "client", {
+          ...extractedFn,
+          ...newOptions,
+          data: opts?.data,
+          headers: opts?.headers,
+          signal: opts?.signal,
+          fetch: opts?.fetch,
+          context: createNullProtoObject()
+        });
+        const redirect2 = parseRedirect(result.error);
+        if (redirect2) throw redirect2;
+        if (result.error) throw result.error;
+        return result.result;
+      }, {
+        ...extractedFn,
+        method: resolvedOptions.method,
+        __executeServer: async (opts) => {
+          const startContext = getStartContextServerOnly();
+          const serverContextAfterGlobalMiddlewares = startContext.contextAfterGlobalMiddlewares;
+          return await executeMiddleware$1(resolvedMiddleware, "server", {
+            ...extractedFn,
+            ...opts,
+            serverFnMeta: extractedFn.serverFnMeta,
+            context: safeObjectMerge(opts.context, serverContextAfterGlobalMiddlewares),
+            request: startContext.request
+          }).then((d) => ({
+            result: d.result,
+            error: d.error,
+            context: d.sendContext
+          }));
+        }
+      });
+    }
+  };
+  const fun = (options2) => {
+    return createServerFn(void 0, {
+      ...resolvedOptions,
+      ...options2
+    });
+  };
+  return Object.assign(fun, res);
+};
+async function executeMiddleware$1(middlewares, env, opts) {
+  let flattenedMiddlewares = flattenMiddlewares([...getStartOptions()?.functionMiddleware || [], ...middlewares]);
+  if (env === "server") {
+    const startContext = getStartContextServerOnly({ throwIfNotFound: false });
+    if (startContext?.executedRequestMiddlewares) flattenedMiddlewares = flattenedMiddlewares.filter((m2) => !startContext.executedRequestMiddlewares.has(m2));
+  }
+  const callNextMiddleware = async (ctx) => {
+    const nextMiddleware = flattenedMiddlewares.shift();
+    if (!nextMiddleware) return ctx;
+    try {
+      if ("inputValidator" in nextMiddleware.options && nextMiddleware.options.inputValidator && env === "server") ctx.data = await execValidator(nextMiddleware.options.inputValidator, ctx.data);
+      let middlewareFn = void 0;
+      if (env === "client") {
+        if ("client" in nextMiddleware.options) middlewareFn = nextMiddleware.options.client;
+      } else if ("server" in nextMiddleware.options) middlewareFn = nextMiddleware.options.server;
+      if (middlewareFn) {
+        const userNext = async (userCtx = {}) => {
+          const result2 = await callNextMiddleware({
+            ...ctx,
+            ...userCtx,
+            context: safeObjectMerge(ctx.context, userCtx.context),
+            sendContext: safeObjectMerge(ctx.sendContext, userCtx.sendContext),
+            headers: mergeHeaders(ctx.headers, userCtx.headers),
+            _callSiteFetch: ctx._callSiteFetch,
+            fetch: ctx._callSiteFetch ?? userCtx.fetch ?? ctx.fetch,
+            result: userCtx.result !== void 0 ? userCtx.result : userCtx instanceof Response ? userCtx : ctx.result,
+            error: userCtx.error ?? ctx.error
+          });
+          if (result2.error) throw result2.error;
+          return result2;
+        };
+        const result = await middlewareFn({
+          ...ctx,
+          next: userNext
+        });
+        if (isRedirect(result)) return {
+          ...ctx,
+          error: result
+        };
+        if (result instanceof Response) return {
+          ...ctx,
+          result
+        };
+        if (!result) throw new Error("User middleware returned undefined. You must call next() or return a result in your middlewares.");
+        return result;
+      }
+      return callNextMiddleware(ctx);
+    } catch (error) {
+      return {
+        ...ctx,
+        error
+      };
+    }
+  };
+  return callNextMiddleware({
+    ...opts,
+    headers: opts.headers || {},
+    sendContext: opts.sendContext || {},
+    context: opts.context || createNullProtoObject(),
+    _callSiteFetch: opts.fetch
+  });
+}
 function flattenMiddlewares(middlewares, maxDepth = 100) {
   const seen = /* @__PURE__ */ new Set();
   const flattened = [];
@@ -16074,6 +16223,40 @@ function flattenMiddlewares(middlewares, maxDepth = 100) {
   };
   recurse(middlewares, 0);
   return flattened;
+}
+async function execValidator(validator, input) {
+  if (validator == null) return {};
+  if ("~standard" in validator) {
+    const result = await validator["~standard"].validate(input);
+    if (result.issues) throw new Error(JSON.stringify(result.issues, void 0, 2));
+    return result.value;
+  }
+  if ("parse" in validator) return validator.parse(input);
+  if (typeof validator === "function") return validator(input);
+  throw new Error("Invalid validator type!");
+}
+function serverFnBaseToMiddleware(options) {
+  return {
+    "~types": void 0,
+    options: {
+      inputValidator: options.inputValidator,
+      client: async ({ next, sendContext, fetch: fetch2, ...ctx }) => {
+        const payload = {
+          ...ctx,
+          context: sendContext,
+          fetch: fetch2
+        };
+        return next(await options.extractedFn?.(payload));
+      },
+      server: async ({ next, ...ctx }) => {
+        const result = await options.serverFn?.(ctx);
+        return next({
+          ...ctx,
+          result
+        });
+      }
+    }
+  };
 }
 var createMiddleware = (options, __opts) => {
   const resolvedOptions = {
@@ -17057,8 +17240,8 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
   const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-    import("./router-BNR4sXn6.js").then((n2) => n2.r),
-    import("./start-C3zx7ULC.js"),
+    import("./router-B8YflhIQ.js").then((n2) => n2.r),
+    import("./start-gESzrab9.js"),
     import("./__23tanstack-start-plugin-adapters-Cwee5PKy.js")
   ]);
   return {
@@ -17390,38 +17573,41 @@ const server = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: server_default
 }, Symbol.toStringTag, { value: "Module" }));
 export {
-  trimPathLeft as $,
-  isModuleNotFoundError as A,
-  isNotFound as B,
-  isPromise as C,
+  rootRouteId as $,
+  isDangerousProtocol as A,
+  isInlinableStylesheet as B,
+  isModuleNotFoundError as C,
   DEFAULT_PROTOCOL_ALLOWLIST as D,
-  isRedirect as E,
-  isServer as F,
-  joinPaths as G,
-  jsxRuntimeExports as H,
-  last as I,
-  matchContext as J,
-  nullReplaceEqualDeep as K,
-  parseHref as L,
-  processRouteMasks as M,
-  processRouteTree as N,
+  isNotFound as E,
+  isPromise as F,
+  isRedirect as G,
+  isServer as H,
+  joinPaths as I,
+  jsxRuntimeExports as J,
+  last as K,
+  matchContext as L,
+  nullReplaceEqualDeep as M,
+  parseHref as N,
   Outlet as O,
-  reactExports as P,
-  redirect as Q,
+  processRouteMasks as P,
+  processRouteTree as Q,
   React as R,
-  removeTrailingSlash as S,
-  replaceEqualDeep as T,
-  requireReactDom as U,
-  resolveManifestAssetLink as V,
-  resolvePath as W,
-  rewriteBasepath as X,
-  rootRouteId as Y,
-  server as Z,
-  trimPath as _,
+  reactExports as S,
+  TSS_SERVER_FUNCTION as T,
+  redirect as U,
+  removeTrailingSlash as V,
+  replaceEqualDeep as W,
+  requireReactDom as X,
+  resolveManifestAssetLink as Y,
+  resolvePath as Z,
+  rewriteBasepath as _,
   arraysEqual as a,
-  trimPathRight as a0,
-  useHydrated as a1,
-  useRouter as a2,
+  server as a0,
+  trimPath as a1,
+  trimPathLeft as a2,
+  trimPathRight as a3,
+  useHydrated as a4,
+  useRouter as a5,
   buildRouteBranch as b,
   cleanPath as c,
   compileDecodeCharMap as d,
@@ -17429,22 +17615,22 @@ export {
   createControlledPromise as f,
   createLRUCache as g,
   createMiddleware as h,
-  decodePath as i,
-  deepEqual as j,
-  dummyMatchContext as k,
-  encodePathLikeUrl as l,
-  escapeHtml as m,
-  exactPathTest as n,
-  executeRewriteInput as o,
-  executeRewriteOutput as p,
-  findFlatMatch as q,
-  findRouteMatch as r,
-  findSingleMatch as s,
-  functionalUpdate as t,
-  getAssetCrossOrigin as u,
-  hasKeys as v,
-  interpolatePath as w,
-  invariant as x,
-  isDangerousProtocol as y,
-  isInlinableStylesheet as z
+  createServerFn as i,
+  decodePath as j,
+  deepEqual as k,
+  dummyMatchContext as l,
+  encodePathLikeUrl as m,
+  escapeHtml as n,
+  exactPathTest as o,
+  executeRewriteInput as p,
+  executeRewriteOutput as q,
+  findFlatMatch as r,
+  findRouteMatch as s,
+  findSingleMatch as t,
+  functionalUpdate as u,
+  getAssetCrossOrigin as v,
+  getServerFnById as w,
+  hasKeys as x,
+  interpolatePath as y,
+  invariant as z
 };

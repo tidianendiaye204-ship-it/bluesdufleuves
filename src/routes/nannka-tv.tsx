@@ -13,7 +13,11 @@ export const Route = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [
       { title: "NANN-k TV Média — Conservatoire Numérique de la Vallée" },
-      { name: "description", content: "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals." },
+      {
+        name: "description",
+        content:
+          "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals.",
+      },
     ],
   }),
   component: NannkaTV,
@@ -57,7 +61,9 @@ function NannkaTV() {
     <>
       <section className="border-b border-border" style={{ background: "var(--gradient-hero)" }}>
         <div className="container-page py-16 md:py-20">
-          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">Patrimoine en images</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">
+            Patrimoine en images
+          </p>
           <h1 className="font-display text-5xl md:text-6xl font-bold">
             NANN-k <span className="text-gradient-gold">TV Média</span>
           </h1>
@@ -80,7 +86,11 @@ function NannkaTV() {
               />
             ) : (
               <>
-                <img src={heroPoster} alt="En vedette" className="absolute inset-0 h-full w-full object-cover" />
+                <img
+                  src={heroPoster}
+                  alt="En vedette"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
                 <div className="absolute inset-0 bg-black/40" />
                 <button
                   onClick={() => setIsHeroPlaying(true)}
@@ -91,7 +101,9 @@ function NannkaTV() {
                 </button>
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-linear-to-t from-black/90 to-transparent">
                   <p className="text-xs uppercase tracking-widest text-primary mb-2">En vedette</p>
-                  <h2 className="font-display text-2xl md:text-3xl font-bold text-white">Podor, mémoire vivante du fleuve</h2>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
+                    Podor, mémoire vivante du fleuve
+                  </h2>
                   <p className="text-sm text-white/80 mt-1">Documentaire · 42 min</p>
                 </div>
               </>
@@ -115,7 +127,12 @@ function NannkaTV() {
                   className="group rounded-xl overflow-hidden border border-border bg-card transition hover:border-primary cursor-pointer"
                 >
                   <div className="aspect-video relative overflow-hidden">
-                    <img src={thumbs[i % thumbs.length]} alt={item.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    <img
+                      src={thumbs[i % thumbs.length]}
+                      alt={item.name}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition">
                       <Play size={32} className="text-primary-foreground" fill="currentColor" />
                     </div>

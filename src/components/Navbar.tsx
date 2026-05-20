@@ -14,7 +14,14 @@ export function Navbar() {
   const [dateStr, setDateStr] = useState("");
 
   useEffect(() => {
-    setDateStr(new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+    setDateStr(
+      new Date().toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+    );
   }, []);
 
   return (
@@ -24,8 +31,12 @@ export function Navbar() {
         <div className="container-page flex items-center justify-between text-[11px] text-muted-foreground uppercase tracking-widest font-bold">
           <span>Édition du {dateStr}</span>
           <div className="flex gap-6">
-            <Link to="/" className="hover:text-primary transition-colors">S'abonner</Link>
-            <Link to="/" className="hover:text-primary transition-colors">Connexion</Link>
+            <Link to="/" className="hover:text-primary transition-colors">
+              S'abonner
+            </Link>
+            <Link to="/" className="hover:text-primary transition-colors">
+              Connexion
+            </Link>
           </div>
         </div>
       </div>
@@ -39,23 +50,39 @@ export function Navbar() {
           >
             {open ? <X size={24} /> : <Menu size={24} />}
           </button>
-          
-          <Link to="/" className="flex flex-col items-center md:items-start mx-auto md:mx-0 group" onClick={() => setOpen(false)}>
+
+          <Link
+            to="/"
+            className="flex flex-col items-center md:items-start mx-auto md:mx-0 group"
+            onClick={() => setOpen(false)}
+          >
             <span className="font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors">
               The <span className="text-primary">Village</span>
             </span>
-            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans">blues des fleuves - NANN-K</span>
+            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans">
+              blues des fleuves - NANN-K
+            </span>
           </Link>
 
-          <button className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground" aria-label="Search">
+          <button
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground"
+            aria-label="Search"
+          >
             <Search size={22} />
           </button>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
           <div className="relative group">
-             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-hover:text-foreground transition-colors" />
-             <input type="text" placeholder="Rechercher..." className="bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium" />
+            <Search
+              size={16}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-hover:text-foreground transition-colors"
+            />
+            <input
+              type="text"
+              placeholder="Rechercher..."
+              className="bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium"
+            />
           </div>
         </div>
       </div>

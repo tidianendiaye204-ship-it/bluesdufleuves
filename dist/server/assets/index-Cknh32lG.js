@@ -1,12 +1,13 @@
-import { P as reactExports, H as jsxRuntimeExports } from "./server-DgHei5dY.js";
-import { c as createLucideIcon, L as Link, M as Mail } from "./router-BNR4sXn6.js";
-import { P as Play, f as fleuveImg } from "./fleuve-DLgoJLXC.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-hB6X1bMd.js";
+import { c as createLucideIcon, L as Link, M as Mail } from "./router-B8YflhIQ.js";
+import { P as Play, f as fleuveImg } from "./fleuve-DmNdC5Hc.js";
 import { b as baabaImg } from "./baaba-maal-CFblE9PW.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
+import "./types-DGfzljZx.js";
 const __iconNode$4 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
@@ -42,7 +43,7 @@ const Pause = createLucideIcon("pause", __iconNode);
 const articles = [{
   to: "/nannka-tv",
   category: "Médias",
-  title: "NANN-k TV lance son grand musée virtuel numérique",
+  title: "NANN-k TV : Archives et documentaires",
   excerpt: "Découvrez des archives inédites et des documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
   date: "Aujourd'hui",
   img: fleuveImg
@@ -111,8 +112,8 @@ function Home() {
           opacity: 0.85
         } })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page py-20 md:py-28 relative", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page py-20 md:py-28 relative text-white", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-medium text-white mb-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Landmark, { size: 14 }),
           " Podor · Vallée du Fleuve"
         ] }),
@@ -120,7 +121,7 @@ function Home() {
           "Le Projet ",
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gradient-gold", children: "NANN-k" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-6 max-w-2xl text-lg text-muted-foreground", children: "L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création, de formation et de dialogue pour les artistes, porté par la vision de Baaba Maal." })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-6 max-w-2xl text-lg text-white/90", children: "L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création, de formation et de dialogue pour les artistes, porté par la vision de Baaba Maal." })
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "container-page py-16 md:py-24 border-b border-border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-start", children: [
@@ -200,7 +201,7 @@ function Home() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-3", children: "Patrimoine Sonore" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display text-3xl md:text-4xl font-bold", children: "Instruments du Fouta Tooro" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-3 text-muted-foreground", children: "Explorez l'âme sonore du fleuve. Écoutez chaque instrument et découvrez son histoire au sein du musée virtuel." })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-3 text-muted-foreground", children: "Explorez l'âme sonore du fleuve. Écoutez chaque instrument et découvrez son histoire." })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 grid gap-6 md:grid-cols-3", children: instruments.map((inst) => {
         const isPlaying = playing === inst.nom;
@@ -249,7 +250,8 @@ function Home() {
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-foreground", children: "Par La Rédaction" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/blues-du-fleuve", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "font-display text-4xl md:text-5xl font-bold leading-[1.1] mb-4 group-hover:text-primary transition-colors text-foreground", children: [
-              "Le Festival Blues du Fleuve prépare une ",
+              "Le Festival Blues du Fleuve prépare une",
+              " ",
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary italic", children: "16ème édition" }),
               " historique"
             ] }) }),

@@ -39,48 +39,48 @@
   --radius: 0.5rem; /* Slightly rounded corners for a modern feel */
 
   /* Sable (Fond de page) */
-  --background: #FDFBF7;
+  --background: #fdfbf7;
   /* Noir Profond (Texte) */
-  --foreground: #1C1917;
+  --foreground: #1c1917;
 
-  --card: #FFFFFF;
-  --card-foreground: #1C1917;
+  --card: #ffffff;
+  --card-foreground: #1c1917;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #1C1917;
+  --popover: #ffffff;
+  --popover-foreground: #1c1917;
 
   /* Bleu Fleuve */
-  --primary: #0C4A6E;
-  --primary-foreground: #FFFFFF;
+  --primary: #0c4a6e;
+  --primary-foreground: #ffffff;
 
   /* Terre du Fouta */
-  --secondary: #D97736;
-  --secondary-foreground: #FFFFFF;
+  --secondary: #d97736;
+  --secondary-foreground: #ffffff;
 
-  --muted: #F3F4F6;
-  --muted-foreground: #4B5563;
+  --muted: #f3f4f6;
+  --muted-foreground: #4b5563;
 
-  --accent: #F3F4F6;
-  --accent-foreground: #1C1917;
+  --accent: #f3f4f6;
+  --accent-foreground: #1c1917;
 
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
 
-  --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #0C4A6E;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #0c4a6e;
 
   /* Or Festif */
-  --gold: #F59E0B;
-  --emerald: #10B981;
+  --gold: #f59e0b;
+  --emerald: #10b981;
 
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --gradient-hero: linear-gradient(135deg, #0C4A6E 0%, #075985 50%, #0369A1 100%);
-  --gradient-gold: linear-gradient(135deg, #FBBF24, #F59E0B);
-  --shadow-elegant: 0 4px 20px -5px rgba(0,0,0,0.1);
-  --shadow-glow: 0 0 40px rgba(245,158,11,0.15);
+  --gradient-hero: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+  --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
+  --shadow-elegant: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
 }
 
 @layer base {
@@ -101,7 +101,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -138,7 +141,7 @@
   background-color: var(--color-background);
   border-left: 4px solid var(--color-secondary); /* Accent visuel Terre du Fouta */
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Boutons Billetterie */
@@ -147,7 +150,7 @@
   width: 100%;
   padding: 1rem;
   background-color: var(--color-gold); /* Or Festif */
-  color: #1C1917;
+  color: #1c1917;
   text-align: center;
   font-weight: bold;
   font-size: 1.125rem;
@@ -164,7 +167,7 @@
   .festival-container {
     padding: 2rem;
   }
-  
+
   .programme-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

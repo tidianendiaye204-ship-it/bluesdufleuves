@@ -75,19 +75,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Blues du Fleuve Podor | Baaba Maal Festival - Daande Lenol" },
-      { name: "description", content: "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar avec le Daande Lenol." },
-      { name: "description-en", content: "Join the Blues du Fleuve Podor festival with Baaba Maal. Discover the Senegal river music and Halpulaar culture with the Daande Lenol." },
-      { name: "keywords", content: "Blues du Fleuve Podor, Baaba Maal festival, musique fleuve Sénégal, Daande Lenol, festival Sénégal, Fouta" },
+      {
+        name: "description",
+        content:
+          "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar avec le Daande Lenol.",
+      },
+      {
+        name: "description-en",
+        content:
+          "Join the Blues du Fleuve Podor festival with Baaba Maal. Discover the Senegal river music and Halpulaar culture with the Daande Lenol.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Blues du Fleuve Podor, Baaba Maal festival, musique fleuve Sénégal, Daande Lenol, festival Sénégal, Fouta",
+      },
       { name: "author", content: "Daande Lenol" },
       { property: "og:title", content: "Blues du Fleuve Podor | Baaba Maal Festival" },
-      { property: "og:description", content: "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar." },
+      {
+        property: "og:description",
+        content:
+          "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,

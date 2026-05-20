@@ -12,7 +12,7 @@ let serverEntryPromise: Promise<ServerEntry> | undefined;
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
-      (m) => ((m as { default?: ServerEntry }).default ?? (m as unknown as ServerEntry)),
+      (m) => (m as { default?: ServerEntry }).default ?? (m as unknown as ServerEntry),
     );
   }
   return serverEntryPromise;
@@ -72,17 +72,20 @@ export default {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
-      
+
       const newResponse = new Response(normalizedResponse.body, normalizedResponse);
       const url = new URL(request.url);
 
       // Cache ultra-agressif (1 an) pour les assets statiques (images, css, js, fonts)
       if (url.pathname.match(/\.(jpg|jpeg|png|webp|avif|css|js|woff2)$/)) {
-        newResponse.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
-      } 
+        newResponse.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+      }
       // Mise en cache intelligente pour le HTML (stale-while-revalidate)
-      else if (url.pathname.endsWith('/') || url.pathname.endsWith('.html')) {
-        newResponse.headers.set('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+      else if (url.pathname.endsWith("/") || url.pathname.endsWith(".html")) {
+        newResponse.headers.set(
+          "Cache-Control",
+          "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+        );
       }
 
       return newResponse;

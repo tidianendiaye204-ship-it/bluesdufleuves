@@ -832,7 +832,7 @@ function renderErrorPage() {
 let serverEntryPromise;
 async function getServerEntry() {
   if (!serverEntryPromise) {
-    serverEntryPromise = import("./server-DgHei5dY.js").then((n) => n.Z).then(
+    serverEntryPromise = import("./server-hB6X1bMd.js").then((n) => n.a0).then(
       (m) => m.default ?? m
     );
   }
@@ -877,7 +877,18 @@ const server = {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env2, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
+      const newResponse = new Response(normalizedResponse.body, normalizedResponse);
+      const url = new URL(request.url);
+      if (url.pathname.match(/\.(jpg|jpeg|png|webp|avif|css|js|woff2)$/)) {
+        newResponse.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+      } else if (url.pathname.endsWith("/") || url.pathname.endsWith(".html")) {
+        newResponse.headers.set(
+          "Cache-Control",
+          "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        );
+      }
+      return newResponse;
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();

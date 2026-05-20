@@ -1,4 +1,5 @@
-import { P as reactExports, t as functionalUpdate$1, a as arraysEqual, g as createLRUCache, C as isPromise, E as isRedirect, B as isNotFound, x as invariant, f as createControlledPromise, Y as rootRouteId, F as isServer$1, d as compileDecodeCharMap, _ as trimPath, X as rewriteBasepath, e as composeRewrites, N as processRouteTree, M as processRouteMasks, W as resolvePath, c as cleanPath, a0 as trimPathRight, L as parseHref, o as executeRewriteInput, y as isDangerousProtocol, Q as redirect, s as findSingleMatch, j as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, w as interpolatePath, K as nullReplaceEqualDeep, T as replaceEqualDeep$1, I as last, i as decodePath, q as findFlatMatch, r as findRouteMatch, v as hasKeys, p as executeRewriteOutput, l as encodePathLikeUrl, $ as trimPathLeft, G as joinPaths, a2 as useRouter, k as dummyMatchContext, J as matchContext, U as requireReactDom, n as exactPathTest, S as removeTrailingSlash, R as React, H as jsxRuntimeExports, A as isModuleNotFoundError, a1 as useHydrated, m as escapeHtml, z as isInlinableStylesheet, u as getAssetCrossOrigin, V as resolveManifestAssetLink, O as Outlet } from "./server-DgHei5dY.js";
+import { S as reactExports, u as functionalUpdate$1, a as arraysEqual, g as createLRUCache, F as isPromise, G as isRedirect, E as isNotFound, z as invariant, f as createControlledPromise, $ as rootRouteId, H as isServer$1, d as compileDecodeCharMap, a1 as trimPath, _ as rewriteBasepath, e as composeRewrites, Q as processRouteTree, P as processRouteMasks, Z as resolvePath, c as cleanPath, a3 as trimPathRight, N as parseHref, p as executeRewriteInput, A as isDangerousProtocol, U as redirect, t as findSingleMatch, k as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, y as interpolatePath, M as nullReplaceEqualDeep, W as replaceEqualDeep$1, K as last, j as decodePath, r as findFlatMatch, s as findRouteMatch, x as hasKeys, q as executeRewriteOutput, m as encodePathLikeUrl, a2 as trimPathLeft, I as joinPaths, a5 as useRouter, l as dummyMatchContext, L as matchContext, X as requireReactDom, o as exactPathTest, V as removeTrailingSlash, R as React, J as jsxRuntimeExports, C as isModuleNotFoundError, a4 as useHydrated, n as escapeHtml, B as isInlinableStylesheet, v as getAssetCrossOrigin, Y as resolveManifestAssetLink, O as Outlet, T as TSS_SERVER_FUNCTION, w as getServerFnById, i as createServerFn } from "./server-hB6X1bMd.js";
+import { o as objectType, s as stringType } from "./types-DGfzljZx.js";
 var reactUse = reactExports.use;
 function useForwardedRef(ref) {
   const innerRef = reactExports.useRef(null);
@@ -4660,7 +4661,7 @@ var QueryClientProvider = ({
   }, [client]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientContext.Provider, { value: client, children });
 };
-const appCss = "/assets/styles-DSbI2_B3.css";
+const appCss = "/assets/styles-DgnYT_Yq.css";
 const mergeClasses = (...classes) => classes.filter((className, index, array) => {
   return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
@@ -4792,9 +4793,16 @@ function Navbar() {
   const [open, setOpen] = reactExports.useState(false);
   const [dateStr, setDateStr] = reactExports.useState("");
   reactExports.useEffect(() => {
-    setDateStr((/* @__PURE__ */ new Date()).toLocaleDateString("fr-FR", { weekday: "long", year: "numeric", month: "long", day: "numeric" }));
+    setDateStr(
+      (/* @__PURE__ */ new Date()).toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      })
+    );
   }, []);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "border-b border-foreground bg-background text-foreground font-sans", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "sticky top-0 z-50 border-b border-foreground bg-background text-foreground font-sans shadow-sm", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "border-b border-border py-1 hidden md:block", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page flex items-center justify-between text-[11px] text-muted-foreground uppercase tracking-widest font-bold", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
         "Édition du ",
@@ -4816,18 +4824,46 @@ function Navbar() {
             children: open ? /* @__PURE__ */ jsxRuntimeExports.jsx(X, { size: 24 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { size: 24 })
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex flex-col items-center md:items-start mx-auto md:mx-0 group", onClick: () => setOpen(false), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors", children: [
-            "The ",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Village" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans", children: "blues des fleuves - NANN-K" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: "md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground", "aria-label": "Search", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 22 }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Link,
+          {
+            to: "/",
+            className: "flex flex-col items-center md:items-start mx-auto md:mx-0 group",
+            onClick: () => setOpen(false),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors", children: [
+                "The ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Village" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans", children: "blues des fleuves - NANN-K" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            className: "md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground",
+            "aria-label": "Search",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 22 })
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hidden md:flex items-center gap-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative group", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 16, className: "absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-hover:text-foreground transition-colors" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "text", placeholder: "Rechercher...", className: "bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Search,
+          {
+            size: 16,
+            className: "absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-hover:text-foreground transition-colors"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "text",
+            placeholder: "Rechercher...",
+            className: "bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium"
+          }
+        )
       ] }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "hidden md:block border-t border-border", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container-page flex items-center justify-center gap-12 py-4", children: links.map((l) => /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -4873,7 +4909,13 @@ function Footer() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm font-semibold text-foreground mb-3", children: "Abonnez-vous à la newsletter" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: "flex gap-2", onSubmit: (e) => e.preventDefault(), children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Mail, { size: 16, className: "absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Mail,
+              {
+                size: 16,
+                className: "absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "input",
               {
@@ -4890,9 +4932,24 @@ function Footer() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm font-semibold text-foreground mb-3", children: "Suivez-nous" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3", children: [
-          { Icon: Youtube, label: "YouTube", to: "https://www.youtube.com/@nannktv", external: true },
-          { Icon: Facebook, label: "Facebook", to: "https://www.facebook.com/festivalbluesdufleuve", external: true },
-          { Icon: Instagram, label: "Instagram", to: "https://www.instagram.com/nannkmedia", external: true }
+          {
+            Icon: Youtube,
+            label: "YouTube",
+            to: "https://www.youtube.com/@nannktv",
+            external: true
+          },
+          {
+            Icon: Facebook,
+            label: "Facebook",
+            to: "https://www.facebook.com/festivalbluesdufleuve",
+            external: true
+          },
+          {
+            Icon: Instagram,
+            label: "Instagram",
+            to: "https://www.instagram.com/nannkmedia",
+            external: true
+          }
         ].map(
           ({ Icon: Icon2, label, to, external }) => external ? /* @__PURE__ */ jsxRuntimeExports.jsx(
             "a",
@@ -4977,15 +5034,35 @@ const Route$5 = createRootRouteWithContext()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Village — Projet NANN-k & Centre Culturel de Podor" },
-      { name: "description", content: "Plateforme culturelle NANN-k : Blues du Fleuve, NANN-k TV, et Centre Culturel de Podor — vallée du fleuve Sénégal." },
-      { name: "author", content: "The Village" },
-      { property: "og:title", content: "The Village — Projet NANN-k" },
-      { property: "og:description", content: "Culture, musique et patrimoine de la vallée du fleuve Sénégal." },
+      { title: "Blues du Fleuve Podor | Baaba Maal Festival - Daande Lenol" },
+      {
+        name: "description",
+        content: "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar avec le Daande Lenol."
+      },
+      {
+        name: "description-en",
+        content: "Join the Blues du Fleuve Podor festival with Baaba Maal. Discover the Senegal river music and Halpulaar culture with the Daande Lenol."
+      },
+      {
+        name: "keywords",
+        content: "Blues du Fleuve Podor, Baaba Maal festival, musique fleuve Sénégal, Daande Lenol, festival Sénégal, Fouta"
+      },
+      { name: "author", content: "Daande Lenol" },
+      { property: "og:title", content: "Blues du Fleuve Podor | Baaba Maal Festival" },
+      {
+        property: "og:description",
+        content: "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar."
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap"
+      },
       {
         rel: "stylesheet",
         href: appCss
@@ -5027,31 +5104,54 @@ function RootComponent() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] }) });
 }
-const $$splitComponentImporter$4 = () => import("./nannka-tv-_vm3qfRJ.js");
+const $$splitComponentImporter$4 = () => import("./nannka-tv-DvvpyPWr.js");
 const Route$4 = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [{
       title: "NANN-k TV Média — Conservatoire Numérique de la Vallée"
     }, {
       name: "description",
-      content: "Chaîne média dédiée au patrimoine : émissions, concerts live, archives festivals et musée virtuel."
+      content: "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals."
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-const $$splitComponentImporter$3 = () => import("./nann-k-media-DlRYZl6_.js");
+const $$splitComponentImporter$3 = () => import("./nann-k-media-BaP7jUuP.js");
 const Route$3 = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [{
       title: "Nann-k — The Village"
     }, {
       name: "description",
-      content: "Nann-k : Pôle de production, communication et musée virtuel numérique de la Vallée."
+      content: "Nann-k : Pôle de production et communication de la Vallée."
     }]
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./formations-BIUAZ-Z4.js");
+var createSsrRpc = (functionId) => {
+  const url = "/_serverFn/" + functionId;
+  const serverFnMeta = { id: functionId };
+  const fn = async (...args) => {
+    return (await getServerFnById(functionId))(...args);
+  };
+  return Object.assign(fn, {
+    url,
+    serverFnMeta,
+    [TSS_SERVER_FUNCTION]: true
+  });
+};
+const $$splitComponentImporter$2 = () => import("./formations-DngK6FTA.js");
+const inscriptionSchema = objectType({
+  prenom: stringType().min(1, "Le prénom est requis"),
+  nom: stringType().min(1, "Le nom est requis"),
+  email: stringType().email("Email invalide"),
+  tel: stringType().min(1, "Le téléphone est requis"),
+  formation: stringType().min(1, "La formation est requise"),
+  motivation: stringType().min(10, "La motivation doit faire au moins 10 caractères")
+});
+const soumettreInscription = createServerFn({
+  method: "POST"
+}).inputValidator((data) => inscriptionSchema.parse(data)).handler(createSsrRpc("c9426a028804a61ba850d9ff6a96cda44ae6a6770b4200230bb9f743a5414807"));
 const Route$2 = createFileRoute("/formations")({
   head: () => ({
     meta: [{
@@ -5063,7 +5163,7 @@ const Route$2 = createFileRoute("/formations")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-CG3I-8Bo.js");
+const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-BjdWCJjA.js");
 const Route$1 = createFileRoute("/blues-du-fleuve")({
   head: () => ({
     meta: [{
@@ -5075,7 +5175,7 @@ const Route$1 = createFileRoute("/blues-du-fleuve")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-DmYiLI7I.js");
+const $$splitComponentImporter = () => import("./index-Cknh32lG.js");
 const Route2 = createFileRoute("/")({
   head: () => ({
     meta: [{
@@ -5139,5 +5239,6 @@ export {
   Mail as M,
   X,
   createLucideIcon as c,
-  router as r
+  router as r,
+  soumettreInscription as s
 };
