@@ -1,5 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor, Send } from "lucide-react";
+import { useState } from "react";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
 
@@ -47,6 +48,27 @@ const programmes = [
 ];
 
 function Formations() {
+  const [form, setForm] = useState({
+    prenom: "",
+    nom: "",
+    email: "",
+    tel: "",
+    formation: "",
+    motivation: ""
+  });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simulation d'envoi pour la phase 2
+    setSent(true);
+    // Reset du formulaire
+    setTimeout(() => {
+      setForm({ prenom: "", nom: "", email: "", tel: "", formation: "", motivation: "" });
+      setSent(false);
+    }, 5000);
+  };
+
   return (
     <div className="bg-background min-h-screen">
       {/* Header Section */}
@@ -119,12 +141,136 @@ function Formations() {
             </div>
 
             <div className="mt-12 pt-8 border-t border-border text-center">
-              <a href="#" onClick={(e) => e.preventDefault()} className="w-full inline-block bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm shadow-md opacity-60 cursor-not-allowed">
-                Accéder à la plateforme (Bientôt)
+              <a href="#inscription" className="w-full inline-block bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md">
+                S'inscrire à une formation
               </a>
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* Formulaire d'inscription (Phase 2) */}
+      <section id="inscription" className="container-page py-20 border-t border-border">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">Rejoindre le Centre</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-foreground">
+              Formulaire d'inscription
+            </h2>
+            <p className="mt-4 font-serif text-muted-foreground text-lg">
+              Prêt(e) à développer vos talents ? Remplissez ce formulaire pour soumettre votre candidature à l'un de nos programmes de formation.
+            </p>
+          </div>
+
+          <div className="bg-card border border-border p-8 md:p-10 rounded-3xl shadow-sm">
+            {sent ? (
+              <div className="text-center py-10">
+                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="font-display text-2xl font-bold text-foreground mb-2">Candidature envoyée !</h3>
+                <p className="text-muted-foreground font-serif">
+                  Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et vous contactera très prochainement.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="prenom" className="text-sm font-bold uppercase tracking-wider text-foreground">Prénom</label>
+                    <input 
+                      id="prenom"
+                      type="text" 
+                      required
+                      value={form.prenom}
+                      onChange={(e) => setForm({...form, prenom: e.target.value})}
+                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="Votre prénom"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="nom" className="text-sm font-bold uppercase tracking-wider text-foreground">Nom</label>
+                    <input 
+                      id="nom"
+                      type="text" 
+                      required
+                      value={form.nom}
+                      onChange={(e) => setForm({...form, nom: e.target.value})}
+                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="Votre nom"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-wider text-foreground">Adresse Email</label>
+                    <input 
+                      id="email"
+                      type="email" 
+                      required
+                      value={form.email}
+                      onChange={(e) => setForm({...form, email: e.target.value})}
+                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="vous@exemple.com"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="tel" className="text-sm font-bold uppercase tracking-wider text-foreground">Téléphone</label>
+                    <input 
+                      id="tel"
+                      type="tel" 
+                      required
+                      value={form.tel}
+                      onChange={(e) => setForm({...form, tel: e.target.value})}
+                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="+221 XX XXX XX XX"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="formation" className="text-sm font-bold uppercase tracking-wider text-foreground">Programme de formation souhaité</label>
+                  <select 
+                    id="formation"
+                    required
+                    value={form.formation}
+                    onChange={(e) => setForm({...form, formation: e.target.value})}
+                    className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
+                  >
+                    <option value="" disabled>Sélectionnez une formation...</option>
+                    {programmes.map((prog, idx) => (
+                      <option key={idx} value={prog.titre}>{prog.titre}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="motivation" className="text-sm font-bold uppercase tracking-wider text-foreground">Vos motivations</label>
+                  <textarea 
+                    id="motivation"
+                    required
+                    rows={5}
+                    value={form.motivation}
+                    onChange={(e) => setForm({...form, motivation: e.target.value})}
+                    className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                    placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md"
+                >
+                  <Send size={16} />
+                  Soumettre ma candidature
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </section>
     </div>
