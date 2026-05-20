@@ -119,9 +119,9 @@ function Formations() {
             </div>
 
             <div className="mt-12 pt-8 border-t border-border text-center">
-              <Link to="/" className="w-full inline-block bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md">
-                Accéder à la plateforme
-              </Link>
+              <a href="#" onClick={(e) => e.preventDefault()} className="w-full inline-block bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm shadow-md opacity-60 cursor-not-allowed">
+                Accéder à la plateforme (Bientôt)
+              </a>
             </div>
           </div>
 

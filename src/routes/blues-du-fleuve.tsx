@@ -94,8 +94,8 @@ function BluesDuFleuve() {
               <span className="inline-flex items-center gap-2"><Calendar size={16} className="text-white" /> 13–15 Décembre 2024</span>
             </div>
             <div className="mt-8">
-              <a href="#billetterie" className="btn-billetterie">
-                Réserver mon Pass Festival
+              <a href="#" onClick={(e) => e.preventDefault()} className="btn-billetterie opacity-60 cursor-not-allowed">
+                Réserver mon Pass Festival (Bientôt disponible)
               </a>
             </div>
           </div>
@@ -166,8 +166,8 @@ function BluesDuFleuve() {
         </div>
 
         <div className="mt-10 text-center">
-          <a href="#" className="btn-billetterie">
-            Acheter un Pass 3 Jours (15.000 FCFA)
+          <a href="#" onClick={(e) => e.preventDefault()} className="btn-billetterie opacity-60 cursor-not-allowed">
+            Acheter un Pass 3 Jours (Bientôt disponible)
           </a>
         </div>
       </section>
