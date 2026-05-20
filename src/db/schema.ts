@@ -13,3 +13,15 @@ export const inscriptions = sqliteTable("inscriptions", {
     .default("en_attente")
     .notNull(),
 });
+
+export const contacts = sqliteTable("contacts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  nom: text("nom").notNull(),
+  email: text("email").notNull(),
+  sujet: text("sujet").notNull(),
+  message: text("message").notNull(),
+  dateEnvoi: integer("date_envoi", { mode: "timestamp" }).notNull(),
+  statut: text("status", { enum: ["non_lu", "lu", "traite"] })
+    .default("non_lu")
+    .notNull(),
+});

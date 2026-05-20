@@ -14,7 +14,11 @@ export function Footer() {
             Sénégal.
           </p>
           <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
-            <li>contact@thevillage.com</li>
+            <li>
+              <Link to="/contact" className="hover:text-primary transition-colors">
+                contact@thevillage.com
+              </Link>
+            </li>
             <li>Podor, Sénégal</li>
           </ul>
         </div>

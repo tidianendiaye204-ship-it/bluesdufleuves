@@ -1,32 +1,23 @@
-import { S as reactExports, J as jsxRuntimeExports } from "./server-hB6X1bMd.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-FC8ktUSg.js";
 import { b as baabaImg } from "./baaba-maal-CFblE9PW.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg, P as Play } from "./fleuve-DmNdC5Hc.js";
+import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
-import { c as createLucideIcon } from "./router-B8YflhIQ.js";
+import { M as MapPin } from "./map-pin-DB8dEisq.js";
+import { c as createLucideIcon } from "./router-lXS_SB42.js";
+import { P as Play } from "./play-Yja-S6iX.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
 import "./types-DGfzljZx.js";
-const __iconNode$4 = [
+const __iconNode$3 = [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
   ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
   ["path", { d: "M3 10h18", key: "8toen8" }]
 ];
-const Calendar = createLucideIcon("calendar", __iconNode$4);
-const __iconNode$3 = [
-  [
-    "path",
-    {
-      d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
-      key: "1r0f0z"
-    }
-  ],
-  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
-];
-const MapPin = createLucideIcon("map-pin", __iconNode$3);
+const Calendar = createLucideIcon("calendar", __iconNode$3);
 const __iconNode$2 = [
   ["path", { d: "M12 19v3", key: "npa21l" }],
   ["path", { d: "M19 10v2a7 7 0 0 1-14 0v-2", key: "1vc78b" }],

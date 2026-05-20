@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as NannkaTvRouteImport } from './routes/nannka-tv'
 import { Route as NannKMediaRouteImport } from './routes/nann-k-media'
 import { Route as FormationsRouteImport } from './routes/formations'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BluesDuFleuveRouteImport } from './routes/blues-du-fleuve'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const FormationsRoute = FormationsRouteImport.update({
   path: '/formations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BluesDuFleuveRoute = BluesDuFleuveRouteImport.update({
   id: '/blues-du-fleuve',
   path: '/blues-du-fleuve',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
+  '/contact': typeof ContactRoute
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
+  '/contact': typeof ContactRoute
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blues-du-fleuve': typeof BluesDuFleuveRoute
+  '/contact': typeof ContactRoute
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
@@ -68,15 +77,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/blues-du-fleuve'
+    | '/contact'
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blues-du-fleuve' | '/formations' | '/nann-k-media' | '/nannka-tv'
+  to:
+    | '/'
+    | '/blues-du-fleuve'
+    | '/contact'
+    | '/formations'
+    | '/nann-k-media'
+    | '/nannka-tv'
   id:
     | '__root__'
     | '/'
     | '/blues-du-fleuve'
+    | '/contact'
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
@@ -85,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BluesDuFleuveRoute: typeof BluesDuFleuveRoute
+  ContactRoute: typeof ContactRoute
   FormationsRoute: typeof FormationsRoute
   NannKMediaRoute: typeof NannKMediaRoute
   NannkaTvRoute: typeof NannkaTvRoute
@@ -113,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blues-du-fleuve': {
       id: '/blues-du-fleuve'
       path: '/blues-du-fleuve'
@@ -133,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BluesDuFleuveRoute: BluesDuFleuveRoute,
+  ContactRoute: ContactRoute,
   FormationsRoute: FormationsRoute,
   NannKMediaRoute: NannKMediaRoute,
   NannkaTvRoute: NannkaTvRoute,

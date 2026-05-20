@@ -7,6 +7,7 @@ const links = [
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/nann-k-media", label: "Nann-k" },
   { to: "/formations", label: "Formations" },
+  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {

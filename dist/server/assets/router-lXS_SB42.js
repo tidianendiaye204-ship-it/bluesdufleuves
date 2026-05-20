@@ -1,4 +1,4 @@
-import { S as reactExports, u as functionalUpdate$1, a as arraysEqual, g as createLRUCache, F as isPromise, G as isRedirect, E as isNotFound, z as invariant, f as createControlledPromise, $ as rootRouteId, H as isServer$1, d as compileDecodeCharMap, a1 as trimPath, _ as rewriteBasepath, e as composeRewrites, Q as processRouteTree, P as processRouteMasks, Z as resolvePath, c as cleanPath, a3 as trimPathRight, N as parseHref, p as executeRewriteInput, A as isDangerousProtocol, U as redirect, t as findSingleMatch, k as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, y as interpolatePath, M as nullReplaceEqualDeep, W as replaceEqualDeep$1, K as last, j as decodePath, r as findFlatMatch, s as findRouteMatch, x as hasKeys, q as executeRewriteOutput, m as encodePathLikeUrl, a2 as trimPathLeft, I as joinPaths, a5 as useRouter, l as dummyMatchContext, L as matchContext, X as requireReactDom, o as exactPathTest, V as removeTrailingSlash, R as React, J as jsxRuntimeExports, C as isModuleNotFoundError, a4 as useHydrated, n as escapeHtml, B as isInlinableStylesheet, v as getAssetCrossOrigin, Y as resolveManifestAssetLink, O as Outlet, T as TSS_SERVER_FUNCTION, w as getServerFnById, i as createServerFn } from "./server-hB6X1bMd.js";
+import { S as reactExports, u as functionalUpdate$1, a as arraysEqual, g as createLRUCache, F as isPromise, G as isRedirect, E as isNotFound, z as invariant, f as createControlledPromise, $ as rootRouteId, H as isServer$1, d as compileDecodeCharMap, a1 as trimPath, _ as rewriteBasepath, e as composeRewrites, Q as processRouteTree, P as processRouteMasks, Z as resolvePath, c as cleanPath, a3 as trimPathRight, N as parseHref, p as executeRewriteInput, A as isDangerousProtocol, U as redirect, t as findSingleMatch, k as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, y as interpolatePath, M as nullReplaceEqualDeep, W as replaceEqualDeep$1, K as last, j as decodePath, r as findFlatMatch, s as findRouteMatch, x as hasKeys, q as executeRewriteOutput, m as encodePathLikeUrl, a2 as trimPathLeft, I as joinPaths, a5 as useRouter, l as dummyMatchContext, L as matchContext, X as requireReactDom, o as exactPathTest, V as removeTrailingSlash, R as React, J as jsxRuntimeExports, C as isModuleNotFoundError, a4 as useHydrated, n as escapeHtml, B as isInlinableStylesheet, v as getAssetCrossOrigin, Y as resolveManifestAssetLink, O as Outlet, T as TSS_SERVER_FUNCTION, w as getServerFnById, i as createServerFn } from "./server-FC8ktUSg.js";
 import { o as objectType, s as stringType } from "./types-DGfzljZx.js";
 var reactUse = reactExports.use;
 function useForwardedRef(ref) {
@@ -2230,7 +2230,7 @@ var Link = reactExports.forwardRef((props, ref) => {
   }
   return reactExports.createElement(_asChild, linkProps, children);
 });
-var Route$6 = class Route extends BaseRoute {
+var Route$7 = class Route extends BaseRoute {
   /**
   * @deprecated Use the `createRoute` function instead.
   */
@@ -2288,7 +2288,7 @@ var Route$6 = class Route extends BaseRoute {
   }
 };
 function createRoute(options) {
-  return new Route$6(options);
+  return new Route$7(options);
 }
 function createRootRouteWithContext() {
   return (options) => {
@@ -4661,7 +4661,7 @@ var QueryClientProvider = ({
   }, [client]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientContext.Provider, { value: client, children });
 };
-const appCss = "/assets/styles-DgnYT_Yq.css";
+const appCss = "/assets/styles-cCFAdAIX.css";
 const mergeClasses = (...classes) => classes.filter((className, index, array) => {
   return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
@@ -4787,7 +4787,8 @@ const links = [
   { to: "/", label: "Le Complexe" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/nann-k-media", label: "Nann-k" },
-  { to: "/formations", label: "Formations" }
+  { to: "/formations", label: "Formations" },
+  { to: "/contact", label: "Contact" }
 ];
 function Navbar() {
   const [open, setOpen] = reactExports.useState(false);
@@ -4901,7 +4902,7 @@ function Footer() {
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-3 text-sm text-muted-foreground max-w-xs", children: "Hub culturel & numérique du projet NANN-k — Centre Culturel de Podor, vallée du fleuve Sénégal." }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-5 space-y-2 text-sm text-muted-foreground", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "contact@thevillage.com" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/contact", className: "hover:text-primary transition-colors", children: "contact@thevillage.com" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "Podor, Sénégal" })
         ] })
       ] }),
@@ -5029,7 +5030,7 @@ function ErrorComponent({ error, reset }) {
     ] })
   ] }) });
 }
-const Route$5 = createRootRouteWithContext()({
+const Route$6 = createRootRouteWithContext()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -5097,15 +5098,15 @@ function RootShell({ children }) {
   ] });
 }
 function RootComponent() {
-  const { queryClient } = Route$5.useRouteContext();
+  const { queryClient } = Route$6.useRouteContext();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex min-h-screen flex-col", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] }) });
 }
-const $$splitComponentImporter$4 = () => import("./nannka-tv-DvvpyPWr.js");
-const Route$4 = createFileRoute("/nannka-tv")({
+const $$splitComponentImporter$5 = () => import("./nannka-tv-COi8gPce.js");
+const Route$5 = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [{
       title: "NANN-k TV Média — Conservatoire Numérique de la Vallée"
@@ -5114,10 +5115,10 @@ const Route$4 = createFileRoute("/nannka-tv")({
       content: "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals."
     }]
   }),
-  component: lazyRouteComponent($$splitComponentImporter$4, "component")
+  component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-const $$splitComponentImporter$3 = () => import("./nann-k-media-BaP7jUuP.js");
-const Route$3 = createFileRoute("/nann-k-media")({
+const $$splitComponentImporter$4 = () => import("./nann-k-media-DsQwrhGs.js");
+const Route$4 = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [{
       title: "Nann-k — The Village"
@@ -5126,7 +5127,7 @@ const Route$3 = createFileRoute("/nann-k-media")({
       content: "Nann-k : Pôle de production et communication de la Vallée."
     }]
   }),
-  component: lazyRouteComponent($$splitComponentImporter$3, "component")
+  component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
 var createSsrRpc = (functionId) => {
   const url = "/_serverFn/" + functionId;
@@ -5140,7 +5141,7 @@ var createSsrRpc = (functionId) => {
     [TSS_SERVER_FUNCTION]: true
   });
 };
-const $$splitComponentImporter$2 = () => import("./formations-DngK6FTA.js");
+const $$splitComponentImporter$3 = () => import("./formations-BhYn4FvP.js");
 const inscriptionSchema = objectType({
   prenom: stringType().min(1, "Le prénom est requis"),
   nom: stringType().min(1, "Le nom est requis"),
@@ -5152,7 +5153,7 @@ const inscriptionSchema = objectType({
 const soumettreInscription = createServerFn({
   method: "POST"
 }).inputValidator((data) => inscriptionSchema.parse(data)).handler(createSsrRpc("c9426a028804a61ba850d9ff6a96cda44ae6a6770b4200230bb9f743a5414807"));
-const Route$2 = createFileRoute("/formations")({
+const Route$3 = createFileRoute("/formations")({
   head: () => ({
     meta: [{
       title: "Formations & Recherche — The Village"
@@ -5161,9 +5162,30 @@ const Route$2 = createFileRoute("/formations")({
       content: "Centre de Formation et de Recherche : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie."
     }]
   }),
+  component: lazyRouteComponent($$splitComponentImporter$3, "component")
+});
+const $$splitComponentImporter$2 = () => import("./contact-BuU9yCTg.js");
+const contactSchema = objectType({
+  nom: stringType().min(1, "Le nom complet est requis"),
+  email: stringType().email("Adresse email invalide"),
+  sujet: stringType().min(1, "Le sujet est requis"),
+  message: stringType().min(10, "Le message doit faire au moins 10 caractères")
+});
+const soumettreContact = createServerFn({
+  method: "POST"
+}).inputValidator((data) => contactSchema.parse(data)).handler(createSsrRpc("25bd83a04822d276f143e55888ef23fa51c2686bfcfe01c9b074561e5a9b704a"));
+const Route$2 = createFileRoute("/contact")({
+  head: () => ({
+    meta: [{
+      title: "Contactez-nous — Blues du Fleuve"
+    }, {
+      name: "description",
+      content: "Prenez contact avec l'équipe du festival Les Blues du Fleuve, situé à Podor, Sénégal."
+    }]
+  }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-BjdWCJjA.js");
+const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-nYvkvqcI.js");
 const Route$1 = createFileRoute("/blues-du-fleuve")({
   head: () => ({
     meta: [{
@@ -5175,7 +5197,7 @@ const Route$1 = createFileRoute("/blues-du-fleuve")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-Cknh32lG.js");
+const $$splitComponentImporter = () => import("./index-DJ3NUEni.js");
 const Route2 = createFileRoute("/")({
   head: () => ({
     meta: [{
@@ -5187,39 +5209,45 @@ const Route2 = createFileRoute("/")({
   }),
   component: lazyRouteComponent($$splitComponentImporter, "component")
 });
-const NannkaTvRoute = Route$4.update({
+const NannkaTvRoute = Route$5.update({
   id: "/nannka-tv",
   path: "/nannka-tv",
-  getParentRoute: () => Route$5
+  getParentRoute: () => Route$6
 });
-const NannKMediaRoute = Route$3.update({
+const NannKMediaRoute = Route$4.update({
   id: "/nann-k-media",
   path: "/nann-k-media",
-  getParentRoute: () => Route$5
+  getParentRoute: () => Route$6
 });
-const FormationsRoute = Route$2.update({
+const FormationsRoute = Route$3.update({
   id: "/formations",
   path: "/formations",
-  getParentRoute: () => Route$5
+  getParentRoute: () => Route$6
+});
+const ContactRoute = Route$2.update({
+  id: "/contact",
+  path: "/contact",
+  getParentRoute: () => Route$6
 });
 const BluesDuFleuveRoute = Route$1.update({
   id: "/blues-du-fleuve",
   path: "/blues-du-fleuve",
-  getParentRoute: () => Route$5
+  getParentRoute: () => Route$6
 });
 const IndexRoute = Route2.update({
   id: "/",
   path: "/",
-  getParentRoute: () => Route$5
+  getParentRoute: () => Route$6
 });
 const rootRouteChildren = {
   IndexRoute,
   BluesDuFleuveRoute,
+  ContactRoute,
   FormationsRoute,
   NannKMediaRoute,
   NannkaTvRoute
 };
-const routeTree = Route$5._addFileChildren(rootRouteChildren)._addFileTypes();
+const routeTree = Route$6._addFileChildren(rootRouteChildren)._addFileTypes();
 const getRouter = () => {
   const queryClient = new QueryClient();
   const router2 = createRouter({
@@ -5238,7 +5266,8 @@ export {
   Link as L,
   Mail as M,
   X,
+  soumettreInscription as a,
   createLucideIcon as c,
   router as r,
-  soumettreInscription as s
+  soumettreContact as s
 };

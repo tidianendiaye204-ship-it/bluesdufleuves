@@ -1,8 +1,4 @@
-import { T as TSS_SERVER_FUNCTION, i as createServerFn } from "./server-hB6X1bMd.js";
-import { o as objectType, s as stringType } from "./types-DGfzljZx.js";
-import "node:async_hooks";
-import "node:stream/web";
-import "node:stream";
+import { T as TSS_SERVER_FUNCTION } from "./server-FC8ktUSg.js";
 var createServerRpc = (serverFnMeta, splitImportFn) => {
   const url = "/_serverFn/" + serverFnMeta.id;
   return Object.assign(splitImportFn, {
@@ -4847,50 +4843,18 @@ const inscriptions = sqliteTable("inscriptions", {
   dateInscription: integer("date_inscription", { mode: "timestamp" }).notNull(),
   statut: text("status", { enum: ["en_attente", "accepte", "refuse"] }).default("en_attente").notNull()
 });
-const inscriptionSchema = objectType({
-  prenom: stringType().min(1, "Le prénom est requis"),
-  nom: stringType().min(1, "Le nom est requis"),
-  email: stringType().email("Email invalide"),
-  tel: stringType().min(1, "Le téléphone est requis"),
-  formation: stringType().min(1, "La formation est requise"),
-  motivation: stringType().min(10, "La motivation doit faire au moins 10 caractères")
-});
-const soumettreInscription_createServerFn_handler = createServerRpc({
-  id: "c9426a028804a61ba850d9ff6a96cda44ae6a6770b4200230bb9f743a5414807",
-  name: "soumettreInscription",
-  filename: "src/routes/formations.tsx"
-}, (opts) => soumettreInscription.__executeServer(opts));
-const soumettreInscription = createServerFn({
-  method: "POST"
-}).inputValidator((data) => inscriptionSchema.parse(data)).handler(soumettreInscription_createServerFn_handler, async ({
-  data,
-  context
-}) => {
-  const env = context.env;
-  if (!env || !env.DB) {
-    throw new Error("Erreur serveur : Base de données non connectée.");
-  }
-  const db = drizzle(env.DB);
-  try {
-    await db.insert(inscriptions).values({
-      prenom: data.prenom,
-      nom: data.nom,
-      email: data.email,
-      tel: data.tel,
-      formation: data.formation,
-      motivation: data.motivation,
-      dateInscription: /* @__PURE__ */ new Date(),
-      statut: "en_attente"
-    });
-    return {
-      success: true,
-      message: "Candidature enregistrée avec succès."
-    };
-  } catch (error) {
-    console.error("Erreur d'insertion DB:", error);
-    throw new Error("Impossible d'enregistrer la candidature. Veuillez réessayer plus tard.");
-  }
+const contacts = sqliteTable("contacts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  nom: text("nom").notNull(),
+  email: text("email").notNull(),
+  sujet: text("sujet").notNull(),
+  message: text("message").notNull(),
+  dateEnvoi: integer("date_envoi", { mode: "timestamp" }).notNull(),
+  statut: text("status", { enum: ["non_lu", "lu", "traite"] }).default("non_lu").notNull()
 });
 export {
-  soumettreInscription_createServerFn_handler
+  createServerRpc as a,
+  contacts as c,
+  drizzle as d,
+  inscriptions as i
 };

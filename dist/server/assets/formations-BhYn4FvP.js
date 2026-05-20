@@ -1,12 +1,13 @@
-import { S as reactExports, J as jsxRuntimeExports } from "./server-hB6X1bMd.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-FC8ktUSg.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
-import { c as createLucideIcon, s as soumettreInscription } from "./router-B8YflhIQ.js";
+import { c as createLucideIcon, a as soumettreInscription } from "./router-lXS_SB42.js";
+import { S as Send } from "./send-BhIXHSIf.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
 import "./types-DGfzljZx.js";
-const __iconNode$6 = [
+const __iconNode$5 = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -16,8 +17,8 @@ const __iconNode$6 = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$6);
-const __iconNode$5 = [
+const BookOpen = createLucideIcon("book-open", __iconNode$5);
+const __iconNode$4 = [
   ["path", { d: "M18 12.5V10a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1.4", key: "wc6myp" }],
   ["path", { d: "M14 11V9a2 2 0 1 0-4 0v2", key: "94qvcw" }],
   ["path", { d: "M10 10.5V5a2 2 0 1 0-4 0v9", key: "m1ah89" }],
@@ -29,30 +30,19 @@ const __iconNode$5 = [
     }
   ]
 ];
-const HandMetal = createLucideIcon("hand-metal", __iconNode$5);
-const __iconNode$4 = [
+const HandMetal = createLucideIcon("hand-metal", __iconNode$4);
+const __iconNode$3 = [
   ["rect", { width: "20", height: "14", x: "2", y: "3", rx: "2", key: "48i651" }],
   ["line", { x1: "8", x2: "16", y1: "21", y2: "21", key: "1svkeh" }],
   ["line", { x1: "12", x2: "12", y1: "17", y2: "21", key: "vw1qmm" }]
 ];
-const Monitor = createLucideIcon("monitor", __iconNode$4);
-const __iconNode$3 = [
+const Monitor = createLucideIcon("monitor", __iconNode$3);
+const __iconNode$2 = [
   ["path", { d: "M9 18V5l12-2v13", key: "1jmyc2" }],
   ["circle", { cx: "6", cy: "18", r: "3", key: "fqmcym" }],
   ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
 ];
-const Music = createLucideIcon("music", __iconNode$3);
-const __iconNode$2 = [
-  [
-    "path",
-    {
-      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
-      key: "1ffxy3"
-    }
-  ],
-  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
-];
-const Send = createLucideIcon("send", __iconNode$2);
+const Music = createLucideIcon("music", __iconNode$2);
 const __iconNode$1 = [
   [
     "path",
