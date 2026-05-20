@@ -5,7 +5,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { drizzle } from "drizzle-orm/d1";
 import { contacts } from "@/db/schema";
 import { z } from "zod";
-import heroImg from "@/assets/fleuve.jpg"; // On réutilise une belle image existante
 
 const contactSchema = z.object({
   nom: z.string().min(1, "Le nom complet est requis"),
@@ -90,9 +89,6 @@ function ContactPage() {
     <div className="bg-background min-h-screen">
       {/* Header Section */}
       <section className="bg-muted border-b border-border py-16 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <img src={heroImg} alt="Texture" className="w-full h-full object-cover grayscale" />
-        </div>
         <div className="container-page text-center max-w-4xl mx-auto relative">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
             Échangeons ensemble
