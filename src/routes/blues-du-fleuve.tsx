@@ -67,17 +67,17 @@ function BluesDuFleuve() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
+      <section className="relative overflow-hidden border-b border-border text-white">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <div className="container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">Festival International · 15ème & 16ème éditions</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/70 mb-5">Festival International · 15ème & 16ème éditions</p>
             <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05]">
               Blues du <span className="text-gradient-gold">Fleuve</span>
             </h1>
-            <div className="mt-6 space-y-4 max-w-2xl text-lg text-muted-foreground">
+            <div className="mt-6 space-y-4 max-w-2xl text-lg text-white/90">
               <p>
-                Porté sur les fonds baptismaux par l’artiste international Sénégalais <span className="text-foreground font-medium">Baaba MAAL</span> le festival les Blues du fleuve célèbre sa 15ème édition du 13 au 15 Décembre 2024 à Podor (Sénégal).
+                Porté sur les fonds baptismaux par l’artiste international Sénégalais <span className="text-white font-medium">Baaba MAAL</span> le festival les Blues du fleuve célèbre sa 15ème édition du 13 au 15 Décembre 2024 à Podor (Sénégal).
               </p>
               <p>
                 Seul Festival d’intégration en Afrique de l’ouest le Blues du Fleuve symbolise la solidarité des pays riverains du fleuve Sénégal.
@@ -89,9 +89,9 @@ function BluesDuFleuve() {
                 Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité, la convivialité autour des peuples unis par le fleuve dans la diversité, d’autre part sur l’émergence du Sénégal.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-2"><MapPin size={16} className="text-primary" /> Podor, Sénégal</span>
-              <span className="inline-flex items-center gap-2"><Calendar size={16} className="text-primary" /> 13–15 Décembre 2024</span>
+            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/80">
+              <span className="inline-flex items-center gap-2"><MapPin size={16} className="text-white" /> Podor, Sénégal</span>
+              <span className="inline-flex items-center gap-2"><Calendar size={16} className="text-white" /> 13–15 Décembre 2024</span>
             </div>
             <div className="mt-8">
               <a href="#billetterie" className="btn-billetterie">
@@ -99,13 +99,8 @@ function BluesDuFleuve() {
               </a>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden border border-border aspect-4/5 shadow-(--shadow-elegant)">
-            <picture>
-              {/* Le navigateur choisira l'AVIF ou le WebP s'ils sont disponibles, sinon il se rabattra sur le JPG */}
-              <source srcSet={baabaImg.replace(/\.jpg$/, '.avif')} type="image/avif" />
-              <source srcSet={baabaImg.replace(/\.jpg$/, '.webp')} type="image/webp" />
-              <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-            </picture>
+          <div className="rounded-3xl overflow-hidden border border-border/20 aspect-4/5 shadow-(--shadow-elegant)">
+            <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" loading="lazy" />
           </div>
         </div>
       </section>

@@ -88,14 +88,14 @@ function Home() {
           <img src={centreImg} alt="Centre Culturel de Podor" className="h-full w-full object-cover" />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)", opacity: 0.85 }} />
         </div>
-        <div className="container-page py-20 md:py-28 relative">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-6">
+        <div className="container-page py-20 md:py-28 relative text-white">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-medium text-white mb-6">
             <Landmark size={14} /> Podor · Vallée du Fleuve
           </div>
           <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05]">
             Le Projet <span className="text-gradient-gold">NANN-k</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-lg text-white/90">
             L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création, de formation et de dialogue pour les artistes, porté par la vision de Baaba Maal.
           </p>
         </div>
