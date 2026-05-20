@@ -13,7 +13,7 @@ export const Route = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [
       { title: "NANN-k TV Média — Conservatoire Numérique de la Vallée" },
-      { name: "description", content: "Chaîne média dédiée au patrimoine : émissions, concerts live, archives festivals et musée virtuel." },
+      { name: "description", content: "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals." },
     ],
   }),
   component: NannkaTV,

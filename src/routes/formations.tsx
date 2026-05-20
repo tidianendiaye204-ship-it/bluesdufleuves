@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Music, Wrench, Sprout, HandMetal, Globe, ShoppingBag, Calendar, Monitor, Smartphone } from "lucide-react";
+import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor } from "lucide-react";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
 
@@ -46,34 +46,6 @@ const programmes = [
   },
 ];
 
-const composantesDigitales = [
-  {
-    icon: Globe,
-    titre: "Musée virtuel (R2-1)",
-    desc: "Une application et un site web proposant une galerie d'instruments, le parcours de Baaba Maal et des bornes interactives."
-  },
-  {
-    icon: ShoppingBag,
-    titre: "E-commerce instruments (R2-2)",
-    desc: "Boutique en ligne intégrée pour vendre à l'international les instruments fabriqués au sein de notre atelier artisanal."
-  },
-  {
-    icon: Calendar,
-    titre: "Site du Festival « Blues du Fleuve » (R4-1)",
-    desc: "Plateforme événementielle complète incluant billetterie, programmation, médias et informations pratiques."
-  },
-  {
-    icon: BookOpen,
-    titre: "Plateforme de formation (R3-1/R3-2)",
-    desc: "Système de gestion des inscriptions, diffusion des cours en ligne et suivi pédagogique des apprenants."
-  },
-  {
-    icon: Smartphone,
-    titre: "Communication digitale",
-    desc: "Déploiement d'une identité visuelle forte et animation des réseaux sociaux (TikTok, Instagram, etc.) pour faire rayonner le projet."
-  }
-];
-
 function Formations() {
   return (
     <div className="bg-background min-h-screen">
@@ -118,26 +90,6 @@ function Formations() {
               
               <div className="aspect-video overflow-hidden border-4 border-background shadow-xl mt-10">
                  <img src={instrumentsImg} alt="Apprentissage des instruments" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-              </div>
-            </div>
-
-            {/* Composantes Numériques */}
-            <div className="mt-16">
-              <h3 className="font-display text-2xl font-bold mb-8 uppercase tracking-tight text-foreground border-b border-border pb-4">
-                Écosystème Numérique du Projet
-              </h3>
-              <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-                Le développement du centre s'accompagne d'une forte empreinte digitale pour assurer son rayonnement international et sa gestion moderne :
-              </p>
-              
-              <div className="grid sm:grid-cols-2 gap-6">
-                {composantesDigitales.map((comp, idx) => (
-                  <div key={idx} className="bg-card border border-border p-6 rounded-2xl hover:border-primary transition-colors group">
-                    <comp.icon size={24} className="text-primary mb-4" />
-                    <h4 className="font-bold text-sm mb-2 text-foreground">{comp.titre}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{comp.desc}</p>
-                  </div>
-                ))}
               </div>
             </div>
           </div>

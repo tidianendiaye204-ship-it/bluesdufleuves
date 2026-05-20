@@ -93,9 +93,19 @@ function BluesDuFleuve() {
               <span className="inline-flex items-center gap-2"><MapPin size={16} className="text-primary" /> Podor, Sénégal</span>
               <span className="inline-flex items-center gap-2"><Calendar size={16} className="text-primary" /> 13–15 Décembre 2024</span>
             </div>
+            <div className="mt-8">
+              <a href="#billetterie" className="btn-billetterie">
+                Réserver mon Pass Festival
+              </a>
+            </div>
           </div>
           <div className="rounded-3xl overflow-hidden border border-border aspect-4/5 shadow-(--shadow-elegant)">
-            <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" />
+            <picture>
+              {/* Le navigateur choisira l'AVIF ou le WebP s'ils sont disponibles, sinon il se rabattra sur le JPG */}
+              <source srcSet={baabaImg.replace(/\.jpg$/, '.avif')} type="image/avif" />
+              <source srcSet={baabaImg.replace(/\.jpg$/, '.webp')} type="image/webp" />
+              <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
       </section>
@@ -121,6 +131,49 @@ function BluesDuFleuve() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Programme du Festival */}
+      <section id="billetterie" className="festival-container py-20 border-b border-border">
+        <h2 className="font-display text-3xl md:text-5xl font-bold mb-10">Programme & <span className="text-gradient-gold">Billetterie</span></h2>
+        
+        <div className="programme-grid">
+          <div className="programme-item">
+            <h3 className="font-display text-xl font-bold">Jour 1 : Ouverture & Traditions</h3>
+            <p className="text-sm text-muted-foreground mt-2">13 Décembre 2024 • Centre Culturel de Podor</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li><strong>10:00</strong> - Cérémonie d'ouverture</li>
+              <li><strong>15:00</strong> - Course de pirogues traditionnelles</li>
+              <li><strong>21:00</strong> - Concert acoustique (Baaba Maal & Invités)</li>
+            </ul>
+          </div>
+          
+          <div className="programme-item">
+            <h3 className="font-display text-xl font-bold">Jour 2 : La Nuit du Fleuve</h3>
+            <p className="text-sm text-muted-foreground mt-2">14 Décembre 2024 • Scène Principale</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li><strong>10:00</strong> - Panels et conférences (Environnement)</li>
+              <li><strong>16:00</strong> - Animations artistiques dans la ville</li>
+              <li><strong>22:00</strong> - Grand Concert (Mia Guissé, Jeeba...)</li>
+            </ul>
+          </div>
+
+          <div className="programme-item">
+            <h3 className="font-display text-xl font-bold">Jour 3 : Clôture & Daande Lenol</h3>
+            <p className="text-sm text-muted-foreground mt-2">15 Décembre 2024 • Scène Principale</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li><strong>09:00</strong> - Exposition artisanale</li>
+              <li><strong>15:00</strong> - Danse et folklore Halpulaar</li>
+              <li><strong>22:00</strong> - Concert de Clôture (Baaba Maal & Le Daande Lenol)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-10 text-center">
+          <a href="#" className="btn-billetterie">
+            Acheter un Pass 3 Jours (15.000 FCFA)
+          </a>
         </div>
       </section>
 
@@ -191,6 +244,7 @@ function BluesDuFleuve() {
                 <iframe
                   className="absolute inset-0 w-full h-full"
                   src={`https://www.youtube.com/embed/${v.id}`}
+                  srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}'><span>▶</span></a>`}
                   title={v.title}
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

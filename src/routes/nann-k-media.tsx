@@ -14,7 +14,7 @@ export const Route = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [
       { title: "Nann-k — The Village" },
-      { name: "description", content: "Nann-k : Pôle de production, communication et musée virtuel numérique de la Vallée." },
+      { name: "description", content: "Nann-k : Pôle de production et communication de la Vallée." },
     ],
   }),
   component: NannkMedia,

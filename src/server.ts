@@ -71,7 +71,21 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
+      
+      const newResponse = new Response(normalizedResponse.body, normalizedResponse);
+      const url = new URL(request.url);
+
+      // Cache ultra-agressif (1 an) pour les assets statiques (images, css, js, fonts)
+      if (url.pathname.match(/\.(jpg|jpeg|png|webp|avif|css|js|woff2)$/)) {
+        newResponse.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+      } 
+      // Mise en cache intelligente pour le HTML (stale-while-revalidate)
+      else if (url.pathname.endsWith('/') || url.pathname.endsWith('.html')) {
+        newResponse.headers.set('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+      }
+
+      return newResponse;
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();

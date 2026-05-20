@@ -20,7 +20,7 @@ const articles = [
   {
     to: "/nannka-tv" as const,
     category: "Médias",
-    title: "NANN-k TV lance son grand musée virtuel numérique",
+    title: "NANN-k TV : Archives et documentaires",
     excerpt: "Découvrez des archives inédites et des documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
     date: "Aujourd'hui",
     img: fleuveImg,
@@ -188,7 +188,7 @@ function Home() {
           <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Patrimoine Sonore</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold">Instruments du Fouta Tooro</h2>
           <p className="mt-3 text-muted-foreground">
-            Explorez l'âme sonore du fleuve. Écoutez chaque instrument et découvrez son histoire au sein du musée virtuel.
+            Explorez l'âme sonore du fleuve. Écoutez chaque instrument et découvrez son histoire.
           </p>
         </div>
 
