@@ -2,10 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import { createServerFn } from "@tanstack/react-start";
-import { drizzle } from "drizzle-orm/d1";
+import { getDb, withRetry } from "@/lib/db";
 import { contacts } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { Env } from "@/types/env";
 
 const contactSchema = z.object({
   nom: z.string().min(1, "Le nom complet est requis"),
@@ -14,26 +17,30 @@ const contactSchema = z.object({
   message: z.string().min(10, "Le message doit faire au moins 10 caractères"),
 });
 
+type ContactFormValues = z.infer<typeof contactSchema>;
+
 export const soumettreContact = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof contactSchema>) => contactSchema.parse(data))
+  .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
+  .outputValidator(z.object({ success: z.boolean(), message: z.string() }))
   .handler(async ({ data, context }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const env = (context as any).env;
+    const env = (context as any).env as Env;
     if (!env || !env.DB) {
       throw new Error("Erreur serveur : Base de données non connectée.");
     }
 
-    const db = drizzle(env.DB);
+    const db = getDb(env.DB);
 
     try {
-      await db.insert(contacts).values({
-        nom: data.nom,
-        email: data.email,
-        sujet: data.sujet,
-        message: data.message,
-        dateEnvoi: new Date(),
-        statut: "non_lu",
-      });
+      await withRetry(() => 
+        db.insert(contacts).values({
+          nom: data.nom,
+          email: data.email,
+          sujet: data.sujet,
+          message: data.message,
+          dateEnvoi: new Date(),
+          statut: "non_lu",
+        })
+      );
 
       return { success: true, message: "Votre message a été envoyé avec succès." };
     } catch (error) {
@@ -61,24 +68,32 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const [form, setForm] = useState({
-    nom: "",
-    email: "",
-    sujet: "",
-    message: "",
-  });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      nom: "",
+      email: "",
+      sujet: "",
+      message: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormValues) => {
     setLoading(true);
     try {
-      const result = await soumettreContact({ data: form });
+      const result = await soumettreContact({ data });
       if (result.success) {
         setSent(true);
         setTimeout(() => {
-          setForm({ nom: "", email: "", sujet: "", message: "" });
+          reset();
           setSent(false);
         }, 5000);
       }
@@ -212,7 +227,7 @@ function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label
@@ -224,12 +239,11 @@ function ContactPage() {
                     <input
                       id="nom"
                       type="text"
-                      required
-                      value={form.nom}
-                      onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      {...register("nom")}
+                      className={`w-full bg-background border ${errors.nom ? 'border-red-500' : 'border-input'} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                       placeholder="Votre nom"
                     />
+                    {errors.nom && <p className="text-red-500 text-sm mt-1">{errors.nom.message}</p>}
                   </div>
                   <div className="space-y-2">
                     <label
@@ -241,12 +255,11 @@ function ContactPage() {
                     <input
                       id="email"
                       type="email"
-                      required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      {...register("email")}
+                      className={`w-full bg-background border ${errors.email ? 'border-red-500' : 'border-input'} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                       placeholder="vous@exemple.com"
                     />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                   </div>
                 </div>
 
@@ -260,12 +273,11 @@ function ContactPage() {
                   <input
                     id="sujet"
                     type="text"
-                    required
-                    value={form.sujet}
-                    onChange={(e) => setForm({ ...form, sujet: e.target.value })}
-                    className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    {...register("sujet")}
+                    className={`w-full bg-background border ${errors.sujet ? 'border-red-500' : 'border-input'} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                     placeholder="Ex: Demande de partenariat"
                   />
+                  {errors.sujet && <p className="text-red-500 text-sm mt-1">{errors.sujet.message}</p>}
                 </div>
 
                 <div className="space-y-2">
@@ -277,13 +289,12 @@ function ContactPage() {
                   </label>
                   <textarea
                     id="message"
-                    required
                     rows={6}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                    {...register("message")}
+                    className={`w-full bg-background border ${errors.message ? 'border-red-500' : 'border-input'} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
                     placeholder="Comment pouvons-nous vous aider ?"
                   ></textarea>
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                 </div>
 
                 <button
@@ -308,3 +319,4 @@ function ContactPage() {
     </div>
   );
 }
+

@@ -25,3 +25,9 @@ export const contacts = sqliteTable("contacts", {
     .default("non_lu")
     .notNull(),
 });
+
+export const newsletter = sqliteTable("newsletter", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  dateInscription: integer("date_inscription", { mode: "timestamp" }).notNull(),
+});

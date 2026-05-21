@@ -6,6 +6,38 @@ import fleuveImg from "@/assets/fleuve.jpg";
 import baabaImg from "@/assets/baaba-maal.jpg";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
+import { createServerFn } from "@tanstack/react-start";
+import { drizzle } from "drizzle-orm/d1";
+import { newsletter } from "@/db/schema";
+import { z } from "zod";
+
+const newsletterSchema = z.object({
+  email: z.string().email("Adresse email invalide"),
+});
+
+export const soumettreNewsletter = createServerFn({ method: "POST" })
+  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const env = (context as any).env;
+    if (!env || !env.DB) {
+      throw new Error("Erreur serveur : Base de données non connectée.");
+    }
+    const db = drizzle(env.DB);
+    try {
+      await db.insert(newsletter).values({
+        email: data.email,
+        dateInscription: new Date(),
+      });
+      return { success: true };
+    } catch (error: unknown) {
+      // Email déjà inscrit (contrainte unique)
+      if (error && typeof error === "object" && "message" in error && typeof (error as { message: string }).message === "string" && (error as { message: string }).message.includes("UNIQUE")) {
+        return { success: true, alreadySubscribed: true };
+      }
+      throw new Error("Impossible d'enregistrer votre email. Veuillez réessayer.");
+    }
+  });
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -102,6 +134,28 @@ const espaces = [
 
 function Home() {
   const [playing, setPlaying] = useState<string | null>(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [newsletterMsg, setNewsletterMsg] = useState("");
+
+  const handleNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    setNewsletterStatus("loading");
+    try {
+      const result = await soumettreNewsletter({ data: { email: newsletterEmail } });
+      if (result.alreadySubscribed) {
+        setNewsletterMsg("Vous êtes déjà inscrit(e) à notre lettre d'information !");
+      } else {
+        setNewsletterMsg("Merci ! Vous êtes maintenant abonné(e) à La Lettre de l'Éditeur.");
+      }
+      setNewsletterStatus("success");
+      setNewsletterEmail("");
+    } catch {
+      setNewsletterMsg("Une erreur est survenue. Veuillez réessayer.");
+      setNewsletterStatus("error");
+    }
+  };
 
   return (
     <div className="bg-background min-h-screen">
@@ -507,16 +561,32 @@ function Home() {
             </p>
           </div>
           <div className="flex-1 w-full">
-            <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Votre adresse email"
-                className="w-full bg-background text-foreground border-none px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary rounded-none"
-              />
-              <button className="bg-primary text-primary-foreground font-bold uppercase tracking-widest px-6 py-4 text-sm hover:bg-primary/90 transition">
-                S'abonner
-              </button>
-            </form>
+            {newsletterStatus === "success" ? (
+              <div className="bg-emerald-600/20 border border-emerald-400/40 rounded-md px-5 py-4 text-sm text-emerald-300 font-medium">
+                ✓ {newsletterMsg}
+              </div>
+            ) : (
+              <form className="flex flex-col gap-3" onSubmit={handleNewsletter}>
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Votre adresse email"
+                  className="w-full bg-background text-foreground border-none px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary rounded-none"
+                />
+                {newsletterStatus === "error" && (
+                  <p className="text-red-400 text-xs">{newsletterMsg}</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === "loading"}
+                  className="bg-gold text-foreground font-bold uppercase tracking-widest px-6 py-4 text-sm hover:opacity-90 transition disabled:opacity-60"
+                >
+                  {newsletterStatus === "loading" ? "Inscription en cours..." : "S'abonner"}
+                </button>
+              </form>
+            )}
             <p className="text-[10px] text-background/50 mt-4 text-center md:text-left uppercase tracking-wider">
               Votre email est sécurisé.
             </p>

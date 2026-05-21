@@ -48,6 +48,8 @@ export const soumettreInscription = createServerFn({ method: "POST" })
     }
   });
 
+import { PageSkeleton } from "@/components/PageSkeleton";
+
 export const Route = createFileRoute("/formations")({
   head: () => {
     const { meta, links } = createSeoMeta({
@@ -64,6 +66,7 @@ export const Route = createFileRoute("/formations")({
     });
     return { meta, links };
   },
+  pendingComponent: PageSkeleton,
   component: Formations,
 });
 

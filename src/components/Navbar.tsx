@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Le Complexe" },
@@ -85,6 +86,7 @@ export function Navbar() {
               className="bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium"
             />
           </div>
+          <ThemeToggle />
         </div>
       </div>
 
@@ -109,6 +111,10 @@ export function Navbar() {
       {open && (
         <div className="md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="container-page flex flex-col py-4 gap-2">
+            <div className="flex justify-between items-center px-4 py-3 border-b border-border/50">
+              <span className="text-sm font-bold uppercase tracking-widest text-foreground">Thème</span>
+              <ThemeToggle />
+            </div>
             {links.map((l) => (
               <Link
                 key={l.to}

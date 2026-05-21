@@ -15,6 +15,8 @@ import boyDiarraImg from "@/assets/boydiarra.jpg";
 import choupiMballoImg from "@/assets/choupi-mabllo.jpg";
 import abdouCamaraImg from "@/assets/ABdou camera.jpg";
 
+import { PageSkeleton } from "@/components/PageSkeleton";
+
 export const Route = createFileRoute("/blues-du-fleuve")({
   head: () => {
     const { meta, links } = createSeoMeta({
@@ -31,6 +33,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
     });
     return { meta, links };
   },
+  pendingComponent: PageSkeleton,
   component: BluesDuFleuve,
 });
 
