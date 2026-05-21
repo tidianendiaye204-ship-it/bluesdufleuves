@@ -109,15 +109,9 @@ export default {
 
       // Cache ultra-agressif (1 an) pour les assets statiques (images, css, js, fonts)
       if (url.pathname.match(/\.(jpg|jpeg|png|webp|avif|css|js|woff2)$/)) {
-        newResponse.headers.set(
-          "Cache-Control",
-          "public, max-age=31536000, immutable",
-        );
+        newResponse.headers.set("Cache-Control", "public, max-age=31536000, immutable");
       } // Mise en cache intelligente pour le HTML (stale-while-revalidate)
-      else if (
-        url.pathname.endsWith("/") ||
-        url.pathname.endsWith(".html")
-      ) {
+      else if (url.pathname.endsWith("/") || url.pathname.endsWith(".html")) {
         newResponse.headers.set(
           "Cache-Control",
           "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
