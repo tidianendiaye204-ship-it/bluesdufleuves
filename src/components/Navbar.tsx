@@ -42,7 +42,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <div className="container-page flex flex-col md:flex-row md:items-center justify-between py-6 md:h-32">
+      <div className="container-page flex flex-col md:flex-row md:items-center justify-between py-3 md:py-6 md:h-32">
         <div className="flex items-center justify-between w-full md:w-auto">
           <button
             className="md:hidden inline-flex h-10 w-10 items-center justify-center border-none text-foreground"
@@ -57,10 +57,10 @@ export function Navbar() {
             className="flex flex-col items-center md:items-start mx-auto md:mx-0 group"
             onClick={() => setOpen(false)}
           >
-            <span className="font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors">
+            <span className="font-display text-3xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors">
               The <span className="text-primary">Village</span>
             </span>
-            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans">
+            <span className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-1 md:mt-2 font-bold font-sans">
               blues des fleuves - NANN-K
             </span>
           </Link>
@@ -107,7 +107,7 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background">
+        <div className="md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="container-page flex flex-col py-4 gap-2">
             {links.map((l) => (
               <Link

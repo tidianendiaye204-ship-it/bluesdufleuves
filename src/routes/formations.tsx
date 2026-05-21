@@ -388,7 +388,7 @@ function Formations() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:opacity-90 transition shadow-md"
                 >
                   <Send size={16} />
                   Soumettre ma candidature

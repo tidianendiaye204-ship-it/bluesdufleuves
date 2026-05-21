@@ -1,8 +1,8 @@
-import { S as reactExports, J as jsxRuntimeExports } from "./server-FC8ktUSg.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-DP3gGS2r.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
-import { c as createLucideIcon, a as soumettreInscription } from "./router-lXS_SB42.js";
-import { S as Send } from "./send-BhIXHSIf.js";
+import { c as createLucideIcon, a as soumettreInscription } from "./router-BXClHtHT.js";
+import { S as Send } from "./send-lmNyEP7l.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -220,7 +220,7 @@ function Formations() {
             motivation: e.target.value
           }), className: "w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none", placeholder: "Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..." })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:opacity-90 transition shadow-md", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Send, { size: 16 }),
           "Soumettre ma candidature"
         ] })

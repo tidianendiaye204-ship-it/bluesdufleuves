@@ -1,12 +1,11 @@
-import { S as reactExports, J as jsxRuntimeExports } from "./server-FC8ktUSg.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-DP3gGS2r.js";
 import { b as baabaImg } from "./baaba-maal-CFblE9PW.js";
 import { c as crowdImg, p as piroguesImg } from "./festival-crowd-BvJ5twAQ.js";
-import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
+import { f as fleuveImg, P as Play } from "./fleuve-C_HTHc7z.js";
 import { i as instrumentsImg } from "./instruments-i2gV3lym.js";
 import { c as centreImg } from "./centre-podor-ZV8xvsix.js";
-import { M as MapPin } from "./map-pin-DB8dEisq.js";
-import { c as createLucideIcon } from "./router-lXS_SB42.js";
-import { P as Play } from "./play-Yja-S6iX.js";
+import { M as MapPin } from "./map-pin-DdlpyyWB.js";
+import { c as createLucideIcon } from "./router-BXClHtHT.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -363,7 +362,7 @@ function BluesDuFleuve() {
             message: e.target.value
           }), className: "w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-ring" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition self-start", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "inline-flex items-center justify-center gap-2 rounded-full bg-gold text-foreground px-8 py-3 text-sm font-bold hover:opacity-90 transition self-start", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Play, { size: 14 }),
           " Envoyer la demande"
         ] }),

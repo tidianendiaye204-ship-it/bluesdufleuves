@@ -1,8 +1,7 @@
-import { S as reactExports, J as jsxRuntimeExports } from "./server-FC8ktUSg.js";
-import { f as fleuveImg } from "./fleuve-Bopw1vrN.js";
-import { c as createLucideIcon, M as Mail, s as soumettreContact } from "./router-lXS_SB42.js";
-import { M as MapPin } from "./map-pin-DB8dEisq.js";
-import { S as Send } from "./send-BhIXHSIf.js";
+import { S as reactExports, J as jsxRuntimeExports } from "./server-DP3gGS2r.js";
+import { c as createLucideIcon, M as Mail, s as soumettreContact } from "./router-BXClHtHT.js";
+import { M as MapPin } from "./map-pin-DdlpyyWB.js";
+import { S as Send } from "./send-lmNyEP7l.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
@@ -53,17 +52,14 @@ function ContactPage() {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-background min-h-screen", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "bg-muted border-b border-border py-16 md:py-20 relative overflow-hidden", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 opacity-10 pointer-events-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: fleuveImg, alt: "Texture", className: "w-full h-full object-cover grayscale" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page text-center max-w-4xl mx-auto relative", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold", children: "Échangeons ensemble" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground", children: [
-          "Nous ",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Contacter" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg md:text-xl font-serif text-muted-foreground leading-relaxed", children: "Une question sur le festival, un projet de partenariat ou une demande d'information sur nos formations ? L'équipe des Blues du Fleuve est à votre écoute." })
-      ] })
-    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "bg-muted border-b border-border py-16 md:py-20 relative overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page text-center max-w-4xl mx-auto relative", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold", children: "Échangeons ensemble" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground", children: [
+        "Nous ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Contacter" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg md:text-xl font-serif text-muted-foreground leading-relaxed", children: "Une question sur le festival, un projet de partenariat ou une demande d'information sur nos formations ? L'équipe des Blues du Fleuve est à votre écoute." })
+    ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "container-page py-20", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid lg:grid-cols-12 gap-16 items-start", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "lg:col-span-5 space-y-12", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -146,7 +142,7 @@ function ContactPage() {
               message: e.target.value
             }), className: "w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none", placeholder: "Comment pouvons-nous vous aider ?" })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "submit", disabled: loading, className: "w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-primary/90 transition shadow-md disabled:opacity-70", children: loading ? "Envoi en cours..." : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "submit", disabled: loading, className: "w-full inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:opacity-90 transition shadow-md disabled:opacity-70", children: loading ? "Envoi en cours..." : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Send, { size: 16 }),
             "Envoyer le message"
           ] }) })

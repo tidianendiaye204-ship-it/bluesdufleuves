@@ -446,7 +446,7 @@ function BluesDuFleuve() {
             </div>
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition self-start"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gold text-foreground px-8 py-3 text-sm font-bold hover:opacity-90 transition self-start"
             >
               <Play size={14} /> Envoyer la demande
             </button>

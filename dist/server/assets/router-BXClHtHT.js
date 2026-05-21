@@ -1,4 +1,4 @@
-import { S as reactExports, u as functionalUpdate$1, a as arraysEqual, g as createLRUCache, F as isPromise, G as isRedirect, E as isNotFound, z as invariant, f as createControlledPromise, $ as rootRouteId, H as isServer$1, d as compileDecodeCharMap, a1 as trimPath, _ as rewriteBasepath, e as composeRewrites, Q as processRouteTree, P as processRouteMasks, Z as resolvePath, c as cleanPath, a3 as trimPathRight, N as parseHref, p as executeRewriteInput, A as isDangerousProtocol, U as redirect, t as findSingleMatch, k as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, y as interpolatePath, M as nullReplaceEqualDeep, W as replaceEqualDeep$1, K as last, j as decodePath, r as findFlatMatch, s as findRouteMatch, x as hasKeys, q as executeRewriteOutput, m as encodePathLikeUrl, a2 as trimPathLeft, I as joinPaths, a5 as useRouter, l as dummyMatchContext, L as matchContext, X as requireReactDom, o as exactPathTest, V as removeTrailingSlash, R as React, J as jsxRuntimeExports, C as isModuleNotFoundError, a4 as useHydrated, n as escapeHtml, B as isInlinableStylesheet, v as getAssetCrossOrigin, Y as resolveManifestAssetLink, O as Outlet, T as TSS_SERVER_FUNCTION, w as getServerFnById, i as createServerFn } from "./server-FC8ktUSg.js";
+import { S as reactExports, u as functionalUpdate$1, a as arraysEqual, g as createLRUCache, F as isPromise, G as isRedirect, E as isNotFound, z as invariant, f as createControlledPromise, $ as rootRouteId, H as isServer$1, d as compileDecodeCharMap, a1 as trimPath, _ as rewriteBasepath, e as composeRewrites, Q as processRouteTree, P as processRouteMasks, Z as resolvePath, c as cleanPath, a3 as trimPathRight, N as parseHref, p as executeRewriteInput, A as isDangerousProtocol, U as redirect, t as findSingleMatch, k as deepEqual, D as DEFAULT_PROTOCOL_ALLOWLIST, b as buildRouteBranch, y as interpolatePath, M as nullReplaceEqualDeep, W as replaceEqualDeep$1, K as last, j as decodePath, r as findFlatMatch, s as findRouteMatch, x as hasKeys, q as executeRewriteOutput, m as encodePathLikeUrl, a2 as trimPathLeft, I as joinPaths, a5 as useRouter, l as dummyMatchContext, L as matchContext, X as requireReactDom, o as exactPathTest, V as removeTrailingSlash, R as React, J as jsxRuntimeExports, C as isModuleNotFoundError, a4 as useHydrated, n as escapeHtml, B as isInlinableStylesheet, v as getAssetCrossOrigin, Y as resolveManifestAssetLink, O as Outlet, T as TSS_SERVER_FUNCTION, w as getServerFnById, i as createServerFn } from "./server-DP3gGS2r.js";
 import { o as objectType, s as stringType } from "./types-DGfzljZx.js";
 var reactUse = reactExports.use;
 function useForwardedRef(ref) {
@@ -4661,7 +4661,7 @@ var QueryClientProvider = ({
   }, [client]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientContext.Provider, { value: client, children });
 };
-const appCss = "/assets/styles-cCFAdAIX.css";
+const appCss = "/assets/styles-BAdz2Fx4.css";
 const mergeClasses = (...classes) => classes.filter((className, index, array) => {
   return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
@@ -4814,7 +4814,7 @@ function Navbar() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: "hover:text-primary transition-colors", children: "Connexion" })
       ] })
     ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page flex flex-col md:flex-row md:items-center justify-between py-6 md:h-32", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container-page flex flex-col md:flex-row md:items-center justify-between py-3 md:py-6 md:h-32", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between w-full md:w-auto", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
@@ -4832,11 +4832,11 @@ function Navbar() {
             className: "flex flex-col items-center md:items-start mx-auto md:mx-0 group",
             onClick: () => setOpen(false),
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-display text-3xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors", children: [
                 "The ",
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Village" })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-2 font-bold font-sans", children: "blues des fleuves - NANN-K" })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[8px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-1 md:mt-2 font-bold font-sans", children: "blues des fleuves - NANN-K" })
             ]
           }
         ),
@@ -4878,7 +4878,7 @@ function Navbar() {
       },
       l.to
     )) }) }),
-    open && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "md:hidden border-t border-border bg-background", children: /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "container-page flex flex-col py-4 gap-2", children: links.map((l) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    open && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200", children: /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "container-page flex flex-col py-4 gap-2", children: links.map((l) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       Link,
       {
         to: l.to,
@@ -5105,7 +5105,7 @@ function RootComponent() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] }) });
 }
-const $$splitComponentImporter$5 = () => import("./nannka-tv-COi8gPce.js");
+const $$splitComponentImporter$5 = () => import("./nannka-tv-DaMQHbCW.js");
 const Route$5 = createFileRoute("/nannka-tv")({
   head: () => ({
     meta: [{
@@ -5117,7 +5117,7 @@ const Route$5 = createFileRoute("/nannka-tv")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-const $$splitComponentImporter$4 = () => import("./nann-k-media-DsQwrhGs.js");
+const $$splitComponentImporter$4 = () => import("./nann-k-media--mT0YibX.js");
 const Route$4 = createFileRoute("/nann-k-media")({
   head: () => ({
     meta: [{
@@ -5141,7 +5141,7 @@ var createSsrRpc = (functionId) => {
     [TSS_SERVER_FUNCTION]: true
   });
 };
-const $$splitComponentImporter$3 = () => import("./formations-BhYn4FvP.js");
+const $$splitComponentImporter$3 = () => import("./formations-BDN1wi2J.js");
 const inscriptionSchema = objectType({
   prenom: stringType().min(1, "Le prénom est requis"),
   nom: stringType().min(1, "Le nom est requis"),
@@ -5164,7 +5164,7 @@ const Route$3 = createFileRoute("/formations")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-const $$splitComponentImporter$2 = () => import("./contact-BuU9yCTg.js");
+const $$splitComponentImporter$2 = () => import("./contact-MarnNAsD.js");
 const contactSchema = objectType({
   nom: stringType().min(1, "Le nom complet est requis"),
   email: stringType().email("Adresse email invalide"),
@@ -5185,7 +5185,7 @@ const Route$2 = createFileRoute("/contact")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-nYvkvqcI.js");
+const $$splitComponentImporter$1 = () => import("./blues-du-fleuve-DOiBLuDq.js");
 const Route$1 = createFileRoute("/blues-du-fleuve")({
   head: () => ({
     meta: [{
@@ -5197,7 +5197,7 @@ const Route$1 = createFileRoute("/blues-du-fleuve")({
   }),
   component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-const $$splitComponentImporter = () => import("./index-DJ3NUEni.js");
+const $$splitComponentImporter = () => import("./index-DbN6UFUZ.js");
 const Route2 = createFileRoute("/")({
   head: () => ({
     meta: [{
