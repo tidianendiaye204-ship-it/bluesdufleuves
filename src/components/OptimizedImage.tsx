@@ -1,28 +1,49 @@
-import React, { ImgHTMLAttributes } from "react";
+import { useState, useRef, useEffect } from "react";
 
-interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> {
+interface OptimizedImageProps {
   src: string;
-  webpSrc?: string;
   alt: string;
+  className?: string;
+  width?: number;
+  height?: number;
 }
 
-/**
- * Optimized Image Component
- * Serves WebP format with JPG fallback for better performance
- */
-export const OptimizedImage = React.forwardRef<HTMLImageElement, OptimizedImageProps>(
-  ({ src, webpSrc, alt, ...props }, ref) => {
-    // Convert JPG/PNG paths to WebP if not provided
-    const determinedWebpSrc =
-      webpSrc || (src.endsWith(".jpg") || src.endsWith(".png")) ? src.replace(/\.(jpg|png)$/i, ".webp") : undefined;
+export function OptimizedImage({ src, alt, className = "", width, height }: OptimizedImageProps) {
+  const [loaded, setLoaded] = useState(false);
+  const [inView, setInView] = useState(false);
+  const imgRef = useRef<HTMLDivElement>(null);
 
-    return (
-      <picture>
-        {determinedWebpSrc && <source srcSet={determinedWebpSrc} type="image/webp" />}
-        <img ref={ref} src={src} alt={alt} {...props} />
-      </picture>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
     );
-  }
-);
+    if (imgRef.current) observer.observe(imgRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-OptimizedImage.displayName = "OptimizedImage";
+  return (
+    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
+      {!loaded && (
+        <div className="absolute inset-0 bg-muted animate-pulse" />
+      )}
+      {inView && (
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+        />
+      )}
+    </div>
+  );
+}

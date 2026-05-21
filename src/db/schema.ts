@@ -31,3 +31,15 @@ export const newsletter = sqliteTable("newsletter", {
   email: text("email").notNull().unique(),
   dateInscription: integer("date_inscription", { mode: "timestamp" }).notNull(),
 });
+
+export const admins = sqliteTable("admins", {
+  id: text("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+});
+
+export const sessions = sqliteTable("sessions", {
+  id: text("id").primaryKey(),
+  adminId: text("admin_id").notNull().references(() => admins.id),
+  expiresAt: integer("expires_at").notNull(),
+});

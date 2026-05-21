@@ -8,6 +8,7 @@ import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Turnstile } from "@marsidev/react-turnstile";
 import type { Env } from "@/types/env";
 
 const contactSchema = z.object({
@@ -15,6 +16,7 @@ const contactSchema = z.object({
   email: z.string().email("Adresse email invalide"),
   sujet: z.string().min(1, "Le sujet est requis"),
   message: z.string().min(10, "Le message doit faire au moins 10 caractères"),
+  cfTurnstileResponse: z.string().min(1, "Veuillez valider le captcha"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -26,6 +28,23 @@ export const soumettreContact = createServerFn({ method: "POST" })
     const env = (context as any).env as Env;
     if (!env || !env.DB) {
       throw new Error("Erreur serveur : Base de données non connectée.");
+    }
+
+    const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+    // Using test keys for dummy validation
+    const secret = "1x0000000000000000000000000000000AA"; 
+    
+    const tsResponse = await fetch(verifyUrl, {
+      method: "POST",
+      body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
+      headers: {
+        "content-type": "application/x-www-form-urlencoded"
+      }
+    });
+    
+    const tsResult = await tsResponse.json() as any;
+    if (!tsResult.success) {
+      throw new Error("Validation Captcha échouée.");
     }
 
     const db = getDb(env.DB);
@@ -75,6 +94,7 @@ function ContactPage() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -295,6 +315,16 @@ function ContactPage() {
                     placeholder="Comment pouvons-nous vous aider ?"
                   ></textarea>
                   {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Turnstile
+                    siteKey="1x00000000000000000000AA"
+                    onSuccess={(token) => {
+                      setValue("cfTurnstileResponse", token);
+                    }}
+                  />
+                  {errors.cfTurnstileResponse && <p className="text-red-500 text-sm mt-1">{errors.cfTurnstileResponse.message}</p>}
                 </div>
 
                 <button

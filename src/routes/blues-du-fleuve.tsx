@@ -292,13 +292,12 @@ function BluesDuFleuve() {
         </div>
 
         <div className="mt-10 text-center">
-          <a
-            href="#"
-            onClick={(e) => e.preventDefault()}
-            className="btn-billetterie opacity-60 cursor-not-allowed"
-          >
-            Acheter un Pass 3 Jours (Bientôt disponible)
-          </a>
+            <Link
+              to="/billetterie"
+              className="btn-billetterie opacity-60 hover:opacity-100"
+            >
+              Acheter un Pass 3 Jours (Bientôt disponible)
+            </Link>
         </div>
       </section>
 

@@ -1,7 +1,62 @@
 import { Youtube, Facebook, Instagram, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { z } from "zod";
+import { createServerFn } from "@tanstack/react-start";
+import { getDb } from "@/lib/db";
+import { newsletter } from "@/db/schema";
+import type { Env } from "@/types/env";
+import { useState } from "react";
+
+const newsletterSchema = z.object({
+  email: z.string().email(),
+});
+
+export const subscribeNewsletter = createServerFn({ method: "POST" })
+  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    const env = (context as any).env as Env;
+    if (!env || !env.DB) throw new Error("DB not configured");
+
+    const db = getDb(env.DB);
+    try {
+      await db.insert(newsletter).values({
+        email: data.email,
+        dateInscription: new Date(),
+      });
+      return { success: true };
+    } catch (e: any) {
+      if (e.message?.includes("UNIQUE")) {
+        return { error: "Cet email est déjà inscrit." };
+      }
+      return { error: "Une erreur est survenue." };
+    }
+  });
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [msg, setMsg] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setMsg("");
+    try {
+      const res = await subscribeNewsletter({ data: { email } });
+      if (res.error) {
+        setStatus("error");
+        setMsg(res.error);
+      } else {
+        setStatus("success");
+        setMsg("Merci pour votre inscription !");
+        setEmail("");
+      }
+    } catch (err) {
+      setStatus("error");
+      setMsg("Erreur inattendue.");
+    }
+  };
+
   return (
     <footer className="mt-24 border-t border-border bg-card/40">
       <div className="container-page py-14 grid gap-10 md:grid-cols-3">
@@ -27,7 +82,7 @@ export function Footer() {
           <h4 className="text-sm font-semibold text-foreground mb-3">
             Abonnez-vous à la newsletter
           </h4>
-          <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex gap-2" onSubmit={handleSubscribe}>
             <div className="relative flex-1">
               <Mail
                 size={16}
@@ -36,14 +91,21 @@ export function Footer() {
               <input
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="votre@email.com"
                 className="w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
-            <button className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition">
-              S'abonner
+            <button disabled={status === "loading"} className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition disabled:opacity-50">
+              {status === "loading" ? "..." : "S'abonner"}
             </button>
           </form>
+          {msg && (
+            <p className={`mt-2 text-xs ${status === "success" ? "text-green-500" : "text-red-500"}`}>
+              {msg}
+            </p>
+          )}
         </div>
 
         <div>

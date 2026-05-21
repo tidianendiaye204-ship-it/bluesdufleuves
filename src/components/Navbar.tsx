@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
@@ -12,6 +13,7 @@ const links = [
 ] as const;
 
 export function Navbar() {
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
 
@@ -85,6 +87,21 @@ export function Navbar() {
               placeholder="Rechercher..."
               className="bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium"
             />
+          </div>
+          <div className="flex items-center gap-2 border-r border-border pr-4">
+            <button
+              onClick={() => i18n.changeLanguage("fr")}
+              className={`text-xs font-bold ${i18n.language === "fr" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              FR
+            </button>
+            <span className="text-muted-foreground text-xs">/</span>
+            <button
+              onClick={() => i18n.changeLanguage("en")}
+              className={`text-xs font-bold ${i18n.language === "en" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              EN
+            </button>
           </div>
           <ThemeToggle />
         </div>

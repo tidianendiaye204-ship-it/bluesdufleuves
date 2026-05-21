@@ -8,6 +8,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { inscriptions } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -113,9 +114,14 @@ function Formations() {
     motivation: "",
   });
   const [sent, setSent] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!turnstileToken) {
+      alert("Veuillez valider le captcha.");
+      return;
+    }
     try {
       const result = await soumettreInscription({ data: form });
       if (result.success) {
@@ -393,6 +399,13 @@ function Formations() {
                     className="w-full bg-background border border-input rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                     placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
                   ></textarea>
+                </div>
+
+                <div className="space-y-2">
+                  <Turnstile
+                    siteKey="1x00000000000000000000AA"
+                    onSuccess={(token) => setTurnstileToken(token)}
+                  />
                 </div>
 
                 <button
