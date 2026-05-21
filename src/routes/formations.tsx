@@ -7,6 +7,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { drizzle } from "drizzle-orm/d1";
 import { inscriptions } from "@/db/schema";
 import { z } from "zod";
+import { createSeoMeta } from "@/lib/seo";
 
 const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -48,16 +49,21 @@ export const soumettreInscription = createServerFn({ method: "POST" })
   });
 
 export const Route = createFileRoute("/formations")({
-  head: () => ({
-    meta: [
-      { title: "Formations & Recherche — The Village" },
-      {
-        name: "description",
-        content:
-          "Centre de Formation et de Recherche : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "Formations & Recherche | Centre NANN-k",
+      description:
+        "Centre de Formation et de Recherche : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie. Formations professionnelles à Podor.",
+      ogTitle: "Formations NANN-k — Centre Culturel Podor",
+      ogDescription:
+        "Découvrez les formations proposées par le centre NANN-k : musique traditionnelle, artisanat, techniques numériques et plus.",
+      ogImage: centreImg,
+      keywords:
+        "formations, musique traditionnelle, luterie, artisanat, Podor, NANN-k, centre culturel, Sénégal",
+      canonical: "https://lesbluesdufleuve.sn/formations",
+    });
+    return { meta, links };
+  },
   component: Formations,
 });
 

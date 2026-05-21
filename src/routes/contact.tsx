@@ -5,6 +5,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { drizzle } from "drizzle-orm/d1";
 import { contacts } from "@/db/schema";
 import { z } from "zod";
+import { createSeoMeta } from "@/lib/seo";
 
 const contactSchema = z.object({
   nom: z.string().min(1, "Le nom complet est requis"),
@@ -42,16 +43,20 @@ export const soumettreContact = createServerFn({ method: "POST" })
   });
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contactez-nous — Blues du Fleuve" },
-      {
-        name: "description",
-        content:
-          "Prenez contact avec l'équipe du festival Les Blues du Fleuve, situé à Podor, Sénégal.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "Contactez-nous | Blues du Fleuve",
+      description:
+        "Prenez contact avec l'équipe du festival Les Blues du Fleuve situé à Podor, Sénégal. Nous sommes à votre écoute pour vos questions, partenariats et formations.",
+      ogTitle: "Contactez Blues du Fleuve — Podor",
+      ogDescription:
+        "L'équipe du festival Blues du Fleuve vous accueille à Podor. Formulaire de contact et coordonnées disponibles.",
+      keywords:
+        "contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
+      canonical: "https://lesbluesdufleuve.sn/contact",
+    });
+    return { meta, links };
+  },
   component: ContactPage,
 });
 

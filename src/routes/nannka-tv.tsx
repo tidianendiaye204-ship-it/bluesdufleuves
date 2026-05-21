@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
 import { useState } from "react";
+import { createSeoMeta } from "@/lib/seo";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -10,16 +11,21 @@ const heroPoster = fleuveImg;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
 export const Route = createFileRoute("/nannka-tv")({
-  head: () => ({
-    meta: [
-      { title: "NANN-k TV Média — Conservatoire Numérique de la Vallée" },
-      {
-        name: "description",
-        content:
-          "Chaîne média dédiée au patrimoine : émissions, concerts live et archives festivals.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "NANN-k TV | Conservatoire Numérique du Fleuve",
+      description:
+        "Chaîne média dédiée au patrimoine : émissions culturelles, concerts live, archives festivals et documentaires de la vallée du fleuve.",
+      ogTitle: "NANN-k TV — Patrimoine Numérique",
+      ogDescription:
+        "Archives et documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
+      ogImage: fleuveImg,
+      keywords:
+        "NANN-k TV, patrimoine, documentaires, archives, musique, Podor, vallée du fleuve, livestream, concerts",
+      canonical: "https://lesbluesdufleuve.sn/nannka-tv",
+    });
+    return { meta, links };
+  },
   component: NannkaTV,
 });
 

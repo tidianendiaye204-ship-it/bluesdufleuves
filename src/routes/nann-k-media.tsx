@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
 import { useState } from "react";
+import { createSeoMeta } from "@/lib/seo";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -11,15 +12,21 @@ const heroPoster = fleuveImg;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
 export const Route = createFileRoute("/nann-k-media")({
-  head: () => ({
-    meta: [
-      { title: "Nann-k — The Village" },
-      {
-        name: "description",
-        content: "Nann-k : Pôle de production et communication de la Vallée.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "NANN-k — Production & Média",
+      description:
+        "NANN-k : Pôle de production audiovisuelle et de communication dédiés à la valorisation de la vallée du fleuve Sénégal.",
+      ogTitle: "NANN-k Media — Production Vallée du Fleuve",
+      ogDescription:
+        "Pôle de production et communication de la Vallée. Découvrez nos émissions culturelles, documentaires et archives.",
+      ogImage: logoNannk,
+      keywords:
+        "NANN-k, production, média, audiovisuel, vallée du fleuve, Podor, documentaires, patrimoine",
+      canonical: "https://lesbluesdufleuve.sn/nann-k-media",
+    });
+    return { meta, links };
+  },
   component: NannkMedia,
 });
 

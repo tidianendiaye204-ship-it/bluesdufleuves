@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { DEFAULT_SEO } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -74,31 +75,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Blues du Fleuve Podor | Baaba Maal Festival - Daande Lenol" },
-      {
-        name: "description",
-        content:
-          "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar avec le Daande Lenol.",
-      },
-      {
-        name: "description-en",
-        content:
-          "Join the Blues du Fleuve Podor festival with Baaba Maal. Discover the Senegal river music and Halpulaar culture with the Daande Lenol.",
-      },
-      {
-        name: "keywords",
-        content:
-          "Blues du Fleuve Podor, Baaba Maal festival, musique fleuve Sénégal, Daande Lenol, festival Sénégal, Fouta",
-      },
+      { title: DEFAULT_SEO.title },
+      { name: "description", content: DEFAULT_SEO.description },
+      { name: "keywords", content: DEFAULT_SEO.keywords },
       { name: "author", content: "Daande Lenol" },
-      { property: "og:title", content: "Blues du Fleuve Podor | Baaba Maal Festival" },
-      {
-        property: "og:description",
-        content:
-          "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar.",
-      },
+      { property: "og:title", content: DEFAULT_SEO.title },
+      { property: "og:description", content: DEFAULT_SEO.description },
+      { property: "og:image", content: DEFAULT_SEO.ogImage },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: DEFAULT_SEO.ogImage },
+      { name: "theme-color", content: "#ffc107" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

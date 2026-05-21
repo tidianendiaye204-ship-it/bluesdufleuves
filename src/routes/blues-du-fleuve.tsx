@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, MapPin, Calendar, Music2, Palette, Mic } from "lucide-react";
 import { useState } from "react";
+import { createSeoMeta } from "@/lib/seo";
 import baabaImg from "@/assets/baaba-maal.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
@@ -15,16 +16,21 @@ import choupiMballoImg from "@/assets/choupi-mabllo.jpg";
 import abdouCamaraImg from "@/assets/ABdou camera.jpg";
 
 export const Route = createFileRoute("/blues-du-fleuve")({
-  head: () => ({
-    meta: [
-      { title: "Blues du Fleuve — The Village" },
-      {
-        name: "description",
-        content:
-          "Festival fondé par Baaba Maal, célébrant l'intégration et la solidarité des pays de la vallée du fleuve.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "Festival Blues du Fleuve | 16ème édition 2026",
+      description:
+        "Festival fondé par Baaba Maal, célébrant l'intégration, la solidarité et l'environnement des pays de la vallée du fleuve Sénégal.",
+      ogTitle: "Blues du Fleuve — Festival Baaba Maal",
+      ogDescription:
+        "Découvrez la 16ème édition du Festival Blues du Fleuve avec Baaba Maal et des artistes de la région du Fouta Toro.",
+      ogImage: crowdImg,
+      keywords:
+        "Blues du Fleuve, Festival Podor, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
+      canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
+    });
+    return { meta, links };
+  },
   component: BluesDuFleuve,
 });
 

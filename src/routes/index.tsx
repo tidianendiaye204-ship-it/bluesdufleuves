@@ -1,22 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Clock, ChevronRight, Mail, Landmark, Play, Pause } from "lucide-react";
 import { useState } from "react";
+import { createSeoMeta } from "@/lib/seo";
 import fleuveImg from "@/assets/fleuve.jpg";
 import baabaImg from "@/assets/baaba-maal.jpg";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Le Complexe NANN-k — The Village" },
-      {
-        name: "description",
-        content:
-          "Présentation du projet NANN-k, de Baaba Maal, du Centre Culturel et de l'actualité de la vallée du fleuve.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "Le Complexe NANN-k — The Village",
+      description:
+        "Présentation du projet NANN-k, de Baaba Maal, du Centre Culturel et de l'actualité de la vallée du fleuve.",
+      ogTitle: "NANN-k: Centre Culturel de Podor",
+      ogDescription:
+        "L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création et de formation.",
+      ogImage: centreImg,
+      keywords:
+        "NANN-k, Centre Culturel Podor, Baaba Maal, Complexe culturel, Fouta Toro, patrimoine Sénégal",
+      canonical: "https://lesbluesdufleuve.sn/",
+    });
+    return { meta, links };
+  },
   component: Home,
 });
 
