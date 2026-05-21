@@ -83,6 +83,36 @@
   --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
 }
 
+.dark {
+  --background: #1c1917;
+  --foreground: #fdfbf7;
+
+  --card: #292524;
+  --card-foreground: #fdfbf7;
+
+  --popover: #292524;
+  --popover-foreground: #fdfbf7;
+
+  --primary: #38bdf8;
+  --primary-foreground: #0f172a;
+
+  --secondary: #fb923c;
+  --secondary-foreground: #431407;
+
+  --muted: #44403c;
+  --muted-foreground: #a8a29e;
+
+  --accent: #44403c;
+  --accent-foreground: #fdfbf7;
+
+  --destructive: #f87171;
+  --destructive-foreground: #450a0a;
+
+  --border: #44403c;
+  --input: #44403c;
+  --ring: #38bdf8;
+}
+
 @layer base {
   @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap");
 
