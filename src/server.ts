@@ -69,7 +69,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 export default {
   async fetch(request: Request, env: any, ctx: unknown) {
     try {
-      if (env.MY_RATE_LIMITER) {
+      if (env?.MY_RATE_LIMITER) {
         const ip = request.headers.get("CF-Connecting-IP") || "unknown";
         const { success } = await env.MY_RATE_LIMITER.limit({ key: ip });
         if (!success) {

@@ -23,7 +23,6 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const soumettreContact = createServerFn({ method: "POST" })
   .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
-  .outputValidator(z.object({ success: z.boolean(), message: z.string() }))
   .handler(async ({ data, context }) => {
     const env = (context as any).env as Env;
     if (!env || !env.DB) {
