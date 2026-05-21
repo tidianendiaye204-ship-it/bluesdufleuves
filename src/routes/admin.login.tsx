@@ -6,7 +6,7 @@ import { admins, sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyPassword, generateId } from "@/lib/auth";
 import type { Env } from "@/types/env";
-import { setCookie } from "vinxi/http";
+import { setCookie } from "@tanstack/react-start/server";
 import { useState } from "react";
 
 const loginSchema = z.object({

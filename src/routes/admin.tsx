@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getCookie } from "vinxi/http";
+import { getCookie } from "@tanstack/react-start/server";
 
 export const getSessionId = createServerFn({ method: "GET" }).handler(async () => {
   return getCookie("admin_session");
