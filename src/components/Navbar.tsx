@@ -13,7 +13,7 @@ const links = [
 ] as const;
 
 export function Navbar() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
 
@@ -91,14 +91,22 @@ export function Navbar() {
           <div className="flex items-center gap-2 border-r border-border pr-4">
             <button
               onClick={() => i18n.changeLanguage("fr")}
-              className={`text-xs font-bold ${i18n.language === "fr" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+              className={`text-xs font-bold ${
+                i18n.language === "fr"
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
               FR
             </button>
             <span className="text-muted-foreground text-xs">/</span>
             <button
               onClick={() => i18n.changeLanguage("en")}
-              className={`text-xs font-bold ${i18n.language === "en" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+              className={`text-xs font-bold ${
+                i18n.language === "en"
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
               EN
             </button>
@@ -129,7 +137,9 @@ export function Navbar() {
         <div className="md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="container-page flex flex-col py-4 gap-2">
             <div className="flex justify-between items-center px-4 py-3 border-b border-border/50">
-              <span className="text-sm font-bold uppercase tracking-widest text-foreground">Thème</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-foreground">
+                Thème
+              </span>
               <ThemeToggle />
             </div>
             {links.map((l) => (

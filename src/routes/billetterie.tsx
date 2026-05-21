@@ -17,18 +17,26 @@ function Billetterie() {
             Billetterie <span className="text-primary">Officielle</span>
           </h1>
           <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
-            Réservez vos pass pour la prochaine édition du festival Blues du Fleuve.
+            Réservez vos pass pour la prochaine édition du festival Blues du
+            Fleuve.
           </p>
         </div>
       </section>
 
       <section className="container-page py-20 text-center">
         <div className="max-w-md mx-auto p-8 border border-border bg-card rounded-3xl shadow-sm">
-          <h3 className="text-2xl font-bold font-display uppercase mb-4">Ouverture Prochaine</h3>
+          <h3 className="text-2xl font-bold font-display uppercase mb-4">
+            Ouverture Prochaine
+          </h3>
           <p className="text-muted-foreground mb-8">
-            La billetterie n'est pas encore ouverte. L'intégration de notre partenaire de paiement sécurisé (PayDunya / Stripe) est en cours de finalisation.
+            La billetterie n'est pas encore ouverte. L'intégration de notre
+            partenaire de paiement sécurisé (PayDunya / Stripe) est en cours de
+            finalisation.
           </p>
-          <button disabled className="w-full bg-primary/50 text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 rounded-full cursor-not-allowed">
+          <button
+            disabled
+            className="w-full bg-primary/50 text-primary-foreground font-bold uppercase tracking-widest px-8 py-4 rounded-full cursor-not-allowed"
+          >
             Acheter un Pass
           </button>
         </div>

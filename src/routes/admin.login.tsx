@@ -14,15 +14,22 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+interface ContextWithEnv {
+  env: Env;
+}
+
 export const loginAdmin = createServerFn({ method: "POST" })
   .inputValidator((data: z.infer<typeof loginSchema>) => loginSchema.parse(data))
   .handler(async ({ data, context }) => {
-    const env = (context as any).env as Env;
+    const { env } = context as ContextWithEnv;
     if (!env || !env.DB) throw new Error("DB not configured");
 
     const db = getDb(env.DB);
-    const adminRows = await db.select().from(admins).where(eq(admins.email, data.email));
-    
+    const adminRows = await db
+      .select()
+      .from(admins)
+      .where(eq(admins.email, data.email));
+
     if (adminRows.length === 0) {
       return { error: "Identifiants invalides" };
     }
@@ -74,8 +81,14 @@ function AdminLogin() {
 
   return (
     <div className="max-w-md mx-auto mt-20 bg-card p-8 border border-border rounded-2xl shadow-sm">
-      <h2 className="font-display font-bold text-2xl mb-6 text-center">Connexion Administrateur</h2>
-      {error && <div className="bg-red-500/10 text-red-500 p-3 rounded-md mb-4 text-sm">{error}</div>}
+      <h2 className="font-display font-bold text-2xl mb-6 text-center">
+        Connexion Administrateur
+      </h2>
+      {error && (
+        <div className="bg-red-500/10 text-red-500 p-3 rounded-md mb-4 text-sm">
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1">Email</label>

@@ -9,7 +9,9 @@ export const inscriptions = sqliteTable("inscriptions", {
   formation: text("formation").notNull(),
   motivation: text("motivation").notNull(),
   dateInscription: integer("date_inscription", { mode: "timestamp" }).notNull(),
-  statut: text("status", { enum: ["en_attente", "accepte", "refuse"] })
+  statut: text("status", {
+    enum: ["en_attente", "accepte", "refuse"],
+  })
     .default("en_attente")
     .notNull(),
 });
@@ -21,7 +23,9 @@ export const contacts = sqliteTable("contacts", {
   sujet: text("sujet").notNull(),
   message: text("message").notNull(),
   dateEnvoi: integer("date_envoi", { mode: "timestamp" }).notNull(),
-  statut: text("status", { enum: ["non_lu", "lu", "traite"] })
+  statut: text("status", {
+    enum: ["non_lu", "lu", "traite"],
+  })
     .default("non_lu")
     .notNull(),
 });

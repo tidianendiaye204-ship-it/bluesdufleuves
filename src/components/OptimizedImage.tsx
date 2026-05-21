@@ -8,7 +8,13 @@ interface OptimizedImageProps {
   height?: number;
 }
 
-export function OptimizedImage({ src, alt, className = "", width, height }: OptimizedImageProps) {
+export function OptimizedImage({
+  src,
+  alt,
+  className = "",
+  width,
+  height,
+}: OptimizedImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [inView, setInView] = useState(false);
   const imgRef = useRef<HTMLDivElement>(null);
@@ -21,7 +27,7 @@ export function OptimizedImage({ src, alt, className = "", width, height }: Opti
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
     if (imgRef.current) observer.observe(imgRef.current);
     return () => observer.disconnect();
@@ -41,7 +47,9 @@ export function OptimizedImage({ src, alt, className = "", width, height }: Opti
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       )}
     </div>
