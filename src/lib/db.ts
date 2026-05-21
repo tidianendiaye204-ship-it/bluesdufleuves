@@ -11,7 +11,7 @@ export type Database = ReturnType<typeof drizzle<typeof schema>>;
 export async function withRetry<T>(
   operation: () => Promise<T>,
   maxRetries = 3,
-  delayMs = 500
+  delayMs = 500,
 ): Promise<T> {
   let attempt = 1;
   while (attempt <= maxRetries) {
@@ -19,10 +19,15 @@ export async function withRetry<T>(
       return await operation();
     } catch (error) {
       if (attempt === maxRetries) {
-        console.error(`DB Operation failed after ${maxRetries} attempts:`, error);
+        console.error(
+          `DB Operation failed after ${maxRetries} attempts:`,
+          error,
+        );
         throw error;
       }
-      console.warn(`DB Operation failed (attempt ${attempt}/${maxRetries}). Retrying in ${delayMs}ms...`);
+      console.warn(
+        `DB Operation failed (attempt ${attempt}/${maxRetries}). Retrying in ${delayMs}ms...`,
+      );
       await new Promise((resolve) => setTimeout(resolve, delayMs));
       // Increase delay exponentially
       delayMs *= 2;
@@ -32,6 +37,8 @@ export async function withRetry<T>(
   throw new Error("Unreachable");
 }
 
-export function getDb(d1: any): Database {
+export function getDb(
+  d1: object & { prepare: (sql: string) => object },
+): Database {
   return drizzle(d1, { schema });
 }

@@ -12,9 +12,14 @@ const newsletterSchema = z.object({
 });
 
 export const subscribeNewsletter = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .inputValidator(
+    (data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data),
+  )
   .handler(async ({ data, context }) => {
-    const env = (context as any).env as Env;
+    interface ContextWithEnv {
+      env: Env;
+    }
+    const { env } = context as ContextWithEnv;
     if (!env || !env.DB) throw new Error("DB not configured");
 
     const db = getDb(env.DB);
@@ -24,8 +29,9 @@ export const subscribeNewsletter = createServerFn({ method: "POST" })
         dateInscription: new Date(),
       });
       return { success: true };
-    } catch (e: any) {
-      if (e.message?.includes("UNIQUE")) {
+    } catch (e) {
+      const error = e as Error;
+      if (error.message?.includes("UNIQUE")) {
         return { error: "Cet email est déjà inscrit." };
       }
       return { error: "Une erreur est survenue." };
@@ -34,7 +40,10 @@ export const subscribeNewsletter = createServerFn({ method: "POST" })
 
 export function Footer() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [
+    status,
+    setStatus,
+  ] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [msg, setMsg] = useState("");
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -51,7 +60,7 @@ export function Footer() {
         setMsg("Merci pour votre inscription !");
         setEmail("");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setMsg("Erreur inattendue.");
     }
@@ -65,8 +74,8 @@ export function Footer() {
             The <span className="text-gradient-gold">Village</span>
           </h3>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-            Hub culturel & numérique du projet NANN-k — Centre Culturel de Podor, vallée du fleuve
-            Sénégal.
+            Hub culturel & numérique du projet NANN-k — Centre Culturel de
+            Podor, vallée du fleuve Sénégal.
           </p>
           <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
             <li>
@@ -97,19 +106,28 @@ export function Footer() {
                 className="w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
-            <button disabled={status === "loading"} className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition disabled:opacity-50">
+            <button
+              disabled={status === "loading"}
+              className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition disabled:opacity-50"
+            >
               {status === "loading" ? "..." : "S'abonner"}
             </button>
           </form>
           {msg && (
-            <p className={`mt-2 text-xs ${status === "success" ? "text-green-500" : "text-red-500"}`}>
+            <p
+              className={`mt-2 text-xs ${
+                status === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
               {msg}
             </p>
           )}
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-foreground mb-3">Suivez-nous</h4>
+          <h4 className="text-sm font-semibold text-foreground mb-3">
+            Suivez-nous
+          </h4>
           <div className="flex gap-3">
             {[
               {
@@ -158,7 +176,10 @@ export function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container-page py-5 text-xs text-muted-foreground flex flex-col md:flex-row justify-between gap-2">
-          <p>© {new Date().getFullYear()} The Village — Projet NANN-k. Tous droits réservés.</p>
+          <p>
+            © {new Date().getFullYear()} The Village — Projet NANN-k. Tous
+            droits réservés.
+          </p>
           <p>Podor, Sénégal · Vallée du Fleuve</p>
         </div>
       </div>

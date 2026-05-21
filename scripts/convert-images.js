@@ -8,13 +8,18 @@ const assetsDir = path.join(__dirname, "../src/assets");
 
 async function convertImages() {
   try {
-    const files = fs.readdirSync(assetsDir).filter((file) => /\.(jpg|jpeg|png)$/i.test(file));
+    const files = fs
+      .readdirSync(assetsDir)
+      .filter((file) => /\.(jpg|jpeg|png)$/i.test(file));
 
     console.log(`🖼️  Converting ${files.length} images to WebP...`);
 
     for (const file of files) {
       const inputPath = path.join(assetsDir, file);
-      const outputPath = path.join(assetsDir, file.replace(/\.(jpg|jpeg|png)$/i, ".webp"));
+      const outputPath = path.join(
+        assetsDir,
+        file.replace(/\.(jpg|jpeg|png)$/i, ".webp"),
+      );
 
       try {
         await sharp(inputPath)
@@ -25,15 +30,19 @@ async function convertImages() {
         const outputSize = fs.statSync(outputPath).size;
         const saved = ((1 - outputSize / inputSize) * 100).toFixed(1);
 
-        console.log(`✅ ${file} → ${path.basename(outputPath)} (${saved}% smaller)`);
+        console.log(
+          `✅ ${file} → ${path.basename(outputPath)} (${saved}% smaller)`,
+        );
       } catch (err) {
-        console.error(`❌ Error converting ${file}:`, err.message);
+        const error = err as Error;
+        console.error(`❌ Error converting ${file}:`, error.message);
       }
     }
 
     console.log("\n✨ Image conversion complete!");
   } catch (err) {
-    console.error("Error:", err);
+    const error = err as Error;
+    console.error("Error:", error);
     process.exit(1);
   }
 }
