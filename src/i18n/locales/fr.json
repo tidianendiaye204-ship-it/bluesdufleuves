@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "festival": "Blues du Fleuve",
+    "formations": "Formations",
+    "media": "NANN-k Média",
+    "tv": "NANN-ka TV",
+    "contact": "Contact",
+    "tickets": "Billetterie"
+  },
+  "footer": {
+    "newsletter": "Abonnez-vous à la newsletter",
+    "subscribe": "S'abonner",
+    "followUs": "Suivez-nous",
+    "rights": "Tous droits réservés.",
+    "placeholder": "votre@email.com"
+  },
+  "contact": {
+    "title": "Nous Contacter",
+    "subtitle": "Échangeons ensemble",
+    "description": "Une question sur le festival, un projet de partenariat ou une demande d'information sur nos formations ? L'équipe des Blues du Fleuve est à votre écoute.",
+    "sendMessage": "Envoyez-nous un message",
+    "fullName": "Nom complet",
+    "email": "Adresse Email",
+    "subject": "Sujet de votre message",
+    "message": "Votre message",
+    "submit": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "successTitle": "Message envoyé !",
+    "successMessage": "Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs délais."
+  },
+  "common": {
+    "loading": "Chargement..."
+  }
+}

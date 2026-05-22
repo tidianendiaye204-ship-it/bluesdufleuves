@@ -1,0 +1,21 @@
+{
+  "name": "Festival Les Blues du Fleuve",
+  "short_name": "BluesFleuve",
+  "description": "Porté sur les fonds baptismaux par l'artiste international Sénégalais Baaba MAAL le festival les Blues du fleuve célèbre sa 15ème édition.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#AE453F",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
