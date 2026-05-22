@@ -11,7 +11,7 @@ import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
 import { Turnstile } from "@marsidev/react-turnstile";
 
-const inscriptionSchema = z.object({
+export const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
   nom: z.string().min(1, "Le nom est requis"),
   email: z.string().email("Email invalide"),
@@ -21,7 +21,7 @@ const inscriptionSchema = z.object({
 });
 
 export const soumettreInscription = createServerFn({ method: "POST" })
-  .inputValidator((data: FormationFormValues) => formationSchema.parse(data))
+  .inputValidator((data: z.infer<typeof inscriptionSchema>) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
     const db = getDb();
     try {

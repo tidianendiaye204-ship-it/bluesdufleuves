@@ -35,7 +35,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
       },
     });
 
-    const tsResult = (await tsResponse.json()) as any;
+    const tsResult = (await tsResponse.json()) as { success: boolean };
     if (!tsResult.success) {
       throw new Error("Validation Captcha échouée.");
     }

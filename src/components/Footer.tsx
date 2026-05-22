@@ -22,7 +22,8 @@ export function Footer() {
         setMsg("Merci pour votre inscription !");
         setEmail("");
       }
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error(err);
       setStatus("error");
       setMsg("Erreur inattendue.");
     }

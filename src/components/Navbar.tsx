@@ -13,7 +13,7 @@ const links = [
 ] as const;
 
 export function Navbar() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
 

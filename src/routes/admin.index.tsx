@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
-import { contacts, inscriptions, newsletter } from "@/db/schema";
+import { contacts, inscriptions } from "@/db/schema";
 import { desc } from "drizzle-orm";
 
 const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
