@@ -158,9 +158,9 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className="fixed inset-0 z-[60] md:hidden bg-background animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[60] md:hidden bg-background">
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between px-6 h-16 border-b border-border">
+            <div className="flex items-center justify-between px-6 h-16 border-b border-border shrink-0">
               <Link to="/" className="flex flex-col items-start" onClick={() => setOpen(false)}>
                 <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
                   The <span className="text-primary">Village</span>
@@ -189,7 +189,7 @@ export function Navbar() {
               ))}
             </nav>
 
-            <div className="p-6 border-t border-border bg-muted/30">
+            <div className="p-6 border-t border-border bg-muted/30 shrink-0">
               <div className="flex justify-between items-center">
                 <div className="flex gap-6">
                   <button
