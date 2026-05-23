@@ -77,15 +77,7 @@ export function Navbar() {
 
       <div className="container-page">
         <div className="flex items-center justify-between h-12 md:h-20 gap-4 md:gap-8">
-          <div className="flex items-center gap-4 md:gap-8 shrink-0">
-            <button
-              className={`md:hidden inline-flex h-8 w-8 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Menu"
-            >
-              {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
-
+          <div className="flex items-center shrink-0">
             <Link to="/" className="flex flex-col items-start group" onClick={() => setOpen(false)}>
               <span
                 className={`luxury-text text-lg md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}
@@ -149,7 +141,17 @@ export function Navbar() {
               <Search size={18} />
             </button>
 
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
+
+            <button
+              className={`md:hidden inline-flex h-8 w-8 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Menu"
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
       </div>
@@ -172,15 +174,15 @@ export function Navbar() {
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto py-8 px-8 flex flex-col gap-6">
+            <nav className="flex-1 overflow-y-auto py-4 px-6 flex flex-col">
               {links.map((l, idx) => (
                 <Link
                   key={l.to}
                   to={l.to}
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-display font-black uppercase tracking-tighter text-foreground animate-in slide-in-from-left-4 duration-500"
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                  activeProps={{ className: "text-primary" }}
+                  className="block text-sm font-bold uppercase tracking-widest text-foreground py-4 border-b border-border/40 animate-in slide-in-from-left-4 duration-500"
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                  activeProps={{ className: "text-primary border-primary/50" }}
                   activeOptions={{ exact: l.to === "/" }}
                 >
                   {l.label}
