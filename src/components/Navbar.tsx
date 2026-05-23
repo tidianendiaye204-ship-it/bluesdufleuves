@@ -180,8 +180,7 @@ export function Navbar() {
                   key={l.to}
                   to={l.to}
                   onClick={() => setOpen(false)}
-                  className="block text-sm font-bold uppercase tracking-widest text-foreground py-4 border-b border-border/40 animate-in slide-in-from-left-4 duration-500"
-                  style={{ animationDelay: `${idx * 50}ms` }}
+                  className="block text-sm font-bold uppercase tracking-widest text-foreground py-4 border-b border-border/40 transition-colors hover:text-primary"
                   activeProps={{ className: "text-primary border-primary/50" }}
                   activeOptions={{ exact: l.to === "/" }}
                 >
