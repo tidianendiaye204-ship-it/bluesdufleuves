@@ -105,27 +105,15 @@ const instruments = [
 
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterStatus, setNewsletterStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [newsletterMsg, setNewsletterMsg] = useState("");
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
-    setNewsletterStatus("loading");
     try {
-      const result = await soumettreNewsletter({ data: { email: newsletterEmail } });
-      if (result.alreadySubscribed) {
-        setNewsletterMsg("Vous êtes déjà inscrit(e) à notre lettre d'information !");
-      } else {
-        setNewsletterMsg("Merci ! Vous êtes maintenant abonné(e) à La Lettre de l'Éditeur.");
-      }
-      setNewsletterStatus("success");
+      await soumettreNewsletter({ data: { email: newsletterEmail } });
       setNewsletterEmail("");
     } catch {
-      setNewsletterMsg("Une erreur est survenue. Veuillez réessayer.");
-      setNewsletterStatus("error");
+      console.error("Newsletter subscription error");
     }
   };
 
@@ -156,7 +144,7 @@ function Home() {
         </div>
 
         <div className="container-page relative z-10 text-center pt-32 md:pt-40">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-10 animate-reveal">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-8">
             <Landmark size={14} className="text-primary" /> Podor · Vallée du Fleuve
           </div>
           <h1 className="luxury-text text-6xl md:text-9xl text-white mb-8 animate-reveal [animation-delay:200ms]">
@@ -347,19 +335,11 @@ function Home() {
               />
               <button
                 type="submit"
-                disabled={newsletterStatus === "loading"}
-                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50"
+                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
               >
-                {newsletterStatus === "loading" ? "..." : "S'abonner"}
+                S'abonner
               </button>
             </form>
-            {newsletterMsg && (
-              <p
-                className={`mt-6 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
-              >
-                {newsletterMsg}
-              </p>
-            )}
           </div>
         </div>
       </section>
