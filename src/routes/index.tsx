@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
 import baabaImg from "@/assets/baaba-maal.jpg";
