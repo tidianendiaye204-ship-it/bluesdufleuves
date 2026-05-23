@@ -134,28 +134,62 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className="fixed inset-0 top-16 z-50 md:hidden bg-background/95 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-300">
-          <nav className="container-page flex flex-col py-8 gap-6">
-            {links.map((l) => (
+        <div className="fixed inset-0 z-[60] md:hidden bg-background animate-in fade-in duration-300">
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between px-6 h-20 border-b border-border">
               <Link
-                key={l.to}
-                to={l.to}
+                to="/"
+                className="flex flex-col items-start"
                 onClick={() => setOpen(false)}
-                className="text-2xl font-display font-bold uppercase tracking-tighter text-foreground border-b border-border/10 pb-4 hover:text-primary transition-colors"
-                activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: l.to === "/" }}
               >
-                {l.label}
+                <span className="luxury-text text-2xl uppercase tracking-tighter text-foreground">
+                  The <span className="text-primary">Village</span>
+                </span>
               </Link>
-            ))}
-            <div className="flex justify-between items-center mt-4 pt-6 border-t border-border/10">
-              <div className="flex gap-4">
-                <button onClick={() => i18n.changeLanguage("fr")} className="font-bold text-sm">FR</button>
-                <button onClick={() => i18n.changeLanguage("en")} className="font-bold text-sm">EN</button>
-              </div>
-              <ThemeToggle />
+              <button
+                className="inline-flex h-10 w-10 items-center justify-center text-foreground"
+                onClick={() => setOpen(false)}
+              >
+                <X size={28} />
+              </button>
             </div>
-          </nav>
+            
+            <nav className="flex-1 overflow-y-auto py-12 px-8 flex flex-col gap-8">
+              {links.map((l, idx) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  className="text-4xl font-display font-black uppercase tracking-tighter text-foreground animate-in slide-in-from-left-4 duration-500"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                  activeProps={{ className: "text-primary" }}
+                  activeOptions={{ exact: l.to === "/" }}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="p-8 border-t border-border bg-muted/30">
+              <div className="flex justify-between items-center">
+                <div className="flex gap-6">
+                  <button 
+                    onClick={() => { i18n.changeLanguage("fr"); setOpen(false); }} 
+                    className={`font-black text-sm tracking-widest ${i18n.language === "fr" ? "text-primary" : "text-muted-foreground"}`}
+                  >
+                    FR
+                  </button>
+                  <button 
+                    onClick={() => { i18n.changeLanguage("en"); setOpen(false); }} 
+                    className={`font-black text-sm tracking-widest ${i18n.language === "en" ? "text-primary" : "text-muted-foreground"}`}
+                  >
+                    EN
+                  </button>
+                </div>
+                <ThemeToggle />
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </header>
