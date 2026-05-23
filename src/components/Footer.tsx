@@ -42,17 +42,48 @@ export function Footer() {
             </span>
           </Link>
           <p className="mt-8 text-sm text-muted-foreground leading-relaxed">
-            L'épicentre culturel de la vallée du fleuve Sénégal. Un projet porté par Baaba Maal pour le rayonnement des arts et de la culture.
+            L'épicentre culturel de la vallée du fleuve Sénégal. Un projet porté par Baaba Maal pour
+            le rayonnement des arts et de la culture.
           </p>
         </div>
 
         <div className="md:col-span-1">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-6">Navigation</h4>
+          <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-6">
+            Navigation
+          </h4>
           <ul className="space-y-4 text-sm font-medium">
-            <li><Link to="/" className="hover:text-primary transition-colors text-white/70 hover:text-white">Le Complexe</Link></li>
-            <li><Link to="/blues-du-fleuve" className="hover:text-primary transition-colors text-white/70 hover:text-white">Le Festival</Link></li>
-            <li><Link to="/nann-k-media" className="hover:text-primary transition-colors text-white/70 hover:text-white">Nann-k Media</Link></li>
-            <li><Link to="/contact" className="hover:text-primary transition-colors text-white/70 hover:text-white">Contact</Link></li>
+            <li>
+              <Link
+                to="/"
+                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+              >
+                Le Complexe
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/blues-du-fleuve"
+                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+              >
+                Le Festival
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/nann-k-media"
+                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+              >
+                Nann-k Media
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -60,13 +91,12 @@ export function Footer() {
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-6">
             La Lettre de l'Éditeur
           </h4>
-          <p className="text-sm text-white/70 mb-6">Recevez les actualités culturelles de la vallée directement dans votre boîte mail.</p>
+          <p className="text-sm text-white/70 mb-6">
+            Recevez les actualités culturelles de la vallée directement dans votre boîte mail.
+          </p>
           <form className="flex gap-2" onSubmit={handleSubscribe}>
             <div className="relative flex-1">
-              <Mail
-                size={16}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
-              />
+              <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
               <input
                 type="email"
                 required
@@ -90,13 +120,19 @@ export function Footer() {
               {msg}
             </p>
           )}
-          
+
           <div className="mt-12">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-6">Suivez l'aventure</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-6">
+              Suivez l'aventure
+            </h4>
             <div className="flex gap-4">
               {[
                 { Icon: Youtube, label: "YouTube", to: "https://www.youtube.com/@nannktv" },
-                { Icon: Facebook, label: "Facebook", to: "https://www.facebook.com/festivalbluesdufleuve" },
+                {
+                  Icon: Facebook,
+                  label: "Facebook",
+                  to: "https://www.facebook.com/festivalbluesdufleuve",
+                },
                 { Icon: Instagram, label: "Instagram", to: "https://www.instagram.com/nannkmedia" },
               ].map(({ Icon, label, to }) => (
                 <a

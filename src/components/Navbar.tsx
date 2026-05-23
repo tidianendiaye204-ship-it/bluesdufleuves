@@ -42,21 +42,33 @@ export function Navbar() {
   const isTransparent = isHome && !scrolled;
   const textColor = isTransparent ? "text-white" : "text-foreground";
   const borderColor = isTransparent ? "border-white/10" : "border-border";
-  const bgColor = isTransparent ? "bg-transparent" : "bg-background/80 backdrop-blur-lg border-b shadow-elegant";
+  const bgColor = isTransparent
+    ? "bg-transparent"
+    : "bg-background/80 backdrop-blur-lg border-b shadow-elegant";
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-4" : "py-2"}`}
     >
       {/* Top bar (News style) */}
-      <div className={`border-b ${borderColor} py-1 hidden md:block transition-all duration-500 ${isTransparent ? "opacity-100 h-auto" : "opacity-0 h-0 overflow-hidden"}`}>
-        <div className={`container-page flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${isTransparent ? "text-white/70" : "text-muted-foreground"}`}>
+      <div
+        className={`border-b ${borderColor} py-1 hidden md:block transition-all duration-500 ${isTransparent ? "opacity-100 h-auto" : "opacity-0 h-0 overflow-hidden"}`}
+      >
+        <div
+          className={`container-page flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${isTransparent ? "text-white/70" : "text-muted-foreground"}`}
+        >
           <span>{dateStr}</span>
           <div className="flex gap-6">
-            <Link to="/" className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}>
+            <Link
+              to="/"
+              className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}
+            >
               S'abonner
             </Link>
-            <Link to="/" className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}>
+            <Link
+              to="/"
+              className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}
+            >
               Connexion
             </Link>
           </div>
@@ -74,15 +86,15 @@ export function Navbar() {
               {open ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            <Link
-              to="/"
-              className="flex flex-col items-start group"
-              onClick={() => setOpen(false)}
-            >
-              <span className={`luxury-text text-2xl md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}>
+            <Link to="/" className="flex flex-col items-start group" onClick={() => setOpen(false)}>
+              <span
+                className={`luxury-text text-2xl md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}
+              >
                 The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
               </span>
-              <span className={`text-[7px] md:text-[9px] uppercase tracking-[0.5em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}>
+              <span
+                className={`text-[7px] md:text-[9px] uppercase tracking-[0.5em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}
+              >
                 blues des fleuves · NANN-K
               </span>
             </Link>
@@ -95,7 +107,11 @@ export function Navbar() {
                 key={l.to}
                 to={l.to}
                 className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all nav-link whitespace-nowrap ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
-                activeProps={{ className: isTransparent ? "text-white !after:w-full" : "text-primary !after:w-full" }}
+                activeProps={{
+                  className: isTransparent
+                    ? "text-white !after:w-full"
+                    : "text-primary !after:w-full",
+                }}
                 activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
@@ -104,29 +120,35 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4 md:gap-6 shrink-0">
-            <div className={`hidden md:flex items-center gap-2 border-r pr-6 transition-colors duration-500 ${isTransparent ? "border-white/10" : "border-border/20"}`}>
+            <div
+              className={`hidden md:flex items-center gap-2 border-r pr-6 transition-colors duration-500 ${isTransparent ? "border-white/10" : "border-border/20"}`}
+            >
               <button
                 onClick={() => i18n.changeLanguage("fr")}
-                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "fr" ? (isTransparent ? "text-white" : "text-primary") : (isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground")}`}
+                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "fr" ? (isTransparent ? "text-white" : "text-primary") : isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground"}`}
               >
                 FR
               </button>
-              <span className={`text-[10px] transition-colors ${isTransparent ? "text-white/20" : "text-muted-foreground/30"}`}>|</span>
+              <span
+                className={`text-[10px] transition-colors ${isTransparent ? "text-white/20" : "text-muted-foreground/30"}`}
+              >
+                |
+              </span>
               <button
                 onClick={() => i18n.changeLanguage("en")}
-                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "en" ? (isTransparent ? "text-white" : "text-primary") : (isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground")}`}
+                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "en" ? (isTransparent ? "text-white" : "text-primary") : isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground"}`}
               >
                 EN
               </button>
             </div>
-            
+
             <button
               className={`inline-flex h-10 w-10 items-center justify-center transition-colors duration-500 ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
               aria-label="Search"
             >
               <Search size={20} />
             </button>
-            
+
             <ThemeToggle />
           </div>
         </div>
@@ -137,11 +159,7 @@ export function Navbar() {
         <div className="fixed inset-0 z-[60] md:hidden bg-background animate-in fade-in duration-300">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between px-6 h-20 border-b border-border">
-              <Link
-                to="/"
-                className="flex flex-col items-start"
-                onClick={() => setOpen(false)}
-              >
+              <Link to="/" className="flex flex-col items-start" onClick={() => setOpen(false)}>
                 <span className="luxury-text text-2xl uppercase tracking-tighter text-foreground">
                   The <span className="text-primary">Village</span>
                 </span>
@@ -153,7 +171,7 @@ export function Navbar() {
                 <X size={28} />
               </button>
             </div>
-            
+
             <nav className="flex-1 overflow-y-auto py-12 px-8 flex flex-col gap-8">
               {links.map((l, idx) => (
                 <Link
@@ -173,14 +191,20 @@ export function Navbar() {
             <div className="p-8 border-t border-border bg-muted/30">
               <div className="flex justify-between items-center">
                 <div className="flex gap-6">
-                  <button 
-                    onClick={() => { i18n.changeLanguage("fr"); setOpen(false); }} 
+                  <button
+                    onClick={() => {
+                      i18n.changeLanguage("fr");
+                      setOpen(false);
+                    }}
                     className={`font-black text-sm tracking-widest ${i18n.language === "fr" ? "text-primary" : "text-muted-foreground"}`}
                   >
                     FR
                   </button>
-                  <button 
-                    onClick={() => { i18n.changeLanguage("en"); setOpen(false); }} 
+                  <button
+                    onClick={() => {
+                      i18n.changeLanguage("en");
+                      setOpen(false);
+                    }}
                     className={`font-black text-sm tracking-widest ${i18n.language === "en" ? "text-primary" : "text-muted-foreground"}`}
                   >
                     EN

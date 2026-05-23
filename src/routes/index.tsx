@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clock, ChevronRight, Mail, Landmark, Play, Pause } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
-import fleuveImg from "@/assets/fleuve.jpg";
 import baabaImg from "@/assets/baaba-maal.jpg";
 import centreImg from "@/assets/centre-podor.jpg";
-import instrumentsImg from "@/assets/instruments.jpg";
+import fleuveImg from "@/assets/fleuve.jpg";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
 import { newsletter } from "@/db/schema";
@@ -104,37 +102,7 @@ const instruments = [
   },
 ];
 
-const espaces = [
-  { nom: "Musée Numérique", desc: "Exposition interactive du patrimoine matériel et immatériel." },
-  {
-    nom: "Studio Nann-k",
-    desc: "Studio de production et d'enregistrement pour les artistes de la vallée.",
-  },
-  {
-    nom: "Salle de Spectacle",
-    desc: "Espace de diffusion pour les concerts, le théâtre et les arts vivants.",
-  },
-  { nom: "Bibliothèque", desc: "Médiathèque et centre de documentation sur l'histoire du Fouta." },
-  {
-    nom: "Espace d'Exposition",
-    desc: "Galerie dédiée aux arts plastiques et à l'artisanat local.",
-  },
-  {
-    nom: "Résidence d'Artistes",
-    desc: "Lieu d'accueil et de création pour les artistes en immersion.",
-  },
-  {
-    nom: "Salles de Formation",
-    desc: "Espaces dédiés à l'apprentissage (musique, numérique, artisanat).",
-  },
-  {
-    nom: "Jardin & Plein Air",
-    desc: "Espace de convivialité, de rencontres et de petits spectacles.",
-  },
-];
-
 function Home() {
-  const [playing, setPlaying] = useState<string | null>(null);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -182,12 +150,10 @@ function Home() {
             alt="Centre Culturel de Podor"
             className="h-full w-full object-cover scale-105 animate-float"
           />
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
-          />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background" />
         </div>
-        
+
         <div className="container-page relative z-10 text-center pt-32 md:pt-40">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-10 animate-reveal">
             <Landmark size={14} className="text-primary" /> Podor · Vallée du Fleuve
@@ -196,18 +162,25 @@ function Home() {
             The <span className="text-primary">Village</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed animate-reveal [animation-delay:400ms]">
-            L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création et de formation.
+            L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée,
+            espaces de création et de formation.
           </p>
           <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6 animate-reveal [animation-delay:600ms]">
-            <Link to="/blues-du-fleuve" className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button">
+            <Link
+              to="/blues-du-fleuve"
+              className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
+            >
               Découvrir le Festival
             </Link>
-            <Link to="/contact" className="rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/20 transition-all">
+            <Link
+              to="/contact"
+              className="rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/20 transition-all"
+            >
               Nous Contacter
             </Link>
           </div>
         </div>
-        
+
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
           <ArrowRight className="rotate-90 text-white/50" size={24} />
         </div>
@@ -220,25 +193,35 @@ function Home() {
             <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-8 left-8">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">Fondateur</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
+                Fondateur
+              </span>
               <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
             </div>
           </div>
-          
+
           <div className="animate-reveal [animation-delay:200ms]">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">L'Âme du Projet</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
+              L'Âme du Projet
+            </span>
             <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
               La Voix du <span className="text-primary">Fleuve</span>
             </h2>
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
               <p>
-                Mamadou Aliou Bah, dit <strong>Baaba Maal</strong>, est bien plus qu'un artiste. C'est le gardien d'un héritage, un bâtisseur qui a su transformer la richesse musicale du Fouta Toro en un levier de développement pour toute la vallée.
+                Mamadou Aliou Bah, dit <strong>Baaba Maal</strong>, est bien plus qu'un artiste.
+                C'est le gardien d'un héritage, un bâtisseur qui a su transformer la richesse
+                musicale du Fouta Toro en un levier de développement pour toute la vallée.
               </p>
               <p className="border-l-4 border-primary pl-8 italic text-foreground text-xl">
-                "The Village est l'aboutissement d'un rêve : offrir à la jeunesse de Podor un lieu où tradition et modernité se rencontrent pour créer l'avenir."
+                "The Village est l'aboutissement d'un rêve : offrir à la jeunesse de Podor un lieu
+                où tradition et modernité se rencontrent pour créer l'avenir."
               </p>
               <div className="pt-8">
-                <Link to="/blues-du-fleuve" className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary hover:gap-5 transition-all">
+                <Link
+                  to="/blues-du-fleuve"
+                  className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary hover:gap-5 transition-all"
+                >
                   Lire la biographie complète <ArrowRight size={16} />
                 </Link>
               </div>
@@ -252,12 +235,17 @@ function Home() {
         <div className="container-page">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">Journal</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
+                Journal
+              </span>
               <h2 className="luxury-text text-5xl md:text-6xl uppercase tracking-tighter">
                 Dernières <span className="text-primary">Nouvelles</span>
               </h2>
             </div>
-            <Link to="/nann-k-media" className="text-[10px] font-black uppercase tracking-widest border-b-2 border-primary pb-1 hover:text-primary transition-colors">
+            <Link
+              to="/nann-k-media"
+              className="text-[10px] font-black uppercase tracking-widest border-b-2 border-primary pb-1 hover:text-primary transition-colors"
+            >
               Tout le Journal
             </Link>
           </div>
@@ -305,16 +293,18 @@ function Home() {
       {/* Patrimoine & Instruments - Refined layout */}
       <section className="container-page py-32">
         <div className="max-w-4xl mx-auto text-center mb-20">
-          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">Héritage</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
+            Héritage
+          </span>
           <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
             Les Instruments du <span className="text-primary">Fouta</span>
           </h2>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-12">
           {instruments.map((inst, idx) => (
-            <div 
-              key={inst.nom} 
+            <div
+              key={inst.nom}
               className="p-10 rounded-2xl border border-border/10 bg-muted/20 hover:bg-background hover:shadow-elegant transition-all duration-500 animate-reveal"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
@@ -324,6 +314,52 @@ function Home() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Newsletter Section - Re-added but cleaned */}
+      <section className="container-page py-24">
+        <div className="bg-[#0a0908] rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
+          <div className="max-w-2xl mx-auto relative z-10">
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
+              S'abonner
+            </span>
+            <h2 className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter">
+              La Lettre de <span className="text-primary">l'Éditeur</span>
+            </h2>
+            <p className="text-white/60 mb-10 text-lg">
+              Recevez les actualités culturelles et les analyses du projet NANN-k.
+            </p>
+
+            <form
+              className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
+              onSubmit={handleNewsletter}
+            >
+              <input
+                type="email"
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                placeholder="votre@email.com"
+                className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white outline-none focus:ring-1 focus:ring-primary transition-all"
+              />
+              <button
+                type="submit"
+                disabled={newsletterStatus === "loading"}
+                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50"
+              >
+                {newsletterStatus === "loading" ? "..." : "S'abonner"}
+              </button>
+            </form>
+            {newsletterMsg && (
+              <p
+                className={`mt-6 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
+              >
+                {newsletterMsg}
+              </p>
+            )}
+          </div>
         </div>
       </section>
     </div>
