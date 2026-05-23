@@ -48,7 +48,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-4" : "py-2"}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-2 md:py-4" : "py-1 md:py-2"}`}
     >
       {/* Top bar (News style) */}
       <div
@@ -76,24 +76,24 @@ export function Navbar() {
       </div>
 
       <div className="container-page">
-        <div className="flex items-center justify-between h-16 md:h-20 gap-8">
-          <div className="flex items-center gap-8 shrink-0">
+        <div className="flex items-center justify-between h-12 md:h-20 gap-4 md:gap-8">
+          <div className="flex items-center gap-4 md:gap-8 shrink-0">
             <button
-              className={`md:hidden inline-flex h-10 w-10 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
+              className={`md:hidden inline-flex h-8 w-8 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >
-              {open ? <X size={24} /> : <Menu size={24} />}
+              {open ? <X size={20} /> : <Menu size={20} />}
             </button>
 
             <Link to="/" className="flex flex-col items-start group" onClick={() => setOpen(false)}>
               <span
-                className={`luxury-text text-2xl md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}
+                className={`luxury-text text-lg md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}
               >
                 The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
               </span>
               <span
-                className={`text-[7px] md:text-[9px] uppercase tracking-[0.5em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}
+                className={`text-[6px] md:text-[9px] uppercase tracking-[0.4em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}
               >
                 blues des fleuves · NANN-K
               </span>
@@ -119,7 +119,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4 md:gap-6 shrink-0">
+          <div className="flex items-center gap-3 md:gap-6 shrink-0">
             <div
               className={`hidden md:flex items-center gap-2 border-r pr-6 transition-colors duration-500 ${isTransparent ? "border-white/10" : "border-border/20"}`}
             >
@@ -143,10 +143,10 @@ export function Navbar() {
             </div>
 
             <button
-              className={`inline-flex h-10 w-10 items-center justify-center transition-colors duration-500 ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
+              className={`inline-flex h-8 w-8 items-center justify-center transition-colors duration-500 ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
               aria-label="Search"
             >
-              <Search size={20} />
+              <Search size={18} />
             </button>
 
             <ThemeToggle />
@@ -158,9 +158,9 @@ export function Navbar() {
       {open && (
         <div className="fixed inset-0 z-[60] md:hidden bg-background animate-in fade-in duration-300">
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between px-6 h-20 border-b border-border">
+            <div className="flex items-center justify-between px-6 h-16 border-b border-border">
               <Link to="/" className="flex flex-col items-start" onClick={() => setOpen(false)}>
-                <span className="luxury-text text-2xl uppercase tracking-tighter text-foreground">
+                <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
                   The <span className="text-primary">Village</span>
                 </span>
               </Link>
@@ -168,17 +168,17 @@ export function Navbar() {
                 className="inline-flex h-10 w-10 items-center justify-center text-foreground"
                 onClick={() => setOpen(false)}
               >
-                <X size={28} />
+                <X size={24} />
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto py-12 px-8 flex flex-col gap-8">
+            <nav className="flex-1 overflow-y-auto py-8 px-8 flex flex-col gap-6">
               {links.map((l, idx) => (
                 <Link
                   key={l.to}
                   to={l.to}
                   onClick={() => setOpen(false)}
-                  className="text-4xl font-display font-black uppercase tracking-tighter text-foreground animate-in slide-in-from-left-4 duration-500"
+                  className="text-2xl font-display font-black uppercase tracking-tighter text-foreground animate-in slide-in-from-left-4 duration-500"
                   style={{ animationDelay: `${idx * 100}ms` }}
                   activeProps={{ className: "text-primary" }}
                   activeOptions={{ exact: l.to === "/" }}
@@ -188,7 +188,7 @@ export function Navbar() {
               ))}
             </nav>
 
-            <div className="p-8 border-t border-border bg-muted/30">
+            <div className="p-6 border-t border-border bg-muted/30">
               <div className="flex justify-between items-center">
                 <div className="flex gap-6">
                   <button
