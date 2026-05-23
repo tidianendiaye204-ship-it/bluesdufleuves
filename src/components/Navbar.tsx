@@ -175,7 +175,7 @@ export function Navbar() {
             </div>
 
             <nav className="flex-1 overflow-y-auto py-4 px-6 flex flex-col">
-              {links.map((l, idx) => (
+              {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
