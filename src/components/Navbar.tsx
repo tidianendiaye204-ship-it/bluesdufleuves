@@ -21,11 +21,13 @@ export function Navbar() {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
+    const scrollContainer = document.querySelector('main');
+    if (!scrollContainer) return;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(scrollContainer.scrollTop > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-2 md:py-4" : "py-1 md:py-2"}`}
+      className={`sticky top-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-2 md:py-4" : "py-1 md:py-2"}`}
     >
       {/* Top bar (News style) */}
       <div
@@ -145,13 +147,28 @@ export function Navbar() {
               <ThemeToggle />
             </div>
 
-            <button
-              className={`md:hidden inline-flex h-8 w-8 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Menu"
-            >
-              {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            {/* Mobile: lang switcher + theme toggle + hamburger */}
+            <div className="md:hidden flex items-center gap-1">
+              <button
+                onClick={() => i18n.changeLanguage(i18n.language === "fr" ? "en" : "fr")}
+                className={`text-[10px] font-black tracking-widest px-1.5 py-1 rounded transition-colors ${
+                  isTransparent
+                    ? "text-white/70 hover:text-white"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                aria-label="Switch language"
+              >
+                {i18n.language === "fr" ? "EN" : "FR"}
+              </button>
+              <ThemeToggle />
+              <button
+                className={`inline-flex h-8 w-8 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
+                onClick={() => setOpen((v) => !v)}
+                aria-label="Menu"
+              >
+                {open ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
