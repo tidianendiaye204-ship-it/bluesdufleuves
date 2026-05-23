@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,17 @@ export function Navbar() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setDateStr(
@@ -28,124 +39,122 @@ export function Navbar() {
     );
   }, []);
 
+  const isTransparent = isHome && !scrolled;
+  const textColor = isTransparent ? "text-white" : "text-foreground";
+  const borderColor = isTransparent ? "border-white/10" : "border-border";
+  const bgColor = isTransparent ? "bg-transparent" : "bg-background/80 backdrop-blur-lg border-b shadow-elegant";
+
   return (
-    <header className="sticky top-0 z-50 border-b border-foreground bg-background text-foreground font-sans shadow-sm">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${bgColor} ${isTransparent ? "py-4" : "py-2"}`}
+    >
       {/* Top bar (News style) */}
-      <div className="border-b border-border py-1 hidden md:block">
-        <div className="container-page flex items-center justify-between text-[11px] text-muted-foreground uppercase tracking-widest font-bold">
-          <span>Édition du {dateStr}</span>
+      <div className={`border-b ${borderColor} py-1 hidden md:block transition-all duration-500 ${isTransparent ? "opacity-100 h-auto" : "opacity-0 h-0 overflow-hidden"}`}>
+        <div className={`container-page flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-500 ${isTransparent ? "text-white/70" : "text-muted-foreground"}`}>
+          <span>{dateStr}</span>
           <div className="flex gap-6">
-            <Link to="/" className="hover:text-primary transition-colors">
+            <Link to="/" className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}>
               S'abonner
             </Link>
-            <Link to="/" className="hover:text-primary transition-colors">
+            <Link to="/" className={`transition-colors nav-link ${isTransparent ? "hover:text-white" : "hover:text-primary"}`}>
               Connexion
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="container-page flex flex-col md:flex-row md:items-center justify-between py-3 md:py-6 md:h-32">
-        <div className="flex items-center justify-between w-full md:w-auto">
-          <button
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center border-none text-foreground"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Menu"
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
-
-          <Link
-            to="/"
-            className="flex flex-col items-center md:items-start mx-auto md:mx-0 group"
-            onClick={() => setOpen(false)}
-          >
-            <span className="font-display text-3xl md:text-6xl font-black tracking-tighter uppercase leading-none group-hover:text-primary transition-colors">
-              The <span className="text-primary">Village</span>
-            </span>
-            <span className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mt-1 md:mt-2 font-bold font-sans">
-              blues des fleuves - NANN-K
-            </span>
-          </Link>
-
-          <button
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground"
-            aria-label="Search"
-          >
-            <Search size={22} />
-          </button>
-        </div>
-
-        <div className="hidden md:flex items-center gap-4">
-          <div className="relative group">
-            <Search
-              size={16}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-hover:text-foreground transition-colors"
-            />
-            <input
-              type="text"
-              placeholder="Rechercher..."
-              className="bg-muted border-none rounded-none pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all w-64 text-foreground font-medium"
-            />
-          </div>
-          <div className="flex items-center gap-2 border-r border-border pr-4">
+      <div className="container-page">
+        <div className="flex items-center justify-between h-16 md:h-20 gap-8">
+          <div className="flex items-center gap-8 shrink-0">
             <button
-              onClick={() => i18n.changeLanguage("fr")}
-              className={`text-xs font-bold ${i18n.language === "fr" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+              className={`md:hidden inline-flex h-10 w-10 items-center justify-center border-none transition-colors duration-500 ${textColor}`}
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Menu"
             >
-              FR
+              {open ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <span className="text-muted-foreground text-xs">/</span>
-            <button
-              onClick={() => i18n.changeLanguage("en")}
-              className={`text-xs font-bold ${i18n.language === "en" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              EN
-            </button>
-          </div>
-          <ThemeToggle />
-        </div>
-      </div>
 
-      {/* Main Navigation (News Categories) */}
-      <nav className="hidden md:block border-t border-border">
-        <div className="container-page flex items-center justify-center gap-12 py-4">
-          {links.map((l) => (
             <Link
-              key={l.to}
-              to={l.to}
-              className="text-sm font-bold uppercase tracking-widest text-foreground transition-colors hover:text-primary"
-              activeProps={{ className: "text-primary border-b-2 border-primary pb-1" }}
-              activeOptions={{ exact: l.to === "/" }}
+              to="/"
+              className="flex flex-col items-start group"
+              onClick={() => setOpen(false)}
             >
-              {l.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
-
-      {/* Mobile Nav */}
-      {open && (
-        <div className="md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
-          <nav className="container-page flex flex-col py-4 gap-2">
-            <div className="flex justify-between items-center px-4 py-3 border-b border-border/50">
-              <span className="text-sm font-bold uppercase tracking-widest text-foreground">
-                Thème
+              <span className={`luxury-text text-2xl md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "group-hover:text-primary"}`}>
+                The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
               </span>
-              <ThemeToggle />
-            </div>
+              <span className={`text-[7px] md:text-[9px] uppercase tracking-[0.5em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}>
+                blues des fleuves · NANN-K
+              </span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 flex-1">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                onClick={() => setOpen(false)}
-                className="px-4 py-3 text-sm font-bold uppercase tracking-widest text-foreground border-b border-border/50 hover:text-primary"
-                activeProps={{ className: "text-primary bg-muted/50" }}
+                className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all nav-link whitespace-nowrap ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
+                activeProps={{ className: isTransparent ? "text-white !after:w-full" : "text-primary !after:w-full" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
               </Link>
             ))}
+          </nav>
+
+          <div className="flex items-center gap-4 md:gap-6 shrink-0">
+            <div className={`hidden md:flex items-center gap-2 border-r pr-6 transition-colors duration-500 ${isTransparent ? "border-white/10" : "border-border/20"}`}>
+              <button
+                onClick={() => i18n.changeLanguage("fr")}
+                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "fr" ? (isTransparent ? "text-white" : "text-primary") : (isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground")}`}
+              >
+                FR
+              </button>
+              <span className={`text-[10px] transition-colors ${isTransparent ? "text-white/20" : "text-muted-foreground/30"}`}>|</span>
+              <button
+                onClick={() => i18n.changeLanguage("en")}
+                className={`text-[10px] font-black tracking-widest transition-colors ${i18n.language === "en" ? (isTransparent ? "text-white" : "text-primary") : (isTransparent ? "text-white/50 hover:text-white" : "text-muted-foreground hover:text-foreground")}`}
+              >
+                EN
+              </button>
+            </div>
+            
+            <button
+              className={`inline-flex h-10 w-10 items-center justify-center transition-colors duration-500 ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
+              aria-label="Search"
+            >
+              <Search size={20} />
+            </button>
+            
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Nav */}
+      {open && (
+        <div className="fixed inset-0 top-16 z-50 md:hidden bg-background/95 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-300">
+          <nav className="container-page flex flex-col py-8 gap-6">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="text-2xl font-display font-bold uppercase tracking-tighter text-foreground border-b border-border/10 pb-4 hover:text-primary transition-colors"
+                activeProps={{ className: "text-primary" }}
+                activeOptions={{ exact: l.to === "/" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <div className="flex justify-between items-center mt-4 pt-6 border-t border-border/10">
+              <div className="flex gap-4">
+                <button onClick={() => i18n.changeLanguage("fr")} className="font-bold text-sm">FR</button>
+                <button onClick={() => i18n.changeLanguage("en")} className="font-bold text-sm">EN</button>
+              </div>
+              <ThemeToggle />
+            </div>
           </nav>
         </div>
       )}

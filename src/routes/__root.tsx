@@ -18,6 +18,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { useLocation } from "@tanstack/react-router";
 
 const newsletterSchema = z.object({
   email: z.string().email(),
@@ -166,12 +167,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main className="flex-1">
+        <main className={`flex-1 ${isHome ? "" : "pt-16 md:pt-20"}`}>
           <Outlet />
         </main>
         <Footer />
