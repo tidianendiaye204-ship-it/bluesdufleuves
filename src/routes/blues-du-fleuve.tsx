@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, MapPin, Calendar, Music2, Palette, Mic } from "lucide-react";
 import { useState } from "react";
+import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
 import baabaImg from "@/assets/baaba-maal.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -143,6 +144,15 @@ function BluesDuFleuve() {
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <div className="container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
+            {/* Logo du Festival */}
+            <div className="mb-6">
+              <img
+                src={logoFestival}
+                alt="Les Blues du Fleuve — Logo officiel"
+                className="h-24 md:h-32 w-auto object-contain drop-shadow-2xl"
+                style={{ filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.5))" }}
+              />
+            </div>
             <p className="text-xs uppercase tracking-[0.3em] text-white/70 mb-5">
               Festival International · 15ème & 16ème éditions
             </p>

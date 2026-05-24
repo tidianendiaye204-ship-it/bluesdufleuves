@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
 import baabaImg from "@/assets/baaba-maal.jpg";
+import baabaConcertImg from "@/assets/baaba-maal-concert.png";
 import centreImg from "@/assets/centre-podor.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
 import { createServerFn } from "@tanstack/react-start";
@@ -178,14 +179,30 @@ function Home() {
       {/* Section Baaba Maal - Elevated Typography */}
       <section className="container-page py-32 border-b border-border/10">
         <div className="grid md:grid-cols-2 gap-20 items-center">
-          <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant animate-reveal">
-            <img src={baabaImg} alt="Baaba Maal" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-8 left-8">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
-                Fondateur
-              </span>
-              <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
+          {/* Galerie photo biographie */}
+          <div className="relative animate-reveal">
+            {/* Photo principale — concert */}
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
+              <img
+                src={baabaConcertImg}
+                alt="Baaba Maal en concert"
+                className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-8 left-8">
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
+                  Fondateur
+                </span>
+                <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
+              </div>
+            </div>
+            {/* Photo secondaire — portrait — positionnée en bas à droite */}
+            <div className="absolute -bottom-6 -right-6 w-36 md:w-44 aspect-[3/4] rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background">
+              <img
+                src={baabaImg}
+                alt="Portrait Baaba Maal"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
+              />
             </div>
           </div>
 
