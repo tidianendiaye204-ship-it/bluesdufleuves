@@ -56,6 +56,7 @@ export function Footer() {
               <Link
                 to="/"
                 className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Le Complexe
               </Link>
@@ -64,6 +65,7 @@ export function Footer() {
               <Link
                 to="/blues-du-fleuve"
                 className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Le Festival
               </Link>
@@ -72,6 +74,7 @@ export function Footer() {
               <Link
                 to="/nann-k-media"
                 className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Nann-k Media
               </Link>
@@ -80,6 +83,7 @@ export function Footer() {
               <Link
                 to="/contact"
                 className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Contact
               </Link>
