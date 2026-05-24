@@ -109,7 +109,7 @@ export function Navbar() {
                   The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
                 </span>
                 <span
-                  className={`text-[6px] md:text-[9px] uppercase tracking-[0.4em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-muted-foreground"}`}
+                  className={`text-[6px] md:text-[9px] uppercase tracking-[0.4em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-foreground/80"}`}
                 >
                   blues des fleuves · NANN-K
                 </span>
@@ -150,7 +150,7 @@ export function Navbar() {
                         : "text-primary"
                       : isTransparent
                         ? "text-white/50 hover:text-white"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   FR
@@ -169,7 +169,7 @@ export function Navbar() {
                         : "text-primary"
                       : isTransparent
                         ? "text-white/50 hover:text-white"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   EN
