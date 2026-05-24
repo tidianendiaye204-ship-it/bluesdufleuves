@@ -127,7 +127,7 @@ function Home() {
             News
           </span>
           <p className="text-[10px] font-bold text-foreground/80 tracking-tight whitespace-nowrap overflow-hidden">
-            La 16ème édition des Blues du Fleuve annoncée sous le signe de l'intégration.
+            La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration.
           </p>
         </div>
       </div>

@@ -61,7 +61,7 @@ export function Navbar() {
   const isTransparent = isHome && !scrolled;
   const borderColor = isTransparent ? "border-white/10" : "border-border";
   const bgColor = isTransparent
-    ? "bg-transparent"
+    ? "bg-black/20 backdrop-blur-sm"
     : "bg-background/80 backdrop-blur-lg border-b shadow-elegant";
 
   return (
