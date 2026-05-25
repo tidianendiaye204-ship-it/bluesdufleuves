@@ -9,12 +9,6 @@ import fleuveImg from "@/assets/fleuve.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
 import centreImg from "@/assets/centre-podor.jpg";
-import miaGuissImg from "@/assets/mia-guiss.jpg";
-import jeebaImg from "@/assets/jeeba.jpg";
-import authentiqueImg from "@/assets/authentique.jpg";
-import boyDiarraImg from "@/assets/boydiarra.jpg";
-import choupiMballoImg from "@/assets/choupi-mabllo.jpg";
-import abdouCamaraImg from "@/assets/ABdou camera.jpg";
 import gal1Img from "@/assets/gal1.jpg";
 import gal2Img from "@/assets/gal2.jpg";
 import gal3Img from "@/assets/gal3.jpg";
@@ -251,86 +245,134 @@ function BluesDuFleuve() {
       <section className="border-b border-border bg-background">
         <div className="container-page py-20">
           <div className="max-w-4xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">
-              Présentation
-            </p>
+            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
               Le Festival et la Ville de <span className="text-gradient-gold">Podor</span>
             </h2>
 
             <div className="prose prose-lg max-w-none space-y-8">
               <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">Introduction</h3>
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                  Introduction
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Le festival « Les Blues du Fleuve » est un cadre idéal pour l'épanouissement culturel et le développement, axé sur diverses expressions des cultures influencées par l'eau, notamment les arts vivants (musique, danse, spectacles traditionnels), l'artisanat et le patrimoine populaire. Il est organisé par une association créée à Podor à l'initiative de Baaba Maal, qui en est le président d'honneur.
+                  Le festival « Les Blues du Fleuve » est un cadre idéal pour l'épanouissement
+                  culturel et le développement, axé sur diverses expressions des cultures
+                  influencées par l'eau, notamment les arts vivants (musique, danse, spectacles
+                  traditionnels), l'artisanat et le patrimoine populaire. Il est organisé par une
+                  association créée à Podor à l'initiative de Baaba Maal, qui en est le président
+                  d'honneur.
                 </p>
               </div>
 
               <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">Bénéficiaires</h3>
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                  Bénéficiaires
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Les musiciens de Podor, du Sénégal et de la sous-région ouest-africaine, les associations locales de femmes, de jeunes, d'artisans, d'éleveurs, de pêcheurs, d'agriculteurs et l'ensemble de la population autour de Podor.
+                  Les musiciens de Podor, du Sénégal et de la sous-région ouest-africaine, les
+                  associations locales de femmes, de jeunes, d'artisans, d'éleveurs, de pêcheurs,
+                  d'agriculteurs et l'ensemble de la population autour de Podor.
                 </p>
               </div>
 
               <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">Les Grands Objectifs du Festival</h3>
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                  Les Grands Objectifs du Festival
+                </h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Établir une forte communauté culturelle unie par le fleuve Sénégal, favorisant l'intégration sous-régionale.</span>
+                    <span>
+                      Établir une forte communauté culturelle unie par le fleuve Sénégal, favorisant
+                      l'intégration sous-régionale.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Stimuler les échanges locaux, sous-régionaux et internationaux entre artistes (musiciens, danseurs, artisans) et promouvoir des partenariats offrant une meilleure visibilité à leurs œuvres.</span>
+                    <span>
+                      Stimuler les échanges locaux, sous-régionaux et internationaux entre artistes
+                      (musiciens, danseurs, artisans) et promouvoir des partenariats offrant une
+                      meilleure visibilité à leurs œuvres.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Revaloriser et promouvoir diverses formes d'expressions artistiques africaines (musique, arts de la scène, danse, artisanat).</span>
+                    <span>
+                      Revaloriser et promouvoir diverses formes d'expressions artistiques africaines
+                      (musique, arts de la scène, danse, artisanat).
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Favoriser l'installation durable d'infrastructures culturelles à Podor comme point de convergence pour les artistes africains et internationaux.</span>
+                    <span>
+                      Favoriser l'installation durable d'infrastructures culturelles à Podor comme
+                      point de convergence pour les artistes africains et internationaux.
+                    </span>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">Les Résultats Attendus</h3>
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                  Les Résultats Attendus
+                </h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Le festival renforce la coopération culturelle et promeut des partenariats durables.</span>
+                    <span>
+                      Le festival renforce la coopération culturelle et promeut des partenariats
+                      durables.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Il crée des opportunités économiques pour les populations locales et les prestataires de services.</span>
+                    <span>
+                      Il crée des opportunités économiques pour les populations locales et les
+                      prestataires de services.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Il bénéficie considérablement à l'industrie touristique à moyen terme.</span>
+                    <span>
+                      Il bénéficie considérablement à l'industrie touristique à moyen terme.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Il met en valeur la richesse artisanale et agricole de la sous-région.</span>
+                    <span>
+                      Il met en valeur la richesse artisanale et agricole de la sous-région.
+                    </span>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">Les Activités Phares</h3>
+                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                  Les Activités Phares
+                </h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Grands concerts attirant un public important des localités environnantes et de la Diaspora.</span>
+                    <span>
+                      Grands concerts attirant un public important des localités environnantes et de
+                      la Diaspora.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Événements traditionnels et expositions artisanales mettant en valeur la diversité créative des populations de la sous-région à travers des spectacles folkloriques, chants et danses, ainsi que le savoir-faire technique et esthétique de divers peuples.</span>
+                    <span>
+                      Événements traditionnels et expositions artisanales mettant en valeur la
+                      diversité créative des populations de la sous-région à travers des spectacles
+                      folkloriques, chants et danses, ainsi que le savoir-faire technique et
+                      esthétique de divers peuples.
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span>Conférences et caravanes éducatives, d'information et de sensibilisation.</span>
+                    <span>
+                      Conférences et caravanes éducatives, d'information et de sensibilisation.
+                    </span>
                   </li>
                 </ul>
               </div>
