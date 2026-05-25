@@ -415,7 +415,7 @@ function BluesDuFleuve() {
             <p className="mt-2 text-muted-foreground">Voix et talents du fleuve.</p>
           </div>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {artistes.map((a) => (
             <article
               key={a.nom}
@@ -444,7 +444,7 @@ function BluesDuFleuve() {
                 <h3 className="font-display text-xl font-semibold">{a.nom}</h3>
                 <p className="text-xs uppercase tracking-wider text-primary mt-1">{a.role}</p>
                 <p className="text-xs text-muted-foreground mt-1">{a.origine}</p>
-                <p className="mt-3 text-sm text-muted-foreground">{a.desc}</p>
+                <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{a.desc}</p>
               </div>
             </article>
           ))}
