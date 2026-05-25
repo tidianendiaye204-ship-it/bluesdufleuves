@@ -218,11 +218,7 @@ export function Navbar() {
       >
         {/* En-tête du menu mobile */}
         <div className="flex items-center justify-between px-6 h-16 border-b border-border shrink-0">
-          <Link
-            to="/"
-            className="flex flex-col items-start"
-            onClick={() => setOpen(false)}
-          >
+          <Link to="/" className="flex flex-col items-start" onClick={() => setOpen(false)}>
             <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
               The <span className="text-primary">Village</span>
             </span>
