@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor, Send } from "lucide-react";
+import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor, Send, Play } from "lucide-react";
 import { useState } from "react";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
+import baabaVideo from "@/assets/Baaba Maal helping Français.mp4";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
 import { inscriptions } from "@/db/schema";
@@ -110,6 +111,7 @@ function Formations() {
   });
   const [sent, setSent] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,12 +190,38 @@ function Formations() {
                 </p>
               </div>
 
-              <div className="aspect-video overflow-hidden border-4 border-background shadow-xl mt-10">
-                <img
-                  src={instrumentsImg}
-                  alt="Apprentissage des instruments"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
+              <div className="aspect-video overflow-hidden border-4 border-background shadow-xl mt-10 relative">
+                {isVideoPlaying ? (
+                  <video
+                    src={baabaVideo}
+                    controls
+                    autoPlay
+                    className="w-full h-full object-cover"
+                    onEnded={() => setIsVideoPlaying(false)}
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={instrumentsImg}
+                      alt="Apprentissage des instruments"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <button
+                        onClick={() => setIsVideoPlaying(true)}
+                        className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--shadow-glow) hover:scale-105 transition cursor-pointer"
+                        aria-label="Lecture vidéo"
+                      >
+                        <Play size={28} className="ml-1" fill="currentColor" />
+                      </button>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-white text-sm font-bold bg-black/60 backdrop-blur-sm px-4 py-2 rounded-lg">
+                        Baaba Maal — Formation des Artistes
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
