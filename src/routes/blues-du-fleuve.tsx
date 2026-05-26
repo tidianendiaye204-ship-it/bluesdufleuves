@@ -1,5 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, MapPin, Calendar, Music2, Palette, Mic } from "lucide-react";
+import {
+  Play,
+  MapPin,
+  Calendar,
+  Music2,
+  Palette,
+  Mic,
+  Users,
+  Target,
+  Award,
+  Sparkles,
+  Globe,
+  Heart,
+  TreePine,
+} from "lucide-react";
 import { useState } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
@@ -250,131 +264,177 @@ function BluesDuFleuve() {
               Le Festival et la Ville de <span className="text-gradient-gold">Podor</span>
             </h2>
 
-            <div className="prose prose-lg max-w-none space-y-8">
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                  Introduction
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Le festival « Les Blues du Fleuve » est un cadre idéal pour l'épanouissement
-                  culturel et le développement, axé sur diverses expressions des cultures
-                  influencées par l'eau, notamment les arts vivants (musique, danse, spectacles
-                  traditionnels), l'artisanat et le patrimoine populaire. Il est organisé par une
-                  association créée à Podor à l'initiative de Baaba Maal, qui en est le président
-                  d'honneur.
-                </p>
+            {/* Introduction Card */}
+            <div className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <Sparkles size={24} />
+                </div>
+                <div>
+                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                    Introduction
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Le festival « Les Blues du Fleuve » est un cadre idéal pour l'épanouissement
+                    culturel et le développement, axé sur diverses expressions des cultures
+                    influencées par l'eau, notamment les arts vivants (musique, danse, spectacles
+                    traditionnels), l'artisanat et le patrimoine populaire. Il est organisé par une
+                    association créée à Podor à l'initiative de Baaba Maal, qui en est le président
+                    d'honneur.
+                  </p>
+                </div>
               </div>
+            </div>
 
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                  Bénéficiaires
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Les musiciens de Podor, du Sénégal et de la sous-région ouest-africaine, les
-                  associations locales de femmes, de jeunes, d'artisans, d'éleveurs, de pêcheurs,
-                  d'agriculteurs et l'ensemble de la population autour de Podor.
-                </p>
+            {/* Bénéficiaires Card */}
+            <div className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <Users size={24} />
+                </div>
+                <div>
+                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                    Bénéficiaires
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Les musiciens de Podor, du Sénégal et de la sous-région ouest-africaine, les
+                    associations locales de femmes, de jeunes, d'artisans, d'éleveurs, de pêcheurs,
+                    d'agriculteurs et l'ensemble de la population autour de Podor.
+                  </p>
+                </div>
               </div>
+            </div>
 
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                  Les Grands Objectifs du Festival
-                </h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+            {/* Objectifs Grid */}
+            <div className="mb-6">
+              <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Target size={20} />
+                </div>
+                Les Grands Objectifs du Festival
+              </h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Globe className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Établir une forte communauté culturelle unie par le fleuve Sénégal, favorisant
                       l'intégration sous-régionale.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Music2 className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Stimuler les échanges locaux, sous-régionaux et internationaux entre artistes
                       (musiciens, danseurs, artisans) et promouvoir des partenariats offrant une
                       meilleure visibilité à leurs œuvres.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Palette className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Revaloriser et promouvoir diverses formes d'expressions artistiques africaines
                       (musique, arts de la scène, danse, artisanat).
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Award className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Favoriser l'installation durable d'infrastructures culturelles à Podor comme
                       point de convergence pour les artistes africains et internationaux.
-                    </span>
-                  </li>
-                </ul>
+                    </p>
+                  </div>
+                </div>
               </div>
+            </div>
 
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                  Les Résultats Attendus
-                </h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+            {/* Résultats Grid */}
+            <div className="mb-6">
+              <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Award size={20} />
+                </div>
+                Les Résultats Attendus
+              </h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Heart className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Le festival renforce la coopération culturelle et promeut des partenariats
                       durables.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Target className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Il crée des opportunités économiques pour les populations locales et les
                       prestataires de services.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Il bénéficie considérablement à l'industrie touristique à moyen terme.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <TreePine className="text-primary mt-1 shrink-0" size={20} />
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Il met en valeur la richesse artisanale et agricole de la sous-région.
-                    </span>
-                  </li>
-                </ul>
+                    </p>
+                  </div>
+                </div>
               </div>
+            </div>
 
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                  Les Activités Phares
-                </h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      Grands concerts attirant un public important des localités environnantes et de
-                      la Diaspora.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      Événements traditionnels et expositions artisanales mettant en valeur la
-                      diversité créative des populations de la sous-région à travers des spectacles
-                      folkloriques, chants et danses, ainsi que le savoir-faire technique et
-                      esthétique de divers peuples.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      Conférences et caravanes éducatives, d'information et de sensibilisation.
-                    </span>
-                  </li>
-                </ul>
+            {/* Activités Phares Card */}
+            <div className="rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-colors">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <Mic size={24} />
+                </div>
+                <div>
+                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
+                    Les Activités Phares
+                  </h3>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Music2 className="text-primary mt-1 shrink-0" size={20} />
+                  <p className="text-muted-foreground leading-relaxed">
+                    Grands concerts attirant un public important des localités environnantes et de
+                    la Diaspora.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Palette className="text-primary mt-1 shrink-0" size={20} />
+                  <p className="text-muted-foreground leading-relaxed">
+                    Événements traditionnels et expositions artisanales mettant en valeur la
+                    diversité créative des populations de la sous-région à travers des spectacles
+                    folkloriques, chants et danses, ainsi que le savoir-faire technique et
+                    esthétique de divers peuples.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Sparkles className="text-primary mt-1 shrink-0" size={20} />
+                  <p className="text-muted-foreground leading-relaxed">
+                    Conférences et caravanes éducatives, d'information et de sensibilisation.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
