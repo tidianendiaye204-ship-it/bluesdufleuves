@@ -6,7 +6,7 @@ import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
-import logoNannk from "@/assets/logo-nannk.png";
+import logoNannk from "@/assets/logo nannk.jpg";
 
 const heroPoster = fleuveImg;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
@@ -14,15 +14,15 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nann-k-media")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "NANN-k — Production & Média",
+      title: "NANN-k — Mouvement Culturel & Économique",
       description:
-        "NANN-k : Pôle de production audiovisuelle et de communication dédiés à la valorisation de la vallée du fleuve Sénégal.",
-      ogTitle: "NANN-k Media — Production Vallée du Fleuve",
+        "Le mouvement NANN-K, fondé par Baaba MAAL, promeut l'Agriculture, l'Artisanat et les Technologies pour le développement social et économique en Afrique.",
+      ogTitle: "NANN-k — Culture, Savoir, Travail",
       ogDescription:
-        "Pôle de production et communication de la Vallée. Découvrez nos émissions culturelles, documentaires et archives.",
+        "Mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et les technologies modernes.",
       ogImage: logoNannk,
       keywords:
-        "NANN-k, production, média, audiovisuel, vallée du fleuve, Podor, documentaires, patrimoine",
+        "NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, émergence économique",
       canonical: "https://lesbluesdufleuve.sn/nann-k-media",
     });
     return { meta, links };
@@ -70,14 +70,18 @@ function NannkMedia() {
       <section className="bg-muted border-b border-border py-16 md:py-20">
         <div className="container-page text-center max-w-4xl mx-auto">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
-            Pôle Stratégique & Diffusion
+            Mouvement Culturel & Économique
           </div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground">
-            <span className="text-primary">Nann-k</span>
+            <span className="text-primary">NANN-K</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-            Le pôle central de communication, de production audiovisuelle et d'archivage numérique,
-            associé à notre espace de diffusion NANN-k TV.
+            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL de répondre par une
+            participation effective à l'invitation des plus hautes autorités à la réalisation de la
+            croissance de l'économie, et donc le progrès social, au Sénégal puis progressivement en
+            Afrique surtout au Sud du Sahara. Cette région concentre les États à faible revenu de
+            l'Afrique de l'Ouest, ce qui représente un empêchement pour accélérer la croissance,
+            éliminer la pauvreté et la faim dans les pays.
           </p>
         </div>
       </section>
@@ -87,26 +91,40 @@ function NannkMedia() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              Le Bureau
+              Le Fondateur
             </span>
             <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground">
               Notre Mission
             </h2>
+            <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
+              NANNK apporte une nouvelle dynamique active et citoyenne de promotion de l'Agriculture
+              au sens large, l'Artisanat et les Technologies modernes (TIC). Ces secteurs à fort
+              potentiel offrent des conditions d'un plein épanouissement et d'une participation
+              effective à la construction du tissu économique.
+            </p>
+            <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
+              Dans le langage Peulh, "NANN-K" est une expression populaire qui est utilisée pour la
+              plaisanterie et provient du verbe «nanni» c'est à dire Ouïr. C'est pour cette raison
+              que le mouvement possède un bras culturel constitué par une troupe folklorique afin de
+              faire entendre et comprendre les opérations du développement, dans la musique et la
+              mobilisation.
+            </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-              Le pôle Nann-k constitue l'organe nerveux du projet culturel global. Il centralise la
-              production de contenus, assure la couverture médiatique des événements majeurs comme
-              les Blues du Fleuve, et pilote la stratégie de relations publiques.
+              Donc, le mouvement "NANN-K" se veut asseoir une conscientisation, motivation
+              médiatisée pour l'application par responsabilité citoyenne, du triptyque «Culture –
+              Savoir – Travail » afin de réaliser le développement de l'Agriculture, l'Artisanat et
+              les Technologies en faveur d'une réelle Emergence sociale et économique.
             </p>
             <div className="space-y-6 font-serif text-muted-foreground">
               <div className="flex items-start gap-4">
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Production Audiovisuelle
+                    Agriculture
                   </strong>
                   <span className="text-sm">
-                    Création de documentaires, reportages exclusifs, interviews et captations
-                    professionnelles de concerts.
+                    Promotion de l'agriculture au sens large pour la sécurité alimentaire et la
+                    croissance économique.
                   </span>
                 </div>
               </div>
@@ -114,11 +132,11 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Communication Numérique
+                    Artisanat
                   </strong>
                   <span className="text-sm">
-                    Gestion dynamique des plateformes web, des réseaux sociaux et de la stratégie
-                    d'influence numérique.
+                    Valorisation du savoir-faire artisanal local et création d'opportunités
+                    économiques.
                   </span>
                 </div>
               </div>
@@ -126,11 +144,11 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Archivage & Patrimoine
+                    Technologies (TIC)
                   </strong>
                   <span className="text-sm">
-                    Numérisation systématique et préservation rigoureuse du patrimoine culturel
-                    matériel et immatériel local.
+                    Intégration des technologies modernes pour accélérer le développement et
+                    l'innovation.
                   </span>
                 </div>
               </div>
@@ -140,9 +158,69 @@ function NannkMedia() {
             <div className="aspect-4/3 overflow-hidden border-4 border-background shadow-xl group">
               <img
                 src={fleuveImg}
-                alt="Studio Media"
+                alt="NANN-K Mission"
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Context & Justification Section */}
+      <section className="container-page py-20 border-b border-border">
+        <div className="max-w-4xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Contexte & Justification
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            Pourquoi NANN-K ?
+          </h2>
+          <div className="prose prose-lg max-w-none space-y-6 font-serif text-muted-foreground">
+            <p>
+              Le développement social et économique en Afrique fait face à des défis majeurs. Le
+              manque d'initiatives citoyennes et de réflexions approfondies sur les stratégies pour
+              un avenir meilleur constitue un obstacle important.
+            </p>
+            <p>
+              La réponse insuffisante des gouvernements à la demande d'emploi, à la création de
+              richesses et à la sécurité alimentaire nécessite une mobilisation citoyenne accrue.
+            </p>
+            <p>
+              Avec la fin de l'initiative "Afrique 2015" et des Objectifs du Millénaire pour le
+              Développement, de nombreux émigrants sont contraints de retourner dans leurs pays
+              d'origine en raison des crises européennes.
+            </p>
+            <p>
+              Le Sénégal a décidé de faire de l'agriculture un moteur de croissance, mais les
+              mesures institutionnelles ralentissent sa mise en œuvre. La population a besoin
+              d'alternatives, notamment pour accéder à des informations utiles et au financement,
+              acquérir des équipements et des intrants, et bénéficier de renforcement des capacités.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Agriculture Images Section - Placeholder */}
+      <section className="container-page py-20 border-b border-border">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Agriculture NANN-K
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            Nos Projets Agricoles
+          </h2>
+          <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
+            Découvrez nos initiatives agricoles dans la vallée du fleuve Sénégal.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
+              <p className="text-muted-foreground text-sm">Image agriculture 1</p>
+            </div>
+            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
+              <p className="text-muted-foreground text-sm">Image agriculture 2</p>
+            </div>
+            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
+              <p className="text-muted-foreground text-sm">Image agriculture 3</p>
             </div>
           </div>
         </div>
