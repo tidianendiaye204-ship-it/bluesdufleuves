@@ -7,6 +7,14 @@ import piroguesImg from "@/assets/pirogues.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
 import logoNannk from "@/assets/logo nannk.jpg";
+import agri1Img from "@/assets/nann-k agri1.jpg";
+import agri2Img from "@/assets/nann-k agri2.jpg";
+import agri3Img from "@/assets/nann-k agri3.jpg";
+import agri4Img from "@/assets/nann-k agri4.jpg";
+import agri5Img from "@/assets/nann-k agri5.jpg";
+import agri6Img from "@/assets/nann-k agri6.jpg";
+import agri7Img from "@/assets/nann-k agri7.jpg";
+import agri8Img from "@/assets/nann-k agri8.jpg";
 
 const heroPoster = fleuveImg;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
@@ -200,7 +208,7 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Agriculture Images Section - Placeholder */}
+      {/* Agriculture Images Section */}
       <section className="container-page py-20 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
@@ -212,15 +220,62 @@ function NannkMedia() {
           <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
             Découvrez nos initiatives agricoles dans la vallée du fleuve Sénégal.
           </p>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Image agriculture 1</p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri1Img}
+                alt="Agriculture NANN-K 1"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
             </div>
-            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Image agriculture 2</p>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri2Img}
+                alt="Agriculture NANN-K 2"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
             </div>
-            <div className="aspect-4/3 rounded-2xl border border-border bg-muted flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Image agriculture 3</p>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri3Img}
+                alt="Agriculture NANN-K 3"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri4Img}
+                alt="Agriculture NANN-K 4"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri5Img}
+                alt="Agriculture NANN-K 5"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri6Img}
+                alt="Agriculture NANN-K 6"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri7Img}
+                alt="Agriculture NANN-K 7"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
+              <img
+                src={agri8Img}
+                alt="Agriculture NANN-K 8"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
             </div>
           </div>
         </div>
