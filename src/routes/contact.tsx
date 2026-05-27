@@ -256,7 +256,9 @@ function ContactPage() {
                       placeholder="Votre nom"
                     />
                     {errors.nom && (
-                      <p className="text-red-500 text-sm mt-1" role="alert">{errors.nom.message}</p>
+                      <p className="text-red-500 text-sm mt-1" role="alert">
+                        {errors.nom.message}
+                      </p>
                     )}
                   </div>
                   <div className="space-y-2">
