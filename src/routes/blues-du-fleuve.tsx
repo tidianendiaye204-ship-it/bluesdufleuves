@@ -441,7 +441,84 @@ function BluesDuFleuve() {
         </div>
       </section>
 
+
+      {/* Mot du Producteur Exécutif */}
+      <section className="border-b border-border bg-muted/30">
+        <div className="container-page py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Texte - gauche */}
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
+                Mot du Producteur
+              </p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold mb-8 text-foreground">
+                Le message d'
+                <span className="text-gradient-gold">Oumar Wade</span>
+              </h2>
+              <div className="space-y-5 font-serif text-muted-foreground text-lg leading-relaxed">
+                <p>
+                  Oui, le Festival des Blues du Fleuve est devenu un souffle, un moteur, un moment
+                  faste où Podor vit et sourit davantage. Tenir chaque année un festival est un défi
+                  majeur.
+                </p>
+                <p>
+                  Chers festivaliers venus du Sénégal, des pays voisins, du reste de l'Afrique et
+                  de l'extérieur, vous êtes chez vous ici, sur cette terre où le fleuve porte notre
+                  histoire, notre culture et nos traditions ancestrales ; où chaque vague murmure la
+                  mémoire du passé et l'espoir du futur.
+                </p>
+                <p>
+                  Bienvenue à Podor Wuro Njaak Buubu et Baaba Maal, où la musique nous rassemble et
+                  nous unit ; où la voix chaleureuse de Baaba réjouit nos cœurs et éveillent nos
+                  esprits.
+                </p>
+              </div>
+              {/* Citation mise en avant */}
+              <div className="mt-8 rounded-2xl bg-primary px-8 py-6 text-primary-foreground">
+                <p className="font-display text-xl font-bold mb-1">
+                  « Je vous souhaite un magnifique festival. »
+                </p>
+                <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
+                <div className="mt-4 border-t border-primary-foreground/30 pt-4">
+                  <p className="font-bold text-base">Oumar Wade</p>
+                  <p className="text-sm opacity-80 uppercase tracking-wider">
+                    Producteur Exécutif
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Photo - droite */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                {/* Décoration derrière la photo */}
+                <div className="absolute -inset-4 rounded-3xl bg-primary/10 -z-10" />
+                <div className="w-72 md:w-80 aspect-[4/5] rounded-2xl overflow-hidden border-4 border-background shadow-2xl">
+                  <img
+                    src="/oumar-wade.jpg"
+                    alt="Oumar Wade — Producteur Exécutif du Festival Blues du Fleuve"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = "none";
+                    }}
+                  />
+                </div>
+                {/* Badge flottant */}
+                <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-4 py-3 shadow-lg">
+                  <p className="text-xs uppercase tracking-wider text-primary font-bold">
+                    Producteur Exécutif
+                  </p>
+                  <p className="font-display font-bold text-foreground">Oumar Wade</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Programme du Festival */}
+
       <section id="billetterie" className="festival-container py-20 border-b border-border">
         <h2 className="font-display text-3xl md:text-5xl font-bold mb-10">
           Programme & <span className="text-gradient-gold">Billetterie</span>
