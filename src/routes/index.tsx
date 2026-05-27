@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
 import baabaImg from "@/assets/baaba-maal.jpg";
@@ -121,8 +122,13 @@ function Home() {
   return (
     <div className="bg-background min-h-screen">
       {/* Ticker / Flash Info - More discreet and premium */}
-      <div className="fixed top-24 left-1/2 -translate-x-1/2 z-40 hidden md:block w-auto max-w-2xl">
-        <div className="glass px-6 py-2 rounded-full border border-white/20 shadow-elegant flex items-center gap-4 animate-reveal">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-24 left-1/2 -translate-x-1/2 z-40 hidden md:block w-auto max-w-2xl"
+      >
+        <div className="glass px-6 py-2 rounded-full border border-white/20 shadow-elegant flex items-center gap-4">
           <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shrink-0">
             News
           </span>
@@ -130,32 +136,54 @@ function Home() {
             La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Hero Section: Le Complexe & Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-[100vh] min-h-[700px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <motion.img
             src={centreImg}
             alt="Centre Culturel de Podor"
-            className="h-full w-full object-cover scale-105 animate-float"
+            className="h-full w-full object-cover scale-105"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background" />
         </div>
 
         <div className="container-page relative z-10 text-center pt-32 md:pt-40">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-8"
+          >
             <Landmark size={14} className="text-primary" /> Podor · Vallée du Fleuve
-          </div>
-          <h1 className="luxury-text text-6xl md:text-9xl text-white mb-8 animate-reveal [animation-delay:200ms]">
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="luxury-text text-6xl md:text-9xl text-white mb-8"
+          >
             The <span className="text-primary">Village</span>
-          </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed animate-reveal [animation-delay:400ms]">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed"
+          >
             L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée,
             espaces de création et de formation.
-          </p>
-          <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6 animate-reveal [animation-delay:600ms]">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6"
+          >
             <Link
               to="/blues-du-fleuve"
               className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
@@ -168,7 +196,7 @@ function Home() {
             >
               Nous Contacter
             </Link>
-          </div>
+          </motion.div>
         </div>
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
@@ -180,7 +208,13 @@ function Home() {
       <section className="container-page py-32 border-b border-border/10">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           {/* Galerie photo biographie */}
-          <div className="relative animate-reveal">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
+          >
             {/* Photo principale — concert */}
             <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
               <img
@@ -204,9 +238,14 @@ function Home() {
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="animate-reveal [animation-delay:200ms]">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
               L'Âme du Projet
             </span>
@@ -232,7 +271,7 @@ function Home() {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -258,39 +297,46 @@ function Home() {
 
           <div className="grid md:grid-cols-3 gap-10">
             {articles.map((article, idx) => (
-              <Link
+              <motion.div
                 key={article.title}
-                to={article.to}
-                className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500 animate-reveal"
-                style={{ animationDelay: `${idx * 150}ms` }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full"
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={article.img}
-                    alt={article.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
-                      {article.category}
+                <Link
+                  to={article.to}
+                  className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={article.img}
+                      alt={article.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
+                        {article.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-8 flex flex-col flex-1">
+                    <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
+                      {article.date}
                     </span>
+                    <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
+                      {article.excerpt}
+                    </p>
+                    <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
+                      Lire la suite <ChevronRight size={14} />
+                    </div>
                   </div>
-                </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                    {article.date}
-                  </span>
-                  <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
-                    {article.excerpt}
-                  </p>
-                  <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                    Lire la suite <ChevronRight size={14} />
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -309,16 +355,19 @@ function Home() {
 
         <div className="grid md:grid-cols-3 gap-12">
           {instruments.map((inst, idx) => (
-            <div
+            <motion.div
               key={inst.nom}
-              className="p-10 rounded-2xl border border-border/10 bg-muted/20 hover:bg-background hover:shadow-elegant transition-all duration-500 animate-reveal"
-              style={{ animationDelay: `${idx * 100}ms` }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="p-10 rounded-2xl border border-border/10 bg-muted/20 hover:bg-background hover:shadow-elegant transition-all duration-500"
             >
               <h4 className="luxury-text text-2xl text-primary mb-6">{inst.nom}</h4>
               <p className="text-muted-foreground text-sm font-medium leading-relaxed">
                 {inst.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

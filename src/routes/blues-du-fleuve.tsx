@@ -441,7 +441,6 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-
       {/* Mot du Producteur Exécutif */}
       <section className="border-b border-border bg-muted/30">
         <div className="container-page py-20">
@@ -462,8 +461,8 @@ function BluesDuFleuve() {
                   majeur.
                 </p>
                 <p>
-                  Chers festivaliers venus du Sénégal, des pays voisins, du reste de l'Afrique et
-                  de l'extérieur, vous êtes chez vous ici, sur cette terre où le fleuve porte notre
+                  Chers festivaliers venus du Sénégal, des pays voisins, du reste de l'Afrique et de
+                  l'extérieur, vous êtes chez vous ici, sur cette terre où le fleuve porte notre
                   histoire, notre culture et nos traditions ancestrales ; où chaque vague murmure la
                   mémoire du passé et l'espoir du futur.
                 </p>
@@ -481,9 +480,7 @@ function BluesDuFleuve() {
                 <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
                 <div className="mt-4 border-t border-primary-foreground/30 pt-4">
                   <p className="font-bold text-base">Oumar Wade</p>
-                  <p className="text-sm opacity-80 uppercase tracking-wider">
-                    Producteur Exécutif
-                  </p>
+                  <p className="text-sm opacity-80 uppercase tracking-wider">Producteur Exécutif</p>
                 </div>
               </div>
             </div>
