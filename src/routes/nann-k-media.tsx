@@ -163,11 +163,11 @@ function NannkMedia() {
             </div>
           </div>
           <div>
-            <div className="aspect-4/3 overflow-hidden border-4 border-background shadow-xl group">
+            <div className="aspect-4/3 overflow-hidden border-4 border-border shadow-xl group rounded-2xl bg-white flex items-center justify-center p-8">
               <img
-                src={fleuveImg}
-                alt="NANN-K Mission"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+                src={logoNannk}
+                alt="Logo NANN-K"
+                className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-1000"
               />
             </div>
           </div>

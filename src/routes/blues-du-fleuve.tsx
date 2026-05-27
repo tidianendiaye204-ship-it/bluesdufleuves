@@ -490,7 +490,7 @@ function BluesDuFleuve() {
               <div className="relative">
                 {/* Décoration derrière la photo */}
                 <div className="absolute -inset-4 rounded-3xl bg-primary/10 -z-10" />
-                <div className="w-72 md:w-80 aspect-[4/5] rounded-2xl overflow-hidden border-4 border-background shadow-2xl">
+                <div className="w-72 md:w-80 aspect-4/5 rounded-2xl overflow-hidden border-4 border-background shadow-2xl">
                   <img
                     src="/oumar-wade.jpg"
                     alt="Oumar Wade — Producteur Exécutif du Festival Blues du Fleuve"

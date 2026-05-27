@@ -139,7 +139,7 @@ function Home() {
       </motion.div>
 
       {/* Hero Section: Le Complexe & Centre Culturel - Grandiose & Apple Style */}
-      <section className="relative h-[100vh] min-h-[700px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
             src={centreImg}
@@ -149,7 +149,7 @@ function Home() {
             transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
         </div>
 
         <div className="container-page relative z-10 text-center pt-32 md:pt-40">
@@ -216,13 +216,13 @@ function Home() {
             className="relative"
           >
             {/* Photo principale — concert */}
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-elegant">
+            <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
               <img
                 src={baabaConcertImg}
                 alt="Baaba Maal en concert"
                 className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-8 left-8">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
                   Fondateur
@@ -231,7 +231,7 @@ function Home() {
               </div>
             </div>
             {/* Photo secondaire — portrait — positionnée en bas à droite */}
-            <div className="absolute -bottom-6 -right-6 w-36 md:w-44 aspect-[3/4] rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background">
+            <div className="absolute -bottom-6 -right-6 w-36 md:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background">
               <img
                 src={baabaImg}
                 alt="Portrait Baaba Maal"
@@ -309,7 +309,7 @@ function Home() {
                   to={article.to}
                   className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden">
+                  <div className="relative aspect-16/10 overflow-hidden">
                     <img
                       src={article.img}
                       alt={article.title}
