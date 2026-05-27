@@ -28,6 +28,9 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const db = getDb();
+      if (!db) {
+        throw new Error("La connexion à la base de données a échoué.");
+      }
       await withRetry(() =>
         db.insert(newsletter).values({
           email: data.email,
@@ -37,15 +40,27 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      console.error("Newsletter error:", e);
+      console.error("Newsletter error detail:", {
+        message: e.message,
+        cause: e.cause,
+        stack: e.stack,
+        fullError: e,
+      });
+
+      const errorMessage = e.message || "";
       if (
-        e.message?.includes("UNIQUE") ||
-        e.message?.includes("UNIQUE constraint failed") ||
-        e.message?.includes("D1_ERROR: UNIQUE")
+        errorMessage.includes("UNIQUE") ||
+        errorMessage.includes("UNIQUE constraint failed") ||
+        errorMessage.includes("D1_ERROR: UNIQUE")
       ) {
-        return { error: "Cet email est déjà inscrit." };
+        return { error: "Cet email est déjà inscrit à notre newsletter." };
       }
-      return { error: "Une erreur est survenue." };
+
+      if (errorMessage.includes("D1_BINDING_MISSING") || errorMessage.includes("binding is not defined")) {
+        return { error: "Service temporairement indisponible (DB)." };
+      }
+
+      return { error: "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard." };
     }
   });
 
