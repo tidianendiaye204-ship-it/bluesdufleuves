@@ -70,6 +70,12 @@ export default {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async fetch(request: Request, env: any, ctx: unknown) {
     try {
+      if (typeof process !== "undefined" && process.env) {
+        Object.assign(process.env, env);
+      } else {
+        (globalThis as any).process = { env: { ...env } };
+      }
+
       if (env?.MY_RATE_LIMITER) {
         const ip = request.headers.get("CF-Connecting-IP") || "unknown";
         const { success } = await env.MY_RATE_LIMITER.limit({ key: ip });

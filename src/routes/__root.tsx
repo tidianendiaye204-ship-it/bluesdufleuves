@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { getDb } from "@/lib/db";
+import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
 
 import appCss from "../styles.css?url";
@@ -26,16 +26,19 @@ const newsletterSchema = z.object({
 export const subscribeNewsletterFn = createServerFn({ method: "POST" })
   .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
   .handler(async ({ data }) => {
-    const db = getDb();
     try {
-      await db.insert(newsletter).values({
-        email: data.email,
-        dateInscription: new Date(),
-      });
+      const db = getDb();
+      await withRetry(() => 
+        db.insert(newsletter).values({
+          email: data.email,
+          dateInscription: new Date(),
+        })
+      );
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      if (e.message?.includes("UNIQUE") || e.message?.includes("UNIQUE constraint failed")) {
+      console.error("Newsletter error:", e);
+      if (e.message?.includes("UNIQUE") || e.message?.includes("UNIQUE constraint failed") || e.message?.includes("D1_ERROR: UNIQUE")) {
         return { error: "Cet email est déjà inscrit." };
       }
       return { error: "Une erreur est survenue." };

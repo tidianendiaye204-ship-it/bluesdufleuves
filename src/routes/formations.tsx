@@ -3,7 +3,7 @@ import { BookOpen, Music, Wrench, Sprout, HandMetal, Monitor, Send, Play } from 
 import { useState } from "react";
 import centreImg from "@/assets/centre-podor.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
-import baabaVideo from "@/assets/Baaba Maal helping Français.mp4";
+import baabaVideo from "@/assets/baaba-maal-helping-francais.mp4";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
 import { inscriptions } from "@/db/schema";
