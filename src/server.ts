@@ -73,6 +73,7 @@ export default {
       if (typeof process !== "undefined" && process.env) {
         Object.assign(process.env, env);
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (globalThis as any).process = { env: { ...env } };
       }
 

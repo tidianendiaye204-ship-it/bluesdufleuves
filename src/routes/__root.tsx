@@ -28,17 +28,21 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const db = getDb();
-      await withRetry(() => 
+      await withRetry(() =>
         db.insert(newsletter).values({
           email: data.email,
           dateInscription: new Date(),
-        })
+        }),
       );
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error("Newsletter error:", e);
-      if (e.message?.includes("UNIQUE") || e.message?.includes("UNIQUE constraint failed") || e.message?.includes("D1_ERROR: UNIQUE")) {
+      if (
+        e.message?.includes("UNIQUE") ||
+        e.message?.includes("UNIQUE constraint failed") ||
+        e.message?.includes("D1_ERROR: UNIQUE")
+      ) {
         return { error: "Cet email est déjà inscrit." };
       }
       return { error: "Une erreur est survenue." };
