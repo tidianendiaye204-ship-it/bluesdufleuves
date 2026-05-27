@@ -11,5 +11,7 @@ test("Contact form should display validation errors for empty fields", async ({ 
   // but let's check for custom RHF error classes or texts if they bypass HTML5.
 
   // As we used required in HTML before and now use RHF, we can check for RHF error messages
-  await expect(page.locator("text=Le nom complet est requis")).toBeVisible();
+  // We need to wait for the validation to happen after clicking submit
+  // React Hook Form validation might take a tiny bit of time
+  await expect(page.getByText("Le nom complet est requis")).toBeVisible();
 });
