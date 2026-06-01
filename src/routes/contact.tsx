@@ -181,7 +181,7 @@ function ContactPage() {
                 <div>
                   <h4 className="font-bold text-lg text-foreground mb-1">Téléphone</h4>
                   <p className="text-muted-foreground font-serif text-base leading-relaxed">
-                    +221 77 XXX XX XX
+                    +221 77 496 75 31
                     <br />
                     +221 33 XXX XX XX
                   </p>
