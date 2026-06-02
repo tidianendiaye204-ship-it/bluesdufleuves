@@ -1,7 +1,7 @@
-import { V as reactExports, L as jsxRuntimeExports } from "./server-Ci9T_1RX.js";
-import { P as Play, i as instrumentsImg } from "./instruments-4twkadw8.js";
+import { V as reactExports, L as jsxRuntimeExports } from "./server-D8bsbDCT.js";
+import { P as Play, i as instrumentsImg } from "./instruments-V1oKTCXO.js";
 import { p as piroguesImg } from "./pirogues-BR-IZ-pT.js";
-import { f as fleuveImg, b as crowdImg, X } from "./router-CauDO54G.js";
+import { f as fleuveImg, b as crowdImg, X } from "./router-xG9kfme0.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";

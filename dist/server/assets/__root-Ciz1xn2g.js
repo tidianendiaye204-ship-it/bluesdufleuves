@@ -1,7 +1,7 @@
-import { c as createServerRpc } from "./createServerRpc-DV_d9LkD.js";
+import { c as createServerRpc } from "./createServerRpc-BGmsOh6S.js";
 import "./styles-DAnF-_po.js";
-import { g as getDb, w as withRetry, n as newsletter } from "./db-JsrdoyeD.js";
-import { i as createServerFn } from "./server-Ci9T_1RX.js";
+import { a3 as getDb, aU as withRetry, aB as newsletter } from "./db-CUDmDlFP.js";
+import { i as createServerFn } from "./server-D8bsbDCT.js";
 import { o as objectType, s as stringType } from "./types-DGfzljZx.js";
 import "fs";
 import "path";
@@ -27,10 +27,35 @@ const subscribeNewsletterFn = createServerFn({
     if (!db) {
       throw new Error("La connexion à la base de données a échoué.");
     }
-    await withRetry(() => db.insert(newsletter).values({
-      email: data.email,
-      dateInscription: /* @__PURE__ */ new Date()
-    }));
+    try {
+      await withRetry(async () => {
+        await db.insert(newsletter).values({
+          email: data.email,
+          dateInscription: /* @__PURE__ */ new Date()
+        });
+      });
+    } catch (insertError) {
+      const errMsg = insertError?.message || "";
+      if (errMsg.includes("no such table: newsletter")) {
+        console.warn("Table newsletter missing, attempting to create it...");
+        const {
+          sql
+        } = await import("./index-DKLWXjZ5.js");
+        await db.run(sql`
+            CREATE TABLE IF NOT EXISTS newsletter (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              email TEXT NOT NULL UNIQUE,
+              date_inscription INTEGER NOT NULL
+            )
+          `);
+        await db.insert(newsletter).values({
+          email: data.email,
+          dateInscription: /* @__PURE__ */ new Date()
+        });
+      } else {
+        throw insertError;
+      }
+    }
     return {
       success: true
     };

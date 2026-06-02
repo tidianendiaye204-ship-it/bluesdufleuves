@@ -1,8 +1,9 @@
-import { x as getDefaultExportFromCjs } from "./server-Ci9T_1RX.js";
+import { x as getDefaultExportFromCjs } from "./server-D8bsbDCT.js";
 import require$$0 from "fs";
 import require$$1 from "path";
 import require$$2 from "util";
 const entityKind = /* @__PURE__ */ Symbol.for("drizzle:entityKind");
+const hasOwnEntityKind = /* @__PURE__ */ Symbol.for("drizzle:hasOwnEntityKind");
 function is(value, type) {
   if (!value || typeof value !== "object") {
     return false;
@@ -104,11 +105,14 @@ class Table {
   [IsDrizzleTable] = true;
   /** @internal */
   [ExtraConfigBuilder] = void 0;
-  constructor(name, schema2, baseName) {
-    this[TableName] = this[OriginalName] = name;
+  constructor(name2, schema2, baseName) {
+    this[TableName] = this[OriginalName] = name2;
     this[Schema] = schema2;
     this[BaseName] = baseName;
   }
+}
+function isTable(table2) {
+  return typeof table2 === "object" && table2 !== null && IsDrizzleTable in table2;
 }
 function getTableName(table2) {
   return table2[TableName];
@@ -168,10 +172,10 @@ class Column {
 class ColumnBuilder {
   static [entityKind] = "ColumnBuilder";
   config;
-  constructor(name, dataType, columnType) {
+  constructor(name2, dataType, columnType) {
     this.config = {
-      name,
-      keyAsName: name === "",
+      name: name2,
+      keyAsName: name2 === "",
       notNull: false,
       default: void 0,
       hasDefault: false,
@@ -261,9 +265,9 @@ class ColumnBuilder {
     return this;
   }
   /** @internal Sets the name of the column to the key within the table definition if a name was not given. */
-  setName(name) {
+  setName(name2) {
     if (this.config.name !== "") return;
-    this.config.name = name;
+    this.config.name = name2;
   }
 }
 const isPgEnumSym = /* @__PURE__ */ Symbol.for("drizzle:isPgEnum");
@@ -290,13 +294,16 @@ class WithSubquery extends Subquery {
   static [entityKind] = "WithSubquery";
 }
 const tracer = {
-  startActiveSpan(name, fn) {
+  startActiveSpan(name2, fn) {
     {
       return fn();
     }
   }
 };
 const ViewBaseConfig = /* @__PURE__ */ Symbol.for("drizzle:ViewBaseConfig");
+class FakePrimitiveParam {
+  static [entityKind] = "FakePrimitiveParam";
+}
 function isSQLWrapper(value) {
   return value !== null && value !== void 0 && typeof value.getSQL === "function";
 }
@@ -535,6 +542,9 @@ class Name {
     return new SQL([this]);
   }
 }
+function name(value) {
+  return new Name(value);
+}
 function isDriverValueEncoder(value) {
   return typeof value === "object" && value !== null && "mapToDriverValue" in value && typeof value.mapToDriverValue === "function";
 }
@@ -544,10 +554,10 @@ const noopDecoder = {
 const noopEncoder = {
   mapToDriverValue: (value) => value
 };
-({
+const noopMapper = {
   ...noopDecoder,
   ...noopEncoder
-});
+};
 class Param {
   /**
    * @param value - Parameter value
@@ -562,6 +572,9 @@ class Param {
   getSQL() {
     return new SQL([this]);
   }
+}
+function param(value, encoder) {
+  return new Param(value, encoder);
 }
 function sql(strings, ...params) {
   const queryChunks = [];
@@ -638,6 +651,9 @@ class Placeholder {
     return new SQL([this]);
   }
 }
+function placeholder(name2) {
+  return new Placeholder(name2);
+}
 function fillPlaceholders(params, values) {
   return params.map((p) => {
     if (is(p, Placeholder)) {
@@ -676,6 +692,12 @@ class View {
   getSQL() {
     return new SQL([this]);
   }
+}
+function isView(view) {
+  return typeof view === "object" && view !== null && IsDrizzleView in view;
+}
+function getViewName(view) {
+  return view[ViewBaseConfig].name;
 }
 Column.prototype.getSQL = function() {
   return new SQL([this]);
@@ -734,11 +756,11 @@ function mapResultRow(columns, row, joinsNotNullableMap) {
   return result;
 }
 function orderSelectedFields(fields, pathPrefix) {
-  return Object.entries(fields).reduce((result, [name, field]) => {
-    if (typeof name !== "string") {
+  return Object.entries(fields).reduce((result, [name2, field]) => {
+    if (typeof name2 !== "string") {
       return result;
     }
-    const newPath = pathPrefix ? [...pathPrefix, name] : [name];
+    const newPath = pathPrefix ? [...pathPrefix, name2] : [name2];
     if (is(field, Column) || is(field, SQL) || is(field, SQL.Aliased) || is(field, Subquery)) {
       result.push({ path: newPath, field });
     } else if (is(field, Table)) {
@@ -777,18 +799,21 @@ function mapUpdateSet(table2, values) {
 }
 function applyMixins(baseClass, extendedClasses) {
   for (const extendedClass of extendedClasses) {
-    for (const name of Object.getOwnPropertyNames(extendedClass.prototype)) {
-      if (name === "constructor") continue;
+    for (const name2 of Object.getOwnPropertyNames(extendedClass.prototype)) {
+      if (name2 === "constructor") continue;
       Object.defineProperty(
         baseClass.prototype,
-        name,
-        Object.getOwnPropertyDescriptor(extendedClass.prototype, name) || /* @__PURE__ */ Object.create(null)
+        name2,
+        Object.getOwnPropertyDescriptor(extendedClass.prototype, name2) || /* @__PURE__ */ Object.create(null)
       );
     }
   }
 }
 function getTableColumns(table2) {
   return table2[Table.Symbol.Columns];
+}
+function getViewSelectedFields(view) {
+  return view[ViewBaseConfig].selectedFields;
 }
 function getTableLikeName(table2) {
   return is(table2, Subquery) ? table2._.alias : is(table2, View) ? table2[ViewBaseConfig].name : is(table2, SQL) ? void 0 : table2[Table.Symbol.IsAlias] ? table2[Table.Symbol.Name] : table2[Table.Symbol.BaseName];
@@ -859,9 +884,9 @@ class PrimaryKeyBuilder {
   columns;
   /** @internal */
   name;
-  constructor(columns, name) {
+  constructor(columns, name2) {
     this.columns = columns;
-    this.name = name;
+    this.name = name2;
   }
   /** @internal */
   build(table2) {
@@ -869,10 +894,10 @@ class PrimaryKeyBuilder {
   }
 }
 class PrimaryKey {
-  constructor(table2, columns, name) {
+  constructor(table2, columns, name2) {
     this.table = table2;
     this.columns = columns;
-    this.name = name;
+    this.name = name2;
   }
   static [entityKind] = "PgPrimaryKey";
   columns;
@@ -993,6 +1018,36 @@ function ilike(column, value) {
 }
 function notIlike(column, value) {
   return sql`${column} not ilike ${value}`;
+}
+function arrayContains(column, values) {
+  if (Array.isArray(values)) {
+    if (values.length === 0) {
+      throw new Error("arrayContains requires at least one value");
+    }
+    const array = sql`${bindIfParam(values, column)}`;
+    return sql`${column} @> ${array}`;
+  }
+  return sql`${column} @> ${bindIfParam(values, column)}`;
+}
+function arrayContained(column, values) {
+  if (Array.isArray(values)) {
+    if (values.length === 0) {
+      throw new Error("arrayContained requires at least one value");
+    }
+    const array = sql`${bindIfParam(values, column)}`;
+    return sql`${column} <@ ${array}`;
+  }
+  return sql`${column} <@ ${bindIfParam(values, column)}`;
+}
+function arrayOverlaps(column, values) {
+  if (Array.isArray(values)) {
+    if (values.length === 0) {
+      throw new Error("arrayOverlaps requires at least one value");
+    }
+    const array = sql`${bindIfParam(values, column)}`;
+    return sql`${column} && ${array}`;
+  }
+  return sql`${column} && ${bindIfParam(values, column)}`;
 }
 function asc(column) {
   return sql`${column} asc`;
@@ -1144,6 +1199,17 @@ function extractTablesRelationalConfig(schema2, configHelpers) {
     }
   }
   return { tables: tablesConfig, tableNamesMap };
+}
+function relations(table2, relations2) {
+  return new Relations(
+    table2,
+    (helpers) => Object.fromEntries(
+      Object.entries(relations2(helpers)).map(([key, value]) => [
+        key,
+        value.withFieldName(key)
+      ])
+    )
+  );
 }
 function createOne(sourceTable) {
   return function one(table2, config) {
@@ -1312,8 +1378,23 @@ class TableAliasProxyHandler {
     return value;
   }
 }
+class RelationTableAliasProxyHandler {
+  constructor(alias) {
+    this.alias = alias;
+  }
+  static [entityKind] = "RelationTableAliasProxyHandler";
+  get(target, prop) {
+    if (prop === "sourceTable") {
+      return aliasedTable(target.sourceTable, this.alias);
+    }
+    return target[prop];
+  }
+}
 function aliasedTable(table2, tableAlias) {
   return new Proxy(table2, new TableAliasProxyHandler(tableAlias, false));
+}
+function aliasedRelation(relation, tableAlias) {
+  return new Proxy(relation, new RelationTableAliasProxyHandler(tableAlias));
 }
 function aliasedTableColumn(column, tableAlias) {
   return new Proxy(
@@ -1436,8 +1517,8 @@ class ForeignKeyBuilder {
   _onDelete;
   constructor(config, actions) {
     this.reference = () => {
-      const { name, columns, foreignColumns } = config();
-      return { name, columns, foreignTable: foreignColumns[0].table, foreignColumns };
+      const { name: name2, columns, foreignColumns } = config();
+      return { name: name2, columns, foreignTable: foreignColumns[0].table, foreignColumns };
     };
     if (actions) {
       this._onUpdate = actions.onUpdate;
@@ -1469,7 +1550,7 @@ class ForeignKey {
   onUpdate;
   onDelete;
   getName() {
-    const { name, columns, foreignColumns } = this.reference();
+    const { name: name2, columns, foreignColumns } = this.reference();
     const columnNames = columns.map((column) => column.name);
     const foreignColumnNames = foreignColumns.map((column) => column.name);
     const chunks = [
@@ -1478,7 +1559,7 @@ class ForeignKey {
       foreignColumns[0].table[TableName],
       ...foreignColumnNames
     ];
-    return name ?? `${chunks.join("_")}_fk`;
+    return name2 ?? `${chunks.join("_")}_fk`;
   }
 }
 function uniqueKeyName(table2, columns) {
@@ -1491,9 +1572,9 @@ class SQLiteColumnBuilder extends ColumnBuilder {
     this.foreignKeyConfigs.push({ ref, actions });
     return this;
   }
-  unique(name) {
+  unique(name2) {
     this.config.isUnique = true;
-    this.config.uniqueName = name;
+    this.config.uniqueName = name2;
     return this;
   }
   generatedAlwaysAs(as, config) {
@@ -1535,8 +1616,8 @@ class SQLiteColumn extends Column {
 }
 class SQLiteBigIntBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteBigIntBuilder";
-  constructor(name) {
-    super(name, "bigint", "SQLiteBigInt");
+  constructor(name2) {
+    super(name2, "bigint", "SQLiteBigInt");
   }
   /** @internal */
   build(table2) {
@@ -1561,8 +1642,8 @@ class SQLiteBigInt extends SQLiteColumn {
 }
 class SQLiteBlobJsonBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteBlobJsonBuilder";
-  constructor(name) {
-    super(name, "json", "SQLiteBlobJson");
+  constructor(name2) {
+    super(name2, "json", "SQLiteBlobJson");
   }
   /** @internal */
   build(table2) {
@@ -1590,8 +1671,8 @@ class SQLiteBlobJson extends SQLiteColumn {
 }
 class SQLiteBlobBufferBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteBlobBufferBuilder";
-  constructor(name) {
-    super(name, "buffer", "SQLiteBlobBuffer");
+  constructor(name2) {
+    super(name2, "buffer", "SQLiteBlobBuffer");
   }
   /** @internal */
   build(table2) {
@@ -1611,19 +1692,19 @@ class SQLiteBlobBuffer extends SQLiteColumn {
   }
 }
 function blob(a, b) {
-  const { name, config } = getColumnNameAndConfig(a, b);
+  const { name: name2, config } = getColumnNameAndConfig(a, b);
   if (config?.mode === "json") {
-    return new SQLiteBlobJsonBuilder(name);
+    return new SQLiteBlobJsonBuilder(name2);
   }
   if (config?.mode === "bigint") {
-    return new SQLiteBigIntBuilder(name);
+    return new SQLiteBigIntBuilder(name2);
   }
-  return new SQLiteBlobBufferBuilder(name);
+  return new SQLiteBlobBufferBuilder(name2);
 }
 class SQLiteCustomColumnBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteCustomColumnBuilder";
-  constructor(name, fieldConfig, customTypeParams) {
-    super(name, "custom", "SQLiteCustomColumn");
+  constructor(name2, fieldConfig, customTypeParams) {
+    super(name2, "custom", "SQLiteCustomColumn");
     this.config.fieldConfig = fieldConfig;
     this.config.customTypeParams = customTypeParams;
   }
@@ -1658,9 +1739,9 @@ class SQLiteCustomColumn extends SQLiteColumn {
 }
 function customType(customTypeParams) {
   return (a, b) => {
-    const { name, config } = getColumnNameAndConfig(a, b);
+    const { name: name2, config } = getColumnNameAndConfig(a, b);
     return new SQLiteCustomColumnBuilder(
-      name,
+      name2,
       config,
       customTypeParams
     );
@@ -1668,8 +1749,8 @@ function customType(customTypeParams) {
 }
 class SQLiteBaseIntegerBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteBaseIntegerBuilder";
-  constructor(name, dataType, columnType) {
-    super(name, dataType, columnType);
+  constructor(name2, dataType, columnType) {
+    super(name2, dataType, columnType);
     this.config.autoIncrement = false;
   }
   primaryKey(config) {
@@ -1689,8 +1770,8 @@ class SQLiteBaseInteger extends SQLiteColumn {
 }
 class SQLiteIntegerBuilder extends SQLiteBaseIntegerBuilder {
   static [entityKind] = "SQLiteIntegerBuilder";
-  constructor(name) {
-    super(name, "number", "SQLiteInteger");
+  constructor(name2) {
+    super(name2, "number", "SQLiteInteger");
   }
   build(table2) {
     return new SQLiteInteger(
@@ -1704,8 +1785,8 @@ class SQLiteInteger extends SQLiteBaseInteger {
 }
 class SQLiteTimestampBuilder extends SQLiteBaseIntegerBuilder {
   static [entityKind] = "SQLiteTimestampBuilder";
-  constructor(name, mode) {
-    super(name, "date", "SQLiteTimestamp");
+  constructor(name2, mode) {
+    super(name2, "date", "SQLiteTimestamp");
     this.config.mode = mode;
   }
   /**
@@ -1742,8 +1823,8 @@ class SQLiteTimestamp extends SQLiteBaseInteger {
 }
 class SQLiteBooleanBuilder extends SQLiteBaseIntegerBuilder {
   static [entityKind] = "SQLiteBooleanBuilder";
-  constructor(name, mode) {
-    super(name, "boolean", "SQLiteBoolean");
+  constructor(name2, mode) {
+    super(name2, "boolean", "SQLiteBoolean");
     this.config.mode = mode;
   }
   build(table2) {
@@ -1764,19 +1845,19 @@ class SQLiteBoolean extends SQLiteBaseInteger {
   }
 }
 function integer(a, b) {
-  const { name, config } = getColumnNameAndConfig(a, b);
+  const { name: name2, config } = getColumnNameAndConfig(a, b);
   if (config?.mode === "timestamp" || config?.mode === "timestamp_ms") {
-    return new SQLiteTimestampBuilder(name, config.mode);
+    return new SQLiteTimestampBuilder(name2, config.mode);
   }
   if (config?.mode === "boolean") {
-    return new SQLiteBooleanBuilder(name, config.mode);
+    return new SQLiteBooleanBuilder(name2, config.mode);
   }
-  return new SQLiteIntegerBuilder(name);
+  return new SQLiteIntegerBuilder(name2);
 }
 class SQLiteNumericBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteNumericBuilder";
-  constructor(name) {
-    super(name, "string", "SQLiteNumeric");
+  constructor(name2) {
+    super(name2, "string", "SQLiteNumeric");
   }
   /** @internal */
   build(table2) {
@@ -1798,8 +1879,8 @@ class SQLiteNumeric extends SQLiteColumn {
 }
 class SQLiteNumericNumberBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteNumericNumberBuilder";
-  constructor(name) {
-    super(name, "number", "SQLiteNumericNumber");
+  constructor(name2) {
+    super(name2, "number", "SQLiteNumericNumber");
   }
   /** @internal */
   build(table2) {
@@ -1822,8 +1903,8 @@ class SQLiteNumericNumber extends SQLiteColumn {
 }
 class SQLiteNumericBigIntBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteNumericBigIntBuilder";
-  constructor(name) {
-    super(name, "bigint", "SQLiteNumericBigInt");
+  constructor(name2) {
+    super(name2, "bigint", "SQLiteNumericBigInt");
   }
   /** @internal */
   build(table2) {
@@ -1842,14 +1923,14 @@ class SQLiteNumericBigInt extends SQLiteColumn {
   }
 }
 function numeric(a, b) {
-  const { name, config } = getColumnNameAndConfig(a, b);
+  const { name: name2, config } = getColumnNameAndConfig(a, b);
   const mode = config?.mode;
-  return mode === "number" ? new SQLiteNumericNumberBuilder(name) : mode === "bigint" ? new SQLiteNumericBigIntBuilder(name) : new SQLiteNumericBuilder(name);
+  return mode === "number" ? new SQLiteNumericNumberBuilder(name2) : mode === "bigint" ? new SQLiteNumericBigIntBuilder(name2) : new SQLiteNumericBuilder(name2);
 }
 class SQLiteRealBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteRealBuilder";
-  constructor(name) {
-    super(name, "number", "SQLiteReal");
+  constructor(name2) {
+    super(name2, "number", "SQLiteReal");
   }
   /** @internal */
   build(table2) {
@@ -1862,13 +1943,13 @@ class SQLiteReal extends SQLiteColumn {
     return "real";
   }
 }
-function real(name) {
-  return new SQLiteRealBuilder(name ?? "");
+function real(name2) {
+  return new SQLiteRealBuilder(name2 ?? "");
 }
 class SQLiteTextBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteTextBuilder";
-  constructor(name, config) {
-    super(name, "string", "SQLiteText");
+  constructor(name2, config) {
+    super(name2, "string", "SQLiteText");
     this.config.enumValues = config.enum;
     this.config.length = config.length;
   }
@@ -1893,8 +1974,8 @@ class SQLiteText extends SQLiteColumn {
 }
 class SQLiteTextJsonBuilder extends SQLiteColumnBuilder {
   static [entityKind] = "SQLiteTextJsonBuilder";
-  constructor(name) {
-    super(name, "json", "SQLiteTextJson");
+  constructor(name2) {
+    super(name2, "json", "SQLiteTextJson");
   }
   /** @internal */
   build(table2) {
@@ -1917,11 +1998,11 @@ class SQLiteTextJson extends SQLiteColumn {
   }
 }
 function text(a, b = {}) {
-  const { name, config } = getColumnNameAndConfig(a, b);
+  const { name: name2, config } = getColumnNameAndConfig(a, b);
   if (config.mode === "json") {
-    return new SQLiteTextJsonBuilder(name);
+    return new SQLiteTextJsonBuilder(name2);
   }
-  return new SQLiteTextBuilder(name, config);
+  return new SQLiteTextBuilder(name2, config);
 }
 function getSQLiteColumnBuilders() {
   return {
@@ -1947,16 +2028,16 @@ class SQLiteTable extends Table {
   /** @internal */
   [Table.Symbol.ExtraConfigBuilder] = void 0;
 }
-function sqliteTableBase(name, columns, extraConfig, schema2, baseName = name) {
-  const rawTable = new SQLiteTable(name, schema2, baseName);
+function sqliteTableBase(name2, columns, extraConfig, schema2, baseName = name2) {
+  const rawTable = new SQLiteTable(name2, schema2, baseName);
   const parsedColumns = typeof columns === "function" ? columns(getSQLiteColumnBuilders()) : columns;
   const builtColumns = Object.fromEntries(
-    Object.entries(parsedColumns).map(([name2, colBuilderBase]) => {
+    Object.entries(parsedColumns).map(([name22, colBuilderBase]) => {
       const colBuilder = colBuilderBase;
-      colBuilder.setName(name2);
+      colBuilder.setName(name22);
       const column = colBuilder.build(rawTable);
       rawTable[InlineForeignKeys].push(...colBuilder.buildForeignKeys(column, rawTable));
-      return [name2, column];
+      return [name22, column];
     })
   );
   const table2 = Object.assign(rawTable, builtColumns);
@@ -1964,8 +2045,8 @@ function sqliteTableBase(name, columns, extraConfig, schema2, baseName = name) {
   table2[Table.Symbol.ExtraConfigColumns] = builtColumns;
   return table2;
 }
-const sqliteTable = (name, columns, extraConfig) => {
-  return sqliteTableBase(name, columns);
+const sqliteTable = (name2, columns, extraConfig) => {
+  return sqliteTableBase(name2, columns);
 };
 function extractUsedTable(table2) {
   if (is(table2, SQLiteTable)) {
@@ -2176,8 +2257,8 @@ class SQLiteDialect {
   constructor(config) {
     this.casing = new CasingCache(config?.casing);
   }
-  escapeName(name) {
-    return `"${name.replace(/"/g, '""')}"`;
+  escapeName(name2) {
+    return `"${name2.replace(/"/g, '""')}"`;
   }
   escapeParam(_num) {
     return "?";
@@ -5108,7 +5189,7 @@ function requireWrappers() {
   };
   wrappers.getters = {
     name: {
-      get: function name() {
+      get: function name2() {
         return this[cppdb].name;
       },
       enumerable: true
@@ -5312,16 +5393,16 @@ function require_function() {
   if (hasRequired_function) return _function;
   hasRequired_function = 1;
   const { getBooleanOption, cppdb } = requireUtil();
-  _function = function defineFunction(name, options, fn) {
+  _function = function defineFunction(name2, options, fn) {
     if (options == null) options = {};
     if (typeof options === "function") {
       fn = options;
       options = {};
     }
-    if (typeof name !== "string") throw new TypeError("Expected first argument to be a string");
+    if (typeof name2 !== "string") throw new TypeError("Expected first argument to be a string");
     if (typeof fn !== "function") throw new TypeError("Expected last argument to be a function");
     if (typeof options !== "object") throw new TypeError("Expected second argument to be an options object");
-    if (!name) throw new TypeError("User-defined function name cannot be an empty string");
+    if (!name2) throw new TypeError("User-defined function name cannot be an empty string");
     const safeIntegers = "safeIntegers" in options ? +getBooleanOption(options, "safeIntegers") : 2;
     const deterministic = getBooleanOption(options, "deterministic");
     const directOnly = getBooleanOption(options, "directOnly");
@@ -5332,7 +5413,7 @@ function require_function() {
       if (!Number.isInteger(argCount) || argCount < 0) throw new TypeError("Expected function.length to be a positive integer");
       if (argCount > 100) throw new RangeError("User-defined functions cannot have more than 100 arguments");
     }
-    this[cppdb].function(fn, name, argCount, safeIntegers, deterministic, directOnly);
+    this[cppdb].function(fn, name2, argCount, safeIntegers, deterministic, directOnly);
     return this;
   };
   return _function;
@@ -5343,10 +5424,10 @@ function requireAggregate() {
   if (hasRequiredAggregate) return aggregate;
   hasRequiredAggregate = 1;
   const { getBooleanOption, cppdb } = requireUtil();
-  aggregate = function defineAggregate(name, options) {
-    if (typeof name !== "string") throw new TypeError("Expected first argument to be a string");
+  aggregate = function defineAggregate(name2, options) {
+    if (typeof name2 !== "string") throw new TypeError("Expected first argument to be a string");
     if (typeof options !== "object" || options === null) throw new TypeError("Expected second argument to be an options object");
-    if (!name) throw new TypeError("User-defined function name cannot be an empty string");
+    if (!name2) throw new TypeError("User-defined function name cannot be an empty string");
     const start = "start" in options ? options.start : null;
     const step = getFunctionOption(options, "step", true);
     const inverse = getFunctionOption(options, "inverse", false);
@@ -5361,7 +5442,7 @@ function requireAggregate() {
       if (argCount > 0) argCount -= 1;
       if (argCount > 100) throw new RangeError("User-defined functions cannot have more than 100 arguments");
     }
-    this[cppdb].aggregate(start, step, inverse, result, name, argCount, safeIntegers, deterministic, directOnly);
+    this[cppdb].aggregate(start, step, inverse, result, name2, argCount, safeIntegers, deterministic, directOnly);
     return this;
   };
   const getFunctionOption = (options, key, required) => {
@@ -5383,18 +5464,18 @@ function requireTable() {
   if (hasRequiredTable) return table;
   hasRequiredTable = 1;
   const { cppdb } = requireUtil();
-  table = function defineTable(name, factory) {
-    if (typeof name !== "string") throw new TypeError("Expected first argument to be a string");
-    if (!name) throw new TypeError("Virtual table module name cannot be an empty string");
+  table = function defineTable(name2, factory) {
+    if (typeof name2 !== "string") throw new TypeError("Expected first argument to be a string");
+    if (!name2) throw new TypeError("Virtual table module name cannot be an empty string");
     let eponymous = false;
     if (typeof factory === "object" && factory !== null) {
       eponymous = true;
-      factory = defer(parseTableDefinition(factory, "used", name));
+      factory = defer(parseTableDefinition(factory, "used", name2));
     } else {
       if (typeof factory !== "function") throw new TypeError("Expected second argument to be a function or a table definition object");
       factory = wrapFactory(factory);
     }
-    this[cppdb].table(factory, name, eponymous);
+    this[cppdb].table(factory, name2, eponymous);
     return this;
   };
   function wrapFactory(factory) {
@@ -5865,11 +5946,18 @@ function getDb() {
     console.warn("D1 database binding not found, using local SQLite database for development.");
     const sqlite = new Database("local-dev.db");
     try {
+      try {
+        const tableInfo = sqlite.pragma("table_info(newsletter)");
+        if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
+          sqlite.exec("DROP TABLE newsletter;");
+        }
+      } catch {
+      }
       sqlite.exec(`
         CREATE TABLE IF NOT EXISTS newsletter (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           email TEXT NOT NULL UNIQUE,
-          dateInscription INTEGER NOT NULL
+          date_inscription INTEGER NOT NULL
         );
       `);
     } catch (e) {
@@ -5880,13 +5968,115 @@ function getDb() {
   }
 }
 export {
-  admins as a,
-  contacts as c,
-  desc as d,
-  eq as e,
-  getDb as g,
-  inscriptions as i,
-  newsletter as n,
-  sessions as s,
-  withRetry as w
+  exists as $,
+  arrayOverlaps as A,
+  BaseName as B,
+  Column as C,
+  DefaultLogger as D,
+  ExtraConfigBuilder as E,
+  FakePrimitiveParam as F,
+  asc as G,
+  between as H,
+  IsAlias as I,
+  bindIfParam as J,
+  contacts as K,
+  createMany as L,
+  Many as M,
+  Name as N,
+  One as O,
+  Param as P,
+  QueryPromise as Q,
+  Relation as R,
+  SQL as S,
+  Table as T,
+  createOne as U,
+  View as V,
+  WithSubquery as W,
+  createTableRelationsHelpers as X,
+  desc as Y,
+  entityKind as Z,
+  eq as _,
+  ColumnAliasProxyHandler as a,
+  extractTablesRelationalConfig as a0,
+  fillPlaceholders as a1,
+  getColumnNameAndConfig as a2,
+  getDb as a3,
+  getOperators as a4,
+  getOrderByOperators as a5,
+  getTableColumns as a6,
+  getTableLikeName as a7,
+  getTableName as a8,
+  getTableUniqueName as a9,
+  ne as aA,
+  newsletter as aB,
+  noopDecoder as aC,
+  noopEncoder as aD,
+  noopMapper as aE,
+  normalizeRelation as aF,
+  not as aG,
+  notBetween as aH,
+  notExists as aI,
+  notIlike as aJ,
+  notInArray as aK,
+  notLike as aL,
+  or as aM,
+  orderSelectedFields as aN,
+  param as aO,
+  placeholder as aP,
+  relations as aQ,
+  sessions as aR,
+  sql as aS,
+  textDecoder as aT,
+  withRetry as aU,
+  getViewName as aa,
+  getViewSelectedFields as ab,
+  gt as ac,
+  gte as ad,
+  hasOwnEntityKind as ae,
+  haveSameKeys as af,
+  ilike as ag,
+  inArray as ah,
+  inscriptions as ai,
+  is as aj,
+  isConfig as ak,
+  isDriverValueEncoder as al,
+  isNotNull as am,
+  isNull as an,
+  isSQLWrapper as ao,
+  isTable as ap,
+  isView as aq,
+  like as ar,
+  lt as as,
+  lte as at,
+  mapColumnsInAliasedSQLToAlias as au,
+  mapColumnsInSQLToAlias as av,
+  mapRelationalRow as aw,
+  mapResultRow as ax,
+  mapUpdateSet as ay,
+  name as az,
+  ColumnBuilder as b,
+  Columns as c,
+  ConsoleLogWriter as d,
+  DrizzleError as e,
+  DrizzleQueryError as f,
+  ExtraConfigColumns as g,
+  NoopLogger as h,
+  OriginalName as i,
+  Placeholder as j,
+  RelationTableAliasProxyHandler as k,
+  Relations as l,
+  Schema as m,
+  StringChunk as n,
+  Subquery as o,
+  TableAliasProxyHandler as p,
+  TransactionRollbackError as q,
+  ViewBaseConfig as r,
+  admins as s,
+  aliasedRelation as t,
+  aliasedTable as u,
+  aliasedTableColumn as v,
+  and as w,
+  applyMixins as x,
+  arrayContained as y,
+  arrayContains as z
 };

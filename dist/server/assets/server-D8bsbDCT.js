@@ -16293,31 +16293,31 @@ async function getStartManifest(matchedRoutes) {
 const manifest = {
   "25bd83a04822d276f143e55888ef23fa51c2686bfcfe01c9b074561e5a9b704a": {
     functionName: "soumettreContact_createServerFn_handler",
-    importer: () => import("./contact-DRxlhbvj.js")
+    importer: () => import("./contact-D97r6tcc.js")
   },
   "4503841b0b9eec2559deab11fdcf35e26d107a806b7bac9c41da5a164831575b": {
     functionName: "soumettreNewsletter_createServerFn_handler",
-    importer: () => import("./index-qJa4f5Pj.js")
+    importer: () => import("./index-9i7--46O.js")
   },
   "597836b1bd871bfd285c93b908f9790d1d46bf54e341210270e02f6781dff6eb": {
     functionName: "getAdminData_createServerFn_handler",
-    importer: () => import("./admin.index-DwuQrLNJ.js")
+    importer: () => import("./admin.index-7DKWwghG.js")
   },
   "66f21b8f89dac0f16e26e09c8f616aa53937ea2f0a6305ec9e7f83e4ae236351": {
     functionName: "loginAdmin_createServerFn_handler",
-    importer: () => import("./admin.login-B1yWPY8a.js")
+    importer: () => import("./admin.login-Bx6gcZFh.js")
   },
   "8c50d859ef0f2507fd6e69a6c839f420addbeb6ec5612d0563370e2f161d1612": {
     functionName: "subscribeNewsletterFn_createServerFn_handler",
-    importer: () => import("./__root-D8qEKnjf.js")
+    importer: () => import("./__root-Ciz1xn2g.js")
   },
   "aeac1ae014d38467652f987e54fc537bcbd46519d88ab5c7836fdf05add0582d": {
     functionName: "getSessionId_createServerFn_handler",
-    importer: () => import("./admin-o6CvsMjy.js")
+    importer: () => import("./admin-CgoYTF9W.js")
   },
   "c9426a028804a61ba850d9ff6a96cda44ae6a6770b4200230bb9f743a5414807": {
     functionName: "soumettreInscription_createServerFn_handler",
-    importer: () => import("./formations-bgFxQ9m2.js")
+    importer: () => import("./formations-jxHz2b4X.js")
   }
 };
 async function getServerFnById(id, access) {
@@ -17553,8 +17553,8 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
   const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-    import("./router-CauDO54G.js").then((n2) => n2.r),
-    import("./start-DlyHmJxU.js"),
+    import("./router-xG9kfme0.js").then((n2) => n2.r),
+    import("./start-Dbqbk2OA.js"),
     import("./__23tanstack-start-plugin-adapters-Cwee5PKy.js")
   ]);
   return {

@@ -32,12 +32,37 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
       if (!db) {
         throw new Error("La connexion à la base de données a échoué.");
       }
-      await withRetry(async () => {
-        await db.insert(newsletter).values({
-          email: data.email,
-          dateInscription: new Date(),
+
+      try {
+        await withRetry(async () => {
+          await db.insert(newsletter).values({
+            email: data.email,
+            dateInscription: new Date(),
+          });
         });
-      });
+      } catch (insertError: any) {
+        // If the table doesn't exist in production (e.g. D1 migrations not run), create it and retry
+        const errMsg = insertError?.message || "";
+        if (errMsg.includes("no such table: newsletter")) {
+          console.warn("Table newsletter missing, attempting to create it...");
+          const { sql } = await import("drizzle-orm");
+          await db.run(sql`
+            CREATE TABLE IF NOT EXISTS newsletter (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              email TEXT NOT NULL UNIQUE,
+              date_inscription INTEGER NOT NULL
+            )
+          `);
+          // Retry the insertion
+          await db.insert(newsletter).values({
+            email: data.email,
+            dateInscription: new Date(),
+          });
+        } else {
+          throw insertError;
+        }
+      }
+
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {

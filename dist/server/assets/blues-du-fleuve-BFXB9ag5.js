@@ -1,9 +1,9 @@
-import { V as reactExports, L as jsxRuntimeExports } from "./server-Ci9T_1RX.js";
-import { a as createLucideIcon, L as Link, b as crowdImg, f as fleuveImg, c as centreImg } from "./router-CauDO54G.js";
+import { V as reactExports, L as jsxRuntimeExports } from "./server-D8bsbDCT.js";
+import { a as createLucideIcon, L as Link, b as crowdImg, f as fleuveImg, c as centreImg } from "./router-xG9kfme0.js";
 import { b as baabaImg } from "./baaba-maal-ChuGya_i.js";
-import { i as instrumentsImg, P as Play } from "./instruments-4twkadw8.js";
+import { i as instrumentsImg, P as Play } from "./instruments-V1oKTCXO.js";
 import { p as piroguesImg } from "./pirogues-BR-IZ-pT.js";
-import { M as MapPin } from "./map-pin-BITOZcjb.js";
+import { M as MapPin } from "./map-pin-Co24uQd1.js";
 import "node:async_hooks";
 import "node:stream/web";
 import "node:stream";
