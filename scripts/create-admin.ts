@@ -14,7 +14,9 @@ async function createAdmin() {
   }
 
   // Utiliser une base SQLite locale pour créer l'admin
-  const sqlite = new Database("./.wrangler/state/v3/d1/miniflare-D1DatabaseObject/1ff380e9e4dce17834231ba30c64e1b9d3858074bf18a1be6414098e6b060e6e.sqlite");
+  const sqlite = new Database(
+    "./.wrangler/state/v3/d1/miniflare-D1DatabaseObject/1ff380e9e4dce17834231ba30c64e1b9d3858074bf18a1be6414098e6b060e6e.sqlite",
+  );
   const db = drizzle(sqlite, { schema });
 
   const passwordHash = await hashPassword(password);

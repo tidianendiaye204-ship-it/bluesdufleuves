@@ -32,9 +32,7 @@
       "indexes": {
         "admins_email_unique": {
           "name": "admins_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -205,9 +203,7 @@
       "indexes": {
         "newsletter_email_unique": {
           "name": "newsletter_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -247,12 +243,8 @@
           "name": "sessions_admin_id_admins_id_fk",
           "tableFrom": "sessions",
           "tableTo": "admins",
-          "columnsFrom": [
-            "admin_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["admin_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

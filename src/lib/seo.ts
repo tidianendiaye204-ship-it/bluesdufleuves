@@ -53,9 +53,10 @@ export const createSeoMeta = ({
 };
 
 export const DEFAULT_SEO = {
-  title: "Blues du Fleuve Podor | Baaba Maal Festival",
+  title: "The Village | Le Complexe Culturel Podor - Baaba Maal",
   description:
-    "Participez au festival Blues du Fleuve à Podor avec Baaba Maal. Découvrez la musique du fleuve Sénégal et la culture Halpulaar.",
+    "The Village, le complexe culturel et le centre d'art de Podor, Sénégal, initié par Baaba Maal. Découvrez le festival Blues du Fleuve, la musique du fleuve Sénégal et la culture Halpulaar.",
   ogImage: "/logo.png",
-  keywords: "Blues du Fleuve Podor, Baaba Maal, festival Sénégal, musique Fouta, Daande Lenol",
+  keywords:
+    "The Village, The Village Podor, Blues du Fleuve Podor, Baaba Maal, festival Sénégal, centre culturel Podor, Fouta Toro, Halpulaar, Daande Lenol",
 };

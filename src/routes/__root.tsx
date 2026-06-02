@@ -32,12 +32,12 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
       if (!db) {
         throw new Error("La connexion à la base de données a échoué.");
       }
-      await withRetry(() =>
-        db.insert(newsletter).values({
+      await withRetry(async () => {
+        await db.insert(newsletter).values({
           email: data.email,
           dateInscription: new Date(),
-        }),
-      );
+        });
+      });
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -57,11 +57,16 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
         return { error: "Cet email est déjà inscrit à notre newsletter." };
       }
 
-      if (errorMessage.includes("D1_BINDING_MISSING") || errorMessage.includes("binding is not defined")) {
+      if (
+        errorMessage.includes("D1_BINDING_MISSING") ||
+        errorMessage.includes("binding is not defined")
+      ) {
         return { error: "Service temporairement indisponible (DB)." };
       }
 
-      return { error: "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard." };
+      return {
+        error: "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+      };
     }
   });
 

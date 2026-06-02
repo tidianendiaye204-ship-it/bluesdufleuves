@@ -14,10 +14,14 @@ async function createAdminRemote() {
 
   console.log(`SQL pour créer l'admin sur la base distante :`);
   console.log(``);
-  console.log(`INSERT INTO admins (id, email, password_hash) VALUES ('${adminId}', '${email}', '${passwordHash}');`);
+  console.log(
+    `INSERT INTO admins (id, email, password_hash) VALUES ('${adminId}', '${email}', '${passwordHash}');`,
+  );
   console.log(``);
   console.log(`Exécutez cette commande :`);
-  console.log(`npx wrangler d1 execute bluesdufleuve-db --remote --command="INSERT INTO admins (id, email, password_hash) VALUES ('${adminId}', '${email}', '${passwordHash}')"`);
+  console.log(
+    `npx wrangler d1 execute bluesdufleuve-db --remote --command="INSERT INTO admins (id, email, password_hash) VALUES ('${adminId}', '${email}', '${passwordHash}')"`,
+  );
 }
 
 createAdminRemote();

@@ -44,15 +44,15 @@ export const soumettreNewsletter = createServerFn({ method: "POST" })
 export const Route = createFileRoute("/")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "Le Complexe NANN-k — The Village",
+      title: "The Village | Le Complexe Culturel de Podor par Baaba Maal",
       description:
-        "Présentation du projet NANN-k, de Baaba Maal, du Centre Culturel et de l'actualité de la vallée du fleuve.",
-      ogTitle: "NANN-k: Centre Culturel de Podor",
+        "Découvrez The Village, le centre culturel et artistique unique de Podor, initié par Baaba Maal. Le festival Blues du Fleuve, la culture Halpulaar et la musique du fleuve Sénégal.",
+      ogTitle: "The Village - Complexe Culturel Podor par Baaba Maal",
       ogDescription:
-        "L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée, espaces de création et de formation.",
+        "The Village, l'épicentre culturel de la vallée du fleuve Sénégal. Musée, espaces de création, formations et le festival Blues du Fleuve, par Baaba Maal.",
       ogImage: centreImg,
       keywords:
-        "NANN-k, Centre Culturel Podor, Baaba Maal, Complexe culturel, Fouta Toro, patrimoine Sénégal",
+        "The Village, The Village Podor, NANN-k, Centre Culturel Podor, Baaba Maal, Complexe culturel, Fouta Toro, patrimoine Sénégal, Blues du Fleuve",
       canonical: "https://lesbluesdufleuve.sn/",
     });
     return { meta, links };

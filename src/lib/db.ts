@@ -1,8 +1,12 @@
-import { drizzle } from "drizzle-orm/d1";
+import { drizzle as drizzleD1 } from "drizzle-orm/d1";
+import { drizzle as drizzleSqlite } from "drizzle-orm/better-sqlite3";
+import Database from "better-sqlite3";
 import * as schema from "../db/schema";
 
 // Type pour notre base de données
-export type Database = ReturnType<typeof drizzle<typeof schema>>;
+export type Database =
+  | ReturnType<typeof drizzleD1<typeof schema>>
+  | ReturnType<typeof drizzleSqlite<typeof schema>>;
 
 /**
  * Fonction pour exécuter des opérations de base de données avec retry logic
@@ -43,12 +47,42 @@ export function getDb(): Database {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const d1Binding = (process.env as any).DB || (process.env as any).bluesdufleuve_db;
 
-  if (!d1Binding) {
-    console.warn("D1 database binding is not defined. Make sure it's injected correctly.");
-    // Retourner un proxy/mock si nécessaire, ou on laisse crasher si on est sûr
-    // Pour l'instant on initialise sans binding (ou on throw, mais en SSR ça peut crasher l'app entière)
-  }
+  if (d1Binding) {
+    // Production: utiliser D1
+    dbInstance = drizzleD1(d1Binding, { schema });
+    return dbInstance;
+  } else {
+    // Développement local: utiliser BetterSqlite3
+    console.warn("D1 database binding not found, using local SQLite database for development.");
 
-  dbInstance = drizzle(d1Binding, { schema });
-  return dbInstance;
+    // Créer une base de données locale
+    const sqlite = new Database("local-dev.db");
+
+    // Exécuter les migrations pour créer les tables si nécessaire
+    try {
+      // Vérifier si la table utilise l'ancienne colonne et la recréer si nécessaire
+      try {
+        const tableInfo = sqlite.pragma("table_info(newsletter)") as Array<{ name: string }>;
+        if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
+          sqlite.exec("DROP TABLE newsletter;");
+        }
+      } catch {
+        // Ignorer
+      }
+
+      // Créer la table newsletter si elle n'existe pas
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS newsletter (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          email TEXT NOT NULL UNIQUE,
+          date_inscription INTEGER NOT NULL
+        );
+      `);
+    } catch (e) {
+      console.warn("Table might already exist, continuing...", e);
+    }
+
+    dbInstance = drizzleSqlite(sqlite, { schema });
+    return dbInstance;
+  }
 }

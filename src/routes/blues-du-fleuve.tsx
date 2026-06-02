@@ -42,15 +42,15 @@ import { PageSkeleton } from "@/components/PageSkeleton";
 export const Route = createFileRoute("/blues-du-fleuve")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "Festival Blues du Fleuve | 17ème édition 2026",
+      title: "Blues du Fleuve | Festival The Village Podor par Baaba Maal",
       description:
-        "Festival fondé par Baaba Maal, célébrant l'intégration, la solidarité et l'environnement des pays de la vallée du fleuve Sénégal.",
-      ogTitle: "Blues du Fleuve — Festival Baaba Maal",
+        "Festival Blues du Fleuve au The Village, le complexe culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
+      ogTitle: "Blues du Fleuve — Festival au The Village Podor",
       ogDescription:
-        "Découvrez la 17ème édition du Festival Blues du Fleuve avec Baaba Maal et des artistes de la région du Fouta Toro.",
+        "Découvrez la 17ème édition du Festival Blues du Fleuve avec Baaba Maal au The Village, le complexe culturel de Podor, et des artistes de la région du Fouta Toro.",
       ogImage: crowdImg,
       keywords:
-        "Blues du Fleuve, Festival Podor, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
+        "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
       canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
     });
     return { meta, links };

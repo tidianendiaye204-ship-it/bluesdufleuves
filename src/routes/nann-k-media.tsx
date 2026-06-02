@@ -22,15 +22,15 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nann-k-media")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "NANN-k — Mouvement Culturel & Économique",
+      title: "NANN-k & The Village | Mouvement Culturel & Économique Podor",
       description:
-        "Le mouvement NANN-K, fondé par Baaba MAAL, promeut l'Agriculture, l'Artisanat et les Technologies pour le développement social et économique en Afrique.",
-      ogTitle: "NANN-k — Culture, Savoir, Travail",
+        "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal.",
+      ogTitle: "NANN-k & The Village - Baaba Maal Podor",
       ogDescription:
-        "Mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et les technologies modernes.",
+        "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar.",
       ogImage: logoNannk,
       keywords:
-        "NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, émergence économique",
+        "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
       canonical: "https://lesbluesdufleuve.sn/nann-k-media",
     });
     return { meta, links };
