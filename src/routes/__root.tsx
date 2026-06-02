@@ -12,8 +12,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
+import { useEffect, useState } from "react";
 
-import appCss from "../styles.css?url";
+import "../styles.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
@@ -146,10 +147,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap",
       },
       {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      {
         rel: "icon",
         type: "image/png",
         href: "/favicon.png",
@@ -188,6 +185,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-background">
+        <div className="animate-pulse text-primary">Chargement...</div>
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
