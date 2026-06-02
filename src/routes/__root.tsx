@@ -40,9 +40,12 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
             dateInscription: new Date(),
           });
         });
-      } catch (insertError: any) {
+      } catch (insertError: unknown) {
         // If the table doesn't exist in production (e.g. D1 migrations not run), create it and retry
-        const errMsg = insertError?.message || "";
+        const errMsg =
+          insertError && typeof insertError === "object" && "message" in insertError
+            ? (insertError as { message: string }).message
+            : "";
         if (errMsg.includes("no such table: newsletter")) {
           console.warn("Table newsletter missing, attempting to create it...");
           const { sql } = await import("drizzle-orm");
