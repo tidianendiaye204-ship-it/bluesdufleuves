@@ -45,3 +45,17 @@ export const sessions = sqliteTable("sessions", {
     .references(() => admins.id),
   expiresAt: integer("expires_at").notNull(),
 });
+
+export const articles = sqliteTable("articles", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  category: text("category").notNull(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  imageUrl: text("image_url").notNull(),
+  publishedAt: integer("published_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
+  isPublished: integer("is_published", { mode: "boolean" }).default(true).notNull(),
+});

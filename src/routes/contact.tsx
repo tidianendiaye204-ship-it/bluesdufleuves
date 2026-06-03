@@ -43,15 +43,17 @@ export const soumettreContact = createServerFn({ method: "POST" })
     const db = getDb();
 
     try {
-      await withRetry(() =>
-        db.insert(contacts).values({
-          nom: data.nom,
-          email: data.email,
-          sujet: data.sujet,
-          message: data.message,
-          dateEnvoi: new Date(),
-          statut: "non_lu",
-        }),
+      await withRetry(
+        async () =>
+          db.insert(contacts).values({
+            nom: data.nom,
+            email: data.email,
+            sujet: data.sujet,
+            message: data.message,
+            dateEnvoi: new Date(),
+            statut: "non_lu",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          }) as Promise<any>,
       );
 
       return { success: true, message: "Votre message a été envoyé avec succès." };
@@ -104,6 +106,12 @@ function ContactPage() {
       const result = await soumettreContact({ data });
       if (result.success) {
         setSent(true);
+        // Ouvre le client email pour notifier l'équipe
+        const emailTo = "contact@lesbluesdufleuve.sn";
+        const subject = `Nouveau message de ${data.nom}`;
+        const body = `Nom: ${data.nom}\nEmail: ${data.email}\nSujet: ${data.sujet}\n\nMessage:\n${data.message}`;
+        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
         setTimeout(() => {
           reset();
           setSent(false);

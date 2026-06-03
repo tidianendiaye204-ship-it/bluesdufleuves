@@ -19,6 +19,10 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminInscriptionsRouteImport } from './routes/admin/inscriptions'
+import { Route as AdminContactsRouteImport } from './routes/admin/contacts'
+import { Route as AdminArticlesRouteImport } from './routes/admin/articles'
+import { Route as AdminArticlesNewRouteImport } from './routes/admin/articles.new'
 
 const NannkaTvRoute = NannkaTvRouteImport.update({
   id: '/nannka-tv',
@@ -70,6 +74,26 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminInscriptionsRoute = AdminInscriptionsRouteImport.update({
+  id: '/inscriptions',
+  path: '/inscriptions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminContactsRoute = AdminContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminArticlesRoute = AdminArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminArticlesNewRoute = AdminArticlesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminArticlesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,8 +104,12 @@ export interface FileRoutesByFullPath {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/articles': typeof AdminArticlesRouteWithChildren
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/articles/new': typeof AdminArticlesNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,8 +119,12 @@ export interface FileRoutesByTo {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/articles': typeof AdminArticlesRouteWithChildren
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/articles/new': typeof AdminArticlesNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,8 +136,12 @@ export interface FileRoutesById {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/articles': typeof AdminArticlesRouteWithChildren
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/articles/new': typeof AdminArticlesNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,8 +154,12 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/articles'
+    | '/admin/contacts'
+    | '/admin/inscriptions'
     | '/admin/login'
     | '/admin/'
+    | '/admin/articles/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,8 +169,12 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/articles'
+    | '/admin/contacts'
+    | '/admin/inscriptions'
     | '/admin/login'
     | '/admin'
+    | '/admin/articles/new'
   id:
     | '__root__'
     | '/'
@@ -141,8 +185,12 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/articles'
+    | '/admin/contacts'
+    | '/admin/inscriptions'
     | '/admin/login'
     | '/admin/'
+    | '/admin/articles/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,15 +276,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/inscriptions': {
+      id: '/admin/inscriptions'
+      path: '/inscriptions'
+      fullPath: '/admin/inscriptions'
+      preLoaderRoute: typeof AdminInscriptionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/contacts': {
+      id: '/admin/contacts'
+      path: '/contacts'
+      fullPath: '/admin/contacts'
+      preLoaderRoute: typeof AdminContactsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/articles': {
+      id: '/admin/articles'
+      path: '/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AdminArticlesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/articles/new': {
+      id: '/admin/articles/new'
+      path: '/new'
+      fullPath: '/admin/articles/new'
+      preLoaderRoute: typeof AdminArticlesNewRouteImport
+      parentRoute: typeof AdminArticlesRoute
+    }
   }
 }
 
+interface AdminArticlesRouteChildren {
+  AdminArticlesNewRoute: typeof AdminArticlesNewRoute
+}
+
+const AdminArticlesRouteChildren: AdminArticlesRouteChildren = {
+  AdminArticlesNewRoute: AdminArticlesNewRoute,
+}
+
+const AdminArticlesRouteWithChildren = AdminArticlesRoute._addFileChildren(
+  AdminArticlesRouteChildren,
+)
+
 interface AdminRouteChildren {
+  AdminArticlesRoute: typeof AdminArticlesRouteWithChildren
+  AdminContactsRoute: typeof AdminContactsRoute
+  AdminInscriptionsRoute: typeof AdminInscriptionsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminArticlesRoute: AdminArticlesRouteWithChildren,
+  AdminContactsRoute: AdminContactsRoute,
+  AdminInscriptionsRoute: AdminInscriptionsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

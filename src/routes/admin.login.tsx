@@ -5,7 +5,7 @@ import { getDb } from "@/lib/db";
 import { admins, sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyPassword, generateId } from "@/lib/auth";
-import { setCookie } from "@tanstack/react-start/server";
+import { setCookie, deleteCookie } from "@tanstack/react-start/server";
 import { useState } from "react";
 
 const loginSchema = z.object({
@@ -46,6 +46,11 @@ export const loginAdmin = createServerFn({ method: "POST" })
 
     return { success: true };
   });
+
+export const logoutFn = createServerFn({ method: "POST" }).handler(async () => {
+  deleteCookie("admin_session", { path: "/" });
+  return { success: true };
+});
 
 export const Route = createFileRoute("/admin/login")({
   component: AdminLogin,

@@ -19,6 +19,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 
 const newsletterSchema = z.object({
   email: z.string().email(),
@@ -222,6 +223,17 @@ function RootComponent() {
 
   useEffect(() => {
     setIsHydrated(true);
+    // Enregistrer le service worker pour le PWA
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((registration) => {
+          console.log("Service Worker enregistré avec succès:", registration);
+        })
+        .catch((error) => {
+          console.error("Échec de l'enregistrement du Service Worker:", error);
+        });
+    }
   }, []);
 
   if (!isHydrated) {
@@ -240,6 +252,7 @@ function RootComponent() {
           <Outlet />
           <Footer />
         </main>
+        <PWAInstallPrompt />
       </div>
     </QueryClientProvider>
   );

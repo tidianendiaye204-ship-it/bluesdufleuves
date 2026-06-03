@@ -27,17 +27,19 @@ export const soumettreInscription = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const db = getDb();
     try {
-      await withRetry(() =>
-        db.insert(inscriptions).values({
-          prenom: data.prenom,
-          nom: data.nom,
-          email: data.email,
-          tel: data.tel,
-          formation: data.formation,
-          motivation: data.motivation,
-          dateInscription: new Date(),
-          statut: "en_attente",
-        }),
+      await withRetry(
+        async () =>
+          db.insert(inscriptions).values({
+            prenom: data.prenom,
+            nom: data.nom,
+            email: data.email,
+            tel: data.tel,
+            formation: data.formation,
+            motivation: data.motivation,
+            dateInscription: new Date(),
+            statut: "en_attente",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          }) as Promise<any>,
       );
       return { success: true, message: "Votre inscription a été enregistrée avec succès." };
     } catch (error) {
@@ -124,6 +126,12 @@ function Formations() {
       const result = await soumettreInscription({ data: form });
       if (result.success) {
         setSent(true);
+        // Ouvre le client email pour notifier l'équipe
+        const emailTo = "contact@lesbluesdufleuve.sn";
+        const subject = `Nouvelle inscription de ${form.prenom} ${form.nom}`;
+        const body = `Prénom: ${form.prenom}\nNom: ${form.nom}\nEmail: ${form.email}\nTéléphone: ${form.tel}\nFormation: ${form.formation}\n\nMotivation:\n${form.motivation}`;
+        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
         setTimeout(() => {
           setForm({ prenom: "", nom: "", email: "", tel: "", formation: "", motivation: "" });
           setSent(false);

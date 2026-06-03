@@ -121,6 +121,21 @@ export function getDb(): Database {
         );
       `);
 
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS articles (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          slug TEXT NOT NULL UNIQUE,
+          category TEXT NOT NULL,
+          excerpt TEXT NOT NULL,
+          content TEXT NOT NULL,
+          image_url TEXT NOT NULL,
+          published_at INTEGER NOT NULL,
+          created_at INTEGER DEFAULT (strftime('%s', 'now') * 1000) NOT NULL,
+          updated_at INTEGER,
+          is_published INTEGER DEFAULT 1 NOT NULL
+        );
+      `);
     } catch (e) {
       console.warn("Table might already exist, continuing...", e);
     }

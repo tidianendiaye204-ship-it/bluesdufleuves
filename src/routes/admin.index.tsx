@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
-import { contacts, inscriptions } from "@/db/schema";
+import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
 import { desc } from "drizzle-orm";
+import { FileText } from "lucide-react";
 
 const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
   const db = getDb();
@@ -17,8 +18,13 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
     .from(inscriptions)
     .orderBy(desc(inscriptions.dateInscription))
     .limit(10);
+  const recentArticles = await db
+    .select()
+    .from(articlesTable)
+    .orderBy(desc(articlesTable.publishedAt))
+    .limit(5);
 
-  return { recentContacts, recentInscriptions };
+  return { recentContacts, recentInscriptions, recentArticles };
 });
 
 export const Route = createFileRoute("/admin/")({
@@ -27,13 +33,45 @@ export const Route = createFileRoute("/admin/")({
 });
 
 function AdminDashboard() {
-  const { recentContacts, recentInscriptions } = Route.useLoaderData();
+  const { recentContacts, recentInscriptions, recentArticles } = Route.useLoaderData();
 
   return (
     <div className="space-y-8">
-      <h2 className="text-3xl font-bold font-display uppercase tracking-tight">Tableau de Bord</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-bold font-display uppercase tracking-tight">
+          Tableau de Bord
+        </h2>
+        <Link
+          to="/admin/articles"
+          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-bold hover:bg-primary/90 transition"
+        >
+          <FileText size={18} />
+          Gérer les articles
+        </Link>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <h3 className="font-bold text-xl mb-4 border-b border-border pb-2">Derniers Articles</h3>
+          {recentArticles.length === 0 ? (
+            <p className="text-muted-foreground text-sm">Aucun article pour le moment.</p>
+          ) : (
+            <div className="space-y-4">
+              {recentArticles.map((a) => (
+                <div key={a.id} className="p-4 bg-muted/50 rounded-lg">
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-semibold line-clamp-1">{a.title}</span>
+                    <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full">
+                      {a.category}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{a.excerpt}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
           <h3 className="font-bold text-xl mb-4 border-b border-border pb-2">
             Derniers Messages (Contact)
@@ -63,7 +101,7 @@ function AdminDashboard() {
           )}
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm lg:col-span-2">
           <h3 className="font-bold text-xl mb-4 border-b border-border pb-2">
             Inscriptions aux Formations
           </h3>
