@@ -70,7 +70,33 @@ export function getDb(): Database {
         // Ignorer
       }
 
-      // Créer la table newsletter si elle n'existe pas
+      // Créer toutes les tables si elles n'existent pas
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS inscriptions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          prenom TEXT NOT NULL,
+          nom TEXT NOT NULL,
+          email TEXT NOT NULL,
+          tel TEXT NOT NULL,
+          formation TEXT NOT NULL,
+          motivation TEXT NOT NULL,
+          date_inscription INTEGER NOT NULL,
+          status TEXT DEFAULT 'en_attente' NOT NULL
+        );
+      `);
+
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS contacts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          nom TEXT NOT NULL,
+          email TEXT NOT NULL,
+          sujet TEXT NOT NULL,
+          message TEXT NOT NULL,
+          date_envoi INTEGER NOT NULL,
+          status TEXT DEFAULT 'non_lu' NOT NULL
+        );
+      `);
+
       sqlite.exec(`
         CREATE TABLE IF NOT EXISTS newsletter (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -78,6 +104,23 @@ export function getDb(): Database {
           date_inscription INTEGER NOT NULL
         );
       `);
+
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS admins (
+          id TEXT PRIMARY KEY,
+          email TEXT NOT NULL UNIQUE,
+          password_hash TEXT NOT NULL
+        );
+      `);
+
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS sessions (
+          id TEXT PRIMARY KEY,
+          admin_id TEXT NOT NULL,
+          expires_at INTEGER NOT NULL
+        );
+      `);
+
     } catch (e) {
       console.warn("Table might already exist, continuing...", e);
     }
