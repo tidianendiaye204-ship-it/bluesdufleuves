@@ -4,3 +4,7 @@ local-dev.db
 *.db
 *.db-shm
 *.db-wal
+dist
+.wrangler
+.env
+.DS_Store
