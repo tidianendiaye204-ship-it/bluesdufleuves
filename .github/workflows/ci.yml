@@ -51,9 +51,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Cloudflare
+      - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: dist/server
+          command: pages deploy dist/client --project-name=tanstack-start-app
