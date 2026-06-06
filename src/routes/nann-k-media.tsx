@@ -70,7 +70,11 @@ const categories = [
 
 function NannkMedia() {
   const [isHeroPlaying, setIsHeroPlaying] = useState(false);
-  const [activeVideo, setActiveVideo] = useState<{ name: string; id: string; isLocal?: boolean } | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{
+    name: string;
+    id: string;
+    isLocal?: boolean;
+  } | null>(null);
 
   return (
     <div className="bg-background min-h-screen">
@@ -106,23 +110,24 @@ function NannkMedia() {
             </h2>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
               NANN-K est un mouvement citoyen qui insuffle une dynamique nouvelle au cœur de la
-              vallée du fleuve Sénégal. Il promeut trois piliers essentiels : une <strong>agriculture
-              durable</strong> nourricière, un <strong>artisanat valorisé</strong> et des <strong>technologies
-              modernes</strong> accessibles. Ces secteurs à haut potentiel créent les conditions
-              d'un épanouissement collectif et d'une participation active à la vie économique.
+              vallée du fleuve Sénégal. Il promeut trois piliers essentiels : une{" "}
+              <strong>agriculture durable</strong> nourricière, un{" "}
+              <strong>artisanat valorisé</strong> et des <strong>technologies modernes</strong>{" "}
+              accessibles. Ces secteurs à haut potentiel créent les conditions d'un épanouissement
+              collectif et d'une participation active à la vie économique.
             </p>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              Dans la langue peulh, "NANN-K" vient du verbe <em>"nanni"</em> : "ouïr". Ce mot
-              porte toute notre ambition : <strong>faire entendre et comprendre</strong>. Grâce à
-              notre bras culturel — musique, chants, troupe folklorique — nous transformons les
-              messages de développement en récits vivants, en émotions partagées, en mobilisations
+              Dans la langue peulh, "NANN-K" vient du verbe <em>"nanni"</em> : "ouïr". Ce mot porte
+              toute notre ambition : <strong>faire entendre et comprendre</strong>. Grâce à notre
+              bras culturel — musique, chants, troupe folklorique — nous transformons les messages
+              de développement en récits vivants, en émotions partagées, en mobilisations
               populaires.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
               Notre credo ? <strong>"Culture – Savoir – Travail"</strong>. Nous construisons une
-              conscience citoyenne active, pour que chaque femme, chaque homme de la vallée
-              devienne acteur de son propre avenir, et de l'émergence sociale et économique de
-              toute la région.
+              conscience citoyenne active, pour que chaque femme, chaque homme de la vallée devienne
+              acteur de son propre avenir, et de l'émergence sociale et économique de toute la
+              région.
             </p>
             <div className="space-y-6 font-serif text-muted-foreground">
               <div className="flex items-start gap-4">
@@ -186,15 +191,20 @@ function NannkMedia() {
           </h2>
           <div className="space-y-8">
             <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">Le défi du développement</h3>
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                Le défi du développement
+              </h3>
               <p className="font-serif text-muted-foreground text-base leading-relaxed">
                 L'Afrique fait face à des défis colossaux. Trop souvent, les initiatives restent
                 institutionnelles et ne prennent pas racine dans les réalités du terrain. NANN-K
-                naît de ce constat : <strong>le changement doit venir des citoyens eux-mêmes</strong>.
+                naît de ce constat :{" "}
+                <strong>le changement doit venir des citoyens eux-mêmes</strong>.
               </p>
             </div>
             <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">Une réponse à l'attente des populations</h3>
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                Une réponse à l'attente des populations
+              </h3>
               <p className="font-serif text-muted-foreground text-base leading-relaxed">
                 Emplois, revenus, sécurité alimentaire : les besoins sont criants. Les populations
                 n'attendent plus, elles agissent. NANN-K leur donne les outils : formations, accès
@@ -202,11 +212,13 @@ function NannkMedia() {
               </p>
             </div>
             <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">L'agriculture, priorité nationale</h3>
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                L'agriculture, priorité nationale
+              </h3>
               <p className="font-serif text-muted-foreground text-base leading-relaxed">
                 Le Sénégal a fait de l'agriculture son moteur de croissance — mais les rouages
-                grippent. NANN-K est l'alternative concrète : un accompagnement terrain, proche
-                des agriculteurs, pour transformer les politiques en résultats tangibles.
+                grippent. NANN-K est l'alternative concrète : un accompagnement terrain, proche des
+                agriculteurs, pour transformer les politiques en résultats tangibles.
               </p>
             </div>
           </div>
@@ -237,23 +249,38 @@ function NannkMedia() {
             </div>
             <div className="space-y-6">
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Podor, Sénégal – La fondation NANNK TRUST, initiée par l’artiste planétaire Baaba Maal, a remis un chèque d’un montant de plus de 5 millions de francs CFA à l’association Podor Vert, marquant ainsi une étape importante dans leur partenariat en faveur de l’environnement.
+                Podor, Sénégal – La fondation NANNK TRUST, initiée par l’artiste planétaire Baaba
+                Maal, a remis un chèque d’un montant de plus de 5 millions de francs CFA à
+                l’association Podor Vert, marquant ainsi une étape importante dans leur partenariat
+                en faveur de l’environnement.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Cette contribution constitue la deuxième tranche du financement engagé par la fondation pour soutenir les actions de l’association, qui se consacre depuis plusieurs années à la lutte contre la désertification et la restauration des écosystèmes locaux.
+                Cette contribution constitue la deuxième tranche du financement engagé par la
+                fondation pour soutenir les actions de l’association, qui se consacre depuis
+                plusieurs années à la lutte contre la désertification et la restauration des
+                écosystèmes locaux.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Lors de la remise officielle, les responsables des deux structures ont réaffirmé leur volonté commune de renforcer la résilience environnementale dans le département de Podor, particulièrement touché par l’avancée du désert.
+                Lors de la remise officielle, les responsables des deux structures ont réaffirmé
+                leur volonté commune de renforcer la résilience environnementale dans le département
+                de Podor, particulièrement touché par l’avancée du désert.
               </p>
               <blockquote className="border-l-4 border-primary pl-6 py-2 italic">
-                « La protection de l’environnement est une urgence et une responsabilité collective. En soutenant Podor Vert, nous investissons dans un avenir durable pour nos communautés et pour les générations futures. »
+                « La protection de l’environnement est une urgence et une responsabilité collective.
+                En soutenant Podor Vert, nous investissons dans un avenir durable pour nos
+                communautés et pour les générations futures. »
                 <footer className="mt-2 text-sm font-semibold text-primary">Baaba Maal</footer>
               </blockquote>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L’association Podor Vert a salué ce geste de confiance et a annoncé la mise en œuvre de nouvelles initiatives de reboisement, de sensibilisation et de formation des jeunes aux pratiques agricoles durables, rendues possibles grâce à cet appui financier.
+                L’association Podor Vert a salué ce geste de confiance et a annoncé la mise en œuvre
+                de nouvelles initiatives de reboisement, de sensibilisation et de formation des
+                jeunes aux pratiques agricoles durables, rendues possibles grâce à cet appui
+                financier.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Ce partenariat exemplaire entre une organisation culturelle de renommée internationale et un acteur local engagé dans l’environnement illustre l’importance de la synergie entre la culture, la communauté et le développement durable.
+                Ce partenariat exemplaire entre une organisation culturelle de renommée
+                internationale et un acteur local engagé dans l’environnement illustre l’importance
+                de la synergie entre la culture, la communauté et le développement durable.
               </p>
             </div>
           </div>
@@ -284,13 +311,21 @@ function NannkMedia() {
             </div>
             <div className="space-y-6">
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Dans le cadre de la journée nationale de l’arbre initiée par le Président de la République Bassirou Diomaye Faye, le département de Podor s’est manifesté à travers le député Ismaela Wone et l’Association Podor Vert par une grande journée de reboisement et sensibilisation dans la commune de Mbolo Birame le dimanche 31 août 2025.
+                Dans le cadre de la journée nationale de l’arbre initiée par le Président de la
+                République Bassirou Diomaye Faye, le département de Podor s’est manifesté à travers
+                le député Ismaela Wone et l’Association Podor Vert par une grande journée de
+                reboisement et sensibilisation dans la commune de Mbolo Birame le dimanche 31 août
+                2025.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont été retenus dans le cadre de cette activité citoyenne. Ainsi, Podor vert a mis à leur disposition 180 plants ombragés et fruitiers qui sont de la production des pépinières de Fanaye et de Mery.
+                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont été retenus dans le
+                cadre de cette activité citoyenne. Ainsi, Podor vert a mis à leur disposition 180
+                plants ombragés et fruitiers qui sont de la production des pépinières de Fanaye et
+                de Mery.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L’Agence Sénégalaise de la Reforestation et de la Grande Muraille verte a participé activement à la réussite de cette activité.
+                L’Agence Sénégalaise de la Reforestation et de la Grande Muraille verte a participé
+                activement à la réussite de cette activité.
               </p>
               <p className="font-serif text-lg leading-relaxed font-semibold text-foreground">
                 Ensemble, œuvrons pour un Podor Vert et durable.
@@ -527,12 +562,7 @@ function NannkMedia() {
             </button>
             <div className="aspect-video bg-black">
               {activeVideo.isLocal ? (
-                <video
-                  className="w-full h-full"
-                  src={activeVideo.id}
-                  controls
-                  autoPlay
-                />
+                <video className="w-full h-full" src={activeVideo.id} controls autoPlay />
               ) : (
                 <iframe
                   className="w-full h-full border-0"
