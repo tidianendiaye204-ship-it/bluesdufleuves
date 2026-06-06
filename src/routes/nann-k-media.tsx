@@ -129,7 +129,7 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    🌾 Agriculture
+                    Agriculture
                   </strong>
                   <span className="text-sm">
                     Garantir la sécurité alimentaire, valoriser les terroirs et faire de
@@ -141,7 +141,7 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    👐 Artisanat
+                    Artisanat
                   </strong>
                   <span className="text-sm">
                     Redorer le savoir-faire local, créer des filières rentables et offrir des
@@ -153,7 +153,7 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    💡 Technologies (TIC)
+                    Technologies (TIC)
                   </strong>
                   <span className="text-sm">
                     Connecter la vallée aux innovations du monde, faciliter l'accès à l'information
