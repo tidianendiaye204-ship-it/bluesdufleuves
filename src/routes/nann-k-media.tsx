@@ -319,10 +319,12 @@ function NannkMedia() {
             {isHeroPlaying ? (
               <iframe
                 className="absolute inset-0 w-full h-full border-0"
-                src="https://www.youtube.com/embed/No0IoqGSiLw?autoplay=1"
-                title="Podor, mémoire vivante du fleuve"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fp%2F1ZctY17tZP%2F&show_text=false&width=1000&height=1000&autoplay=true"
+                title="Vidéo NANN-K"
+                allow="autoplay; encrypted-media; picture-in-picture"
                 allowFullScreen
+                scrolling="no"
+                frameBorder="0"
               />
             ) : (
               <>
@@ -342,9 +344,9 @@ function NannkMedia() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-linear-to-t from-black/90 to-transparent">
                   <p className="text-xs uppercase tracking-widest text-primary mb-2">En vedette</p>
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
-                    Podor, mémoire vivante du fleuve
+                    NANN-K en action
                   </h2>
-                  <p className="text-sm text-white/80 mt-1 font-serif">Documentaire · 42 min</p>
+                  <p className="text-sm text-white/80 mt-1 font-serif">Vidéo Facebook</p>
                 </div>
               </>
             )}
