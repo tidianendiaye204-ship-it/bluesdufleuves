@@ -246,9 +246,6 @@ function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
-              L'Âme du Projet
-            </span>
             <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
               La Voix du <span className="text-primary">Fleuve</span>
             </h2>

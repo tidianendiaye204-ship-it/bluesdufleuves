@@ -55,7 +55,7 @@ export function Footer() {
             <li>
               <Link
                 to="/"
-                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Le Complexe
@@ -64,7 +64,7 @@ export function Footer() {
             <li>
               <Link
                 to="/blues-du-fleuve"
-                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Le Festival
@@ -73,7 +73,7 @@ export function Footer() {
             <li>
               <Link
                 to="/nann-k-media"
-                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Nann-k Media
@@ -82,7 +82,7 @@ export function Footer() {
             <li>
               <Link
                 to="/contact"
-                className="hover:text-primary transition-colors text-white/70 hover:text-white"
+                className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Contact
