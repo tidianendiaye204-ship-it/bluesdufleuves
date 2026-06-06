@@ -367,40 +367,14 @@ function NannkMedia() {
         </div>
 
         <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-(--shadow-elegant) mb-20">
-          <div className="aspect-video relative flex items-center justify-center overflow-hidden bg-black">
-            {isHeroPlaying ? (
-              <iframe
-                className="absolute inset-0 w-full h-full border-0"
-                src="https://www.youtube.com/embed/L0HX8udwCeg?autoplay=1"
-                title="NANN-K en action"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            ) : (
-              <button
-                onClick={() => setIsHeroPlaying(true)}
-                aria-label="Lecture vidéo"
-                className="absolute inset-0 w-full h-full text-left"
-              >
-                <img
-                  src={heroPoster}
-                  alt="En vedette"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="inline-flex h-24 w-24 md:h-28 md:w-28 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--shadow-glow) hover:scale-105 transition">
-                    <Play size={40} className="ml-2" fill="currentColor" />
-                  </div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-linear-to-t from-black/90 to-transparent pointer-events-none">
-                  <p className="text-xs uppercase tracking-widest text-primary mb-2">En vedette</p>
-                  <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
-                    NANN-K en action
-                  </h2>
-                  <p className="text-sm text-white/80 mt-1 font-serif">Vidéo YouTube</p>
-                </div>
-              </button>
-            )}
+          <div className="aspect-video relative bg-black">
+            <iframe
+              className="absolute inset-0 w-full h-full border-0"
+              src="https://www.youtube.com/embed/L0HX8udwCeg"
+              title="NANN-K en action"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
         </div>
 
