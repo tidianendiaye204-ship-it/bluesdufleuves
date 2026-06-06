@@ -16,7 +16,7 @@ import agri6Img from "@/assets/nann-k-agri6.jpg";
 import agri7Img from "@/assets/nann-k-agri7.jpg";
 import agri8Img from "@/assets/nann-k-agri8.jpg";
 
-const heroPoster = fleuveImg;
+const heroPoster = logoNannk;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
 export const Route = createFileRoute("/nann-k-media")({
