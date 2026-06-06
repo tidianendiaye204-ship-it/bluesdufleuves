@@ -336,15 +336,14 @@ function NannkMedia() {
           </h2>
           <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
             <div className="aspect-video relative bg-black">
-              <video
+              <iframe
                 className="absolute inset-0 w-full h-full"
-                src="/baba%20maal%20a%20mborobirane.mp4"
-                controls
-                preload="metadata"
-                poster="/logo.png"
-              >
-                Votre navigateur ne supporte pas la vidéo.
-              </video>
+                src="https://www.youtube.com/embed/VIDEO_ID_A_REMPLACER"
+                title="Baaba Maal à Mborobirane"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+              />
             </div>
           </div>
         </div>
