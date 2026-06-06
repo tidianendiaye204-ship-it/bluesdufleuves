@@ -116,6 +116,7 @@ const piliers = [
 ];
 
 const videos = [
+  { title: "Festival Les Blues du Fleuve", id: "6HaDTK0ICDE" },
   { title: "Festival Les Blues du Fleuve", id: "cGUML8xR5UU" },
   { title: "Festival Les Blues du Fleuve", id: "V5RcwQAl-_g" },
   { title: "Festival Les Blues du Fleuve", id: "No0IoqGSiLw" },
