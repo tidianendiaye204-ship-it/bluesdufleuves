@@ -99,40 +99,41 @@ function NannkMedia() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              Le Fondateur
+              L'initiative de Baaba Maal
             </span>
             <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground">
               Notre Mission
             </h2>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              NANNK apporte une nouvelle dynamique active et citoyenne de promotion de l'Agriculture
-              au sens large, l'Artisanat et les Technologies modernes (TIC). Ces secteurs à fort
-              potentiel offrent des conditions d'un plein épanouissement et d'une participation
-              effective à la construction du tissu économique.
+              NANN-K est un mouvement citoyen qui insuffle une dynamique nouvelle au cœur de la
+              vallée du fleuve Sénégal. Il promeut trois piliers essentiels : une <strong>agriculture
+              durable</strong> nourricière, un <strong>artisanat valorisé</strong> et des <strong>technologies
+              modernes</strong> accessibles. Ces secteurs à haut potentiel créent les conditions
+              d'un épanouissement collectif et d'une participation active à la vie économique.
             </p>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              Dans le langage Peulh, "NANN-K" est une expression populaire qui est utilisée pour la
-              plaisanterie et provient du verbe «nanni» c'est à dire Ouïr. C'est pour cette raison
-              que le mouvement possède un bras culturel constitué par une troupe folklorique afin de
-              faire entendre et comprendre les opérations du développement, dans la musique et la
-              mobilisation.
+              Dans la langue peulh, "NANN-K" vient du verbe <em>"nanni"</em> : "ouïr". Ce mot
+              porte toute notre ambition : <strong>faire entendre et comprendre</strong>. Grâce à
+              notre bras culturel — musique, chants, troupe folklorique — nous transformons les
+              messages de développement en récits vivants, en émotions partagées, en mobilisations
+              populaires.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-              Donc, le mouvement "NANN-K" se veut asseoir une conscientisation, motivation
-              médiatisée pour l'application par responsabilité citoyenne, du triptyque «Culture –
-              Savoir – Travail » afin de réaliser le développement de l'Agriculture, l'Artisanat et
-              les Technologies en faveur d'une réelle Emergence sociale et économique.
+              Notre credo ? <strong>"Culture – Savoir – Travail"</strong>. Nous construisons une
+              conscience citoyenne active, pour que chaque femme, chaque homme de la vallée
+              devienne acteur de son propre avenir, et de l'émergence sociale et économique de
+              toute la région.
             </p>
             <div className="space-y-6 font-serif text-muted-foreground">
               <div className="flex items-start gap-4">
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Agriculture
+                    🌾 Agriculture
                   </strong>
                   <span className="text-sm">
-                    Promotion de l'agriculture au sens large pour la sécurité alimentaire et la
-                    croissance économique.
+                    Garantir la sécurité alimentaire, valoriser les terroirs et faire de
+                    l'agriculture un véritable levier de croissance inclusive.
                   </span>
                 </div>
               </div>
@@ -140,11 +141,11 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Artisanat
+                    👐 Artisanat
                   </strong>
                   <span className="text-sm">
-                    Valorisation du savoir-faire artisanal local et création d'opportunités
-                    économiques.
+                    Redorer le savoir-faire local, créer des filières rentables et offrir des
+                    perspectives économiques à la jeunesse.
                   </span>
                 </div>
               </div>
@@ -152,11 +153,11 @@ function NannkMedia() {
                 <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
                 <div>
                   <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Technologies (TIC)
+                    💡 Technologies (TIC)
                   </strong>
                   <span className="text-sm">
-                    Intégration des technologies modernes pour accélérer le développement et
-                    l'innovation.
+                    Connecter la vallée aux innovations du monde, faciliter l'accès à l'information
+                    et accélérer l'entrepreneuriat.
                   </span>
                 </div>
               </div>
@@ -178,32 +179,83 @@ function NannkMedia() {
       <section className="container-page py-20 border-b border-border">
         <div className="max-w-4xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-            Contexte & Justification
+            Notre raison d'être
           </span>
           <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
             Pourquoi NANN-K ?
           </h2>
-          <div className="prose prose-lg max-w-none space-y-6 font-serif text-muted-foreground">
-            <p>
-              Le développement social et économique en Afrique fait face à des défis majeurs. Le
-              manque d'initiatives citoyennes et de réflexions approfondies sur les stratégies pour
-              un avenir meilleur constitue un obstacle important.
-            </p>
-            <p>
-              La réponse insuffisante des gouvernements à la demande d'emploi, à la création de
-              richesses et à la sécurité alimentaire nécessite une mobilisation citoyenne accrue.
-            </p>
-            <p>
-              Avec la fin de l'initiative "Afrique 2015" et des Objectifs du Millénaire pour le
-              Développement, de nombreux émigrants sont contraints de retourner dans leurs pays
-              d'origine en raison des crises européennes.
-            </p>
-            <p>
-              Le Sénégal a décidé de faire de l'agriculture un moteur de croissance, mais les
-              mesures institutionnelles ralentissent sa mise en œuvre. La population a besoin
-              d'alternatives, notamment pour accéder à des informations utiles et au financement,
-              acquérir des équipements et des intrants, et bénéficier de renforcement des capacités.
-            </p>
+          <div className="space-y-8">
+            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">Le défi du développement</h3>
+              <p className="font-serif text-muted-foreground text-base leading-relaxed">
+                L'Afrique fait face à des défis colossaux. Trop souvent, les initiatives restent
+                institutionnelles et ne prennent pas racine dans les réalités du terrain. NANN-K
+                naît de ce constat : <strong>le changement doit venir des citoyens eux-mêmes</strong>.
+              </p>
+            </div>
+            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">Une réponse à l'attente des populations</h3>
+              <p className="font-serif text-muted-foreground text-base leading-relaxed">
+                Emplois, revenus, sécurité alimentaire : les besoins sont criants. Les populations
+                n'attendent plus, elles agissent. NANN-K leur donne les outils : formations, accès
+                au financement, équipements et surtout une visibilité médiatique forte.
+              </p>
+            </div>
+            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">L'agriculture, priorité nationale</h3>
+              <p className="font-serif text-muted-foreground text-base leading-relaxed">
+                Le Sénégal a fait de l'agriculture son moteur de croissance — mais les rouages
+                grippent. NANN-K est l'alternative concrète : un accompagnement terrain, proche
+                des agriculteurs, pour transformer les politiques en résultats tangibles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NANNK TRUST & Podor Vert Section */}
+      <section className="container-page py-20 border-b border-border bg-muted/50">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Un engagement concret
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            NANNK TRUST de Baaba Maal soutient la lutte contre la désertification à Podor
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
+              <div className="aspect-video relative">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/atzGZYV3PaY?autoplay=0"
+                  title="NANNK TRUST - Lutte contre la désertification à Podor"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  frameBorder="0"
+                />
+              </div>
+            </div>
+            <div className="space-y-6">
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Podor, Sénégal – La fondation NANNK TRUST, initiée par l’artiste planétaire Baaba Maal, a remis un chèque d’un montant de plus de 5 millions de francs CFA à l’association Podor Vert, marquant ainsi une étape importante dans leur partenariat en faveur de l’environnement.
+              </p>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Cette contribution constitue la deuxième tranche du financement engagé par la fondation pour soutenir les actions de l’association, qui se consacre depuis plusieurs années à la lutte contre la désertification et la restauration des écosystèmes locaux.
+              </p>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Lors de la remise officielle, les responsables des deux structures ont réaffirmé leur volonté commune de renforcer la résilience environnementale dans le département de Podor, particulièrement touché par l’avancée du désert.
+              </p>
+              <blockquote className="border-l-4 border-primary pl-6 py-2 italic">
+                « La protection de l’environnement est une urgence et une responsabilité collective. En soutenant Podor Vert, nous investissons dans un avenir durable pour nos communautés et pour les générations futures. »
+                <footer className="mt-2 text-sm font-semibold text-primary">Baaba Maal</footer>
+              </blockquote>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                L’association Podor Vert a salué ce geste de confiance et a annoncé la mise en œuvre de nouvelles initiatives de reboisement, de sensibilisation et de formation des jeunes aux pratiques agricoles durables, rendues possibles grâce à cet appui financier.
+              </p>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Ce partenariat exemplaire entre une organisation culturelle de renommée internationale et un acteur local engagé dans l’environnement illustre l’importance de la synergie entre la culture, la communauté et le développement durable.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -319,12 +371,10 @@ function NannkMedia() {
             {isHeroPlaying ? (
               <iframe
                 className="absolute inset-0 w-full h-full border-0"
-                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fp%2F1ZctY17tZP%2F&show_text=false&width=1000&height=1000&autoplay=true"
-                title="Vidéo NANN-K"
-                allow="autoplay; encrypted-media; picture-in-picture"
+                src="https://www.youtube.com/embed/L0HX8udwCeg?autoplay=1"
+                title="NANN-K en action"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                scrolling="no"
-                frameBorder="0"
               />
             ) : (
               <>
@@ -346,7 +396,7 @@ function NannkMedia() {
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
                     NANN-K en action
                   </h2>
-                  <p className="text-sm text-white/80 mt-1 font-serif">Vidéo Facebook</p>
+                  <p className="text-sm text-white/80 mt-1 font-serif">Vidéo YouTube</p>
                 </div>
               </>
             )}
