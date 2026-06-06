@@ -271,16 +271,15 @@ function NannkMedia() {
           </h2>
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
-              <div className="aspect-video relative bg-black">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1JGnqFa8VY%2F&show_text=false&width=1000&height=1000"
-                  title="Journée de Reboisement à Mbolo Birame"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                  scrolling="no"
-                  frameBorder="0"
-                />
+              <div className="aspect-video bg-black">
+                <video
+                  className="w-full h-full"
+                  src="/podor%20vert.mp4"
+                  controls
+                  preload="metadata"
+                >
+                  Votre navigateur ne supporte pas la vidéo.
+                </video>
               </div>
             </div>
             <div className="space-y-6">
@@ -325,25 +324,25 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Baaba Maal Video Section */}
-      <section className="container-page py-20 border-b border-border">
+      {/* Baaba Maal à Mborobirane Section */}
+      <section className="container-page py-20 border-b border-border bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-            Baaba Maal
+            Moment Musical
           </span>
           <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
             Baaba Maal à Mborobirane
           </h2>
           <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
-            <div className="aspect-video relative bg-black">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/VIDEO_ID_A_REMPLACER"
-                title="Baaba Maal à Mborobirane"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                frameBorder="0"
-              />
+            <div className="aspect-video bg-black">
+              <video
+                className="w-full h-full"
+                src="/baaba-maal-mborobirane.mp4"
+                controls
+                preload="metadata"
+              >
+                Votre navigateur ne supporte pas la vidéo.
+              </video>
             </div>
           </div>
         </div>
