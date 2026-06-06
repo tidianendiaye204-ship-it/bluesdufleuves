@@ -335,24 +335,16 @@ function NannkMedia() {
             Baaba Maal à Mborobirane
           </h2>
           <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
-            <div 
-              className="aspect-video relative bg-black cursor-pointer group"
-              onClick={() => setActiveVideo({ 
-                name: "Baaba Maal à Mborobirane", 
-                id: "/baaba-maal-a-mborobirane.mp4", 
-                isLocal: true 
-              })}
-            >
+            <div className="aspect-video relative bg-black">
               <video
-                className="absolute inset-0 w-full h-full object-cover"
-                src="/baaba-maal-a-mborobirane.mp4"
+                className="absolute inset-0 w-full h-full"
+                src="/baba%20maal%20a%20mborobirane.mp4"
                 controls
-                muted
                 preload="metadata"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition">
-                <Play size={48} className="text-primary-foreground" fill="currentColor" />
-              </div>
+                poster="/logo.png"
+              >
+                Votre navigateur ne supporte pas la vidéo.
+              </video>
             </div>
           </div>
         </div>
