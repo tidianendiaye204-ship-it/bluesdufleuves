@@ -70,7 +70,7 @@ const categories = [
 
 function NannkMedia() {
   const [isHeroPlaying, setIsHeroPlaying] = useState(false);
-  const [activeVideo, setActiveVideo] = useState<{ name: string; id: string } | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ name: string; id: string; isLocal?: boolean } | null>(null);
 
   return (
     <div className="bg-background min-h-screen">
@@ -260,6 +260,104 @@ function NannkMedia() {
         </div>
       </section>
 
+      {/* Journée de Reboisement Section */}
+      <section className="container-page py-20 border-b border-border">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Journée citoyenne
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            Journée de Reboisement à Mbolo Birame
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
+              <div className="aspect-video relative bg-black">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1JGnqFa8VY%2F&show_text=false&width=1000&height=1000"
+                  title="Journée de Reboisement à Mbolo Birame"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  scrolling="no"
+                  frameBorder="0"
+                />
+              </div>
+            </div>
+            <div className="space-y-6">
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Dans le cadre de la journée nationale de l’arbre initiée par le Président de la République Bassirou Diomaye Faye, le département de Podor s’est manifesté à travers le député Ismaela Wone et l’Association Podor Vert par une grande journée de reboisement et sensibilisation dans la commune de Mbolo Birame le dimanche 31 août 2025.
+              </p>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont été retenus dans le cadre de cette activité citoyenne. Ainsi, Podor vert a mis à leur disposition 180 plants ombragés et fruitiers qui sont de la production des pépinières de Fanaye et de Mery.
+              </p>
+              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
+                L’Agence Sénégalaise de la Reforestation et de la Grande Muraille verte a participé activement à la réussite de cette activité.
+              </p>
+              <p className="font-serif text-lg leading-relaxed font-semibold text-foreground">
+                Ensemble, œuvrons pour un Podor Vert et durable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Espace Agricole NANN-K Section */}
+      <section className="container-page py-20 border-b border-border bg-muted/50">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Notre espace agricole
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            Espace Agricole de NANN-K
+          </h2>
+          <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
+            <div className="aspect-video relative bg-black">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/aF-3SIAeoOk"
+                title="Espace Agricole de NANN-K"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Baaba Maal Video Section */}
+      <section className="container-page py-20 border-b border-border">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Baaba Maal
+          </span>
+          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+            Baaba Maal à Mborobirane
+          </h2>
+          <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
+            <div 
+              className="aspect-video relative bg-black cursor-pointer group"
+              onClick={() => setActiveVideo({ 
+                name: "Baaba Maal à Mborobirane", 
+                id: "/baaba-maal-a-mborobirane.mp4", 
+                isLocal: true 
+              })}
+            >
+              <video
+                className="absolute inset-0 w-full h-full object-cover"
+                src="/baaba-maal-a-mborobirane.mp4"
+                controls
+                muted
+                preload="metadata"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition">
+                <Play size={48} className="text-primary-foreground" fill="currentColor" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Agriculture Images Section */}
       <section className="container-page py-20 border-b border-border">
         <div className="max-w-6xl mx-auto">
@@ -438,13 +536,22 @@ function NannkMedia() {
               <X size={20} />
             </button>
             <div className="aspect-video bg-black">
-              <iframe
-                className="w-full h-full border-0"
-                src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1`}
-                title={activeVideo.name}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {activeVideo.isLocal ? (
+                <video
+                  className="w-full h-full"
+                  src={activeVideo.id}
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <iframe
+                  className="w-full h-full border-0"
+                  src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1`}
+                  title={activeVideo.name}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold font-display">{activeVideo.name}</h3>
