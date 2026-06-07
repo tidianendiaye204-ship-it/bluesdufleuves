@@ -107,6 +107,7 @@ const instruments = [
 
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [showFullBio, setShowFullBio] = useState(false);
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -251,21 +252,52 @@ function Home() {
             </h2>
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
               <p>
-                Mamadou Aliou Bah, dit <strong>Baaba Maal</strong>, est bien plus qu'un artiste.
-                C'est le gardien d'un héritage, un bâtisseur qui a su transformer la richesse
-                musicale du Fouta Toro en un levier de développement pour toute la vallée.
+                Mamadou Aliou Bah, dit <strong>Baaba Maal</strong>, est né en 1953 à Podor dans la
+                province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar, des
+                Peuls du nord du pays.
               </p>
+
+              {showFullBio && (
+                <>
+                  <p>
+                    Dès son plus jeune âge, il baigne dans la culture musicale traditionnelle. Son
+                    père, un fisherman et griot, lui transmet l'amour de la musique et de la culture
+                    pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs instruments,
+                    notamment le ngoni et la kora.
+                  </p>
+                  <p>
+                    Dans les années 1970, il se rend à Dakar pour poursuivre ses études. C'est là
+                    que son parcours musical prend son envol. Il collabore avec divers artistes et
+                    enregistre ses premiers albums. Son style unique, mélange de traditions
+                    musicales peules et d'influences modernes, lui permet de se faire connaître bien
+                    au-delà des frontières du Sénégal.
+                  </p>
+                  <p>
+                    Au cours des décennies suivantes, Baaba Maal devient une figure emblématique de
+                    la musique africaine mondiale. Il a collaboré avec de grands artistes
+                    internationaux et a donné des concerts dans les plus grandes salles du monde.
+                  </p>
+                  <p>
+                    Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
+                    profondément engagé dans le développement de sa région. Il est le fondateur du
+                    mouvement NANN-K et du complexe culturel The Village à Podor, qui ont pour
+                    objectif de promouvoir la culture, l'éducation et le développement durable dans
+                    la vallée du fleuve Sénégal.
+                  </p>
+                </>
+              )}
+
               <p className="border-l-4 border-primary pl-8 italic text-foreground text-xl">
                 "The Village est l'aboutissement d'un rêve : offrir à la jeunesse de Podor un lieu
                 où tradition et modernité se rencontrent pour créer l'avenir."
               </p>
               <div className="pt-8">
-                <Link
-                  to="/blues-du-fleuve"
+                <button
+                  onClick={() => setShowFullBio(!showFullBio)}
                   className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary hover:gap-5 transition-all"
                 >
-                  Lire la biographie complète <ArrowRight size={16} />
-                </Link>
+                  {showFullBio ? "Réduire" : "Lire la biographie complète"} <ArrowRight size={16} />
+                </button>
               </div>
             </div>
           </motion.div>
