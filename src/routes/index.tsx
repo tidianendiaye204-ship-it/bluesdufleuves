@@ -7,39 +7,7 @@ import baabaImg from "@/assets/baaba-maal.jpg";
 import baabaConcertImg from "@/assets/baaba-maal-concert.png";
 import centreImg from "@/assets/centre-podor.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
-import { createServerFn } from "@tanstack/react-start";
-import { getDb } from "@/lib/db";
-import { newsletter } from "@/db/schema";
-import { z } from "zod";
-
-const newsletterSchema = z.object({
-  email: z.string().email("Adresse email invalide"),
-});
-
-export const soumettreNewsletter = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
-  .handler(async ({ data }) => {
-    const db = getDb();
-    try {
-      await db.insert(newsletter).values({
-        email: data.email,
-        dateInscription: new Date(),
-      });
-      return { success: true };
-    } catch (error: unknown) {
-      // Email déjà inscrit (contrainte unique)
-      if (
-        error &&
-        typeof error === "object" &&
-        "message" in error &&
-        typeof (error as { message: string }).message === "string" &&
-        (error as { message: string }).message.includes("UNIQUE")
-      ) {
-        return { success: true, alreadySubscribed: true };
-      }
-      throw new Error("Impossible d'enregistrer votre email. Veuillez réessayer.");
-    }
-  });
+import { subscribeNewsletterFn } from "@/routes/__root";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -107,16 +75,30 @@ const instruments = [
 
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [newsletterMsg, setNewsletterMsg] = useState("");
   const [showFullBio, setShowFullBio] = useState(false);
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
+    setNewsletterStatus("loading");
+    setNewsletterMsg("");
     try {
-      await soumettreNewsletter({ data: { email: newsletterEmail } });
-      setNewsletterEmail("");
+      const res = await subscribeNewsletterFn({ data: { email: newsletterEmail } });
+      if (res.error) {
+        setNewsletterStatus("error");
+        setNewsletterMsg(res.error);
+      } else {
+        setNewsletterStatus("success");
+        setNewsletterMsg("Merci pour votre inscription !");
+        setNewsletterEmail("");
+      }
     } catch {
-      console.error("Newsletter subscription error");
+      setNewsletterStatus("error");
+      setNewsletterMsg("Impossible d'enregistrer votre email. Veuillez réessayer.");
     }
   };
 
@@ -430,11 +412,19 @@ function Home() {
               />
               <button
                 type="submit"
-                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
+                disabled={newsletterStatus === "loading"}
+                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50"
               >
-                S'abonner
+                {newsletterStatus === "loading" ? "..." : "S'abonner"}
               </button>
             </form>
+            {newsletterMsg && (
+              <p
+                className={`mt-4 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
+              >
+                {newsletterMsg}
+              </p>
+            )}
           </div>
         </div>
       </section>

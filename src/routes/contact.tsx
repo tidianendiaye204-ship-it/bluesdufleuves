@@ -24,8 +24,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
   .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
   .handler(async ({ data }) => {
     const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-    // Using test keys for dummy validation
-    const secret = "1x0000000000000000000000000000000AA";
+    const secret = process.env.TURNSTILE_SECRET_KEY ?? "1x0000000000000000000000000000000AA";
 
     const tsResponse = await fetch(verifyUrl, {
       method: "POST",
@@ -43,18 +42,16 @@ export const soumettreContact = createServerFn({ method: "POST" })
     const db = getDb();
 
     try {
-      await withRetry(
-        async () =>
-          db.insert(contacts).values({
-            nom: data.nom,
-            email: data.email,
-            sujet: data.sujet,
-            message: data.message,
-            dateEnvoi: new Date(),
-            statut: "non_lu",
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          }) as Promise<any>,
-      );
+      await withRetry(async () => {
+        await db.insert(contacts).values({
+          nom: data.nom,
+          email: data.email,
+          sujet: data.sujet,
+          message: data.message,
+          dateEnvoi: new Date(),
+          statut: "non_lu",
+        });
+      });
 
       return { success: true, message: "Votre message a été envoyé avec succès." };
     } catch (error) {
@@ -97,6 +94,7 @@ function ContactPage() {
       email: "",
       sujet: "",
       message: "",
+      cfTurnstileResponse: "",
     },
   });
 
@@ -329,9 +327,9 @@ function ContactPage() {
 
                 <div className="space-y-2">
                   <Turnstile
-                    siteKey="1x00000000000000000000AA"
+                    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"}
                     onSuccess={(token) => {
-                      setValue("cfTurnstileResponse", token);
+                      setValue("cfTurnstileResponse", token, { shouldValidate: true });
                     }}
                   />
                   {errors.cfTurnstileResponse && (

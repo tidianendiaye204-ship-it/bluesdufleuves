@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { ensureD1Schema } from "./lib/db";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -83,6 +84,10 @@ export default {
         if (!success) {
           return new Response("Too Many Requests", { status: 429 });
         }
+      }
+
+      if (env?.DB) {
+        await ensureD1Schema(env.DB);
       }
 
       const handler = await getServerEntry();

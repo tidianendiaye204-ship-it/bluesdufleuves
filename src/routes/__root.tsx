@@ -30,42 +30,13 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const db = getDb();
-      if (!db) {
-        throw new Error("La connexion à la base de données a échoué.");
-      }
 
-      try {
-        await withRetry(async () => {
-          await db.insert(newsletter).values({
-            email: data.email,
-            dateInscription: new Date(),
-          });
+      await withRetry(async () => {
+        await db.insert(newsletter).values({
+          email: data.email,
+          dateInscription: new Date(),
         });
-      } catch (insertError: unknown) {
-        // If the table doesn't exist in production (e.g. D1 migrations not run), create it and retry
-        const errMsg =
-          insertError && typeof insertError === "object" && "message" in insertError
-            ? (insertError as { message: string }).message
-            : "";
-        if (errMsg.includes("no such table: newsletter")) {
-          console.warn("Table newsletter missing, attempting to create it...");
-          const { sql } = await import("drizzle-orm");
-          await db.run(sql`
-            CREATE TABLE IF NOT EXISTS newsletter (
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              email TEXT NOT NULL UNIQUE,
-              date_inscription INTEGER NOT NULL
-            )
-          `);
-          // Retry the insertion
-          await db.insert(newsletter).values({
-            email: data.email,
-            dateInscription: new Date(),
-          });
-        } else {
-          throw insertError;
-        }
-      }
+      });
 
       return { success: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
