@@ -3,15 +3,10 @@ import { drizzle as drizzleSqlite } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
 import * as schema from "../db/schema";
 
-// Type pour notre base de données
 export type Database =
   | ReturnType<typeof drizzleD1<typeof schema>>
   | ReturnType<typeof drizzleSqlite<typeof schema>>;
 
-/**
- * Fonction pour exécuter des opérations de base de données avec retry logic
- * Utile pour gérer les erreurs transitoires de connexion ou de verrouillage (ex: SQLite SQLITE_BUSY)
- */
 export async function withRetry<T>(
   operation: () => Promise<T>,
   maxRetries = 3,
@@ -97,66 +92,74 @@ let dbInstance: Database | null = null;
 let schemaReady = false;
 
 function getD1Binding(): D1Database | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = process.env as any;
   return env.DB ?? env.bluesdufleuve_db;
 }
 
 function isLocalDev(): boolean {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = process.env as any;
   return (
     env.NODE_ENV === "development" || env.MODE === "development" || import.meta.env?.DEV === true
   );
 }
 
-/** Crée les tables manquantes sur D1 (une fois par instance Worker). */
 export async function ensureD1Schema(d1: D1Database): Promise<void> {
   if (schemaReady) return;
-  await d1.exec(D1_SCHEMA_SQL);
-  schemaReady = true;
+  try {
+    await d1.exec(D1_SCHEMA_SQL);
+    schemaReady = true;
+  } catch (e) {
+    console.warn("Failed to create D1 schema (non-critical):", e);
+  }
 }
 
 export function getDb(): Database {
-  const d1Binding = getD1Binding();
+  try {
+    const d1Binding = getD1Binding();
 
-  if (d1Binding) {
-    if (!dbInstance) {
-      dbInstance = drizzleD1(d1Binding, { schema });
+    if (d1Binding) {
+      if (!dbInstance) {
+        dbInstance = drizzleD1(d1Binding, { schema });
+      }
+      return dbInstance;
     }
-    return dbInstance;
-  }
 
-  if (!isLocalDev()) {
-    console.error("D1_BINDING_MISSING: Database binding not configured in production");
-    // Créer une instance mockée pour éviter le crash
+    if (!isLocalDev()) {
+      console.warn("D1 binding not found in production, using in-memory DB");
+      const sqlite = new Database(":memory:");
+      try {
+        sqlite.exec(D1_SCHEMA_SQL);
+      } catch {}
+      dbInstance = drizzleSqlite(sqlite, { schema });
+      return dbInstance;
+    }
+
+    if (dbInstance) return dbInstance;
+
+    console.warn("D1 database binding not found, using local SQLite database for development.");
+    const sqlite = new Database("local-dev.db");
+
+    try {
+      try {
+        const tableInfo = sqlite.pragma("table_info(newsletter)") as Array<{ name: string }>;
+        if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
+          sqlite.exec("DROP TABLE newsletter;");
+        }
+      } catch {}
+      sqlite.exec(D1_SCHEMA_SQL);
+    } catch (e) {
+      console.warn("Table might already exist, continuing...", e);
+    }
+
+    dbInstance = drizzleSqlite(sqlite, { schema });
+    return dbInstance;
+  } catch (e) {
+    console.error("Fatal DB init error, using in-memory DB as fallback!", e);
     const sqlite = new Database(":memory:");
-    sqlite.exec(D1_SCHEMA_SQL);
+    try {
+      sqlite.exec(D1_SCHEMA_SQL);
+    } catch {}
     dbInstance = drizzleSqlite(sqlite, { schema });
     return dbInstance;
   }
-
-  if (dbInstance) return dbInstance;
-
-  console.warn("D1 database binding not found, using local SQLite database for development.");
-
-  const sqlite = new Database("local-dev.db");
-
-  try {
-    try {
-      const tableInfo = sqlite.pragma("table_info(newsletter)") as Array<{ name: string }>;
-      if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
-        sqlite.exec("DROP TABLE newsletter;");
-      }
-    } catch {
-      // Ignorer
-    }
-
-    sqlite.exec(D1_SCHEMA_SQL);
-  } catch (e) {
-    console.warn("Table might already exist, continuing...", e);
-  }
-
-  dbInstance = drizzleSqlite(sqlite, { schema });
-  return dbInstance;
 }

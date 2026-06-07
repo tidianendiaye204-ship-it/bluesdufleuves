@@ -2,7 +2,6 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import { ensureD1Schema } from "./lib/db";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -86,9 +85,10 @@ export default {
         }
       }
 
-      if (env?.DB) {
-        await ensureD1Schema(env.DB);
-      }
+      // Désactivé pour la présentation : pas de dépendance à la BD
+      // if (env?.DB) {
+      //   await ensureD1Schema(env.DB);
+      // }
 
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
