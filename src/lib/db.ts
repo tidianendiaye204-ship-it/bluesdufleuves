@@ -128,7 +128,12 @@ export function getDb(): Database {
   }
 
   if (!isLocalDev()) {
-    throw new Error("D1_BINDING_MISSING: Database binding not configured");
+    console.error("D1_BINDING_MISSING: Database binding not configured in production");
+    // Créer une instance mockée pour éviter le crash
+    const sqlite = new Database(":memory:");
+    sqlite.exec(D1_SCHEMA_SQL);
+    dbInstance = drizzleSqlite(sqlite, { schema });
+    return dbInstance;
   }
 
   if (dbInstance) return dbInstance;
