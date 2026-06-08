@@ -124,12 +124,12 @@ export function Navbar() {
             </div>
 
             {/* Navigation desktop */}
-            <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 flex-1">
+            <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 flex-1" aria-label="Navigation principale">
               {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all nav-link whitespace-nowrap ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
+                  className={`text-[11px] font-black uppercase tracking-[0.2em] transition-all nav-link whitespace-nowrap min-h-12 flex items-center ${isTransparent ? "text-white hover:text-white/70" : "text-foreground hover:text-primary"}`}
                   activeProps={{
                     className: isTransparent
                       ? "text-white !after:w-full"
@@ -250,13 +250,13 @@ export function Navbar() {
         </div>
 
         {/* Liens */}
-        <nav className="flex-1 overflow-y-auto py-6 px-6 flex flex-col">
+        <nav className="flex-1 overflow-y-auto py-6 px-6 flex flex-col" aria-label="Navigation mobile">
           {links.map((l, i) => (
             <Link
               key={l.to}
               to={l.to}
               onClick={() => setOpen(false)}
-              className="flex items-center text-base font-bold uppercase tracking-widest text-foreground py-5 border-b border-border/50 transition-all hover:text-primary hover:pl-2 duration-200"
+              className="flex items-center text-base font-bold uppercase tracking-widest text-foreground py-5 min-h-12 border-b border-border/50 transition-all hover:text-primary hover:pl-2 duration-200"
               activeProps={{ className: "!text-primary !pl-2" }}
               activeOptions={{ exact: l.to === "/" }}
               style={{ transitionDelay: open ? `${i * 50}ms` : "0ms" }}

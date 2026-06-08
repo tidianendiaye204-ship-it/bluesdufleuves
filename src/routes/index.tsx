@@ -454,6 +454,7 @@ function Home() {
                     <img
                       src={article.img}
                       alt={article.title}
+                      loading="lazy"
                       className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
@@ -484,12 +485,12 @@ function Home() {
       </section>
 
       {/* Patrimoine & Instruments - Refined layout */}
-      <section className="container-page py-32">
+      <section className="container-page py-32" aria-labelledby="instruments-title">
         <div className="max-w-4xl mx-auto text-center mb-20">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
             Héritage
           </span>
-          <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
+          <h2 id="instruments-title" className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
             Les Instruments du <span className="text-primary">Fouta</span>
           </h2>
         </div>
@@ -514,14 +515,14 @@ function Home() {
       </section>
 
       {/* Newsletter Section - Re-added but cleaned */}
-      <section className="container-page py-24">
+      <section className="container-page py-24" aria-labelledby="newsletter-title">
         <div className="bg-[#0a0908] rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
           <div className="max-w-2xl mx-auto relative z-10">
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
               S'abonner
             </span>
-            <h2 className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter">
+            <h2 id="newsletter-title" className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter">
               La Lettre de <span className="text-primary">l'Éditeur</span>
             </h2>
             <p className="text-white/60 mb-10 text-lg">
@@ -531,6 +532,7 @@ function Home() {
             <form
               className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
               onSubmit={handleNewsletter}
+              aria-label="Inscription à la newsletter"
             >
               <input
                 type="email"
@@ -538,12 +540,14 @@ function Home() {
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="votre@email.com"
-                className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white outline-none focus:ring-1 focus:ring-primary transition-all"
+                className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white outline-none focus:ring-1 focus:ring-primary transition-all min-h-12"
+                aria-label="Votre email pour la newsletter"
               />
               <button
                 type="submit"
                 disabled={newsletterStatus === "loading"}
-                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50"
+                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50 min-h-12"
+                aria-label={newsletterStatus === "loading" ? "Inscription en cours" : "S'abonner à la newsletter"}
               >
                 {newsletterStatus === "loading" ? "..." : "S'abonner"}
               </button>
