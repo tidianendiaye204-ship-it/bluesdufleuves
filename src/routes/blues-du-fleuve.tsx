@@ -17,7 +17,6 @@ import {
 import { useState } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
-import baabaImg from "@/assets/baaba-maal.jpg";
 import crowdImg from "@/assets/festival-crowd.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
@@ -65,7 +64,7 @@ const artistes = [
     role: "Fondateur · Légende",
     origine: "Podor, Sénégal",
     desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays.",
-    img: baabaImg,
+    img: "/festival baba maal.jpg",
   },
   {
     nom: "Joe Keita",
@@ -130,7 +129,7 @@ const videos = [
 
 const galleryImages = [
   { id: 1, src: crowdImg, alt: "Foule au festival", span: "md:col-span-2 md:row-span-2" },
-  { id: 2, src: baabaImg, alt: "Baaba Maal", span: "md:col-span-1 md:row-span-1" },
+  { id: 2, src: "/festival baba maal.jpg", alt: "Baaba Maal", span: "md:col-span-1 md:row-span-1" },
   { id: 3, src: fleuveImg, alt: "Le fleuve Sénégal", span: "md:col-span-1 md:row-span-1" },
   {
     id: 4,
@@ -221,7 +220,7 @@ function BluesDuFleuve() {
           </div>
           <div className="rounded-3xl overflow-hidden border border-border/20 aspect-4/5 shadow-(--shadow-elegant)">
             <img
-              src={baabaImg}
+              src="/festival baba maal.jpg"
               alt="Baaba Maal"
               className="h-full w-full object-cover"
               loading="lazy"

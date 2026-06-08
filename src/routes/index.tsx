@@ -3,10 +3,17 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
-import baabaImg from "@/assets/baaba-maal.jpg";
 import baabaConcertImg from "@/assets/baaba-maal-concert.png";
-import centreImg from "@/assets/centre-podor.jpg";
 import fleuveImg from "@/assets/fleuve.jpg";
+import crowdImg from "@/assets/festival-crowd.jpg";
+import instrumentsImg from "@/assets/instruments.jpg";
+import piroguesImg from "@/assets/pirogues.jpg";
+import logoNannk from "@/assets/logo-nannk-new.jpg";
+import gal1Img from "@/assets/gal1.jpg";
+import gal2Img from "@/assets/gal2.jpg";
+import gal3Img from "@/assets/gal3.jpg";
+import gal4Img from "@/assets/gal4.jpg";
+import gal5Img from "@/assets/gal5.jpg";
 import { subscribeNewsletterFn } from "@/routes/__root";
 
 export const Route = createFileRoute("/")({
@@ -18,7 +25,7 @@ export const Route = createFileRoute("/")({
       ogTitle: "The Village - Complexe Culturel Podor par Baaba Maal",
       ogDescription:
         "The Village, l'épicentre culturel de la vallée du fleuve Sénégal. Musée, espaces de création, formations et le festival Blues du Fleuve, par Baaba Maal.",
-      ogImage: centreImg,
+      ogImage: "/centre culturel.jpg",
       keywords:
         "The Village, The Village Podor, NANN-k, Centre Culturel Podor, Baaba Maal, Complexe culturel, Fouta Toro, patrimoine Sénégal, Blues du Fleuve",
       canonical: "https://lesbluesdufleuve.sn/",
@@ -45,7 +52,7 @@ const articles = [
     excerpt:
       "L'artisanat local mis à l'honneur dans une rétrospective exceptionnelle au cœur de la ville, attirant de nombreux visiteurs.",
     date: "Hier",
-    img: centreImg,
+    img: "/centre culturel.jpg",
   },
   {
     to: "/blues-du-fleuve" as const,
@@ -54,7 +61,7 @@ const articles = [
     excerpt:
       "Comment l'initiative portée par Baaba Maal transforme l'économie locale et booste le tourisme culturel dans la région.",
     date: "17 Mai 2026",
-    img: baabaImg,
+    img: "/photo baba maal.jpg",
   },
 ];
 
@@ -125,7 +132,7 @@ function Home() {
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
-            src={centreImg}
+            src="/centre culturel.jpg"
             alt="Centre Culturel de Podor"
             className="h-full w-full object-cover scale-105"
             animate={{ y: [0, -10, 0] }}
@@ -198,11 +205,11 @@ function Home() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            {/* Photo principale — concert */}
+            {/* Photo principale — portrait Baaba Maal */}
             <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
               <img
-                src={baabaConcertImg}
-                alt="Baaba Maal en concert"
+                src="/photo baba maal.jpg"
+                alt="Portrait Baaba Maal"
                 className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
@@ -213,11 +220,11 @@ function Home() {
                 <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
               </div>
             </div>
-            {/* Photo secondaire — portrait — positionnée en bas à droite */}
+            {/* Photo secondaire — concert — positionnée en bas à droite */}
             <div className="absolute -bottom-6 -right-6 w-36 md:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background">
               <img
-                src={baabaImg}
-                alt="Portrait Baaba Maal"
+                src="/Baba.jpg"
+                alt="Baaba Maal en concert"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
               />
             </div>
@@ -233,12 +240,6 @@ function Home() {
               La Voix du <span className="text-primary">Fleuve</span>
             </h2>
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
-              <p>
-                Mamadou Aliou Bah, dit <strong>Baaba Maal</strong>, est né en 1953 à Podor dans la
-                province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar, des
-                Peuls du nord du pays.
-              </p>
-
               {showFullBio && (
                 <>
                   <p>
@@ -286,6 +287,135 @@ function Home() {
         </div>
       </section>
 
+      {/* Activités Culturelles Section */}
+      <section className="container-page py-20 border-b border-border">
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+            Nos Activités
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
+            Vie Culturelle du Village
+          </h2>
+        </div>
+        
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          {/* Concert */}
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+            <div className="aspect-4/3 overflow-hidden bg-muted/50">
+              <img
+                src={gal1Img}
+                alt="Concert"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-8">
+              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Musical
+              </span>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Concerts & Spectacles</h3>
+              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
+                Vivez des moments inoubliables avec des concerts live, des performances d'artistes internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                En savoir plus <ArrowRight size={16} />
+              </div>
+            </div>
+          </article>
+
+          {/* Exposition */}
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+            <div className="aspect-4/3 overflow-hidden bg-muted/50">
+              <img
+                src={gal2Img}
+                alt="Exposition"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-8">
+              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Artistique
+              </span>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Expositions & Galeries</h3>
+              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
+                Découvrez des expositions d'art contemporain et traditionnel, valorisant le patrimoine halpulaar et les savoir-faire locaux.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                En savoir plus <ArrowRight size={16} />
+              </div>
+            </div>
+          </article>
+
+          {/* Conférence */}
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+            <div className="aspect-4/3 overflow-hidden bg-muted/50">
+              <img
+                src={gal3Img}
+                alt="Conférence"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-8">
+              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Débat
+              </span>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Conférences & Tables Rondes</h3>
+              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
+                Echanges sur le développement durable, la culture, l'éducation et l'avenir de l'Afrique avec des experts et des acteurs du terrain.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                En savoir plus <ArrowRight size={16} />
+              </div>
+            </div>
+          </article>
+
+          {/* Master Class */}
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+            <div className="aspect-4/3 overflow-hidden bg-muted/50">
+              <img
+                src={gal4Img}
+                alt="Master Class"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-8">
+              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Formation
+              </span>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Master Classes</h3>
+              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
+                Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de savoir-faire ancestraux.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                En savoir plus <ArrowRight size={16} />
+              </div>
+            </div>
+          </article>
+
+          {/* Défilé de Mode */}
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+            <div className="aspect-4/3 overflow-hidden bg-muted/50">
+              <img
+                src={gal5Img}
+                alt="Défilé de Mode"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-8">
+              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Création
+              </span>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Défilés de Mode</h3>
+              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
+                Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode traditionnelle et contemporaine.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                En savoir plus <ArrowRight size={16} />
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       {/* Actualités - Modern News Cards */}
       <section className="bg-muted/30 py-32">
         <div className="container-page">
@@ -320,11 +450,11 @@ function Home() {
                   to={article.to}
                   className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
                 >
-                  <div className="relative aspect-16/10 overflow-hidden">
+                  <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
                     <img
                       src={article.img}
                       alt={article.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">

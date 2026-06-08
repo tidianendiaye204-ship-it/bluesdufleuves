@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { to: "/", label: "Le Complexe" },
+  { to: "/", label: "Le Centre Culturel" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/nann-k-media", label: "Nann-k" },
   { to: "/formations", label: "Formations" },
@@ -97,22 +97,29 @@ export function Navbar() {
         <div className="container-page">
           <div className="flex items-center justify-between h-14 md:h-20 gap-4 md:gap-8">
             {/* Logo / titre */}
-            <div className="flex items-center shrink-0">
+            <div className="flex items-center shrink-0 gap-3">
               <Link
                 to="/"
-                className="flex flex-col items-start group"
+                className="flex items-center gap-3 group"
                 onClick={() => setOpen(false)}
               >
-                <span
-                  className={`luxury-text text-lg md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "text-foreground group-hover:text-primary"}`}
-                >
-                  The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
-                </span>
-                <span
-                  className={`text-[6px] md:text-[9px] uppercase tracking-[0.4em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-foreground/80"}`}
-                >
-                  blues des fleuves · NANN-K
-                </span>
+                <img
+                  src="/logo the village.jpg"
+                  alt="Logo The Village"
+                  className="h-10 md:h-14 w-auto object-contain"
+                />
+                <div className="flex flex-col items-start">
+                  <span
+                    className={`luxury-text text-lg md:text-4xl uppercase tracking-tighter transition-colors duration-500 ${isTransparent ? "text-white group-hover:text-white/80" : "text-foreground group-hover:text-primary"}`}
+                  >
+                    The <span className={isTransparent ? "text-white" : "text-primary"}>Village</span>
+                  </span>
+                  <span
+                    className={`text-[6px] md:text-[9px] uppercase tracking-[0.4em] font-bold font-sans transition-colors duration-500 ${isTransparent ? "text-white/50" : "text-foreground/80"}`}
+                  >
+                    blues des fleuves · NANN-K
+                  </span>
+                </div>
               </Link>
             </div>
 
@@ -211,20 +218,27 @@ export function Navbar() {
 
       {/* Menu mobile — slide depuis la droite, z-index > header */}
       <div
-        className={`fixed inset-0 z-[200] lg:hidden flex flex-col bg-background transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 z-200 lg:hidden flex flex-col bg-background transition-transform duration-300 ease-in-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!open}
       >
         {/* En-tête du menu mobile */}
         <div className="flex items-center justify-between px-6 h-16 border-b border-border shrink-0">
-          <Link to="/" className="flex flex-col items-start" onClick={() => setOpen(false)}>
-            <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
-              The <span className="text-primary">Village</span>
-            </span>
-            <span className="text-[7px] uppercase tracking-[0.4em] font-bold font-sans text-muted-foreground">
-              blues des fleuves · NANN-K
-            </span>
+          <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+            <img
+              src="/logo the village.jpg"
+              alt="Logo The Village"
+              className="h-10 w-auto object-contain"
+            />
+            <div className="flex flex-col items-start">
+              <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
+                The <span className="text-primary">Village</span>
+              </span>
+              <span className="text-[7px] uppercase tracking-[0.4em] font-bold font-sans text-muted-foreground">
+                blues des fleuves · NANN-K
+              </span>
+            </div>
           </Link>
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-foreground/10 transition-colors"
@@ -295,7 +309,7 @@ export function Navbar() {
       {/* Fond semi-transparent derrière le menu */}
       {open && (
         <div
-          className="fixed inset-0 z-[199] lg:hidden bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-199 lg:hidden bg-black/50 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
