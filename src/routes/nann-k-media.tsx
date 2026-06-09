@@ -86,17 +86,18 @@ function NannkMedia() {
             <span className="text-primary">NANN-K</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL, au <Link to="/" className="text-primary hover:underline font-medium">The Village Podor</Link>, de répondre par une
-            participation effective à l'invitation des plus hautes autorités à la réalisation de la
-            croissance de l'économie, et donc le progrès social, au Sénégal puis progressivement en
-            Afrique surtout au Sud du Sahara. Cette région concentre les États à faible revenu de
-            l'Afrique de l'Ouest, ce qui représente un empêchement pour accélérer la croissance,
-            éliminer la pauvreté et la faim dans les pays.
+            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL, au{" "}
+            <Link to="/" className="text-primary hover:underline font-medium">
+              The Village Podor
+            </Link>
+            , de répondre par une participation effective à l'invitation des plus hautes autorités à
+            la réalisation de la croissance de l'économie, et donc le progrès social, au Sénégal
+            puis progressivement en Afrique surtout au Sud du Sahara. Cette région concentre les
+            États à faible revenu de l'Afrique de l'Ouest, ce qui représente un empêchement pour
+            accélérer la croissance, éliminer la pauvreté et la faim dans les pays.
           </p>
         </div>
       </section>
-
-
 
       {/* Media Office Mission */}
       <section className="container-page py-20 border-b border-border">

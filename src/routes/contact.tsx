@@ -69,7 +69,8 @@ export const Route = createFileRoute("/contact")({
       ogTitle: "Contactez The Village — Podor",
       ogDescription:
         "L'équipe de The Village et du festival Blues du Fleuve vous accueille à Podor. Formulaire de contact et coordonnées disponibles.",
-      keywords: "The Village, contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
+      keywords:
+        "The Village, contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
       canonical: "https://lesbluesdufleuve.sn/contact",
     });
     return { meta, links };
@@ -136,7 +137,11 @@ function ContactPage() {
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
             Une question sur le festival, un projet de partenariat ou une demande d'information sur
-            nos formations au <Link to="/" className="text-primary hover:underline font-medium">The Village Podor</Link> ? Notre équipe est à votre écoute.
+            nos formations au{" "}
+            <Link to="/" className="text-primary hover:underline font-medium">
+              The Village Podor
+            </Link>{" "}
+            ? Notre équipe est à votre écoute.
           </p>
         </div>
       </section>

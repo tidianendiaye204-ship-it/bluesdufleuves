@@ -149,7 +149,11 @@ function Formations() {
       {/* Header Section */}
       <section className="py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={centreCulturelImg} alt="Centre Culturel The Village" className="w-full h-full object-cover" />
+          <img
+            src={centreCulturelImg}
+            alt="Centre Culturel The Village"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container-page text-center max-w-4xl mx-auto relative z-10">
@@ -160,8 +164,15 @@ function Formations() {
             Formations & <span className="text-gradient-gold">Recherche</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-white/90 leading-relaxed">
-            Un centre d'excellence au <Link to="/" className="text-white hover:text-gradient-gold font-medium underline underline-offset-4">The Village Podor</Link> dédié à la préservation des savoir-faire et à la formation des
-            jeunes de la région, des artisans et des chercheurs du monde entier.
+            Un centre d'excellence au{" "}
+            <Link
+              to="/"
+              className="text-white hover:text-gradient-gold font-medium underline underline-offset-4"
+            >
+              The Village Podor
+            </Link>{" "}
+            dédié à la préservation des savoir-faire et à la formation des jeunes de la région, des
+            artisans et des chercheurs du monde entier.
           </p>
         </div>
       </section>
@@ -180,18 +191,20 @@ function Formations() {
               </h2>
               <div className="font-serif text-muted-foreground text-lg leading-relaxed space-y-6">
                 <p>
-                  L'un des piliers majeurs de <span className="text-foreground font-medium">The Village</span> est de réhabiliter à Podor un Centre de
-                  Recherche-Action et de Formation sur les Musiques Traditionnelles de la Vallée du
-                  Fleuve Sénégal. Son but : documenter, préserver, enseigner et promouvoir le
-                  patrimoine musical de la région pour en faire un pôle culturel de référence en
-                  Afrique de l'Ouest.
+                  L'un des piliers majeurs de{" "}
+                  <span className="text-foreground font-medium">The Village</span> est de
+                  réhabiliter à Podor un Centre de Recherche-Action et de Formation sur les Musiques
+                  Traditionnelles de la Vallée du Fleuve Sénégal. Son but : documenter, préserver,
+                  enseigner et promouvoir le patrimoine musical de la région pour en faire un pôle
+                  culturel de référence en Afrique de l'Ouest.
                 </p>
                 <p>
-                  Ce pôle éducatif au <span className="text-foreground font-medium">The Village</span> est ouvert aux jeunes de la région désireux de s'approprier leur
-                  culture, ainsi qu'aux chercheurs, ethnomusicologues et étudiants internationaux.
-                  Il propose un programme complet allant de la pratique d'instruments (hoddu, riti,
-                  tama, flûte peule) à la lutherie, en passant par l'artisanat local (poterie,
-                  savonnerie).
+                  Ce pôle éducatif au{" "}
+                  <span className="text-foreground font-medium">The Village</span> est ouvert aux
+                  jeunes de la région désireux de s'approprier leur culture, ainsi qu'aux
+                  chercheurs, ethnomusicologues et étudiants internationaux. Il propose un programme
+                  complet allant de la pratique d'instruments (hoddu, riti, tama, flûte peule) à la
+                  lutherie, en passant par l'artisanat local (poterie, savonnerie).
                 </p>
                 <p>
                   Des partenariats académiques stratégiques sont en cours de développement avec

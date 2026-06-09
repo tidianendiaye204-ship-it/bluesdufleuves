@@ -132,12 +132,12 @@ function Home() {
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
-                src="/centre culturel.jpg"
-                alt="The Village Podor - Centre culturel au bord du fleuve Sénégal"
-                className="h-full w-full object-cover scale-105"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-              />
+            src="/centre culturel.jpg"
+            alt="The Village Podor - Centre culturel au bord du fleuve Sénégal"
+            className="h-full w-full object-cover scale-105"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+          />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
         </div>
@@ -165,8 +165,8 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed"
           >
-            L'épicentre culturel de la vallée du fleuve. Un centre unique regroupant musée,
-            espaces de création et de formation.
+            L'épicentre culturel de la vallée du fleuve. Un centre unique regroupant musée, espaces
+            de création et de formation.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -215,10 +215,17 @@ function Home() {
               className="space-y-8"
             >
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple centre culturel : c'est un <strong className="text-foreground">village authentique</strong> au cœur de Podor, dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine musical de la vallée du fleuve Sénégal.
+                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple
+                centre culturel : c'est un{" "}
+                <strong className="text-foreground">village authentique</strong> au cœur de Podor,
+                dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine
+                musical de la vallée du fleuve Sénégal.
               </p>
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                Initié par <strong className="text-foreground">Baaba Maal</strong>, ce <strong className="text-foreground">village culturel</strong> réunit autour d'une même vision : offrir à la jeunesse de Podor et de la région un lieu où tradition et modernité se rencontrent harmonieusement.
+                Initié par <strong className="text-foreground">Baaba Maal</strong>, ce{" "}
+                <strong className="text-foreground">village culturel</strong> réunit autour d'une
+                même vision : offrir à la jeunesse de Podor et de la région un lieu où tradition et
+                modernité se rencontrent harmonieusement.
               </p>
             </motion.div>
 
@@ -230,10 +237,16 @@ function Home() {
               className="space-y-8"
             >
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                Niché au bord du fleuve, <strong className="text-foreground">The Village</strong> accueille chaque année le célèbre <strong className="text-foreground">festival Blues du Fleuve</strong>, mais aussi des formations, des concerts, des expositions et des événements culturels toute l'année.
+                Niché au bord du fleuve, <strong className="text-foreground">The Village</strong>{" "}
+                accueille chaque année le célèbre{" "}
+                <strong className="text-foreground">festival Blues du Fleuve</strong>, mais aussi
+                des formations, des concerts, des expositions et des événements culturels toute
+                l'année.
               </p>
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                C'est un <strong className="text-foreground">village vivant</strong>, un espace de création, de transmission et de rencontre pour tous ceux qui croient en la force de la culture pour transformer l'avenir.
+                C'est un <strong className="text-foreground">village vivant</strong>, un espace de
+                création, de transmission et de rencontre pour tous ceux qui croient en la force de
+                la culture pour transformer l'avenir.
               </p>
             </motion.div>
           </div>
@@ -250,12 +263,11 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Music size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">
-                  La Musique
-                </h3>
+                <h3 className="text-xl font-bold text-foreground">La Musique</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Au cœur du village, des studios d'enregistrement, des salles de répétition et des espaces dédiés à la pratique des instruments traditionnels.
+                Au cœur du village, des studios d'enregistrement, des salles de répétition et des
+                espaces dédiés à la pratique des instruments traditionnels.
               </p>
             </div>
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
@@ -263,12 +275,11 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <GraduationCap size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">
-                  Les Formations
-                </h3>
+                <h3 className="text-xl font-bold text-foreground">Les Formations</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Des ateliers de musique, d'artisanat, de poterie et de savonnerie pour transmettre les savoir-faire ancestraux aux jeunes générations.
+                Des ateliers de musique, d'artisanat, de poterie et de savonnerie pour transmettre
+                les savoir-faire ancestraux aux jeunes générations.
               </p>
             </div>
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
@@ -276,12 +287,11 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Calendar size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">
-                  Les Événements
-                </h3>
+                <h3 className="text-xl font-bold text-foreground">Les Événements</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Concerts, expositions, conférences et festivals qui font de The Village un lieu culturel dynamique et incontournable de la région.
+                Concerts, expositions, conférences et festivals qui font de The Village un lieu
+                culturel dynamique et incontournable de la région.
               </p>
             </div>
           </motion.div>
@@ -391,7 +401,7 @@ function Home() {
             La Vie Culturelle de <span className="text-primary">The Village</span>
           </h2>
         </div>
-        
+
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {/* Concert */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
@@ -406,9 +416,12 @@ function Home() {
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
                 Musical
               </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Concerts & Spectacles</h3>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
+                Concerts & Spectacles
+              </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Vivez des moments inoubliables avec des concerts live, des performances d'artistes internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
+                Vivez des moments inoubliables avec des concerts live, des performances d'artistes
+                internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 En savoir plus <ArrowRight size={16} />
@@ -429,9 +442,12 @@ function Home() {
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
                 Artistique
               </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Expositions & Galeries</h3>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
+                Expositions & Galeries
+              </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Découvrez des expositions d'art contemporain et traditionnel, valorisant le patrimoine halpulaar et les savoir-faire locaux.
+                Découvrez des expositions d'art contemporain et traditionnel, valorisant le
+                patrimoine halpulaar et les savoir-faire locaux.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 En savoir plus <ArrowRight size={16} />
@@ -452,9 +468,12 @@ function Home() {
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
                 Débat
               </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Conférences & Tables Rondes</h3>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
+                Conférences & Tables Rondes
+              </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Echanges sur le développement durable, la culture, l'éducation et l'avenir de l'Afrique avec des experts et des acteurs du terrain.
+                Echanges sur le développement durable, la culture, l'éducation et l'avenir de
+                l'Afrique avec des experts et des acteurs du terrain.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 En savoir plus <ArrowRight size={16} />
@@ -475,9 +494,12 @@ function Home() {
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
                 Formation
               </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Master Classes</h3>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
+                Master Classes
+              </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de savoir-faire ancestraux.
+                Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de
+                savoir-faire ancestraux.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 En savoir plus <ArrowRight size={16} />
@@ -498,9 +520,12 @@ function Home() {
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
                 Création
               </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">Défilés de Mode</h3>
+              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
+                Défilés de Mode
+              </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode traditionnelle et contemporaine.
+                Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode
+                traditionnelle et contemporaine.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 En savoir plus <ArrowRight size={16} />
@@ -549,7 +574,7 @@ function Home() {
                       src={article.img}
                       alt={article.title}
                       loading="lazy"
-                      className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
@@ -584,7 +609,10 @@ function Home() {
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
             Héritage
           </span>
-          <h2 id="instruments-title" className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
+          <h2
+            id="instruments-title"
+            className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter"
+          >
             Les Instruments du <span className="text-primary">Fouta</span>
           </h2>
         </div>
@@ -616,7 +644,10 @@ function Home() {
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
               S'abonner
             </span>
-            <h2 id="newsletter-title" className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter">
+            <h2
+              id="newsletter-title"
+              className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter"
+            >
               La Lettre de <span className="text-primary">l'Éditeur</span>
             </h2>
             <p className="text-white/60 mb-10 text-lg">
@@ -641,7 +672,11 @@ function Home() {
                 type="submit"
                 disabled={newsletterStatus === "loading"}
                 className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50 min-h-12"
-                aria-label={newsletterStatus === "loading" ? "Inscription en cours" : "S'abonner à la newsletter"}
+                aria-label={
+                  newsletterStatus === "loading"
+                    ? "Inscription en cours"
+                    : "S'abonner à la newsletter"
+                }
               >
                 {newsletterStatus === "loading" ? "..." : "S'abonner"}
               </button>

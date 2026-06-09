@@ -8,7 +8,7 @@ const links = [
   { to: "/", label: "Centre Culturel" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/formations", label: "Formations" },
-  { to: "/nann-k-media", label: "NANN-k Media" },
+  { to: "/nann-k-media", label: "NANN-k" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -53,11 +53,7 @@ export function Navbar() {
           <div className="flex items-center justify-between h-14 md:h-20 gap-4 md:gap-8">
             {/* Logo / titre */}
             <div className="flex items-center shrink-0 gap-3">
-              <Link
-                to="/"
-                className="flex items-center gap-3 group"
-                onClick={() => setOpen(false)}
-              >
+              <Link to="/" className="flex items-center gap-3 group" onClick={() => setOpen(false)}>
                 <img
                   src="/logo the village.jpg"
                   alt="Logo The Village"
@@ -75,7 +71,10 @@ export function Navbar() {
             </div>
 
             {/* Navigation desktop */}
-            <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1" aria-label="Navigation principale">
+            <nav
+              className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1"
+              aria-label="Navigation principale"
+            >
               {links.map((l) => (
                 <Link
                   key={l.to}
@@ -97,7 +96,7 @@ export function Navbar() {
               <div className="md:hidden">
                 <ThemeToggle />
               </div>
-              
+
               {/* Sélecteur de langue desktop */}
               <div className="hidden md:flex items-center gap-2 border-r border-border pr-4 text-foreground">
                 <button
@@ -184,7 +183,10 @@ export function Navbar() {
         </div>
 
         {/* Liens */}
-        <nav className="flex-1 overflow-y-auto py-6 px-5 flex flex-col" aria-label="Navigation mobile">
+        <nav
+          className="flex-1 overflow-y-auto py-6 px-5 flex flex-col"
+          aria-label="Navigation mobile"
+        >
           {links.map((l) => (
             <Link
               key={l.to}

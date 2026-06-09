@@ -482,7 +482,9 @@ function BluesDuFleuve() {
                   <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
                   <div className="mt-4 border-t border-white/30 pt-4">
                     <p className="font-bold text-base">Oumar Wade</p>
-                    <p className="text-sm opacity-80 uppercase tracking-wider">Producteur Exécutif</p>
+                    <p className="text-sm opacity-80 uppercase tracking-wider">
+                      Producteur Exécutif
+                    </p>
                   </div>
                 </div>
               </div>
@@ -683,8 +685,6 @@ function BluesDuFleuve() {
           ))}
         </div>
       </section>
-
-
 
       <section className="container-page py-20 border-t border-border">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-10">

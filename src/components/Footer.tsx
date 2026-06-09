@@ -76,7 +76,7 @@ export function Footer() {
                 className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
-                Nann-k Media
+                NANN-k
               </Link>
             </li>
             <li>
