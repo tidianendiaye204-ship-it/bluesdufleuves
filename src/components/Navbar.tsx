@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { to: "/", label: "Le Complexe" },
+  { to: "/", label: "Centre Culturel" },
   { to: "/blues-du-fleuve", label: "Le Festival" },
   { to: "/formations", label: "Formations" },
   { to: "/nann-k-media", label: "NANN-k Media" },

@@ -58,7 +58,7 @@ export function Footer() {
                 className="hover:text-primary transition-colors text-white/70"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
-                Le Complexe
+                Centre Culturel
               </Link>
             </li>
             <li>

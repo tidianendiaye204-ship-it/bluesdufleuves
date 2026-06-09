@@ -19,9 +19,9 @@ import { subscribeNewsletterFn } from "@/routes/__root";
 export const Route = createFileRoute("/")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "The Village Podor | Complexe Culturel par Baaba Maal - Festival Blues du Fleuve",
+      title: "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve",
       description:
-        "The Village à Podor, Sénégal : complexe culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal.",
+        "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal.",
       ogTitle: "The Village - Le Village Culturel de Podor par Baaba Maal",
       ogDescription:
         "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal.",
@@ -128,12 +128,12 @@ function Home() {
         </div>
       </motion.div>
 
-      {/* Hero Section: Le Complexe & Centre Culturel - Grandiose & Apple Style */}
+      {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
                 src="/centre culturel.jpg"
-                alt="The Village Podor - Complexe culturel au bord du fleuve Sénégal"
+                alt="The Village Podor - Centre culturel au bord du fleuve Sénégal"
                 className="h-full w-full object-cover scale-105"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
@@ -165,7 +165,7 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed"
           >
-            L'épicentre culturel de la vallée du fleuve. Un complexe unique regroupant musée,
+            L'épicentre culturel de la vallée du fleuve. Un centre unique regroupant musée,
             espaces de création et de formation.
           </motion.p>
           <motion.div
@@ -215,7 +215,7 @@ function Home() {
               className="space-y-8"
             >
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple complexe culturel : c'est un <strong className="text-foreground">village authentique</strong> au cœur de Podor, dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine musical de la vallée du fleuve Sénégal.
+                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple centre culturel : c'est un <strong className="text-foreground">village authentique</strong> au cœur de Podor, dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine musical de la vallée du fleuve Sénégal.
               </p>
               <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
                 Initié par <strong className="text-foreground">Baaba Maal</strong>, ce <strong className="text-foreground">village culturel</strong> réunit autour d'une même vision : offrir à la jeunesse de Podor et de la région un lieu où tradition et modernité se rencontrent harmonieusement.
@@ -357,7 +357,7 @@ function Home() {
                   <p>
                     Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
                     profondément engagé dans le développement de sa région. Il est le fondateur du
-                    mouvement NANN-K et du complexe culturel The Village à Podor, qui ont pour
+                    mouvement NANN-K et du centre culturel The Village à Podor, qui ont pour
                     objectif de promouvoir la culture, l'éducation et le développement durable dans
                     la vallée du fleuve Sénégal.
                   </p>
