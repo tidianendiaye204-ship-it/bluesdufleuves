@@ -13,15 +13,15 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 export const Route = createFileRoute("/nannka-tv")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "NANN-k TV | Conservatoire Numérique du Fleuve",
+      title: "NANN-k TV | The Village Podor",
       description:
-        "Chaîne média dédiée au patrimoine : émissions culturelles, concerts live, archives festivals et documentaires de la vallée du fleuve.",
-      ogTitle: "NANN-k TV — Patrimoine Numérique",
+        "Chaîne média de The Village Podor : émissions culturelles, concerts live, archives festivals et documentaires de la vallée du fleuve.",
+      ogTitle: "NANN-k TV — The Village Podor",
       ogDescription:
-        "Archives et documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
+        "Archives et documentaires exclusifs de The Village retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
       ogImage: fleuveImg,
       keywords:
-        "NANN-k TV, patrimoine, documentaires, archives, musique, Podor, vallée du fleuve, livestream, concerts",
+        "The Village, NANN-k TV, patrimoine, documentaires, archives, musique, Podor, vallée du fleuve, livestream, concerts",
       canonical: "https://lesbluesdufleuve.sn/nannka-tv",
     });
     return { meta, links };

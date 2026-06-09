@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
 import { useState } from "react";
 import { createSeoMeta } from "@/lib/seo";
@@ -86,7 +86,7 @@ function NannkMedia() {
             <span className="text-primary">NANN-K</span>
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL de répondre par une
+            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL, au <Link to="/" className="text-primary hover:underline font-medium">The Village Podor</Link>, de répondre par une
             participation effective à l'invitation des plus hautes autorités à la réalisation de la
             croissance de l'économie, et donc le progrès social, au Sénégal puis progressivement en
             Afrique surtout au Sud du Sahara. Cette région concentre les États à faible revenu de

@@ -1,7 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Ticket } from "lucide-react";
+import { createSeoMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/billetterie")({
+  head: () => {
+    const { meta, links } = createSeoMeta({
+      title: "Billetterie | The Village Podor - Blues du Fleuve",
+      description:
+        "Réservez vos billets pour le festival Blues du Fleuve au The Village Podor. Billetterie officielle avec pass 3 jours et accès aux concerts.",
+      ogTitle: "Billetterie — The Village Podor",
+      ogDescription:
+        "Billetterie officielle du festival Blues du Fleuve au The Village Podor. Réservez vos pass pour vivre l'expérience du festival.",
+      keywords:
+        "The Village, billetterie, festival, Blues du Fleuve, pass, tickets, Podor, Sénégal",
+      canonical: "https://lesbluesdufleuve.sn/billetterie",
+    });
+    return { meta, links };
+  },
   component: Billetterie,
 });
 

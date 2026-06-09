@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import { createServerFn } from "@tanstack/react-start";
@@ -63,13 +63,13 @@ export const soumettreContact = createServerFn({ method: "POST" })
 export const Route = createFileRoute("/contact")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "Contactez-nous | Blues du Fleuve",
+      title: "Contactez-nous | The Village Podor",
       description:
-        "Prenez contact avec l'équipe du festival Les Blues du Fleuve situé à Podor, Sénégal. Nous sommes à votre écoute pour vos questions, partenariats et formations.",
-      ogTitle: "Contactez Blues du Fleuve — Podor",
+        "Prenez contact avec l'équipe de The Village Podor et du festival Les Blues du Fleuve à Podor, Sénégal. Nous sommes à votre écoute pour vos questions, partenariats et formations.",
+      ogTitle: "Contactez The Village — Podor",
       ogDescription:
-        "L'équipe du festival Blues du Fleuve vous accueille à Podor. Formulaire de contact et coordonnées disponibles.",
-      keywords: "contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
+        "L'équipe de The Village et du festival Blues du Fleuve vous accueille à Podor. Formulaire de contact et coordonnées disponibles.",
+      keywords: "The Village, contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
       canonical: "https://lesbluesdufleuve.sn/contact",
     });
     return { meta, links };
@@ -136,7 +136,7 @@ function ContactPage() {
           </h1>
           <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
             Une question sur le festival, un projet de partenariat ou une demande d'information sur
-            nos formations ? L'équipe des Blues du Fleuve est à votre écoute.
+            nos formations au <Link to="/" className="text-primary hover:underline font-medium">The Village Podor</Link> ? Notre équipe est à votre écoute.
           </p>
         </div>
       </section>

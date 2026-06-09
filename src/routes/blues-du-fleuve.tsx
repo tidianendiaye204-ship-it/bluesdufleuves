@@ -156,9 +156,10 @@ function BluesDuFleuve() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border text-white">
-        <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-        <div className="container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center">
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0" style={{ background: "var(--gradient-premium)" }} />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center z-10">
           <div>
             {/* Logo du Festival */}
             <div className="mb-6">
@@ -169,13 +170,13 @@ function BluesDuFleuve() {
                 style={{ filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.5))" }}
               />
             </div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/70 mb-5">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
               Festival International · 15ème & 17ème éditions
             </p>
-            <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05]">
+            <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05] text-white">
               Blues du <span className="text-gradient-gold">Fleuve</span>
             </h1>
-            <div className="mt-6 space-y-4 max-w-2xl text-lg text-white/90">
+            <div className="mt-6 space-y-4 max-w-2xl text-lg text-white/95">
               <p>
                 Porté sur les fonds baptismaux par l’artiste international Sénégalais{" "}
                 <span className="text-white font-medium">Baaba MAAL</span> le festival les Blues du
@@ -200,7 +201,7 @@ function BluesDuFleuve() {
                 l’émergence du Sénégal.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/80">
+            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/90">
               <span className="inline-flex items-center gap-2">
                 <MapPin size={16} className="text-white" /> Podor, Sénégal
               </span>
@@ -212,13 +213,13 @@ function BluesDuFleuve() {
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className="btn-billetterie opacity-60 cursor-not-allowed"
+                className="btn-billetterie opacity-70 cursor-not-allowed"
               >
                 Réserver mon Pass Festival (Bientôt disponible)
               </a>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden border border-border/20 aspect-4/5 shadow-(--shadow-elegant)">
+          <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl">
             <img
               src="/festival baba maal.jpg"
               alt="Baaba Maal"
@@ -473,14 +474,16 @@ function BluesDuFleuve() {
                 </p>
               </div>
               {/* Citation mise en avant */}
-              <div className="mt-8 rounded-2xl bg-primary px-8 py-6 text-primary-foreground">
-                <p className="font-display text-xl font-bold mb-1">
-                  « Je vous souhaite un magnifique festival. »
-                </p>
-                <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
-                <div className="mt-4 border-t border-primary-foreground/30 pt-4">
-                  <p className="font-bold text-base">Oumar Wade</p>
-                  <p className="text-sm opacity-80 uppercase tracking-wider">Producteur Exécutif</p>
+              <div className="mt-8 rounded-2xl" style={{ background: "var(--gradient-river)" }}>
+                <div className="px-8 py-6 text-white">
+                  <p className="font-display text-xl font-bold mb-1">
+                    « Je vous souhaite un magnifique festival. »
+                  </p>
+                  <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
+                  <div className="mt-4 border-t border-white/30 pt-4">
+                    <p className="font-bold text-base">Oumar Wade</p>
+                    <p className="text-sm opacity-80 uppercase tracking-wider">Producteur Exécutif</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -681,72 +684,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20 border-t border-border">
-        <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
-            Demande d'accréditation média
-          </h2>
-          <p className="mt-2 text-muted-foreground">
-            Journalistes, photographes et équipes presse — envoyez votre demande pour couvrir
-            l'événement ou téléchargez la fiche.
-          </p>
-          <div className="mt-6">
-            <a
-              href="https://www.bluesdufleuve.sn/storage/2022/11/accreditation-blues-2021.doc"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-2 text-sm font-semibold text-primary hover:bg-primary/10 transition"
-            >
-              Télécharger la fiche d’accréditation
-            </a>
-          </div>
 
-          <form
-            className="mt-10 grid gap-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-          >
-            {[
-              { k: "nom", label: "Nom complet", type: "text" },
-              { k: "media", label: "Nom du Média", type: "text" },
-              { k: "email", label: "Email", type: "email" },
-              { k: "tel", label: "Téléphone", type: "tel" },
-            ].map((f) => (
-              <div key={f.k}>
-                <label className="block text-sm font-medium mb-2">{f.label}</label>
-                <input
-                  required
-                  type={f.type}
-                  value={(form as Record<string, string>)[f.k]}
-                  onChange={(e) => setForm({ ...form, [f.k]: e.target.value })}
-                  className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
-            ))}
-            <div>
-              <label className="block text-sm font-medium mb-2">Message</label>
-              <textarea
-                required
-                rows={5}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
-              />
-            </div>
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gold text-foreground px-8 py-3 text-sm font-bold hover:opacity-90 transition self-start"
-            >
-              <Play size={14} /> Envoyer la demande
-            </button>
-            {sent && (
-              <p className="text-sm text-secondary">Merci, votre demande a bien été enregistrée.</p>
-            )}
-          </form>
-        </div>
-      </section>
 
       <section className="container-page py-20 border-t border-border">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-10">

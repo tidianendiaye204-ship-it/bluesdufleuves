@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight, Landmark } from "lucide-react";
+import { ArrowRight, ChevronRight, Landmark, Music, GraduationCap, Calendar } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
 import baabaConcertImg from "@/assets/baaba-maal-concert.png";
 import fleuveImg from "@/assets/fleuve.jpg";
@@ -19,15 +19,15 @@ import { subscribeNewsletterFn } from "@/routes/__root";
 export const Route = createFileRoute("/")({
   head: () => {
     const { meta, links } = createSeoMeta({
-      title: "The Village | Le Complexe Culturel de Podor par Baaba Maal",
+      title: "The Village Podor | Complexe Culturel par Baaba Maal - Festival Blues du Fleuve",
       description:
-        "Découvrez The Village, le centre culturel et artistique unique de Podor, initié par Baaba Maal. Le festival Blues du Fleuve, la culture Halpulaar et la musique du fleuve Sénégal.",
-      ogTitle: "The Village - Complexe Culturel Podor par Baaba Maal",
+        "The Village à Podor, Sénégal : complexe culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal.",
+      ogTitle: "The Village - Le Village Culturel de Podor par Baaba Maal",
       ogDescription:
-        "The Village, l'épicentre culturel de la vallée du fleuve Sénégal. Musée, espaces de création, formations et le festival Blues du Fleuve, par Baaba Maal.",
+        "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal.",
       ogImage: "/centre culturel.jpg",
       keywords:
-        "The Village, The Village Podor, NANN-k, Centre Culturel Podor, Baaba Maal, Complexe culturel, Fouta Toro, patrimoine Sénégal, Blues du Fleuve",
+        "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais",
       canonical: "https://lesbluesdufleuve.sn/",
     });
     return { meta, links };
@@ -132,12 +132,12 @@ function Home() {
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
-            src="/centre culturel.jpg"
-            alt="Centre Culturel de Podor"
-            className="h-full w-full object-cover scale-105"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-          />
+                src="/centre culturel.jpg"
+                alt="The Village Podor - Complexe culturel au bord du fleuve Sénégal"
+                className="h-full w-full object-cover scale-105"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+              />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
         </div>
@@ -191,6 +191,100 @@ function Home() {
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
           <ArrowRight className="rotate-90 text-white/50" size={24} />
+        </div>
+      </section>
+
+      {/* Section Introductive SEO - The Village */}
+      <section className="container-page py-32 border-b border-border/10">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-20">
+            <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+              Présentation
+            </span>
+            <h2 className="luxury-text text-5xl md:text-6xl uppercase tracking-tighter mb-8">
+              Bienvenue au <span className="text-primary">Village</span>
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8"
+            >
+              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
+                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple complexe culturel : c'est un <strong className="text-foreground">village authentique</strong> au cœur de Podor, dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine musical de la vallée du fleuve Sénégal.
+              </p>
+              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
+                Initié par <strong className="text-foreground">Baaba Maal</strong>, ce <strong className="text-foreground">village culturel</strong> réunit autour d'une même vision : offrir à la jeunesse de Podor et de la région un lieu où tradition et modernité se rencontrent harmonieusement.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8"
+            >
+              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
+                Niché au bord du fleuve, <strong className="text-foreground">The Village</strong> accueille chaque année le célèbre <strong className="text-foreground">festival Blues du Fleuve</strong>, mais aussi des formations, des concerts, des expositions et des événements culturels toute l'année.
+              </p>
+              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
+                C'est un <strong className="text-foreground">village vivant</strong>, un espace de création, de transmission et de rencontre pour tous ceux qui croient en la force de la culture pour transformer l'avenir.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-16 grid md:grid-cols-3 gap-6"
+          >
+            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
+              <div className="mb-4 flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Music size={18} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  La Musique
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Au cœur du village, des studios d'enregistrement, des salles de répétition et des espaces dédiés à la pratique des instruments traditionnels.
+              </p>
+            </div>
+            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
+              <div className="mb-4 flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <GraduationCap size={18} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  Les Formations
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Des ateliers de musique, d'artisanat, de poterie et de savonnerie pour transmettre les savoir-faire ancestraux aux jeunes générations.
+              </p>
+            </div>
+            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
+              <div className="mb-4 flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Calendar size={18} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  Les Événements
+                </h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Concerts, expositions, conférences et festivals qui font de The Village un lieu culturel dynamique et incontournable de la région.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -294,7 +388,7 @@ function Home() {
             Nos Activités
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
-            Vie Culturelle du Village
+            La Vie Culturelle de <span className="text-primary">The Village</span>
           </h2>
         </div>
         
