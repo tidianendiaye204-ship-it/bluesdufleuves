@@ -159,7 +159,7 @@ function BluesDuFleuve() {
       <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0" style={{ background: "var(--gradient-premium)" }} />
         <div className="absolute inset-0 bg-black/30" />
-        <div className="container-page py-20 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center z-10">
+        <div className="container-page py-12 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center z-10">
           <div>
             {/* Logo du Festival */}
             <div className="mb-6">
@@ -258,7 +258,7 @@ function BluesDuFleuve() {
 
       {/* Présentation du Festival */}
       <section className="border-b border-border bg-background">
-        <div className="container-page py-20">
+        <div className="container-page py-12">
           <div className="max-w-4xl">
             <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
@@ -444,7 +444,7 @@ function BluesDuFleuve() {
 
       {/* Mot du Producteur Exécutif */}
       <section className="border-b border-border bg-muted/30">
-        <div className="container-page py-20">
+        <div className="container-page py-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Texte - gauche */}
             <div>
@@ -521,7 +521,7 @@ function BluesDuFleuve() {
 
       {/* Programme du Festival */}
 
-      <section id="billetterie" className="festival-container py-20 border-b border-border">
+      <section id="billetterie" className="festival-container py-12 border-b border-border">
         <h2 className="font-display text-3xl md:text-5xl font-bold mb-10">
           Programme & <span className="text-gradient-gold">Billetterie</span>
         </h2>
@@ -589,7 +589,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20">
+      <section className="container-page py-12">
         <div className="flex items-end justify-between mb-10">
           <div>
             <h2 className="font-display text-3xl md:text-4xl font-bold">Artistes</h2>
@@ -632,7 +632,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20 border-t border-border">
+      <section className="container-page py-12 border-t border-border">
         <h2 className="font-display text-3xl md:text-4xl font-bold">Galerie d'images</h2>
         <p className="mt-2 text-muted-foreground">Une immersion visuelle au cœur du festival.</p>
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
@@ -655,7 +655,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20 border-t border-border">
+      <section className="container-page py-12 border-t border-border">
         <div className="rounded-3xl overflow-hidden border border-border aspect-21/9 mb-12">
           <img
             src={crowdImg}
@@ -686,7 +686,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20 border-t border-border">
+      <section className="container-page py-12 border-t border-border">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-10">
           Nos partenaires
         </h2>
@@ -699,7 +699,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-20 border-t border-border bg-card/30">
+      <section className="container-page py-12 border-t border-border bg-card/30">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-4xl font-bold">Nous Contacter</h2>
           <p className="mt-4 text-muted-foreground">

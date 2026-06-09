@@ -77,7 +77,7 @@ function NannkMedia() {
   return (
     <div className="bg-background min-h-screen">
       {/* Header Section / Presentation */}
-      <section className="bg-muted border-b border-border py-16 md:py-20">
+      <section className="bg-muted border-b border-border py-16 md:py-12">
         <div className="container-page text-center max-w-4xl mx-auto">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
             Mouvement Culturel & Économique
@@ -100,7 +100,7 @@ function NannkMedia() {
       </section>
 
       {/* Media Office Mission */}
-      <section className="container-page py-20 border-b border-border">
+      <section className="container-page py-12 border-b border-border">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
@@ -182,7 +182,7 @@ function NannkMedia() {
       </section>
 
       {/* Context & Justification Section */}
-      <section className="container-page py-20 border-b border-border">
+      <section className="container-page py-12 border-b border-border">
         <div className="max-w-4xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Notre raison d'être
@@ -227,7 +227,7 @@ function NannkMedia() {
       </section>
 
       {/* NANNK TRUST & Podor Vert Section */}
-      <section className="container-page py-20 border-b border-border bg-muted/50">
+      <section className="container-page py-12 border-b border-border bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Un engagement concret
@@ -289,7 +289,7 @@ function NannkMedia() {
       </section>
 
       {/* Journée de Reboisement Section */}
-      <section className="container-page py-20 border-b border-border">
+      <section className="container-page py-12 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Journée citoyenne
@@ -337,7 +337,7 @@ function NannkMedia() {
       </section>
 
       {/* Espace Agricole NANN-K Section */}
-      <section className="container-page py-20 border-b border-border bg-muted/50">
+      <section className="container-page py-12 border-b border-border bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Notre espace agricole
@@ -361,7 +361,7 @@ function NannkMedia() {
       </section>
 
       {/* Baaba Maal à Mborobirane Section */}
-      <section className="container-page py-20 border-b border-border bg-muted/50">
+      <section className="container-page py-12 border-b border-border bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Moment Musical
@@ -385,7 +385,7 @@ function NannkMedia() {
       </section>
 
       {/* Agriculture Images Section */}
-      <section className="container-page py-20 border-b border-border">
+      <section className="container-page py-12 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Agriculture NANN-K
@@ -458,7 +458,7 @@ function NannkMedia() {
       </section>
 
       {/* NANN-k TV Player Section */}
-      <section className="container-page py-20">
+      <section className="container-page py-12">
         <div className="grid md:grid-cols-[180px_1fr] gap-8 items-center mb-12 bg-card border border-border p-8 rounded-3xl shadow-sm">
           <div className="flex justify-center">
             <div className="w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm">

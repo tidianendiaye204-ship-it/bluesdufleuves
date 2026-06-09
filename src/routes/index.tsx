@@ -195,9 +195,9 @@ function Home() {
       </section>
 
       {/* Section Introductive SEO - The Village */}
-      <section className="container-page py-32 border-b border-border/10">
+      <section className="container-page py-16 border-b border-border/10">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
               Présentation
             </span>
@@ -299,7 +299,7 @@ function Home() {
       </section>
 
       {/* Section Baaba Maal - Elevated Typography */}
-      <section className="container-page py-32 border-b border-border/10">
+      <section className="container-page py-16 border-b border-border/10">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           {/* Galerie photo biographie */}
           <motion.div
@@ -536,9 +536,9 @@ function Home() {
       </section>
 
       {/* Actualités - Modern News Cards */}
-      <section className="bg-muted/30 py-32">
+      <section className="bg-muted/30 py-16">
         <div className="container-page">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
             <div>
               <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
                 Journal
@@ -604,8 +604,8 @@ function Home() {
       </section>
 
       {/* Patrimoine & Instruments - Refined layout */}
-      <section className="container-page py-32" aria-labelledby="instruments-title">
-        <div className="max-w-4xl mx-auto text-center mb-20">
+      <section className="container-page py-16" aria-labelledby="instruments-title">
+        <div className="max-w-4xl mx-auto text-center mb-12">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
             Héritage
           </span>

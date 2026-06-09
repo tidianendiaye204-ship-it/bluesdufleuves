@@ -147,7 +147,7 @@ function Formations() {
   return (
     <div className="bg-background min-h-screen">
       {/* Header Section */}
-      <section className="py-20 md:py-28 relative overflow-hidden">
+      <section className="py-12 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={centreCulturelImg}
@@ -178,7 +178,7 @@ function Formations() {
       </section>
 
       {/* Main Content */}
-      <section className="container-page py-20">
+      <section className="container-page py-12">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
           {/* Texte explicatif - Colonne de gauche (plus large) */}
           <div className="lg:col-span-7">
@@ -287,7 +287,7 @@ function Formations() {
       </section>
 
       {/* Formulaire d'inscription (Phase 2) */}
-      <section id="inscription" className="container-page py-20 border-t border-border">
+      <section id="inscription" className="container-page py-12 border-t border-border">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">

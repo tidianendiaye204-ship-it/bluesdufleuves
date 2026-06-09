@@ -66,7 +66,7 @@ function NannkaTV() {
   return (
     <>
       <section className="border-b border-border" style={{ background: "var(--gradient-hero)" }}>
-        <div className="container-page py-16 md:py-20">
+        <div className="container-page py-16 md:py-12">
           <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">
             Patrimoine en images
           </p>

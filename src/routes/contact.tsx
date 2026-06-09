@@ -127,7 +127,7 @@ function ContactPage() {
   return (
     <div className="bg-background min-h-screen">
       {/* Header Section */}
-      <section className="bg-muted border-b border-border py-16 md:py-20 relative overflow-hidden">
+      <section className="bg-muted border-b border-border py-16 md:py-12 relative overflow-hidden">
         <div className="container-page text-center max-w-4xl mx-auto relative">
           <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
             Échangeons ensemble
@@ -147,7 +147,7 @@ function ContactPage() {
       </section>
 
       {/* Main Content */}
-      <section className="container-page py-20">
+      <section className="container-page py-12">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
           {/* Informations de contact - Colonne de gauche */}
           <div className="lg:col-span-5 space-y-12">
