@@ -92,12 +92,12 @@ let dbInstance: Database | null = null;
 let schemaReady = false;
 
 function getD1Binding(): D1Database | undefined {
-  const env = process.env as any;
-  return env.DB ?? env.bluesdufleuve_db;
+  const env = process.env as Record<string, unknown>;
+  return env.DB ?? (env.bluesdufleuve_db as D1Database);
 }
 
 function isLocalDev(): boolean {
-  const env = process.env as any;
+  const env = process.env as Record<string, unknown>;
   return (
     env.NODE_ENV === "development" || env.MODE === "development" || import.meta.env?.DEV === true
   );
@@ -129,7 +129,9 @@ export function getDb(): Database {
       const sqlite = new Database(":memory:");
       try {
         sqlite.exec(D1_SCHEMA_SQL);
-      } catch {}
+      } catch {
+        // Ignore errors
+      }
       dbInstance = drizzleSqlite(sqlite, { schema });
       return dbInstance;
     }
@@ -145,7 +147,9 @@ export function getDb(): Database {
         if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
           sqlite.exec("DROP TABLE newsletter;");
         }
-      } catch {}
+      } catch {
+        // Ignore errors
+      }
       sqlite.exec(D1_SCHEMA_SQL);
     } catch (e) {
       console.warn("Table might already exist, continuing...", e);
@@ -158,7 +162,9 @@ export function getDb(): Database {
     const sqlite = new Database(":memory:");
     try {
       sqlite.exec(D1_SCHEMA_SQL);
-    } catch {}
+    } catch {
+      // Ignore errors
+    }
     dbInstance = drizzleSqlite(sqlite, { schema });
     return dbInstance;
   }

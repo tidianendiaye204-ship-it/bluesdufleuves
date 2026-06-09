@@ -15,7 +15,6 @@ const links = [
 export function Navbar() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [dateStr, setDateStr] = useState("");
   const location = useLocation();
 
   // Fermer le menu au changement de route
@@ -34,17 +33,6 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [open]);
-
-  useEffect(() => {
-    setDateStr(
-      new Date().toLocaleDateString("fr-FR", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-    );
-  }, []);
 
   return (
     <>
