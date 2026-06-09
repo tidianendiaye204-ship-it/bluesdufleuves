@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  Play,
   MapPin,
   Calendar,
   Music2,
@@ -14,7 +13,6 @@ import {
   Heart,
   TreePine,
 } from "lucide-react";
-import { useState } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -151,9 +149,6 @@ const galleryImages = [
 ];
 
 function BluesDuFleuve() {
-  const [form, setForm] = useState({ nom: "", media: "", email: "", tel: "", message: "" });
-  const [sent, setSent] = useState(false);
-
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
