@@ -32,6 +32,16 @@ export const Route = createFileRoute("/")({
 
 const articles = [
   {
+    to: "/blues-du-fleuve" as const,
+    category: "À la Une",
+    title: "La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration",
+    excerpt:
+      "Une édition historique qui réunira les cultures des quatre pays du fleuve pour célébrer l'unité et la fraternité.",
+    date: "Aujourd'hui",
+    img: "/festival baba maal.jpg",
+    featured: true,
+  },
+  {
     to: "/nannka-tv" as const,
     category: "Médias",
     title: "NANN-k TV : Archives et documentaires",
@@ -48,15 +58,6 @@ const articles = [
       "L'artisanat local mis à l'honneur dans une rétrospective exceptionnelle au cœur de la ville, attirant de nombreux visiteurs.",
     date: "Hier",
     img: "/centre culturel.jpg",
-  },
-  {
-    to: "/blues-du-fleuve" as const,
-    category: "Événement",
-    title: "Retour sur l'impact économique du festival de cette année",
-    excerpt:
-      "Comment l'initiative portée par Baaba Maal transforme l'économie locale et booste le tourisme culturel dans la région.",
-    date: "17 Mai 2026",
-    img: "/photo baba maal.jpg",
   },
 ];
 
@@ -106,25 +107,25 @@ function Home() {
 
   return (
     <div className="bg-background min-h-screen">
-      {/* Ticker / Flash Info - More discreet and premium */}
+      {/* Flash Info - Fixed at top, visible everywhere */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-24 left-1/2 -translate-x-1/2 z-40 hidden md:block w-auto max-w-2xl"
+        className="fixed top-16 md:top-20 left-0 right-0 z-50 px-4 md:px-0"
       >
-        <div className="glass px-6 py-2 rounded-full border border-white/20 shadow-elegant flex items-center gap-4">
-          <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shrink-0">
+        <div className="max-w-3xl mx-auto bg-primary text-white px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg flex items-center justify-center gap-3">
+          <span className="bg-white text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-2 md:px-3 py-0.5 rounded-full shrink-0">
             News
           </span>
-          <p className="text-[10px] font-bold text-foreground/80 tracking-tight whitespace-nowrap overflow-hidden">
+          <p className="text-[10px] md:text-xs font-bold text-center leading-tight">
             La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration.
           </p>
         </div>
       </motion.div>
 
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
-      <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0">
           <motion.img
             src="/centre culturel.jpg"
@@ -137,7 +138,7 @@ function Home() {
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
         </div>
 
-        <div className="container-page relative z-10 text-center pt-32 md:pt-40">
+        <div className="container-page relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -196,61 +197,135 @@ function Home() {
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
               Présentation
             </span>
-            <h2 className="luxury-text text-5xl md:text-6xl uppercase tracking-tighter mb-8">
-              Bienvenue au <span className="text-primary">Village</span>
+            <h2 className="luxury-text text-5xl md:text-7xl uppercase tracking-tighter mb-4">
+              L'Âme du <span className="text-primary">Fleuve</span>
             </h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-8"
-            >
-              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">The Village</strong> est bien plus qu'un simple
-                centre culturel : c'est un{" "}
-                <strong className="text-foreground">village authentique</strong> au cœur de Podor,
-                dédié à la préservation et à la promotion de la culture halpulaar et du patrimoine
-                musical de la vallée du fleuve Sénégal.
-              </p>
-              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                Initié par <strong className="text-foreground">Baaba Maal</strong>, ce{" "}
-                <strong className="text-foreground">village culturel</strong> réunit autour d'une
-                même vision : offrir à la jeunesse de Podor et de la région un lieu où tradition et
-                modernité se rencontrent harmonieusement.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-8"
-            >
-              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                Niché au bord du fleuve, <strong className="text-foreground">The Village</strong>{" "}
-                accueille chaque année le célèbre{" "}
-                <strong className="text-foreground">festival Blues du Fleuve</strong>, mais aussi
-                des formations, des concerts, des expositions et des événements culturels toute
-                l'année.
-              </p>
-              <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-                C'est un <strong className="text-foreground">village vivant</strong>, un espace de
-                création, de transmission et de rencontre pour tous ceux qui croient en la force de
-                la culture pour transformer l'avenir.
-              </p>
-            </motion.div>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground tracking-widest italic">
+              Wuro Podor, nde fii ndu jom
+            </p>
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6 md:space-y-8 max-w-3xl mx-auto text-center"
+          >
+            <p className="text-xl md:text-2xl font-serif text-foreground leading-relaxed">
+              The Village est bien plus qu'un centre culturel.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              C'est un village authentique au cœur de Podor.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              Dédié à la préservation de la culture Haalpulaar.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              Et du patrimoine musical du Fleuve Sénégal.
+            </p>
+          </motion.div>
+
+          {/* Stats clés */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="my-16 py-10 border-y border-primary/20 bg-primary/5"
+          >
+            <div className="grid md:grid-cols-3 gap-8 text-center">
+              <div>
+                <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">2006</div>
+                <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
+                  Création du Festival
+                </p>
+              </div>
+              <div>
+                <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">17</div>
+                <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
+                  Éditions du Blues
+                </p>
+              </div>
+              <div>
+                <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">4</div>
+                <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
+                  Pays du Fleuve
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Photo intermédiaire */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="my-16"
+          >
+            <div className="relative rounded-2xl overflow-hidden aspect-video border-4 border-border shadow-xl">
+              <img
+                src="/festival baba maal.jpg"
+                alt="Baaba Maal en concert au Blues du Fleuve"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <p className="text-sm uppercase tracking-widest mb-1">Baaba Maal</p>
+                <p className="luxury-text text-2xl">Le Festival Blues du Fleuve</p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6 md:space-y-8 max-w-3xl mx-auto text-center"
+          >
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              Initié par Baaba Maal.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              Il offre à la jeunesse du Fouta un lieu.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
+              Où tradition et modernité se rencontrent.
+            </p>
+            <p className="text-xl md:text-2xl font-serif text-foreground leading-relaxed">
+              Un espace vivant pour créer, apprendre, partager et célébrer.
+            </p>
+          </motion.div>
+
+          {/* Double CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link
+              to="/blues-du-fleuve"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-primary text-white text-sm font-bold uppercase tracking-widest shadow-lg hover:bg-primary/90 transition-all duration-300"
+            >
+              Découvrir le Festival
+            </Link>
+            <a
+              href="#instruments"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-primary text-primary text-sm font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              Voir les Instruments
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mt-16 grid md:grid-cols-3 gap-6"
           >
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
@@ -550,56 +625,105 @@ function Home() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {articles.map((article, idx) => (
+          <div className="space-y-10">
+            {/* Article à la Une en grand */}
+            {articles[0] && (
               <motion.div
-                key={article.title}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full"
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Link
-                  to={article.to}
-                  className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
+                  to={articles[0].to}
+                  className="group flex flex-col md:flex-row bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
                 >
-                  <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
+                  <div className="relative md:w-1/2 aspect-video md:aspect-auto overflow-hidden bg-muted/30">
                     <img
-                      src={article.img}
-                      alt={article.title}
-                      loading="lazy"
-                      className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
+                      src={articles[0].img}
+                      alt={articles[0].title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
-                        {article.category}
+                      <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                        {articles[0].category}
                       </span>
                     </div>
                   </div>
-                  <div className="p-8 flex flex-col flex-1">
+                  <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
                     <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                      {article.date}
+                      {articles[0].date}
                     </span>
-                    <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
-                      {article.title}
+                    <h3 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-6 group-hover:text-primary transition-colors">
+                      {articles[0].title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
-                      {article.excerpt}
+                    <p className="text-base text-muted-foreground mb-8 font-medium leading-relaxed">
+                      {articles[0].excerpt}
                     </p>
-                    <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                      Lire la suite <ChevronRight size={14} />
+                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
+                      Lire la suite <ChevronRight size={16} />
                     </div>
                   </div>
                 </Link>
               </motion.div>
-            ))}
+            )}
+
+            {/* Autres articles */}
+            <div className="grid md:grid-cols-2 gap-10">
+              {articles.slice(1).map((article, idx) => (
+                <motion.div
+                  key={article.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-full"
+                >
+                  <Link
+                    to={article.to}
+                    className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
+                  >
+                    <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
+                      <img
+                        src={article.img}
+                        alt={article.title}
+                        loading="lazy"
+                        className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
+                          {article.category}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-8 flex flex-col flex-1">
+                      <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
+                        {article.date}
+                      </span>
+                      <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
+                        {article.excerpt}
+                      </p>
+                      <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
+                        Lire la suite <ChevronRight size={14} />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Patrimoine & Instruments - Refined layout */}
-      <section className="container-page py-16" aria-labelledby="instruments-title">
+      <section
+        id="instruments"
+        className="container-page py-16"
+        aria-labelledby="instruments-title"
+      >
         <div className="max-w-4xl mx-auto text-center mb-12">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
             Héritage
