@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronRight, Landmark, Music, GraduationCap, Calendar } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
@@ -84,7 +84,7 @@ function Home() {
   const [newsletterMsg, setNewsletterMsg] = useState("");
   const [showFullBio, setShowFullBio] = useState(false);
 
-  const handleNewsletter = async (e: React.FormEvent) => {
+  const handleNewsletter = async (e: FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
     setNewsletterStatus("loading");
@@ -107,25 +107,8 @@ function Home() {
 
   return (
     <div className="bg-background min-h-screen">
-      {/* Flash Info - Fixed at top, visible everywhere */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-16 md:top-20 left-0 right-0 z-50 px-4 md:px-0"
-      >
-        <div className="max-w-3xl mx-auto bg-primary text-white px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg flex items-center justify-center gap-3">
-          <span className="bg-white text-primary text-[9px] md:text-[10px] font-black uppercase tracking-widest px-2 md:px-3 py-0.5 rounded-full shrink-0">
-            News
-          </span>
-          <p className="text-[10px] md:text-xs font-bold text-center leading-tight">
-            La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration.
-          </p>
-        </div>
-      </motion.div>
-
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
-      <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden pt-20 md:pt-24">
+      <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
             src="/centre culturel.jpg"
