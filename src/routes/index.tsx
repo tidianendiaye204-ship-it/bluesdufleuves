@@ -378,7 +378,7 @@ function Home() {
               </div>
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
-            <div className="absolute -bottom-6 -right-6 w-36 md:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background">
+            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-[150px] md:max-w-[180px]">
               <img
                 src="/Baba.jpg"
                 alt="Baaba Maal en concert"
@@ -739,7 +739,7 @@ function Home() {
       </section>
 
       {/* Newsletter Section - Re-added but cleaned */}
-      <section className="container-page py-24" aria-labelledby="newsletter-title">
+      <section className="container-page py-12" aria-labelledby="newsletter-title">
         <div className="bg-[#0a0908] rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
           <div className="max-w-2xl mx-auto relative z-10">

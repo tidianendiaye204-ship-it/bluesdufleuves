@@ -166,7 +166,7 @@ function BluesDuFleuve() {
               />
             </div>
             <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
-              Festival International · 15ème & 17ème éditions
+              Festival International · 17ème édition
             </p>
             <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05] text-white">
               Blues du <span className="text-gradient-gold">Fleuve</span>
@@ -175,7 +175,7 @@ function BluesDuFleuve() {
               <p>
                 Porté sur les fonds baptismaux par l’artiste international Sénégalais{" "}
                 <span className="text-white font-medium">Baaba MAAL</span> le festival les Blues du
-                fleuve célèbre sa 15ème édition du 13 au 15 Décembre 2024 à Podor (Sénégal).
+                fleuve célèbre sa 17ème édition du 5 au 7 Décembre 2025 à Podor (Sénégal).
               </p>
               <p>
                 Seul Festival d’intégration en Afrique de l’ouest le Blues du Fleuve symbolise la
@@ -201,7 +201,7 @@ function BluesDuFleuve() {
                 <MapPin size={16} className="text-white" /> Podor, Sénégal
               </span>
               <span className="inline-flex items-center gap-2">
-                <Calendar size={16} className="text-white" /> 13–15 Décembre 2024
+                <Calendar size={16} className="text-white" /> 5–7 Décembre 2025
               </span>
             </div>
             <div className="mt-8">
@@ -525,7 +525,7 @@ function BluesDuFleuve() {
           <div className="programme-item">
             <h3 className="font-display text-xl font-bold">Jour 1 : Ouverture & Traditions</h3>
             <p className="text-sm text-muted-foreground mt-2">
-              13 Décembre 2024 • Centre Culturel de Podor
+              5 Décembre 2025 • Centre Culturel de Podor
             </p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
@@ -543,7 +543,7 @@ function BluesDuFleuve() {
           <div className="programme-item">
             <h3 className="font-display text-xl font-bold">Jour 2 : La Nuit du Fleuve</h3>
             <p className="text-sm text-muted-foreground mt-2">
-              14 Décembre 2024 • Scène Principale
+              6 Décembre 2025 • Scène Principale
             </p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
@@ -561,7 +561,7 @@ function BluesDuFleuve() {
           <div className="programme-item">
             <h3 className="font-display text-xl font-bold">Jour 3 : Clôture & Daande Lenol</h3>
             <p className="text-sm text-muted-foreground mt-2">
-              15 Décembre 2024 • Scène Principale
+              7 Décembre 2025 • Scène Principale
             </p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>

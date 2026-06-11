@@ -133,6 +133,7 @@
   html {
     scroll-behavior: smooth;
     font-size: 14px;
+    overflow-x: hidden;
   }
 
   body {
@@ -142,6 +143,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.7;
+    overflow-x: hidden;
   }
 
   h1,
