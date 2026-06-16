@@ -508,7 +508,7 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 0)}
             >
-              <OptimizedImage
+              <img
                 src={gal1Img}
                 alt="Concert"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -537,7 +537,7 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 1)}
             >
-              <OptimizedImage
+              <img
                 src={gal2Img}
                 alt="Exposition"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -566,7 +566,7 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 2)}
             >
-              <OptimizedImage
+              <img
                 src={gal3Img}
                 alt="Conférence"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -595,7 +595,7 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 3)}
             >
-              <OptimizedImage
+              <img
                 src={gal4Img}
                 alt="Master Class"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -624,7 +624,7 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 4)}
             >
-              <OptimizedImage
+              <img
                 src={gal5Img}
                 alt="Défilé de Mode"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -649,44 +649,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Témoignages - Social Proof */}
-      <section className="py-16 bg-background">
-        <div className="container-page">
-          <div className="text-center mb-12">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
-              Témoignages
-            </span>
-            <h2 className="luxury-text text-4xl md:text-5xl uppercase tracking-tighter">
-              Ce qu'ils disent de <span className="text-primary">The Village</span>
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, idx) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-card border border-border p-8 rounded-3xl shadow-elegant"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-lg">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground">{testimonial.name}</h3>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="font-serif text-muted-foreground leading-relaxed italic">
-                  "{testimonial.content}"
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Actualités - Modern News Cards */}
       <section className="bg-muted/30 py-16">
