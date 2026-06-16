@@ -12,7 +12,10 @@ import {
   Globe,
   Heart,
   TreePine,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
+import { useState } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -149,6 +152,8 @@ const galleryImages = [
 ];
 
 function BluesDuFleuve() {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
@@ -181,37 +186,55 @@ function BluesDuFleuve() {
                 Seul Festival d’intégration en Afrique de l’ouest le Blues du Fleuve symbolise la
                 solidarité des pays riverains du fleuve Sénégal.
               </p>
-              <p>
-                Le Festival les Blues du Fleuve consacre ses éditions à travers diverses expressions
-                des peuples dont la culture est fortement influencée par l’eau. Cette culture est
-                représentée essentiellement par les arts vivants : musique, danse spectacle
-                traditionnels, Festival multicolores, l’artisanat, ce patrimoine populaire et les
-                préoccupations de développement des populations sont représenté aussi à travers des
-                expositions thématiques et des conférences.
-              </p>
-              <p>
-                Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et
-                l’harmonie sociale pour le vivre ensemble Africain dans l’unité, la convivialité
-                autour des peuples unis par le fleuve dans la diversité, d’autre part sur
-                l’émergence du Sénégal.
-              </p>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/90">
-              <span className="inline-flex items-center gap-2">
-                <MapPin size={16} className="text-white" /> Podor, Sénégal
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Calendar size={16} className="text-white" /> 5–7 Décembre 2025
-              </span>
-            </div>
-            <div className="mt-8">
-              <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="btn-billetterie opacity-70 cursor-not-allowed"
-              >
-                Réserver mon Pass Festival (Bientôt disponible)
-              </a>
+              <div className="md:hidden">
+                <button
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                  className="text-white/80 text-sm underline flex items-center gap-1"
+                >
+                  {showFullDescription ? (
+                    <>
+                      <ChevronUp size={16} /> Masquer
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={16} /> Lire la suite...
+                    </>
+                  )}
+                </button>
+              </div>
+              <div className={showFullDescription ? "block" : "hidden md:block"}>
+                <p>
+                  Le Festival les Blues du Fleuve consacre ses éditions à travers diverses
+                  expressions des peuples dont la culture est fortement influencée par l’eau. Cette
+                  culture est représentée essentiellement par les arts vivants : musique, danse
+                  spectacle traditionnels, Festival multicolores, l’artisanat, ce patrimoine
+                  populaire et les préoccupations de développement des populations sont représenté
+                  aussi à travers des expositions thématiques et des conférences.
+                </p>
+                <p>
+                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix
+                  et l’harmonie sociale pour le vivre ensemble Africain dans l’unité, la
+                  convivialité autour des peuples unis par le fleuve dans la diversité, d’autre part
+                  sur l’émergence du Sénégal.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/90">
+                <span className="inline-flex items-center gap-2">
+                  <MapPin size={16} className="text-white" /> Podor, Sénégal
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Calendar size={16} className="text-white" /> 5–7 Décembre 2025
+                </span>
+              </div>
+              <div className="mt-8">
+                <a
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  className="btn-billetterie opacity-70 cursor-not-allowed"
+                >
+                  Réserver mon Pass Festival (Bientôt disponible)
+                </a>
+              </div>
             </div>
           </div>
           <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl">
@@ -542,9 +565,7 @@ function BluesDuFleuve() {
 
           <div className="programme-item">
             <h3 className="font-display text-xl font-bold">Jour 2 : La Nuit du Fleuve</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              6 Décembre 2025 • Scène Principale
-            </p>
+            <p className="text-sm text-muted-foreground mt-2">6 Décembre 2025 • Scène Principale</p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <strong>10:00</strong> - Panels et conférences (Environnement)
@@ -560,9 +581,7 @@ function BluesDuFleuve() {
 
           <div className="programme-item">
             <h3 className="font-display text-xl font-bold">Jour 3 : Clôture & Daande Lenol</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              7 Décembre 2025 • Scène Principale
-            </p>
+            <p className="text-sm text-muted-foreground mt-2">7 Décembre 2025 • Scène Principale</p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <strong>09:00</strong> - Exposition artisanale

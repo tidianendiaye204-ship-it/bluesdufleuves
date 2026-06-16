@@ -10,6 +10,16 @@ import gal3Img from "@/assets/gal3.jpg";
 import gal4Img from "@/assets/gal4.jpg";
 import gal5Img from "@/assets/gal5.jpg";
 import { subscribeNewsletterFn } from "@/routes/__root";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import { Lightbox } from "@/components/Lightbox";
+
+const galleryImages = [
+  { src: gal1Img, alt: "Concert" },
+  { src: gal2Img, alt: "Exposition" },
+  { src: gal3Img, alt: "Conférence" },
+  { src: gal4Img, alt: "Master Class" },
+  { src: gal5Img, alt: "Défilé de Mode" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -76,6 +86,30 @@ const instruments = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "Marie Diop",
+    role: "Visiteuse de Dakar",
+    content:
+      "Une expérience incroyable ! The Village est un lieu unique où la culture prend vie. J'ai été transportée par la musique et l'ambiance du festival.",
+    avatar: "MD",
+  },
+  {
+    name: "Amadou Diallo",
+    role: "Artiste local",
+    content:
+      "Grâce aux formations de NANN-k, j'ai pu perfectionner mon art et partager ma culture avec le monde entier. The Village est un véritable tremplin.",
+    avatar: "AD",
+  },
+  {
+    name: "Sophie Martin",
+    role: "Touriste française",
+    content:
+      "Podor et The Village m'ont offert une immersion totale dans la culture sénégalaise. Entre concerts, ateliers et rencontres, chaque moment était magique.",
+    avatar: "SM",
+  },
+];
+
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<
@@ -83,6 +117,15 @@ function Home() {
   >("idle");
   const [newsletterMsg, setNewsletterMsg] = useState("");
   const [showFullBio, setShowFullBio] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string }>>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (images: Array<{ src: string; alt: string }>, index: number) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   const handleNewsletter = async (e: FormEvent) => {
     e.preventDefault();
@@ -110,14 +153,17 @@ function Home() {
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <motion.img
+          <OptimizedImage
             src="/centre culturel.jpg"
             alt="The Village Podor - Centre culturel au bord du fleuve Sénégal"
             className="h-full w-full object-cover scale-105"
-            animate={{ y: [0, -10, 0] }}
+            priority
+          />
+          <motion.div
+            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+            animate={{ opacity: [0.4, 0.5, 0.4] }}
             transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           />
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
         </div>
 
@@ -248,7 +294,7 @@ function Home() {
             className="my-16"
           >
             <div className="relative rounded-2xl overflow-hidden aspect-video border-4 border-border shadow-xl">
-              <img
+              <OptimizedImage
                 src="/festival baba maal.jpg"
                 alt="Baaba Maal en concert au Blues du Fleuve"
                 className="w-full h-full object-cover"
@@ -458,8 +504,11 @@ function Home() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {/* Concert */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div className="aspect-4/3 overflow-hidden bg-muted/50">
-              <img
+            <div
+              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
+              onClick={() => openLightbox(galleryImages, 0)}
+            >
+              <OptimizedImage
                 src={gal1Img}
                 alt="Concert"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -484,8 +533,11 @@ function Home() {
 
           {/* Exposition */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div className="aspect-4/3 overflow-hidden bg-muted/50">
-              <img
+            <div
+              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
+              onClick={() => openLightbox(galleryImages, 1)}
+            >
+              <OptimizedImage
                 src={gal2Img}
                 alt="Exposition"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -510,8 +562,11 @@ function Home() {
 
           {/* Conférence */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div className="aspect-4/3 overflow-hidden bg-muted/50">
-              <img
+            <div
+              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
+              onClick={() => openLightbox(galleryImages, 2)}
+            >
+              <OptimizedImage
                 src={gal3Img}
                 alt="Conférence"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -536,8 +591,11 @@ function Home() {
 
           {/* Master Class */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div className="aspect-4/3 overflow-hidden bg-muted/50">
-              <img
+            <div
+              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
+              onClick={() => openLightbox(galleryImages, 3)}
+            >
+              <OptimizedImage
                 src={gal4Img}
                 alt="Master Class"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -562,8 +620,11 @@ function Home() {
 
           {/* Défilé de Mode */}
           <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div className="aspect-4/3 overflow-hidden bg-muted/50">
-              <img
+            <div
+              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
+              onClick={() => openLightbox(galleryImages, 4)}
+            >
+              <OptimizedImage
                 src={gal5Img}
                 alt="Défilé de Mode"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -585,6 +646,45 @@ function Home() {
               </div>
             </div>
           </article>
+        </div>
+      </section>
+
+      {/* Témoignages - Social Proof */}
+      <section className="py-16 bg-background">
+        <div className="container-page">
+          <div className="text-center mb-12">
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
+              Témoignages
+            </span>
+            <h2 className="luxury-text text-4xl md:text-5xl uppercase tracking-tighter">
+              Ce qu'ils disent de <span className="text-primary">The Village</span>
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, idx) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-card border border-border p-8 rounded-3xl shadow-elegant"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-lg">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground">{testimonial.name}</h3>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
+                </div>
+                <p className="font-serif text-muted-foreground leading-relaxed italic">
+                  "{testimonial.content}"
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -622,7 +722,7 @@ function Home() {
                   className="group flex flex-col md:flex-row bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
                 >
                   <div className="relative md:w-1/2 aspect-video md:aspect-auto overflow-hidden bg-muted/30">
-                    <img
+                    <OptimizedImage
                       src={articles[0].img}
                       alt={articles[0].title}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -667,10 +767,9 @@ function Home() {
                     className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
                   >
                     <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
-                      <img
+                      <OptimizedImage
                         src={article.img}
                         alt={article.title}
-                        loading="lazy"
                         className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute top-4 left-4">
@@ -793,6 +892,14 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      <Lightbox
+        images={lightboxImages}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </div>
   );
 }

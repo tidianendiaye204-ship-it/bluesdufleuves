@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
@@ -9,6 +9,8 @@ import { createSeoMeta } from "@/lib/seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { getCSRFToken, validateCSRFTokenServer } from "@/lib/csrf";
+import { logger } from "@/lib/logger";
 
 const contactSchema = z.object({
   nom: z.string().min(1, "Le nom complet est requis"),
@@ -16,6 +18,7 @@ const contactSchema = z.object({
   sujet: z.string().min(1, "Le sujet est requis"),
   message: z.string().min(10, "Le message doit faire au moins 10 caractères"),
   cfTurnstileResponse: z.string().min(1, "Veuillez valider le captcha"),
+  csrfToken: z.string().min(1, "Token de sécurité invalide"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -23,20 +26,40 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 export const soumettreContact = createServerFn({ method: "POST" })
   .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
   .handler(async ({ data }) => {
+    // Validate CSRF token
+    const csrfValidation = await validateCSRFTokenServer({ data: { token: data.csrfToken } });
+    if (!csrfValidation.valid) {
+      logger.warn("CSRF token validation failed", { email: data.email });
+      throw new Error("Token de sécurité invalide. Veuillez réessayer.");
+    }
+
+    logger.info("Contact form submission received", { email: data.email, sujet: data.sujet });
+
     const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-    const secret = process.env.TURNSTILE_SECRET_KEY ?? "1x0000000000000000000000000000000AA";
+    const secret = process.env.TURNSTILE_SECRET_KEY;
 
-    const tsResponse = await fetch(verifyUrl, {
-      method: "POST",
-      body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-      },
-    });
+    if (!secret) {
+      logger.error("TURNSTILE_SECRET_KEY not configured");
+      throw new Error("Service de validation temporairement indisponible.");
+    }
 
-    const tsResult = (await tsResponse.json()) as { success: boolean };
-    if (!tsResult.success) {
-      throw new Error("Validation Captcha échouée.");
+    try {
+      const tsResponse = await fetch(verifyUrl, {
+        method: "POST",
+        body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+        },
+      });
+
+      const tsResult = (await tsResponse.json()) as { success: boolean };
+      if (!tsResult.success) {
+        logger.warn("Turnstile validation failed", { email: data.email });
+        throw new Error("Validation Captcha échouée.");
+      }
+    } catch (error) {
+      logger.error("Turnstile verification error", error, { email: data.email });
+      throw new Error("Service de validation temporairement indisponible.");
     }
 
     const db = getDb();
@@ -53,9 +76,10 @@ export const soumettreContact = createServerFn({ method: "POST" })
         });
       });
 
+      logger.info("Contact message saved successfully", { email: data.email });
       return { success: true, message: "Votre message a été envoyé avec succès." };
     } catch (error) {
-      console.error("Erreur d'insertion DB (Contact):", error);
+      logger.error("Erreur d'insertion DB (Contact)", error, { email: data.email });
       throw new Error("Impossible d'envoyer le message. Veuillez réessayer plus tard.");
     }
   });
@@ -81,6 +105,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [csrfToken, setCsrfToken] = useState("");
 
   const {
     register,
@@ -96,8 +121,22 @@ function ContactPage() {
       sujet: "",
       message: "",
       cfTurnstileResponse: "",
+      csrfToken: "",
     },
   });
+
+  useEffect(() => {
+    const fetchCSRFToken = async () => {
+      try {
+        const result = await getCSRFToken();
+        setCsrfToken(result.token);
+        setValue("csrfToken", result.token);
+      } catch (error) {
+        console.error("Failed to fetch CSRF token:", error);
+      }
+    };
+    fetchCSRFToken();
+  }, [setValue]);
 
   const onSubmit = async (data: ContactFormValues) => {
     setLoading(true);
@@ -218,8 +257,8 @@ function ContactPage() {
           </div>
 
           {/* Formulaire de contact - Colonne de droite */}
-          <div className="lg:col-span-7 bg-card border border-border p-8 md:p-10 rounded-3xl shadow-sm">
-            <h3 className="font-display text-2xl font-bold mb-8 uppercase tracking-tight text-foreground border-b border-border pb-4">
+          <div className="lg:col-span-7 bg-card border border-border p-6 md:p-10 rounded-3xl shadow-sm">
+            <h3 className="font-display text-xl md:text-2xl font-bold mb-6 md:mb-8 uppercase tracking-tight text-foreground border-b border-border pb-4">
               Envoyez-nous un message
             </h3>
 
@@ -263,11 +302,13 @@ function ContactPage() {
                       id="nom"
                       type="text"
                       {...register("nom")}
-                      className={`w-full bg-background border ${errors.nom ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
+                      aria-invalid={errors.nom ? "true" : "false"}
+                      aria-describedby={errors.nom ? "nom-error" : undefined}
+                      className={`w-full bg-background border ${errors.nom ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
                       placeholder="Votre nom"
                     />
                     {errors.nom && (
-                      <p className="text-red-500 text-sm mt-1" role="alert">
+                      <p id="nom-error" className="text-red-500 text-sm mt-1" role="alert">
                         {errors.nom.message}
                       </p>
                     )}
@@ -283,11 +324,15 @@ function ContactPage() {
                       id="email"
                       type="email"
                       {...register("email")}
-                      className={`w-full bg-background border ${errors.email ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
+                      aria-invalid={errors.email ? "true" : "false"}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      className={`w-full bg-background border ${errors.email ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
                       placeholder="vous@exemple.com"
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      <p id="email-error" className="text-red-500 text-sm mt-1">
+                        {errors.email.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -303,11 +348,15 @@ function ContactPage() {
                     id="sujet"
                     type="text"
                     {...register("sujet")}
-                    className={`w-full bg-background border ${errors.sujet ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
+                    aria-invalid={errors.sujet ? "true" : "false"}
+                    aria-describedby={errors.sujet ? "sujet-error" : undefined}
+                    className={`w-full bg-background border ${errors.sujet ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
                     placeholder="Ex: Demande de partenariat"
                   />
                   {errors.sujet && (
-                    <p className="text-red-500 text-sm mt-1">{errors.sujet.message}</p>
+                    <p id="sujet-error" className="text-red-500 text-sm mt-1">
+                      {errors.sujet.message}
+                    </p>
                   )}
                 </div>
 
@@ -322,11 +371,15 @@ function ContactPage() {
                     id="message"
                     rows={6}
                     {...register("message")}
-                    className={`w-full bg-background border ${errors.message ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
+                    aria-invalid={errors.message ? "true" : "false"}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    className={`w-full bg-background border ${errors.message ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
                     placeholder="Comment pouvons-nous vous aider ?"
                   ></textarea>
                   {errors.message && (
-                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                    <p id="message-error" className="text-red-500 text-sm mt-1">
+                      {errors.message.message}
+                    </p>
                   )}
                 </div>
 
@@ -344,16 +397,19 @@ function ContactPage() {
                   )}
                 </div>
 
+                <input type="hidden" {...register("csrfToken")} value={csrfToken} />
+
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm hover:opacity-90 transition shadow-md disabled:opacity-70"
+                  aria-busy={loading}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 md:py-4 text-base md:text-sm min-h-[52px] hover:opacity-90 transition shadow-md disabled:opacity-70"
                 >
                   {loading ? (
                     "Envoi en cours..."
                   ) : (
                     <>
-                      <Send size={16} />
+                      <Send size={16} aria-hidden="true" />
                       Envoyer le message
                     </>
                   )}

@@ -4,8 +4,12 @@ import { getDb } from "@/lib/db";
 import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { FileText } from "lucide-react";
+import { requireAuth } from "@/lib/session-middleware";
 
 const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
+  // Validate session
+  await requireAuth();
+
   const db = getDb();
 
   const recentContacts = await db

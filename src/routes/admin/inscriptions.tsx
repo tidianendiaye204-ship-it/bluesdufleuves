@@ -4,8 +4,10 @@ import { getDb } from "@/lib/db";
 import { inscriptions } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { Mail, Calendar, Phone, CheckCircle2, XCircle } from "lucide-react";
+import { requireAuth } from "@/lib/session-middleware";
 
 export const getInscriptionsFn = createServerFn({ method: "GET" }).handler(async () => {
+  await requireAuth();
   const db = getDb();
   const allInscriptions = await db
     .select()
@@ -17,6 +19,7 @@ export const getInscriptionsFn = createServerFn({ method: "GET" }).handler(async
 export const updateInscriptionStatusFn = createServerFn({ method: "POST" })
   .inputValidator((data: { id: number; status: "en_attente" | "accepte" | "refuse" }) => data)
   .handler(async ({ data }) => {
+    await requireAuth();
     const db = getDb();
     await db.update(inscriptions).set({ statut: data.status }).where(eq(inscriptions.id, data.id));
     return { success: true };

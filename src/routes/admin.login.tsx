@@ -60,16 +60,22 @@ function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const res = await loginAdmin({ data: { email, password } });
-    if (res.error) {
-      setError(res.error);
-    } else {
-      navigate({ to: "/admin" });
+    setLoading(true);
+    try {
+      const res = await loginAdmin({ data: { email, password } });
+      if (res.error) {
+        setError(res.error);
+      } else {
+        navigate({ to: "/admin" });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,34 +83,45 @@ function AdminLogin() {
     <div className="max-w-md mx-auto mt-20 bg-card p-8 border border-border rounded-2xl shadow-sm">
       <h2 className="font-display font-bold text-2xl mb-6 text-center">Connexion Administrateur</h2>
       {error && (
-        <div className="bg-red-500/10 text-red-500 p-3 rounded-md mb-4 text-sm">{error}</div>
+        <div role="alert" className="bg-red-500/10 text-red-500 p-3 rounded-md mb-4 text-sm">
+          {error}
+        </div>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Email</label>
+          <label htmlFor="admin-email" className="block text-sm font-medium mb-1">
+            Email
+          </label>
           <input
+            id="admin-email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-background border border-input rounded-md px-3 py-2"
             required
+            autoComplete="email"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Mot de passe</label>
+          <label htmlFor="admin-password" className="block text-sm font-medium mb-1">
+            Mot de passe
+          </label>
           <input
+            id="admin-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full bg-background border border-input rounded-md px-3 py-2"
             required
+            autoComplete="current-password"
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-primary text-primary-foreground py-2 rounded-md font-bold hover:bg-primary/90 transition"
+          disabled={loading}
+          className="w-full bg-primary text-primary-foreground py-2 rounded-md font-bold hover:bg-primary/90 transition disabled:opacity-50"
         >
-          Se connecter
+          {loading ? "Connexion..." : "Se connecter"}
         </button>
       </form>
     </div>

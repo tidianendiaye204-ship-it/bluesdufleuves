@@ -4,8 +4,10 @@ import { getDb } from "@/lib/db";
 import { contacts } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { Mail, Calendar, CheckCircle2, Archive } from "lucide-react";
+import { requireAuth } from "@/lib/session-middleware";
 
 export const getContactsFn = createServerFn({ method: "GET" }).handler(async () => {
+  await requireAuth();
   const db = getDb();
   const allContacts = await db.select().from(contacts).orderBy(desc(contacts.dateEnvoi));
   return allContacts;
@@ -14,6 +16,7 @@ export const getContactsFn = createServerFn({ method: "GET" }).handler(async () 
 export const updateContactStatusFn = createServerFn({ method: "POST" })
   .inputValidator((data: { id: number; status: "non_lu" | "lu" | "traite" }) => data)
   .handler(async ({ data }) => {
+    await requireAuth();
     const db = getDb();
     await db.update(contacts).set({ statut: data.status }).where(eq(contacts.id, data.id));
     return { success: true };
