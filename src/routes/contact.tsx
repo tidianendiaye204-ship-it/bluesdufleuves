@@ -1,6 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Send,
+  Clock,
+  Facebook,
+  Instagram,
+  Youtube,
+  CheckCircle2,
+  ChevronDown,
+} from "lucide-react";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
 import { contacts } from "@/db/schema";
@@ -26,7 +37,6 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 export const soumettreContact = createServerFn({ method: "POST" })
   .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
   .handler(async ({ data }) => {
-    // Validate CSRF token
     const csrfValidation = await validateCSRFTokenServer({ data: { token: data.csrfToken } });
     if (!csrfValidation.valid) {
       logger.warn("CSRF token validation failed", { email: data.email });
@@ -47,9 +57,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
       const tsResponse = await fetch(verifyUrl, {
         method: "POST",
         body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
+        headers: { "content-type": "application/x-www-form-urlencoded" },
       });
 
       const tsResult = (await tsResponse.json()) as { success: boolean };
@@ -102,10 +110,102 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+// ── Floating-label input ──────────────────────────────────────────────────────
+function FloatingInput({
+  id,
+  label,
+  type = "text",
+  placeholder,
+  error,
+  registration,
+}: {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder: string;
+  error?: string;
+  registration: object;
+}) {
+  return (
+    <div className="relative group">
+      <input
+        id={id}
+        type={type}
+        {...registration}
+        placeholder=" "
+        aria-invalid={error ? "true" : "false"}
+        className={`peer w-full bg-background/60 border-2 ${
+          error ? "border-red-400" : "border-border group-hover:border-primary/40"
+        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-200`}
+      />
+      <label
+        htmlFor={id}
+        className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
+          peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
+          peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
+          peer-[&:not(:placeholder-shown)]:top-1.5 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:text-primary`}
+      >
+        {label}
+      </label>
+      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50 pointer-events-none">
+        {placeholder}
+      </span>
+      {error && (
+        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ── FAQ Item ─────────────────────────────────────────────────────────────────
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-border rounded-2xl overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-6 py-4 text-left font-semibold text-foreground hover:bg-muted/50 transition-colors cursor-pointer"
+      >
+        <span>{q}</span>
+        <ChevronDown
+          className={`w-5 h-5 text-primary shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-40" : "max-h-0"}`}
+      >
+        <p className="px-6 pb-4 text-sm text-muted-foreground font-serif leading-relaxed">{a}</p>
+      </div>
+    </div>
+  );
+}
+
+// ── Scroll-reveal hook ────────────────────────────────────────────────────────
+function useReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true); },
+      { threshold: 0.12 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [csrfToken, setCsrfToken] = useState("");
+
+  const { ref: formRef, visible: formVisible } = useReveal();
+  const { ref: infoRef, visible: infoVisible } = useReveal();
+  const { ref: faqRef, visible: faqVisible } = useReveal();
 
   const {
     register,
@@ -144,12 +244,10 @@ function ContactPage() {
       const result = await soumettreContact({ data });
       if (result.success) {
         setSent(true);
-        // Ouvre le client email pour notifier l'équipe
         const emailTo = "contact@lesbluesdufleuve.sn";
         const subject = `Nouveau message de ${data.nom}`;
         const body = `Nom: ${data.nom}\nEmail: ${data.email}\nSujet: ${data.sujet}\n\nMessage:\n${data.message}`;
         window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
         setTimeout(() => {
           reset();
           setSent(false);
@@ -163,21 +261,106 @@ function ContactPage() {
     }
   };
 
+  const contactItems = [
+    {
+      icon: MapPin,
+      title: "Adresse",
+      lines: [
+        'Siège du Festival "Les Blues du Fleuve"',
+        "Quartier historique, Podor",
+        "Région de Saint-Louis, Sénégal",
+      ],
+      color: "from-emerald-500/20 to-emerald-500/5",
+      iconBg: "bg-emerald-500/10",
+      iconColor: "text-emerald-600 dark:text-emerald-400",
+    },
+    {
+      icon: Phone,
+      title: "Téléphone",
+      lines: ["+221 77 496 75 31", "+221 33 XXX XX XX"],
+      color: "from-sky-500/20 to-sky-500/5",
+      iconBg: "bg-sky-500/10",
+      iconColor: "text-sky-600 dark:text-sky-400",
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      lines: ["contact@lesbluesdufleuve.sn", "presse@lesbluesdufleuve.sn"],
+      color: "from-violet-500/20 to-violet-500/5",
+      iconBg: "bg-violet-500/10",
+      iconColor: "text-violet-600 dark:text-violet-400",
+    },
+    {
+      icon: Clock,
+      title: "Disponibilité",
+      lines: ["Lun – Ven : 9h – 18h", "Sam : 9h – 13h"],
+      color: "from-amber-500/20 to-amber-500/5",
+      iconBg: "bg-amber-500/10",
+      iconColor: "text-amber-600 dark:text-amber-400",
+    },
+  ];
+
+  const faqs = [
+    {
+      q: "Comment participer au festival en tant qu'artiste ?",
+      a: "Envoyez votre dossier artistique (bio, liens vers vos œuvres, contacts) via le formulaire en sélectionnant 'Candidature artiste'. Notre équipe de programmation examinera votre candidature.",
+    },
+    {
+      q: "Des partenariats sont-ils possibles avec The Village ?",
+      a: "Oui ! The Village accueille des partenariats institutionnels, culturels et économiques. Sélectionnez 'Partenariat' dans le formulaire pour entrer en contact avec notre équipe dédiée.",
+    },
+    {
+      q: "Comment accéder aux formations proposées par NANN-K ?",
+      a: "Les formations sont ouvertes à tous. Rendez-vous sur la page Formations ou écrivez-nous directement. Nous vous communiquerons le calendrier et les modalités d'inscription.",
+    },
+    {
+      q: "Quel est le délai de réponse habituel ?",
+      a: "Notre équipe s'engage à répondre sous 48h ouvrées. Pour les demandes urgentes (presse, accréditations), précisez-le dans votre message.",
+    },
+  ];
+
   return (
     <div className="bg-background min-h-screen">
-      {/* Header Section */}
-      <section className="bg-muted border-b border-border py-16 md:py-12 relative overflow-hidden">
-        <div className="container-page text-center max-w-4xl mx-auto relative">
-          <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
-            Échangeons ensemble
+
+      {/* ──────────────── HERO ──────────────── */}
+      <section className="relative overflow-hidden bg-[#0a1628] py-20 md:py-28">
+        {/* Decorative blobs */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+        {/* Animated dots grid */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+
+        <div className="container-page text-center max-w-3xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs uppercase tracking-[0.3em] text-primary font-bold">
+              Échangeons ensemble
+            </span>
           </div>
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground">
-            Nous <span className="text-primary">Contacter</span>
+          <h1 className="font-display text-5xl md:text-7xl font-black mb-6 uppercase tracking-tight leading-none">
+            <span className="text-white">Nous </span>
+            <span
+              style={{
+                background: "linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              Contacter
+            </span>
           </h1>
-          <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
+          <p className="text-lg text-slate-300 leading-relaxed font-serif max-w-2xl mx-auto">
             Une question sur le festival, un projet de partenariat ou une demande d'information sur
             nos formations au{" "}
-            <Link to="/" className="text-primary hover:underline font-medium">
+            <Link to="/" className="text-sky-300 hover:underline font-medium">
               The Village Podor
             </Link>{" "}
             ? Notre équipe est à votre écoute.
@@ -185,237 +368,296 @@ function ContactPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="container-page py-12">
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
-          {/* Informations de contact - Colonne de gauche */}
-          <div className="lg:col-span-5 space-y-12">
+      {/* ──────────────── CONTACT CARDS ──────────────── */}
+      <section className="container-page -mt-8 mb-4 relative z-10">
+        <div
+          ref={infoRef}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+          {contactItems.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className={`bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-500 group ${
+                  infoVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <div
+                  className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <Icon className={`w-6 h-6 ${item.iconColor}`} />
+                </div>
+                <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-2">
+                  {item.title}
+                </h3>
+                {item.lines.map((line) => (
+                  <p key={line} className="text-sm text-muted-foreground font-serif">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ──────────────── FORM + SOCIAL ──────────────── */}
+      <section className="container-page py-14">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+
+          {/* Left column – context + social */}
+          <div className="lg:col-span-4 space-y-10">
             <div>
               <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
                 Nos Coordonnées
               </span>
-              <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground">
+              <h2 className="font-display text-3xl font-bold mb-4 uppercase tracking-tight text-foreground">
                 L'équipe à Podor
               </h2>
-              <p className="font-serif text-muted-foreground text-lg leading-relaxed mb-8">
+              <p className="font-serif text-muted-foreground text-base leading-relaxed">
                 Basé au cœur du Fouta Toro, le festival rayonne depuis Podor pour célébrer la
-                culture Halpulaar.
+                culture Halpulaar et le développement de la vallée du fleuve Sénégal.
               </p>
             </div>
 
-            <div className="space-y-8">
-              <div className="flex gap-5 group">
-                <div className="shrink-0 mt-1">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                    <MapPin size={24} />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg text-foreground mb-1">Adresse</h4>
-                  <p className="text-muted-foreground font-serif text-base leading-relaxed">
-                    Siège du Festival "Les Blues du Fleuve"
-                    <br />
-                    Quartier historique, Podor
-                    <br />
-                    Région de Saint-Louis, Sénégal
-                  </p>
-                </div>
-              </div>
+            {/* Map embed */}
+            <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-48">
+              <iframe
+                title="Localisation Podor, Sénégal"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
+                className="w-full h-full"
+                loading="lazy"
+              />
+            </div>
 
-              <div className="flex gap-5 group">
-                <div className="shrink-0 mt-1">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                    <Phone size={24} />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg text-foreground mb-1">Téléphone</h4>
-                  <p className="text-muted-foreground font-serif text-base leading-relaxed">
-                    +221 77 496 75 31
-                    <br />
-                    +221 33 XXX XX XX
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-5 group">
-                <div className="shrink-0 mt-1">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                    <Mail size={24} />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg text-foreground mb-1">Email</h4>
-                  <p className="text-muted-foreground font-serif text-base leading-relaxed">
-                    contact@lesbluesdufleuve.sn
-                    <br />
-                    presse@lesbluesdufleuve.sn
-                  </p>
-                </div>
+            {/* Social links */}
+            <div>
+              <p className="text-xs uppercase tracking-widest text-primary mb-4 font-bold">
+                Suivez-nous
+              </p>
+              <div className="flex gap-3">
+                {[
+                  {
+                    icon: Facebook,
+                    href: "https://www.facebook.com/lesbluesdufleuve",
+                    label: "Facebook",
+                    bg: "hover:bg-blue-600",
+                  },
+                  {
+                    icon: Instagram,
+                    href: "https://www.instagram.com/lesbluesdufleuve",
+                    label: "Instagram",
+                    bg: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500",
+                  },
+                  {
+                    icon: Youtube,
+                    href: "https://www.youtube.com/@lesbluesdufleuve",
+                    label: "YouTube",
+                    bg: "hover:bg-red-600",
+                  },
+                ].map(({ icon: SocialIcon, href, label, bg }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className={`w-11 h-11 rounded-xl border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-white ${bg} hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg`}
+                  >
+                    <SocialIcon className="w-5 h-5" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Formulaire de contact - Colonne de droite */}
-          <div className="lg:col-span-7 bg-card border border-border p-6 md:p-10 rounded-3xl shadow-sm">
-            <h3 className="font-display text-xl md:text-2xl font-bold mb-6 md:mb-8 uppercase tracking-tight text-foreground border-b border-border pb-4">
-              Envoyez-nous un message
-            </h3>
-
-            {sent ? (
-              <div className="text-center py-10">
-                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg
-                    className="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2">
-                  Message envoyé !
+          {/* Right column – form */}
+          <div
+            ref={formRef}
+            className={`lg:col-span-8 transition-all duration-700 ${formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          >
+            <div className="bg-card border border-border rounded-3xl shadow-sm overflow-hidden">
+              {/* Form header */}
+              <div className="bg-gradient-to-r from-primary/10 to-sky-500/10 border-b border-border px-8 py-6">
+                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground">
+                  Envoyez-nous un message
                 </h3>
-                <p className="text-muted-foreground font-serif">
-                  Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs
-                  délais.
+                <p className="text-sm text-muted-foreground font-serif mt-1">
+                  Réponse garantie sous 48h ouvrées
                 </p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="nom"
-                      className="text-sm font-bold uppercase tracking-wider text-foreground"
-                    >
-                      Nom complet
-                    </label>
-                    <input
-                      id="nom"
-                      type="text"
-                      {...register("nom")}
-                      aria-invalid={errors.nom ? "true" : "false"}
-                      aria-describedby={errors.nom ? "nom-error" : undefined}
-                      className={`w-full bg-background border ${errors.nom ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
-                      placeholder="Votre nom"
-                    />
-                    {errors.nom && (
-                      <p id="nom-error" className="text-red-500 text-sm mt-1" role="alert">
-                        {errors.nom.message}
-                      </p>
-                    )}
+
+              <div className="p-8">
+                {sent ? (
+                  /* ── Success state ── */
+                  <div className="text-center py-12 space-y-4">
+                    <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto animate-bounce">
+                      <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <h3 className="font-display text-2xl font-bold text-foreground">
+                      Message envoyé !
+                    </h3>
+                    <p className="text-muted-foreground font-serif max-w-xs mx-auto">
+                      Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs
+                      délais.
+                    </p>
                   </div>
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="text-sm font-bold uppercase tracking-wider text-foreground"
+                ) : (
+                  /* ── Form ── */
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FloatingInput
+                        id="nom"
+                        label="Nom complet *"
+                        placeholder="Votre nom"
+                        error={errors.nom?.message}
+                        registration={register("nom")}
+                      />
+                      <FloatingInput
+                        id="email"
+                        type="email"
+                        label="Email *"
+                        placeholder="vous@exemple.com"
+                        error={errors.email?.message}
+                        registration={register("email")}
+                      />
+                    </div>
+
+                    {/* Sujet select-style */}
+                    <div className="relative group">
+                      <select
+                        id="sujet"
+                        {...register("sujet")}
+                        className={`peer w-full bg-background/60 border-2 ${
+                          errors.sujet ? "border-red-400" : "border-border group-hover:border-primary/40"
+                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-200 appearance-none cursor-pointer`}
+                        defaultValue=""
+                      >
+                        <option value="" disabled />
+                        <option value="Information générale">Information générale</option>
+                        <option value="Partenariat">Partenariat</option>
+                        <option value="Candidature artiste">Candidature artiste</option>
+                        <option value="Formations NANN-K">Formations NANN-K</option>
+                        <option value="Presse / Accréditation">Presse / Accréditation</option>
+                        <option value="Billetterie">Billetterie</option>
+                        <option value="Autre">Autre</option>
+                      </select>
+                      <label
+                        htmlFor="sujet"
+                        className="absolute left-4 top-1.5 text-xs font-semibold uppercase tracking-wider text-primary pointer-events-none"
+                      >
+                        Sujet *
+                      </label>
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                      {errors.sujet && (
+                        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
+                          {errors.sujet.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Textarea */}
+                    <div className="relative group">
+                      <textarea
+                        id="message"
+                        rows={5}
+                        {...register("message")}
+                        placeholder=" "
+                        aria-invalid={errors.message ? "true" : "false"}
+                        className={`peer w-full bg-background/60 border-2 ${
+                          errors.message ? "border-red-400" : "border-border group-hover:border-primary/40"
+                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-200 resize-none`}
+                      />
+                      <label
+                        htmlFor="message"
+                        className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
+                          peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
+                          peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
+                          peer-[&:not(:placeholder-shown)]:top-1.5 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:text-primary`}
+                      >
+                        Votre message *
+                      </label>
+                      {errors.message && (
+                        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
+                          {errors.message.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Captcha */}
+                    <div className="space-y-1">
+                      <Turnstile
+                        siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"}
+                        onSuccess={(token) => {
+                          setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                        }}
+                      />
+                      {errors.cfTurnstileResponse && (
+                        <p className="text-red-400 text-xs mt-1 font-medium">
+                          {errors.cfTurnstileResponse.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <input type="hidden" {...register("csrfToken")} value={csrfToken} />
+
+                    {/* Submit button */}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      aria-busy={loading}
+                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-4 text-sm min-h-[52px] rounded-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                      style={{
+                        background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
+                        color: "#fff",
+                        boxShadow: "0 4px 20px rgba(12, 74, 110, 0.4)",
+                      }}
                     >
-                      Adresse Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      {...register("email")}
-                      aria-invalid={errors.email ? "true" : "false"}
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                      className={`w-full bg-background border ${errors.email ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
-                      placeholder="vous@exemple.com"
-                    />
-                    {errors.email && (
-                      <p id="email-error" className="text-red-500 text-sm mt-1">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
+                      {/* Shine effect */}
+                      <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
+                      {loading ? (
+                        <>
+                          <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                          </svg>
+                          Envoi en cours…
+                        </>
+                      ) : (
+                        <>
+                          <Send size={16} aria-hidden="true" />
+                          Envoyer le message
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div className="space-y-2">
-                  <label
-                    htmlFor="sujet"
-                    className="text-sm font-bold uppercase tracking-wider text-foreground"
-                  >
-                    Sujet de votre message
-                  </label>
-                  <input
-                    id="sujet"
-                    type="text"
-                    {...register("sujet")}
-                    aria-invalid={errors.sujet ? "true" : "false"}
-                    aria-describedby={errors.sujet ? "sujet-error" : undefined}
-                    className={`w-full bg-background border ${errors.sujet ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[48px]`}
-                    placeholder="Ex: Demande de partenariat"
-                  />
-                  {errors.sujet && (
-                    <p id="sujet-error" className="text-red-500 text-sm mt-1">
-                      {errors.sujet.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-bold uppercase tracking-wider text-foreground"
-                  >
-                    Votre message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={6}
-                    {...register("message")}
-                    aria-invalid={errors.message ? "true" : "false"}
-                    aria-describedby={errors.message ? "message-error" : undefined}
-                    className={`w-full bg-background border ${errors.message ? "border-red-500" : "border-input"} rounded-md px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
-                    placeholder="Comment pouvons-nous vous aider ?"
-                  ></textarea>
-                  {errors.message && (
-                    <p id="message-error" className="text-red-500 text-sm mt-1">
-                      {errors.message.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Turnstile
-                    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"}
-                    onSuccess={(token) => {
-                      setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                    }}
-                  />
-                  {errors.cfTurnstileResponse && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.cfTurnstileResponse.message}
-                    </p>
-                  )}
-                </div>
-
-                <input type="hidden" {...register("csrfToken")} value={csrfToken} />
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  aria-busy={loading}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gold text-foreground font-bold uppercase tracking-widest px-8 py-4 md:py-4 text-base md:text-sm min-h-[52px] hover:opacity-90 transition shadow-md disabled:opacity-70"
-                >
-                  {loading ? (
-                    "Envoi en cours..."
-                  ) : (
-                    <>
-                      <Send size={16} aria-hidden="true" />
-                      Envoyer le message
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+      {/* ──────────────── FAQ ──────────────── */}
+      <section className="bg-muted/40 border-t border-border py-16">
+        <div
+          ref={faqRef}
+          className={`container-page max-w-3xl mx-auto transition-all duration-700 ${faqVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
+          <div className="text-center mb-10">
+            <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+              Questions fréquentes
+            </span>
+            <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground">
+              FAQ
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {faqs.map((faq) => (
+              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
           </div>
         </div>
       </section>

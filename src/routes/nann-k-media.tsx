@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, X } from "lucide-react";
-import { useState } from "react";
+import { Play, X, Leaf, Cpu, Palette, ChevronRight, TreePine, Users, Heart, Globe } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { createSeoMeta } from "@/lib/seo";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
@@ -17,6 +17,17 @@ import agri7Img from "@/assets/nann-k-agri7.jpg";
 import agri8Img from "@/assets/nann-k-agri8.jpg";
 
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
+
+const agriImages = [
+  { src: agri1Img, alt: "Agriculture NANN-K – Champs irrigués" },
+  { src: agri2Img, alt: "Agriculture NANN-K – Cultures maraîchères" },
+  { src: agri3Img, alt: "Agriculture NANN-K – Récolte" },
+  { src: agri4Img, alt: "Agriculture NANN-K – Irrigation fleuve" },
+  { src: agri5Img, alt: "Agriculture NANN-K – Femmes cultivatrices" },
+  { src: agri6Img, alt: "Agriculture NANN-K – Marché local" },
+  { src: agri7Img, alt: "Agriculture NANN-K – Pépinière" },
+  { src: agri8Img, alt: "Agriculture NANN-K – Reboisement" },
+];
 
 export const Route = createFileRoute("/nann-k-media")({
   head: () => {
@@ -67,41 +78,182 @@ const categories = [
   },
 ];
 
+const stats = [
+  { icon: TreePine, value: 180, suffix: "+", label: "Plants reboisés" },
+  { icon: Users, value: 3, suffix: "", label: "Villages touchés" },
+  { icon: Heart, value: 5, suffix: "M+", label: "CFA investis", prefix: "" },
+  { icon: Globe, value: 3, suffix: "", label: "Piliers d'action" },
+];
+
+const pillars = [
+  {
+    icon: Leaf,
+    title: "Agriculture",
+    color: "from-emerald-500 to-green-700",
+    bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
+    border: "border-emerald-500/30",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    description:
+      "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un véritable levier de croissance inclusive.",
+  },
+  {
+    icon: Palette,
+    title: "Artisanat",
+    color: "from-amber-500 to-orange-700",
+    bg: "bg-amber-500/10 dark:bg-amber-500/20",
+    border: "border-amber-500/30",
+    iconColor: "text-amber-600 dark:text-amber-400",
+    description:
+      "Redorer le savoir-faire local, créer des filières rentables et offrir des perspectives économiques à la jeunesse.",
+  },
+  {
+    icon: Cpu,
+    title: "Technologies (TIC)",
+    color: "from-sky-500 to-blue-700",
+    bg: "bg-sky-500/10 dark:bg-sky-500/20",
+    border: "border-sky-500/30",
+    iconColor: "text-sky-600 dark:text-sky-400",
+    description:
+      "Connecter la vallée aux innovations du monde, faciliter l'accès à l'information et accélérer l'entrepreneuriat.",
+  },
+];
+
+// Animated counter hook
+function useCounter(target: number, duration = 1500, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration, start]);
+  return count;
+}
+
+// Scroll reveal hook
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
+function StatCard({ icon: Icon, value, suffix, prefix = "", label }: {
+  icon: typeof TreePine; value: number; suffix: string; prefix?: string; label: string;
+}) {
+  const { ref, visible } = useScrollReveal();
+  const count = useCounter(value, 1200, visible);
+  return (
+    <div
+      ref={ref}
+      className={`flex flex-col items-center gap-2 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+    >
+      <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-1">
+        <Icon className="text-primary w-6 h-6" />
+      </div>
+      <span className="font-display text-3xl md:text-4xl font-bold text-foreground">
+        {prefix}{count}{suffix}
+      </span>
+      <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{label}</span>
+    </div>
+  );
+}
+
 function NannkMedia() {
   const [activeVideo, setActiveVideo] = useState<{
     name: string;
     id: string;
     isLocal?: boolean;
   } | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
+  // Scroll reveal refs
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { ref: missionRef, visible: missionVisible } = useScrollReveal();
+  const { ref: whyRef, visible: whyVisible } = useScrollReveal();
+  const { ref: galleryRef, visible: galleryVisible } = useScrollReveal();
 
   return (
     <div className="bg-background min-h-screen">
-      {/* Header Section / Presentation */}
-      <section className="bg-muted border-b border-border py-16 md:py-12">
-        <div className="container-page text-center max-w-4xl mx-auto">
-          <div className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
-            Mouvement Culturel & Économique
+
+      {/* ──────────────────── HERO ──────────────────── */}
+      <section
+        ref={heroRef}
+        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]"
+      >
+        {/* Background image with overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: `url(${fleuveImg})` }}
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
+        {/* Animated decorative circles */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse" style={{ animationDuration: "4s" }} />
+        <div className="absolute bottom-1/4 right-1/4 w-60 h-60 rounded-full bg-sky-500/10 blur-3xl animate-pulse" style={{ animationDuration: "6s" }} />
+
+        <div className="relative z-10 container-page text-center max-w-4xl mx-auto py-20 md:py-28">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs uppercase tracking-[0.3em] text-primary font-bold">
+              Mouvement Culturel & Économique
+            </span>
           </div>
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tight text-foreground">
-            <span className="text-primary">NANN-K</span>
+          <h1 className="font-display text-6xl md:text-8xl font-black mb-6 uppercase tracking-tight leading-none">
+            <span
+              style={{
+                background: "linear-gradient(135deg, #ffffff 0%, #7dd3fc 40%, #38bdf8 70%, #0ea5e9 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              NANN-K
+            </span>
           </h1>
-          <p className="text-lg md:text-xl font-serif text-muted-foreground leading-relaxed">
-            Le mouvement "NANN-K" est né de la volonté de l'artiste Baaba MAAL, au{" "}
-            <Link to="/" className="text-primary hover:underline font-medium">
-              The Village Podor
-            </Link>
-            , de répondre par une participation effective à l'invitation des plus hautes autorités à
-            la réalisation de la croissance de l'économie, et donc le progrès social, au Sénégal
-            puis progressivement en Afrique surtout au Sud du Sahara. Cette région concentre les
-            États à faible revenu de l'Afrique de l'Ouest, ce qui représente un empêchement pour
-            accélérer la croissance, éliminer la pauvreté et la faim dans les pays.
+          <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-4 max-w-2xl mx-auto font-serif">
+            Dans la langue peulh, <em className="text-sky-300">"NANN-K"</em> vient du verbe{" "}
+            <em className="text-sky-300">"nanni"</em> — «&nbsp;ouïr&nbsp;». Faire entendre,
+            comprendre, agir.
           </p>
+          <div className="flex items-center justify-center gap-2 mt-8">
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Culture</span>
+            <span className="text-primary font-black">·</span>
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Savoir</span>
+            <span className="text-primary font-black">·</span>
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Travail</span>
+          </div>
         </div>
       </section>
 
-      {/* Media Office Mission */}
-      <section className="container-page py-12 border-b border-border">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+      {/* ──────────────────── STATS ──────────────────── */}
+      <section className="container-page py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {stats.map((s) => (
+            <StatCard key={s.label} {...s} />
+          ))}
+        </div>
+      </section>
+
+      {/* ──────────────────── MISSION ──────────────────── */}
+      <section className="container-page py-12 border-t border-border">
+        <div
+          ref={missionRef}
+          className={`grid md:grid-cols-2 gap-16 items-center transition-all duration-700 ${missionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
           <div>
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
               L'initiative de Baaba Maal
@@ -114,126 +266,109 @@ function NannkMedia() {
               vallée du fleuve Sénégal. Il promeut trois piliers essentiels : une{" "}
               <strong>agriculture durable</strong> nourricière, un{" "}
               <strong>artisanat valorisé</strong> et des <strong>technologies modernes</strong>{" "}
-              accessibles. Ces secteurs à haut potentiel créent les conditions d'un épanouissement
-              collectif et d'une participation active à la vie économique.
-            </p>
-            <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              Dans la langue peulh, "NANN-K" vient du verbe <em>"nanni"</em> : "ouïr". Ce mot porte
-              toute notre ambition : <strong>faire entendre et comprendre</strong>. Grâce à notre
-              bras culturel — musique, chants, troupe folklorique — nous transformons les messages
-              de développement en récits vivants, en émotions partagées, en mobilisations
-              populaires.
+              accessibles.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-              Notre credo ? <strong>"Culture – Savoir – Travail"</strong>. Nous construisons une
-              conscience citoyenne active, pour que chaque femme, chaque homme de la vallée devienne
-              acteur de son propre avenir, et de l'émergence sociale et économique de toute la
-              région.
+              Notre credo ? <strong>«&nbsp;Culture – Savoir – Travail&nbsp;»</strong>. Nous construisons une
+              conscience citoyenne active pour que chaque habitant de la vallée devienne
+              acteur de son propre avenir.
             </p>
-            <div className="space-y-6 font-serif text-muted-foreground">
-              <div className="flex items-start gap-4">
-                <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
-                <div>
-                  <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Agriculture
-                  </strong>
-                  <span className="text-sm">
-                    Garantir la sécurité alimentaire, valoriser les terroirs et faire de
-                    l'agriculture un véritable levier de croissance inclusive.
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
-                <div>
-                  <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Artisanat
-                  </strong>
-                  <span className="text-sm">
-                    Redorer le savoir-faire local, créer des filières rentables et offrir des
-                    perspectives économiques à la jeunesse.
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <span className="bg-primary w-2 h-2 rounded-full mt-2.5 shrink-0 shadow-[0_0_8px_var(--color-primary)]"></span>
-                <div>
-                  <strong className="block text-foreground mb-1 font-sans uppercase tracking-wider text-xs">
-                    Technologies (TIC)
-                  </strong>
-                  <span className="text-sm">
-                    Connecter la vallée aux innovations du monde, faciliter l'accès à l'information
-                    et accélérer l'entrepreneuriat.
-                  </span>
-                </div>
-              </div>
+            {/* Pillars */}
+            <div className="space-y-4">
+              {pillars.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div
+                    key={p.title}
+                    className={`flex items-start gap-4 p-4 rounded-2xl border ${p.border} ${p.bg} transition-all duration-300 hover:shadow-md`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-white/50 dark:bg-white/10`}>
+                      <Icon className={`w-5 h-5 ${p.iconColor}`} />
+                    </div>
+                    <div>
+                      <strong className={`block mb-0.5 font-sans uppercase tracking-wider text-xs ${p.iconColor}`}>
+                        {p.title}
+                      </strong>
+                      <span className="text-sm text-muted-foreground font-serif">{p.description}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <div>
-            <div className="aspect-4/3 overflow-hidden border-4 border-border shadow-xl group rounded-2xl bg-white flex items-center justify-center p-8">
+
+          {/* Logo card */}
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/10 to-sky-500/10 blur-2xl" />
+            <div className="relative aspect-4/3 overflow-hidden border-4 border-border shadow-2xl rounded-3xl bg-white flex items-center justify-center p-8">
               <img
                 src={logoNannk}
                 alt="Logo NANN-K"
-                className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-1000"
+                className="max-w-full max-h-full object-contain hover:scale-110 transition-transform duration-1000"
               />
+            </div>
+            {/* Floating badge */}
+            <div className="absolute -bottom-4 -right-4 bg-primary text-primary-foreground rounded-2xl px-4 py-3 shadow-lg">
+              <p className="text-xs font-bold uppercase tracking-widest">The Village</p>
+              <p className="text-xs opacity-75">Podor, Sénégal</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Context & Justification Section */}
-      <section className="container-page py-12 border-b border-border">
-        <div className="max-w-4xl mx-auto">
+      {/* ──────────────────── POURQUOI NANN-K ──────────────────── */}
+      <section className="py-16 bg-muted/50 border-y border-border mt-8">
+        <div
+          ref={whyRef}
+          className={`container-page max-w-4xl mx-auto transition-all duration-700 ${whyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Notre raison d'être
           </span>
-          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
+          <h2 className="font-display text-3xl font-bold mb-10 uppercase tracking-tight text-foreground">
             Pourquoi NANN-K ?
           </h2>
-          <div className="space-y-8">
-            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                Le défi du développement
-              </h3>
-              <p className="font-serif text-muted-foreground text-base leading-relaxed">
-                L'Afrique fait face à des défis colossaux. Trop souvent, les initiatives restent
-                institutionnelles et ne prennent pas racine dans les réalités du terrain. NANN-K
-                naît de ce constat :{" "}
-                <strong>le changement doit venir des citoyens eux-mêmes</strong>.
-              </p>
-            </div>
-            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                Une réponse à l'attente des populations
-              </h3>
-              <p className="font-serif text-muted-foreground text-base leading-relaxed">
-                Emplois, revenus, sécurité alimentaire : les besoins sont criants. Les populations
-                n'attendent plus, elles agissent. NANN-K leur donne les outils : formations, accès
-                au financement, équipements et surtout une visibilité médiatique forte.
-              </p>
-            </div>
-            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                L'agriculture, priorité nationale
-              </h3>
-              <p className="font-serif text-muted-foreground text-base leading-relaxed">
-                Le Sénégal a fait de l'agriculture son moteur de croissance — mais les rouages
-                grippent. NANN-K est l'alternative concrète : un accompagnement terrain, proche des
-                agriculteurs, pour transformer les politiques en résultats tangibles.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                num: "01",
+                title: "Le défi du développement",
+                text: "L'Afrique fait face à des défis colossaux. Les initiatives institutionnelles ne prennent pas toujours racine dans les réalités du terrain. NANN-K naît de ce constat : le changement doit venir des citoyens eux-mêmes.",
+              },
+              {
+                num: "02",
+                title: "Une réponse aux populations",
+                text: "Emplois, revenus, sécurité alimentaire : les besoins sont criants. NANN-K donne les outils : formations, accès au financement, équipements et visibilité médiatique forte.",
+              },
+              {
+                num: "03",
+                title: "L'agriculture, priorité nationale",
+                text: "Le Sénégal a fait de l'agriculture son moteur de croissance. NANN-K est l'alternative concrète : un accompagnement terrain, proche des agriculteurs.",
+              },
+            ].map((item) => (
+              <div
+                key={item.num}
+                className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group"
+              >
+                <span className="font-display text-4xl font-black text-primary/20 group-hover:text-primary/40 transition-colors block mb-3">
+                  {item.num}
+                </span>
+                <h3 className="font-display text-lg font-bold text-foreground mb-3">{item.title}</h3>
+                <p className="font-serif text-muted-foreground text-sm leading-relaxed">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* NANNK TRUST & Podor Vert Section */}
-      <section className="container-page py-12 border-b border-border bg-muted/50">
+      {/* ──────────────────── NANNK TRUST ──────────────────── */}
+      <section className="container-page py-14 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Un engagement concret
           </span>
           <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
-            NANNK TRUST de Baaba Maal soutient la lutte contre la désertification à Podor
+            NANNK TRUST soutient la lutte contre la désertification à Podor
           </h2>
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
@@ -248,48 +383,38 @@ function NannkMedia() {
                 />
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-5">
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Podor, Sénégal – La fondation NANNK TRUST, initiée par l’artiste planétaire Baaba
-                Maal, a remis un chèque d’un montant de plus de 5 millions de francs CFA à
-                l’association Podor Vert, marquant ainsi une étape importante dans leur partenariat
-                en faveur de l’environnement.
+                La fondation NANNK TRUST, initiée par l'artiste planétaire Baaba Maal, a remis un
+                chèque de plus de <strong>5 millions de francs CFA</strong> à l'association{" "}
+                <strong>Podor Vert</strong>, marquant une étape clé dans leur partenariat pour
+                l'environnement.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
                 Cette contribution constitue la deuxième tranche du financement engagé par la
-                fondation pour soutenir les actions de l’association, qui se consacre depuis
-                plusieurs années à la lutte contre la désertification et la restauration des
+                fondation pour soutenir les actions de reboisement et de restauration des
                 écosystèmes locaux.
               </p>
-              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Lors de la remise officielle, les responsables des deux structures ont réaffirmé
-                leur volonté commune de renforcer la résilience environnementale dans le département
-                de Podor, particulièrement touché par l’avancée du désert.
-              </p>
-              <blockquote className="border-l-4 border-primary pl-6 py-2 italic">
-                « La protection de l’environnement est une urgence et une responsabilité collective.
-                En soutenant Podor Vert, nous investissons dans un avenir durable pour nos
-                communautés et pour les générations futures. »
-                <footer className="mt-2 text-sm font-semibold text-primary">Baaba Maal</footer>
-              </blockquote>
-              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L’association Podor Vert a salué ce geste de confiance et a annoncé la mise en œuvre
-                de nouvelles initiatives de reboisement, de sensibilisation et de formation des
-                jeunes aux pratiques agricoles durables, rendues possibles grâce à cet appui
-                financier.
-              </p>
-              <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Ce partenariat exemplaire entre une organisation culturelle de renommée
-                internationale et un acteur local engagé dans l’environnement illustre l’importance
-                de la synergie entre la culture, la communauté et le développement durable.
-              </p>
+
+              {/* Quote premium */}
+              <div className="relative bg-gradient-to-br from-primary/5 to-sky-500/5 border border-primary/20 rounded-2xl p-6 mt-4">
+                <div className="absolute -top-3 left-6 text-5xl text-primary font-serif leading-none select-none">"</div>
+                <blockquote className="pt-4 italic font-serif text-foreground text-base leading-relaxed">
+                  La protection de l'environnement est une urgence et une responsabilité
+                  collective. En soutenant Podor Vert, nous investissons dans un avenir durable
+                  pour nos communautés et pour les générations futures.
+                </blockquote>
+                <footer className="mt-3 text-sm font-bold text-primary uppercase tracking-wider">
+                  — Baaba Maal
+                </footer>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Journée de Reboisement Section */}
-      <section className="container-page py-12 border-b border-border">
+      {/* ──────────────────── REBOISEMENT ──────────────────── */}
+      <section className="container-page py-14 border-b border-border bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Journée citoyenne
@@ -300,35 +425,28 @@ function NannkMedia() {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
               <div className="aspect-video bg-black">
-                <video
-                  className="w-full h-full"
-                  src="/podor%20vert.mp4"
-                  controls
-                  preload="metadata"
-                >
+                <video className="w-full h-full" src="/podor%20vert.mp4" controls preload="metadata">
                   Votre navigateur ne supporte pas la vidéo.
                 </video>
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-5">
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Dans le cadre de la journée nationale de l’arbre initiée par le Président de la
-                République Bassirou Diomaye Faye, le département de Podor s’est manifesté à travers
-                le député Ismaela Wone et l’Association Podor Vert par une grande journée de
-                reboisement et sensibilisation dans la commune de Mbolo Birame le dimanche 31 août
-                2025.
+                Dans le cadre de la journée nationale de l'arbre initiée par le Président Bassirou
+                Diomaye Faye, le département de Podor s'est manifesté à travers le député Ismaela
+                Wone et l'Association Podor Vert par une grande journée de reboisement dans la
+                commune de <strong>Mbolo Birame</strong> le dimanche 31 août 2025.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont été retenus dans le
-                cadre de cette activité citoyenne. Ainsi, Podor vert a mis à leur disposition 180
-                plants ombragés et fruitiers qui sont de la production des pépinières de Fanaye et
+                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont bénéficié de{" "}
+                <strong>180 plants ombragés et fruitiers</strong> issus des pépinières de Fanaye et
                 de Mery.
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L’Agence Sénégalaise de la Reforestation et de la Grande Muraille verte a participé
+                L'Agence Sénégalaise de la Reforestation et de la Grande Muraille verte a participé
                 activement à la réussite de cette activité.
               </p>
-              <p className="font-serif text-lg leading-relaxed font-semibold text-foreground">
+              <p className="font-serif text-lg leading-relaxed font-semibold text-primary">
                 Ensemble, œuvrons pour un Podor Vert et durable.
               </p>
             </div>
@@ -336,8 +454,8 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Espace Agricole NANN-K Section */}
-      <section className="container-page py-12 border-b border-border bg-muted/50">
+      {/* ──────────────────── ESPACE AGRICOLE VIDÉO ──────────────────── */}
+      <section className="container-page py-14 border-b border-border">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Notre espace agricole
@@ -360,8 +478,8 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Baaba Maal à Mborobirane Section */}
-      <section className="container-page py-12 border-b border-border bg-muted/50">
+      {/* ──────────────────── BAABA MAAL MBOROBIRANE ──────────────────── */}
+      <section className="container-page py-14 border-b border-border bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Moment Musical
@@ -384,81 +502,63 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* Agriculture Images Section */}
-      <section className="container-page py-12 border-b border-border">
-        <div className="max-w-6xl mx-auto">
+      {/* ──────────────────── GALERIE AGRICOLE ──────────────────── */}
+      <section className="container-page py-14 border-b border-border">
+        <div ref={galleryRef} className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Agriculture NANN-K
           </span>
-          <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
-            Nos Projets Agricoles
-          </h2>
+          <div className="flex items-end justify-between mb-8">
+            <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground">
+              Nos Projets Agricoles
+            </h2>
+            <span className="text-sm text-muted-foreground font-serif hidden md:block">
+              Cliquez sur une image pour agrandir
+            </span>
+          </div>
           <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
             Découvrez nos initiatives agricoles dans la vallée du fleuve Sénégal.
           </p>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri1Img}
-                alt="Agriculture NANN-K 1"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri2Img}
-                alt="Agriculture NANN-K 2"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri3Img}
-                alt="Agriculture NANN-K 3"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri4Img}
-                alt="Agriculture NANN-K 4"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri5Img}
-                alt="Agriculture NANN-K 5"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri6Img}
-                alt="Agriculture NANN-K 6"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri7Img}
-                alt="Agriculture NANN-K 7"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="aspect-4/3 rounded-2xl overflow-hidden border border-border group">
-              <img
-                src={agri8Img}
-                alt="Agriculture NANN-K 8"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
+
+          {/* Masonry-style grid */}
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+            {agriImages.map((img, i) => (
+              <div
+                key={img.alt}
+                onClick={() => setLightboxImg(img.src)}
+                className={`relative overflow-hidden rounded-2xl border border-border group cursor-pointer transition-all duration-500 hover:shadow-xl hover:scale-[1.02] hover:border-primary/40 ${
+                  galleryVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+                style={{
+                  transitionDelay: `${i * 80}ms`,
+                  aspectRatio: i % 5 === 0 ? "1/1" : "4/3",
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <span className="text-white text-xs font-semibold uppercase tracking-wider">
+                    {img.alt}
+                  </span>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                    <ChevronRight className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* NANN-k TV Player Section */}
-      <section className="container-page py-12">
+      {/* ──────────────────── NANN-K TV ──────────────────── */}
+      <section className="container-page py-14">
+        {/* TV Header card */}
         <div className="grid md:grid-cols-[180px_1fr] gap-8 items-center mb-12 bg-card border border-border p-8 rounded-3xl shadow-sm">
           <div className="flex justify-center">
             <div className="w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm">
@@ -490,7 +590,8 @@ function NannkMedia() {
           </div>
         </div>
 
-        <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-(--shadow-elegant) mb-20">
+        {/* Feature video */}
+        <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl mb-16">
           <div className="aspect-video relative bg-black">
             <iframe
               className="absolute inset-0 w-full h-full border-0"
@@ -502,52 +603,80 @@ function NannkMedia() {
           </div>
         </div>
 
-        {/* Video Grid */}
-        <div className="space-y-16">
-          {categories.map((cat) => (
-            <div key={cat.titre}>
-              <div className="flex items-end justify-between mb-6 border-b border-border pb-2">
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight">
-                  {cat.titre}
-                </h3>
-                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors cursor-pointer hidden md:inline">
-                  Voir tout
-                </span>
+        {/* Tab navigation for video categories */}
+        <div className="mb-8">
+          <div className="flex gap-2 border-b border-border overflow-x-auto pb-0 scrollbar-none">
+            {categories.map((cat, i) => (
+              <button
+                key={cat.titre}
+                onClick={() => setActiveTab(i)}
+                className={`shrink-0 px-5 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-200 border-b-2 -mb-px cursor-pointer ${
+                  activeTab === i
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {cat.titre}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Video grid for active tab */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {categories[activeTab].items.map((item, i) => (
+            <article
+              key={item.name}
+              onClick={() => setActiveVideo({ name: item.name, id: item.id })}
+              className="group rounded-xl overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer"
+            >
+              <div className="aspect-video relative overflow-hidden">
+                <img
+                  src={thumbs[i % thumbs.length]}
+                  alt={item.name}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
               </div>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.items.map((item, i) => (
-                  <article
-                    key={item.name}
-                    onClick={() => setActiveVideo({ name: item.name, id: item.id })}
-                    className="group rounded-xl overflow-hidden border border-border bg-card transition hover:border-primary cursor-pointer"
-                  >
-                    <div className="aspect-video relative overflow-hidden">
-                      <img
-                        src={thumbs[i % thumbs.length]}
-                        alt={item.name}
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition">
-                        <Play size={32} className="text-primary-foreground" fill="currentColor" />
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h4 className="text-sm font-semibold truncate">{item.name}</h4>
-                      <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
-                    </div>
-                  </article>
-                ))}
+              <div className="p-4">
+                <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{item.name}</h4>
+                <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Video Modal Player */}
+      {/* ──────────────────── LIGHTBOX ──────────────────── */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          <button
+            className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition cursor-pointer border border-white/20"
+            aria-label="Fermer"
+          >
+            <X size={22} />
+          </button>
+          <img
+            src={lightboxImg}
+            alt="Aperçu Agriculture NANN-K"
+            className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border border-white/10 object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
+      {/* ──────────────────── VIDEO MODAL ──────────────────── */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xs p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4"
           onClick={() => setActiveVideo(null)}
         >
           <div
