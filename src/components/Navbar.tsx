@@ -214,7 +214,7 @@ export function Navbar() {
                     <Link
                       to={l.to}
                       onClick={() => setOpen(false)}
-                      className="block text-3xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors"
+                      className="block text-xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors"
                       activeProps={{ className: "!text-primary" }}
                       activeOptions={{ exact: l.to === "/" }}
                     >
