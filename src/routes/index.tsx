@@ -1,25 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight, Landmark, Music, GraduationCap, Calendar } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ChevronRight, Landmark, Music, GraduationCap, Calendar, CheckCircle2 } from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
-import fleuveImg from "@/assets/fleuve.jpg";
-import gal1Img from "@/assets/gal1.jpg";
-import gal2Img from "@/assets/gal2.jpg";
-import gal3Img from "@/assets/gal3.jpg";
-import gal4Img from "@/assets/gal4.jpg";
-import gal5Img from "@/assets/gal5.jpg";
 import { subscribeNewsletterFn } from "@/routes/__root";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { Lightbox } from "@/components/Lightbox";
+import { galleryImages, articles, instruments } from "@/data/home-content";
+import { MagneticButton } from "@/components/MagneticButton";
 
-const galleryImages = [
-  { src: gal1Img, alt: "Concert" },
-  { src: gal2Img, alt: "Exposition" },
-  { src: gal3Img, alt: "Conférence" },
-  { src: gal4Img, alt: "Master Class" },
-  { src: gal5Img, alt: "Défilé de Mode" },
-];
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -40,75 +29,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const articles = [
-  {
-    to: "/blues-du-fleuve" as const,
-    category: "À la Une",
-    title: "La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration",
-    excerpt:
-      "Une édition historique qui réunira les cultures des quatre pays du fleuve pour célébrer l'unité et la fraternité.",
-    date: "Aujourd'hui",
-    img: "/festival baba maal.jpg",
-    featured: true,
-  },
-  {
-    to: "/nannka-tv" as const,
-    category: "Médias",
-    title: "NANN-k TV : Archives et documentaires",
-    excerpt:
-      "Découvrez des archives inédites et des documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
-    date: "Aujourd'hui",
-    img: fleuveImg,
-  },
-  {
-    to: "/nann-k-media" as const,
-    category: "Patrimoine",
-    title: "Nouvelle exposition au Centre Culturel de Podor",
-    excerpt:
-      "L'artisanat local mis à l'honneur dans une rétrospective exceptionnelle au cœur de la ville, attirant de nombreux visiteurs.",
-    date: "Hier",
-    img: "/centre culturel.jpg",
-  },
-];
 
-const instruments = [
-  {
-    nom: "Le Xalam",
-    desc: "Luth traditionnel à quatre ou cinq cordes, instrument emblématique des griots wolof et pulaar. Sa caisse sculptée dans un seul morceau de bois résonne d'histoires séculaires.",
-  },
-  {
-    nom: "Le Sabar",
-    desc: "Tambour wolof joué à la main et à la baguette, central dans les cérémonies. Son langage rythmique servait jadis à transmettre des messages à travers les villages.",
-  },
-  {
-    nom: "La Tama",
-    desc: "Petit tambour d'aisselle à tension variable, surnommé « tambour parlant ». Le musicien module sa voix en pressant les cordes contre son corps.",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Marie Diop",
-    role: "Visiteuse de Dakar",
-    content:
-      "Une expérience incroyable ! The Village est un lieu unique où la culture prend vie. J'ai été transportée par la musique et l'ambiance du festival.",
-    avatar: "MD",
-  },
-  {
-    name: "Amadou Diallo",
-    role: "Artiste local",
-    content:
-      "Grâce aux formations de NANN-k, j'ai pu perfectionner mon art et partager ma culture avec le monde entier. The Village est un véritable tremplin.",
-    avatar: "AD",
-  },
-  {
-    name: "Sophie Martin",
-    role: "Touriste française",
-    content:
-      "Podor et The Village m'ont offert une immersion totale dans la culture sénégalaise. Entre concerts, ateliers et rencontres, chaque moment était magique.",
-    avatar: "SM",
-  },
-];
 
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -153,12 +74,16 @@ function Home() {
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <OptimizedImage
-            src="/centre culturel.jpg"
-            alt="The Village Podor - Centre culturel au bord du fleuve Sénégal"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/centre culturel.jpg"
             className="h-full w-full object-cover scale-105"
-            priority
-          />
+          >
+            <source src="/video the village.mp4" type="video/mp4" />
+          </video>
           <motion.div
             className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
             animate={{ opacity: [0.4, 0.5, 0.4] }}
@@ -199,28 +124,39 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6"
           >
-            <Link
-              to="/blues-du-fleuve"
-              className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
-            >
-              Découvrir le Festival
-            </Link>
-            <Link
-              to="/contact"
-              className="rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/20 transition-all"
-            >
-              Nous Contacter
-            </Link>
+            <MagneticButton>
+              <Link
+                to="/blues-du-fleuve"
+                className="block rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
+              >
+                Découvrir le Festival
+              </Link>
+            </MagneticButton>
+            <MagneticButton>
+              <Link
+                to="/contact"
+                className="block rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/20 transition-all"
+              >
+                Nous Contacter
+              </Link>
+            </MagneticButton>
           </motion.div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <ArrowRight className="rotate-90 text-white/50" size={24} />
+        <div 
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group"
+          onClick={() => document.getElementById('presentation')?.scrollIntoView({ behavior: 'smooth' })}
+          role="button"
+          tabIndex={0}
+          aria-label="Défiler vers la présentation"
+          onKeyDown={(e) => { if (e.key === 'Enter') document.getElementById('presentation')?.scrollIntoView({ behavior: 'smooth' }) }}
+        >
+          <ArrowRight className="rotate-90 text-white/50 group-hover:text-primary transition-colors" size={24} />
         </div>
       </section>
 
       {/* Section Introductive SEO - The Village */}
-      <section className="container-page py-16 border-b border-border/10">
+      <section id="presentation" className="container-page py-32 border-b border-border/10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
@@ -398,7 +334,7 @@ function Home() {
       </section>
 
       {/* Section Baaba Maal - Elevated Typography */}
-      <section className="container-page py-16 border-b border-border/10">
+      <section className="container-page py-32 border-b border-border/10">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           {/* Galerie photo biographie */}
           <motion.div
@@ -443,35 +379,42 @@ function Home() {
               La Voix du <span className="text-primary">Fleuve</span>
             </h2>
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
-              {showFullBio && (
-                <>
-                  <p>
-                    Dès son plus jeune âge, il baigne dans la culture musicale traditionnelle. Son
-                    père, un fisherman et griot, lui transmet l'amour de la musique et de la culture
-                    pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs instruments,
-                    notamment le ngoni et la kora.
-                  </p>
-                  <p>
-                    Dans les années 1970, il se rend à Dakar pour poursuivre ses études. C'est là
-                    que son parcours musical prend son envol. Il collabore avec divers artistes et
-                    enregistre ses premiers albums. Son style unique, mélange de traditions
-                    musicales peules et d'influences modernes, lui permet de se faire connaître bien
-                    au-delà des frontières du Sénégal.
-                  </p>
-                  <p>
-                    Au cours des décennies suivantes, Baaba Maal devient une figure emblématique de
-                    la musique africaine mondiale. Il a collaboré avec de grands artistes
-                    internationaux et a donné des concerts dans les plus grandes salles du monde.
-                  </p>
-                  <p>
-                    Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
-                    profondément engagé dans le développement de sa région. Il est le fondateur du
-                    mouvement NANN-K et du centre culturel The Village à Podor, qui ont pour
-                    objectif de promouvoir la culture, l'éducation et le développement durable dans
-                    la vallée du fleuve Sénégal.
-                  </p>
-                </>
-              )}
+              <AnimatePresence>
+                {showFullBio && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden space-y-8"
+                  >
+                    <p>
+                      Dès son plus jeune âge, il baigne dans la culture musicale traditionnelle. Son
+                      père, un fisherman et griot, lui transmet l'amour de la musique et de la culture
+                      pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs instruments,
+                      notamment le ngoni et la kora.
+                    </p>
+                    <p>
+                      Dans les années 1970, il se rend à Dakar pour poursuivre ses études. C'est là
+                      que son parcours musical prend son envol. Il collabore avec divers artistes et
+                      enregistre ses premiers albums. Son style unique, mélange de traditions
+                      musicales peules et d'influences modernes, lui permet de se faire connaître bien
+                      au-delà des frontières du Sénégal.
+                    </p>
+                    <p>
+                      Au cours des décennies suivantes, Baaba Maal devient une figure emblématique de
+                      la musique africaine mondiale. Il a collaboré avec de grands artistes
+                      internationaux et a donné des concerts dans les plus grandes salles du monde.
+                    </p>
+                    <p>
+                      Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
+                      profondément engagé dans le développement de sa région. Il est le fondateur du
+                      mouvement NANN-K et du centre culturel The Village à Podor, qui ont pour
+                      objectif de promouvoir la culture, l'éducation et le développement durable dans
+                      la vallée du fleuve Sénégal.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <p className="border-l-4 border-primary pl-8 italic text-foreground text-xl">
                 "The Village est l'aboutissement d'un rêve : offrir à la jeunesse de Podor un lieu
@@ -491,7 +434,7 @@ function Home() {
       </section>
 
       {/* Activités Culturelles Section */}
-      <section className="container-page py-20 border-b border-border">
+      <section className="container-page py-32 border-b border-border">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             Nos Activités
@@ -508,10 +451,10 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 0)}
             >
-              <img
-                src={gal1Img}
+              <OptimizedImage
+                src={galleryImages[0].src}
                 alt="Concert"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="p-8">
@@ -537,10 +480,10 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 1)}
             >
-              <img
-                src={gal2Img}
+              <OptimizedImage
+                src={galleryImages[1].src}
                 alt="Exposition"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="p-8">
@@ -566,10 +509,10 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 2)}
             >
-              <img
-                src={gal3Img}
+              <OptimizedImage
+                src={galleryImages[2].src}
                 alt="Conférence"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="p-8">
@@ -595,10 +538,10 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 3)}
             >
-              <img
-                src={gal4Img}
+              <OptimizedImage
+                src={galleryImages[3].src}
                 alt="Master Class"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="p-8">
@@ -624,10 +567,10 @@ function Home() {
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 4)}
             >
-              <img
-                src={gal5Img}
+              <OptimizedImage
+                src={galleryImages[4].src}
                 alt="Défilé de Mode"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="p-8">
@@ -652,7 +595,7 @@ function Home() {
 
 
       {/* Actualités - Modern News Cards */}
-      <section className="bg-muted/30 py-16">
+      <section className="bg-muted/30 py-32">
         <div className="container-page">
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
             <div>
@@ -766,7 +709,7 @@ function Home() {
       {/* Patrimoine & Instruments - Refined layout */}
       <section
         id="instruments"
-        className="container-page py-16"
+        className="container-page py-32"
         aria-labelledby="instruments-title"
       >
         <div className="max-w-4xl mx-auto text-center mb-12">
@@ -801,7 +744,7 @@ function Home() {
       </section>
 
       {/* Newsletter Section - Re-added but cleaned */}
-      <section className="container-page py-12" aria-labelledby="newsletter-title">
+      <section className="container-page py-24" aria-labelledby="newsletter-title">
         <div className="bg-[#0a0908] rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
           <div className="max-w-2xl mx-auto relative z-10">
@@ -846,11 +789,14 @@ function Home() {
               </button>
             </form>
             {newsletterMsg && (
-              <p
-                className={`mt-4 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-6 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
               >
+                {newsletterStatus === "success" && <CheckCircle2 size={16} />}
                 {newsletterMsg}
-              </p>
+              </motion.div>
             )}
           </div>
         </div>

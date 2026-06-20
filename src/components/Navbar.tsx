@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
@@ -15,7 +16,20 @@ const links = [
 export function Navbar() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const isTransparent = !scrolled && !open;
+
+  // Détecter le défilement pour la transparence
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Fermer le menu au changement de route
   useEffect(() => {
@@ -36,7 +50,13 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-2xl border-b border-border shadow-sm">
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled || open 
+            ? "bg-background/90 backdrop-blur-2xl border-b border-border shadow-sm py-0" 
+            : "bg-transparent border-transparent py-4"
+        }`}
+      >
         <div className="container-page">
           <div className="flex items-center justify-between h-14 md:h-20 gap-4 md:gap-8">
             {/* Logo / titre */}
@@ -48,10 +68,10 @@ export function Navbar() {
                   className="h-9 md:h-14 w-auto object-contain"
                 />
                 <div className="flex flex-col items-start">
-                  <span className="luxury-text text-lg md:text-3xl xl:text-4xl uppercase tracking-tighter text-foreground">
+                  <span className={`luxury-text text-lg md:text-3xl xl:text-4xl uppercase tracking-tighter transition-colors ${isTransparent ? 'text-white' : 'text-foreground'}`}>
                     The <span className="text-gradient-river">Village</span>
                   </span>
-                  <span className="text-[5px] md:text-[6px] xl:text-[7px] uppercase tracking-[0.4em] font-semibold font-sans text-muted-foreground">
+                  <span className={`text-[5px] md:text-[6px] xl:text-[7px] uppercase tracking-[0.4em] font-semibold font-sans transition-colors ${isTransparent ? 'text-white/80' : 'text-muted-foreground'}`}>
                     blues des fleuves · NANN-k
                   </span>
                 </div>
@@ -67,7 +87,7 @@ export function Navbar() {
                 <Link
                   key={l.to}
                   to={l.to}
-                  className="text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center text-foreground hover:text-primary"
+                  className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center hover:text-primary ${isTransparent ? 'text-white' : 'text-foreground'}`}
                   activeProps={{
                     className: "text-primary !after:w-full",
                   }}
@@ -86,24 +106,24 @@ export function Navbar() {
               </div>
 
               {/* Sélecteur de langue desktop */}
-              <div className="hidden md:flex items-center gap-2 border-r border-border pr-4 text-foreground">
+              <div className={`hidden md:flex items-center gap-2 border-r pr-4 transition-colors ${isTransparent ? 'border-white/20' : 'border-border text-foreground'}`}>
                 <button
                   onClick={() => i18n.changeLanguage("fr")}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "fr"
                       ? "text-primary font-black"
-                      : "text-muted-foreground hover:text-foreground"
+                      : isTransparent ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   FR
                 </button>
-                <span className="text-[8px] text-muted-foreground/30">|</span>
+                <span className={`text-[8px] transition-colors ${isTransparent ? 'text-white/30' : 'text-muted-foreground/30'}`}>|</span>
                 <button
                   onClick={() => i18n.changeLanguage("en")}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "en"
                       ? "text-primary font-black"
-                      : "text-muted-foreground hover:text-foreground"
+                      : isTransparent ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   EN
@@ -112,7 +132,7 @@ export function Navbar() {
 
               {/* Recherche desktop */}
               <button
-                className="hidden md:inline-flex h-8 w-8 items-center justify-center rounded-full text-foreground hover:bg-foreground/5 transition-all duration-300"
+                className={`hidden md:inline-flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${isTransparent ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-foreground/5'}`}
                 aria-label="Rechercher"
               >
                 <Search size={16} strokeWidth={1.5} />
@@ -125,7 +145,7 @@ export function Navbar() {
 
               {/* Hamburger mobile — toujours visible */}
               <button
-                className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl text-foreground hover:bg-foreground/5 transition-all"
+                className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all ${isTransparent ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-foreground/5'}`}
                 onClick={() => setOpen((v) => !v)}
                 aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
                 aria-expanded={open}
@@ -137,104 +157,118 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Menu mobile — slide depuis la droite, z-index > header */}
-      <div
-        className={`fixed inset-0 z-200 lg:hidden flex flex-col bg-card text-card-foreground transition-transform duration-300 ease-in-out ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-        aria-hidden={!open}
-      >
-        {/* En-tête du menu mobile */}
-        <div className="flex items-center justify-between px-5 h-16 border-b border-border shrink-0">
-          <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-            <img
-              src="/logo the village.jpg"
-              alt="Logo The Village"
-              className="h-9 w-auto object-contain"
-            />
-            <div className="flex flex-col items-start">
-              <span className="luxury-text text-xl uppercase tracking-tighter text-foreground">
-                The <span className="text-gradient-river">Village</span>
-              </span>
-              <span className="text-[5px] uppercase tracking-[0.4em] font-semibold font-sans text-muted-foreground">
-                blues des fleuves · NANN-k
-              </span>
-            </div>
-          </Link>
-          <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-foreground hover:bg-foreground/10 transition-all"
-            onClick={() => setOpen(false)}
-            aria-label="Fermer le menu"
-          >
-            <X size={22} strokeWidth={1.5} />
-          </button>
-        </div>
-
-        {/* Liens */}
-        <nav
-          className="flex-1 overflow-y-auto py-6 px-5 flex flex-col"
-          aria-label="Navigation mobile"
-        >
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
+      {/* Menu mobile — Animé avec Framer Motion */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Fond semi-transparent */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-199 lg:hidden bg-black/60 backdrop-blur-md"
               onClick={() => setOpen(false)}
-              className="flex items-center text-sm font-semibold uppercase tracking-widest text-foreground py-5 min-h-12 border-b border-border/30 transition-all hover:text-primary hover:pl-3 duration-200"
-              activeProps={{ className: "!text-primary !pl-3" }}
-              activeOptions={{ exact: l.to === "/" }}
+              aria-hidden="true"
+            />
+
+            {/* Panneau latéral */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+              className="fixed inset-y-0 right-0 w-full max-w-sm z-200 lg:hidden flex flex-col bg-card border-l border-border shadow-2xl"
+              aria-hidden={!open}
             >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+              {/* En-tête du menu mobile */}
+              <div className="flex items-center justify-between px-6 h-20 border-b border-border shrink-0">
+                <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+                  <div className="flex flex-col items-start">
+                    <span className="luxury-text text-2xl uppercase tracking-tighter text-foreground">
+                      The <span className="text-gradient-river">Village</span>
+                    </span>
+                  </div>
+                </Link>
+                <button
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted/50 text-foreground hover:bg-foreground/10 transition-all"
+                  onClick={() => setOpen(false)}
+                  aria-label="Fermer le menu"
+                >
+                  <X size={22} strokeWidth={1.5} />
+                </button>
+              </div>
 
-        {/* Pied du menu mobile */}
-        <div className="p-5 border-t border-border/50 bg-muted/30 shrink-0">
-          <div className="flex items-center">
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
-              Langue :
-            </span>
-            <div className="flex items-center bg-muted/50 rounded-full p-1 ml-3">
-              <button
-                onClick={() => {
-                  i18n.changeLanguage("fr");
-                  setOpen(false);
-                }}
-                className={`text-[10px] font-black tracking-widest px-3 py-1.5 rounded-full transition-all ${
-                  i18n.language === "fr"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+              {/* Liens avec effet Stagger en cascade */}
+              <nav
+                className="flex-1 overflow-y-auto py-12 px-8 flex flex-col justify-center gap-8"
+                aria-label="Navigation mobile"
               >
-                FR
-              </button>
-              <button
-                onClick={() => {
-                  i18n.changeLanguage("en");
-                  setOpen(false);
-                }}
-                className={`text-[10px] font-black tracking-widest px-3 py-1.5 rounded-full transition-all ${
-                  i18n.language === "en"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                EN
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+                {links.map((l, i) => (
+                  <motion.div
+                    key={l.to}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Link
+                      to={l.to}
+                      onClick={() => setOpen(false)}
+                      className="block text-3xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors"
+                      activeProps={{ className: "!text-primary" }}
+                      activeOptions={{ exact: l.to === "/" }}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
 
-      {/* Fond semi-transparent derrière le menu */}
-      {open && (
-        <div
-          className="fixed inset-0 z-199 lg:hidden bg-black/60 backdrop-blur-md"
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+              {/* Pied du menu mobile */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="p-8 border-t border-border/50 bg-muted/30 shrink-0"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground uppercase tracking-widest font-bold">
+                    Langue
+                  </span>
+                  <div className="flex items-center bg-muted rounded-full p-1">
+                    <button
+                      onClick={() => {
+                        i18n.changeLanguage("fr");
+                        setOpen(false);
+                      }}
+                      className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
+                        i18n.language === "fr"
+                          ? "bg-primary text-primary-foreground shadow-md"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      FR
+                    </button>
+                    <button
+                      onClick={() => {
+                        i18n.changeLanguage("en");
+                        setOpen(false);
+                      }}
+                      className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
+                        i18n.language === "en"
+                          ? "bg-primary text-primary-foreground shadow-md"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

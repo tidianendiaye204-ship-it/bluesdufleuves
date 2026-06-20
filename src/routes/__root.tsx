@@ -20,6 +20,8 @@ import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { CustomCursor } from "@/components/CustomCursor";
 
 const newsletterSchema = z.object({
   email: z.string().email(),
@@ -217,21 +219,24 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex flex-col h-screen overflow-hidden">
-        {/* Skip to Content Link */}
-        <a
-          href="#main-content"
-          className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
-        >
-          Passer au contenu principal
-        </a>
-        <Navbar />
-        <main id="main-content" className="flex-1 overflow-y-auto">
-          <Outlet />
-          <Footer />
-        </main>
-        <PWAInstallPrompt />
-      </div>
+      <SmoothScroll>
+        <CustomCursor />
+        <div className="flex flex-col min-h-screen">
+          {/* Skip to Content Link */}
+          <a
+            href="#main-content"
+            className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
+          >
+            Passer au contenu principal
+          </a>
+          <Navbar />
+          <main id="main-content" className="flex-1">
+            <Outlet />
+            <Footer />
+          </main>
+          <PWAInstallPrompt />
+        </div>
+      </SmoothScroll>
     </QueryClientProvider>
   );
 }

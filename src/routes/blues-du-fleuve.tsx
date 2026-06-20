@@ -14,30 +14,30 @@ import {
   TreePine,
   ChevronDown,
   ChevronUp,
+  Play,
+  Clock,
+  Star,
+  ArrowRight,
+  Zap,
+  Flame,
+  Waves,
+  Compass,
+  Shield,
+  Lightbulb,
+  Trophy,
+  Crown,
+  Diamond,
+  Infinity,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta } from "@/lib/seo";
 import crowdImg from "@/assets/festival-crowd.jpg";
-import fleuveImg from "@/assets/fleuve.jpg";
-import instrumentsImg from "@/assets/instruments.jpg";
-import piroguesImg from "@/assets/pirogues.jpg";
-import centreImg from "@/assets/centre-podor.jpg";
-import gal1Img from "@/assets/gal1.jpg";
-import gal2Img from "@/assets/gal2.jpg";
-import gal3Img from "@/assets/gal3.jpg";
-import gal4Img from "@/assets/gal4.jpg";
-import gal5Img from "@/assets/gal5.jpg";
-import gal6Img from "@/assets/gal6.jpg";
-import gal7Img from "@/assets/gal7.jpg";
-import gal8Img from "@/assets/gal8.jpg";
-import gal9Img from "@/assets/gal9.jpg";
-import joeKeitaImg from "@/assets/joe keita.jpg";
-import dembaGuisseImg from "@/assets/dembaguisse.jpg";
-import bintaImg from "@/assets/binta.jpg";
-import kaneDialloImg from "@/assets/kanediallo.jpg";
-
 import { PageSkeleton } from "@/components/PageSkeleton";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { artistes, piliers, videos, galleryImages } from "@/data/festival-content";
+import { MagneticButton } from "@/components/MagneticButton";
 
 export const Route = createFileRoute("/blues-du-fleuve")({
   head: () => {
@@ -59,107 +59,52 @@ export const Route = createFileRoute("/blues-du-fleuve")({
   component: BluesDuFleuve,
 });
 
-const artistes = [
-  {
-    nom: "Baaba Maal",
-    role: "Fondateur · Légende",
-    origine: "Podor, Sénégal",
-    desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays.",
-    img: "/festival baba maal.jpg",
-  },
-  {
-    nom: "Joe Keita",
-    role: "Jobalart · Visionnaire",
-    origine: "Rosso, Mauritanie",
-    desc: "Jobalart, de son véritable nom Badara Aldiouma Keita, est l'une des figures les plus marquantes et durables de la scène musicale mauritanienne. Depuis plus de deux décennies, il incarne et fait vivre la culture musicale à Rosso. Artiste complet musicien, rappeur, et compositeur, Jobalart est un 'old school vivant', reconnu pour avoir été l'un des fondateurs du mouvement hip-hop local dès 1994. Sa discographie comprend deux albums marquants, enregistrés à Dakar: Boul Tayi et Guëstou Guiss. Son style musical est une exploration riche et éclectique de la World Music, fusionnant le rap, le reggae et la soul. Cette versatilité lui a ouvert les portes de nombreuses collaborations artistiques de haut niveau en Afrique de l'Ouest, notamment avec des voix majeures comme Fafadi, Amadyan, Titi Yoro, Pacotille, Simon PSL, Demba Guissé, et Am Bongo.",
-    img: joeKeitaImg,
-  },
-  {
-    nom: "Demba Guissé",
-    role: "Artiste Musicien",
-    origine: "Sénégal",
-    desc: "Issu d'une famille artistique, Demba Guissé est un artiste musicien compositeur sénégalais. Il a débuté sa carrière par des concours de chant partout au Sénégal et dans la sous région et s'en est toujours sorti vainqueur. Depuis son bas âge il imitait la légende, le roi du Yela Baba Maal et depuis il est resté fidèle à lui parce qu'il s'inspire de lui. Demba ne cesse de suivre les traces de son idole Baaba et représente le Sénégal avec brio partout et du mieux qu'il peut, il essaie de promouvoir la culture peul. Il produit aussi bien qu'en Afrique qu'en Europe parce qu'il est très souvent sollicité pour aller représenter la culture sénégalaise en général et la culture peul en particulier à travers de grands festivals et événements culturels.",
-    img: dembaGuisseImg,
-  },
-  {
-    nom: "Binta Diallo",
-    role: "Laaly Junior · Actrice",
-    origine: "Bouaké, Côte d'Ivoire",
-    desc: "Binta Diallo, alias « Laaly Junior », est née à Bouaké, en République de Côte d'Ivoire, de parents originaires de Timbo, la capitale historique du Fouta théocratique. Elle commence ses études primaires à Abidjan, logée chez son cousin à Treichville. C'est dans ce domicile familial, véritable carrefour culturel où séjournent de nombreux artistes venus de Guinée, du Mali et du Burkina Faso, qu'elle baigne très tôt dans l'art. Sur le chemin du retour de l'école, elle fréquente régulièrement le centre de loisirs « Djocko ». Géré par le Sénégalais Djiby Thiam, ce lieu accueille les répétitions de plusieurs compagnies de théâtre et de musique, éveillant définitivement sa vocation culturelle. De retour en Guinée avec ses parents, son talent est repéré lors d'un casting pour la troupe Lewrou Djéré de la Télévision Nationale (RTG). Elle s'impose rapidement comme une actrice majeure et incontournable des courts-métrages à succès de la chaîne. Elle y incarne des rôles marquants : la femme fidèle face à un mari vagabond, la fille du roi, ou encore la femme de vérité. Grâce à sa prestance et à sa beauté naturelle de femme peule, elle attire l'œil des grands réalisateurs de clips vidéo. Elle intègre ensuite le monde musical, d'abord comme choriste et danseuse, puis comme lead-vocaliste suppléante. Elle collabore avec les figures de proue de la musique pastorale et tradi-moderne du Fouta, notamment Boul Diallo.",
-    img: bintaImg,
-  },
-  {
-    nom: "Kane Diallo",
-    role: "Welma · Artiste",
-    origine: "Dakar, Sénégal",
-    desc: "Kane Diallo Welma, un jeune artiste sénégalais né à Dakar le 20 Décembre 1990, fils de Feu Mbassou Niang, l'ancien manager de Baaba Maal. Il a entamé la musique en 2010. Welma a fait sa première apparition dans une chaîne de télévision avec son père qui faisait sa présentation. Il a fait ses études jusqu'en classe de seconde suivie d'une formation en infographie et montage. Kane Diallo a son groupe qui s'appelle « WELMA » créé avec son ami et frère guitariste Seydou Ba. Son premier single « Liné si mane » est sorti en novembre 2015 suivi d'un autre single « Oyiro » une chanson traditionnelle en pulaar sortie en janvier 2017. Le jeune artiste se lance dans une nouvelle mélodie une chanson et un clip qui fait échos dans la musique sénégalaise et Africaine très connu « Foone Ma » sortie en Août 2017. « Foone Ma » a été nominé « best french mal newcomer » en Ouganda et le dernier single une chanson d'amour classique « Guiss beugue » sortie en Août 2018.",
-    img: kaneDialloImg,
-  },
-];
-
-const piliers = [
-  {
-    Icon: Music2,
-    titre: "Arts Vivants",
-    desc: "Musique et danses traditionnelles représentatives de la richesse Halpular et Toucouleur.",
-  },
-  {
-    Icon: Palette,
-    titre: "Artisanat",
-    desc: "Exposition du savoir-faire local et des objets d'art traditionnels de la vallée.",
-  },
-  {
-    Icon: Mic,
-    titre: "Conférences",
-    desc: "Panels de développement et réflexions thématiques sur les préoccupations des populations.",
-  },
-];
-
-const videos = [
-  { title: "Festival Les Blues du Fleuve", id: "6HaDTK0ICDE" },
-  { title: "Festival Les Blues du Fleuve", id: "cGUML8xR5UU" },
-  { title: "Festival Les Blues du Fleuve", id: "V5RcwQAl-_g" },
-  { title: "Festival Les Blues du Fleuve", id: "No0IoqGSiLw" },
-  { title: "Festival Les Blues du Fleuve", id: "Mig1P7pQMh0" },
-  { title: "Festival Les Blues du Fleuve", id: "Qtm-Wry-8cc" },
-  { title: "Festival Les Blues du Fleuve", id: "uHHKBJBvvPg" },
-  { title: "Festival Les Blues du Fleuve", id: "JuBhFrMD-G0" },
-  { title: "Festival Les Blues du Fleuve", id: "yNgDR1cTi_I" },
-  { title: "Festival Les Blues du Fleuve", id: "wl-zb8FPvzo" },
-];
-
-const galleryImages = [
-  { id: 1, src: crowdImg, alt: "Foule au festival", span: "md:col-span-2 md:row-span-2" },
-  { id: 2, src: "/festival baba maal.jpg", alt: "Baaba Maal", span: "md:col-span-1 md:row-span-1" },
-  { id: 3, src: fleuveImg, alt: "Le fleuve Sénégal", span: "md:col-span-1 md:row-span-1" },
-  {
-    id: 4,
-    src: instrumentsImg,
-    alt: "Instruments traditionnels",
-    span: "md:col-span-1 md:row-span-1",
-  },
-  { id: 5, src: piroguesImg, alt: "Pirogues sur le fleuve", span: "md:col-span-2 md:row-span-1" },
-  { id: 6, src: centreImg, alt: "Centre Culturel", span: "md:col-span-1 md:row-span-1" },
-  { id: 7, src: gal1Img, alt: "Galerie 1", span: "md:col-span-1 md:row-span-1" },
-  { id: 8, src: gal2Img, alt: "Galerie 2", span: "md:col-span-1 md:row-span-1" },
-  { id: 9, src: gal3Img, alt: "Galerie 3", span: "md:col-span-1 md:row-span-1" },
-  { id: 10, src: gal4Img, alt: "Galerie 4", span: "md:col-span-1 md:row-span-1" },
-  { id: 11, src: gal5Img, alt: "Galerie 5", span: "md:col-span-1 md:row-span-1" },
-  { id: 12, src: gal6Img, alt: "Galerie 6", span: "md:col-span-1 md:row-span-1" },
-  { id: 13, src: gal7Img, alt: "Galerie 7", span: "md:col-span-1 md:row-span-1" },
-  { id: 14, src: gal8Img, alt: "Galerie 8", span: "md:col-span-1 md:row-span-1" },
-  { id: 15, src: gal9Img, alt: "Galerie 9", span: "md:col-span-1 md:row-span-1" },
-];
-
 function BluesDuFleuve() {
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [expandedArtists, setExpandedArtists] = useState<Set<string>>(new Set());
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+  const toggleArtistDescription = (artistName: string) => {
+    setExpandedArtists(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(artistName)) {
+        newSet.delete(artistName);
+      } else {
+        newSet.add(artistName);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0" style={{ background: "var(--gradient-premium)" }} />
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="container-page py-12 md:py-28 relative grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-center z-10">
+      <section ref={heroRef} className="relative min-h-screen overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-black overflow-hidden">
+          <iframe
+            src="https://www.youtube.com/embed/IHAWprBOmzs?autoplay=1&mute=1&loop=1&playlist=IHAWprBOmzs&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            title="Festival Background Video"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-80"
+            style={{
+              width: "max(130vw, 130vh * 9 / 16)",
+              height: "max(130vh, 130vw * 16 / 9)",
+            }}
+          />
+          {/* Overlay élégant */}
+          <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-background" />
+        </div>
+
+        {/* Main content with parallax */}
+        <motion.div 
+          style={{ y, opacity }}
+          className="container-page py-20 md:py-32 relative grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center z-10">
           <div>
             {/* Logo du Festival */}
             <div className="mb-6">
@@ -173,113 +118,182 @@ function BluesDuFleuve() {
             <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
               Festival International · 17ème édition
             </p>
-            <h1 className="font-display text-5xl md:text-7xl font-bold max-w-4xl leading-[1.05] text-white">
+            <h1 className="luxury-text text-6xl md:text-8xl mb-6 text-white uppercase tracking-tighter">
               Blues du <span className="text-gradient-gold">Fleuve</span>
             </h1>
-            <div className="mt-6 space-y-4 max-w-2xl text-lg text-white/95">
-              <p>
-                Porté sur les fonds baptismaux par l’artiste international Sénégalais{" "}
-                <span className="text-white font-medium">Baaba MAAL</span> le festival les Blues du
-                fleuve célèbre sa 17ème édition du 5 au 7 Décembre 2025 à Podor (Sénégal).
+            <div className="mt-8 space-y-6 max-w-2xl">
+              <p className="text-xl md:text-2xl font-light text-white leading-relaxed">
+                Porté sur les fonds baptismaux par l’artiste international Sénégalais <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>, le festival les Blues du fleuve célèbre sa 17ème édition.
               </p>
-              <p>
-                Seul Festival d’intégration en Afrique de l’ouest le Blues du Fleuve symbolise la
-                solidarité des pays riverains du fleuve Sénégal.
+              
+              <div className="h-px w-24 bg-linear-to-r from-amber-400 to-transparent"></div>
+              
+              <p className="text-base md:text-lg text-white/90 leading-relaxed font-medium">
+                Seul Festival d’intégration en Afrique de l’ouest, le Blues du Fleuve symbolise la solidarité des pays riverains du fleuve Sénégal.
               </p>
+
               <div className="md:hidden">
                 <button
                   onClick={() => setShowFullDescription(!showFullDescription)}
-                  className="text-white/80 text-sm underline flex items-center gap-1"
+                  className="text-amber-400 text-sm flex items-center gap-2 font-semibold uppercase tracking-wider mt-4"
                 >
                   {showFullDescription ? (
                     <>
-                      <ChevronUp size={16} /> Masquer
+                      <ChevronUp size={16} /> Fermer
                     </>
                   ) : (
                     <>
-                      <ChevronDown size={16} /> Lire la suite...
+                      <ChevronDown size={16} /> Découvrir la vision
                     </>
                   )}
                 </button>
               </div>
-              <div className={showFullDescription ? "block" : "hidden md:block"}>
+
+              <div className="hidden md:block space-y-4 text-sm md:text-base text-white/70 leading-relaxed">
                 <p>
-                  Le Festival les Blues du Fleuve consacre ses éditions à travers diverses
-                  expressions des peuples dont la culture est fortement influencée par l’eau. Cette
-                  culture est représentée essentiellement par les arts vivants : musique, danse
-                  spectacle traditionnels, Festival multicolores, l’artisanat, ce patrimoine
-                  populaire et les préoccupations de développement des populations sont représenté
-                  aussi à travers des expositions thématiques et des conférences.
+                  Le Festival consacre ses éditions à travers diverses expressions des peuples dont la culture est fortement influencée par l’eau. Cette culture est représentée essentiellement par les arts vivants : musique, danse, spectacles traditionnels et artisanat. Ce patrimoine populaire et les préoccupations de développement sont aussi représentés à travers des expositions thématiques et des conférences.
                 </p>
                 <p>
-                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix
-                  et l’harmonie sociale pour le vivre ensemble Africain dans l’unité, la
-                  convivialité autour des peuples unis par le fleuve dans la diversité, d’autre part
-                  sur l’émergence du Sénégal.
+                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la diversité, d’autre part sur l’émergence du Sénégal.
                 </p>
               </div>
-              <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/90">
-                <span className="inline-flex items-center gap-2">
-                  <MapPin size={16} className="text-white" /> Podor, Sénégal
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <Calendar size={16} className="text-white" /> 5–7 Décembre 2025
-                </span>
+
+              <div className="md:hidden">
+                <AnimatePresence>
+                  {showFullDescription && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden space-y-4 text-sm text-white/70 leading-relaxed mt-4"
+                    >
+                      <p>
+                        Le Festival consacre ses éditions à travers diverses expressions des peuples dont la culture est fortement influencée par l’eau. Cette culture est représentée essentiellement par les arts vivants : musique, danse, spectacles traditionnels et artisanat. Ce patrimoine populaire et les préoccupations de développement sont aussi représentés à travers des expositions thématiques et des conférences.
+                      </p>
+                      <p>
+                        Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la diversité, d’autre part sur l’émergence du Sénégal.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Badges d'information */}
+              <div className="mt-10 flex flex-wrap gap-4">
+                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
+                  <MapPin size={18} className="text-amber-400" /> 
+                  <span className="text-sm font-semibold tracking-wide">Podor, Sénégal</span>
+                </div>
+                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
+                  <Calendar size={18} className="text-amber-400" /> 
+                  <span className="text-sm font-semibold tracking-wide">5–7 Décembre 2025</span>
+                </div>
               </div>
               <div className="mt-8">
-                <a
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
-                  className="btn-billetterie opacity-70 cursor-not-allowed"
-                >
-                  Réserver mon Pass Festival (Bientôt disponible)
-                </a>
+                <MagneticButton>
+                  <a
+                    href="#billetterie"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('billetterie')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="inline-block btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
+                  >
+                    Voir le Programme
+                  </a>
+                </MagneticButton>
               </div>
             </div>
           </div>
           <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl">
-            <img
+            <OptimizedImage
               src="/festival baba maal.jpg"
               alt="Baaba Maal"
-              className="h-full w-full object-cover"
-              loading="lazy"
+              className="h-full w-full"
+              priority
             />
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* 17ème édition theme */}
-      <section className="border-b border-border bg-card/30">
-        <div className="container-page py-16">
-          <p className="text-xs uppercase tracking-[0.3em] text-secondary mb-3">
-            Thème · 17ème Édition
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold max-w-3xl">
-            Les Rives de <span className="text-gradient-gold">l'Harmonie</span>
-          </h2>
-          <p className="mt-5 max-w-2xl text-muted-foreground italic">
-            « CULTURE – SECURITE – ENVIRONNEMENT ET SOLIDARITE AUROUR DU FLEUVE SENEGAL »
-          </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {piliers.map(({ Icon, titre, desc }) => (
-              <div key={titre} className="rounded-2xl border border-border bg-background p-7">
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
-                  <Icon size={20} />
+      {/* ──────────────────── THEME SECTION ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                Thème · 17ème Édition
+              </span>
+            </div>
+            <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-6">
+              Les Rives de{" "}
+              <span
+                className="relative inline-block"
+                style={{
+                  background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                l'Harmonie
+              </span>
+            </h2>
+            <div className="max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-muted-foreground italic font-serif leading-relaxed">
+                « Culture – Sécurité – Environnement et Solidarité autour du Fleuve Sénégal »
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {piliers.map(({ Icon, titre, desc }, idx) => (
+              <motion.div
+                key={titre}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative rounded-3xl border border-border bg-card/50 backdrop-blur-sm p-8 hover:shadow-2xl hover:border-primary/30 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+              >
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary/20 to-primary/10 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {titre}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed font-serif">{desc}</p>
                 </div>
-                <h3 className="font-display text-xl font-semibold">{titre}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
-              </div>
+                
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Présentation du Festival */}
-      <section className="border-b border-border bg-background">
-        <div className="container-page py-12">
-          <div className="max-w-4xl">
+      {/* ──────────────────── PRÉSENTATION SECTION ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-background via-muted/10 to-background">
+        <div className="container-page py-20">
+          <div className="max-w-5xl mx-auto">
             <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
+            <h2 className="luxury-text text-4xl md:text-6xl mb-12 uppercase tracking-tighter">
               Le Festival et la Ville de <span className="text-gradient-gold">Podor</span>
             </h2>
 
@@ -460,21 +474,47 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      {/* Mot du Producteur Exécutif */}
-      <section className="border-b border-border bg-muted/30">
-        <div className="container-page py-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* ──────────────────── MOT DU PRODUCTEUR ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-muted/20 via-background to-muted/20 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
+        
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="grid lg:grid-cols-2 gap-16 items-center"
+          >
             {/* Texte - gauche */}
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4 font-bold">
-                Mot du Producteur
-              </p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold mb-8 text-foreground">
-                Le message d'
-                <span className="text-gradient-gold">Oumar Wade</span>
-              </h2>
-              <div className="space-y-5 font-serif text-muted-foreground text-lg leading-relaxed">
-                <p>
+            <div className="space-y-8">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                    Mot du Producteur
+                  </span>
+                </div>
+                <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-6">
+                  Le message d'
+                  <span
+                    className="relative inline-block"
+                    style={{
+                      background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      color: "transparent",
+                    }}
+                  >
+                    Oumar Wade
+                  </span>
+                </h2>
+              </div>
+              
+              <div className="space-y-6 font-serif text-muted-foreground text-lg leading-relaxed">
+                <p className="text-foreground/90">
                   Oui, le Festival des Blues du Fleuve est devenu un souffle, un moteur, un moment
                   faste où Podor vit et sourit davantage. Tenir chaque année un festival est un défi
                   majeur.
@@ -482,8 +522,7 @@ function BluesDuFleuve() {
                 <p>
                   Chers festivaliers venus du Sénégal, des pays voisins, du reste de l'Afrique et de
                   l'extérieur, vous êtes chez vous ici, sur cette terre où le fleuve porte notre
-                  histoire, notre culture et nos traditions ancestrales ; où chaque vague murmure la
-                  mémoire du passé et l'espoir du futur.
+                  histoire, notre culture et nos traditions ancestrales.
                 </p>
                 <p>
                   Bienvenue à Podor Wuro Njaak Buubu et Baaba Maal, où la musique nous rassemble et
@@ -491,225 +530,568 @@ function BluesDuFleuve() {
                   esprits.
                 </p>
               </div>
-              {/* Citation mise en avant */}
-              <div className="mt-8 rounded-2xl" style={{ background: "var(--gradient-river)" }}>
-                <div className="px-8 py-6 text-white">
-                  <p className="font-display text-xl font-bold mb-1">
-                    « Je vous souhaite un magnifique festival. »
+              
+              {/* Citation premium */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative rounded-3xl overflow-hidden border border-primary/20"
+                style={{ background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)" }}
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent" />
+                <div className="relative px-8 py-10 text-white">
+                  <div className="absolute top-4 left-6 text-6xl text-white/20 font-serif leading-none">"</div>
+                  <p className="luxury-text text-2xl md:text-3xl font-bold mb-4 uppercase tracking-tight">
+                    Je vous souhaite un magnifique festival.
                   </p>
-                  <p className="text-2xl font-bold tracking-widest mt-2">YOO WUL WELA !</p>
-                  <div className="mt-4 border-t border-white/30 pt-4">
-                    <p className="font-bold text-base">Oumar Wade</p>
-                    <p className="text-sm opacity-80 uppercase tracking-wider">
-                      Producteur Exécutif
-                    </p>
+                  <p className="text-3xl md:text-4xl font-black tracking-widest mt-4">YOO WUL WELA !</p>
+                  <div className="mt-8 border-t border-white/30 pt-6 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                      <Crown size={20} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-lg">Oumar Wade</p>
+                      <p className="text-sm opacity-80 uppercase tracking-wider">
+                        Producteur Exécutif
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Photo - droite */}
-            <div className="flex justify-center lg:justify-end">
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex justify-center lg:justify-end"
+            >
               <div className="relative">
-                {/* Décoration derrière la photo */}
-                <div className="absolute -inset-4 rounded-3xl bg-primary/10 -z-10" />
-                <div className="w-72 md:w-80 aspect-4/5 rounded-2xl overflow-hidden border-4 border-background shadow-2xl">
-                  <img
+                {/* Décoration premium derrière la photo */}
+                <motion.div 
+                  animate={{ 
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  className="absolute -inset-6 rounded-3xl bg-linear-to-br from-primary/20 to-amber-500/20 blur-2xl -z-10"
+                />
+                <div className="relative w-72 md:w-96 aspect-4/5 rounded-3xl overflow-hidden border-4 border-background shadow-2xl group">
+                  <OptimizedImage
                     src="/oumar-wade.jpg"
                     alt="Oumar Wade — Producteur Exécutif du Festival Blues du Fleuve"
-                    className="w-full h-full object-cover object-top"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                {/* Badge flottant */}
-                <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-4 py-3 shadow-lg">
-                  <p className="text-xs uppercase tracking-wider text-primary font-bold">
-                    Producteur Exécutif
-                  </p>
-                  <p className="font-display font-bold text-foreground">Oumar Wade</p>
-                </div>
+                
+                {/* Badge flottant premium */}
+                <motion.div 
+                  animate={{ 
+                    y: [0, -10, 0],
+                  }}
+                  transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  className="absolute -bottom-6 -left-6 bg-card border border-border rounded-2xl px-6 py-4 shadow-2xl"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-amber-500 flex items-center justify-center">
+                      <Crown size={18} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-primary font-bold">
+                        Producteur Exécutif
+                      </p>
+                      <p className="font-display font-bold text-foreground">Oumar Wade</p>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Decorative corner elements */}
+                <div className="absolute -top-4 -right-4 w-16 h-16 border-t-2 border-r-2 border-primary/30 rounded-tr-3xl" />
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b-2 border-l-2 border-amber-500/30 rounded-bl-3xl" />
               </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ──────────────────── PROGRAMME & BILLETTERIE ULTRA PREMIUM ──────────────────── */}
+      <section id="billetterie" className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+              <Calendar size={14} className="text-primary" />
+              <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                5 – 7 Décembre 2025
+              </span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Programme du Festival */}
-
-      <section id="billetterie" className="festival-container py-12 border-b border-border">
-        <h2 className="font-display text-3xl md:text-5xl font-bold mb-10">
-          Programme & <span className="text-gradient-gold">Billetterie</span>
-        </h2>
-
-        <div className="programme-grid">
-          <div className="programme-item">
-            <h3 className="font-display text-xl font-bold">Jour 1 : Ouverture & Traditions</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              5 Décembre 2025 • Centre Culturel de Podor
-            </p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <strong>10:00</strong> - Cérémonie d'ouverture
-              </li>
-              <li>
-                <strong>15:00</strong> - Course de pirogues traditionnelles
-              </li>
-              <li>
-                <strong>21:00</strong> - Concert acoustique (Baaba Maal & Invités)
-              </li>
-            </ul>
-          </div>
-
-          <div className="programme-item">
-            <h3 className="font-display text-xl font-bold">Jour 2 : La Nuit du Fleuve</h3>
-            <p className="text-sm text-muted-foreground mt-2">6 Décembre 2025 • Scène Principale</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <strong>10:00</strong> - Panels et conférences (Environnement)
-              </li>
-              <li>
-                <strong>16:00</strong> - Animations artistiques dans la ville
-              </li>
-              <li>
-                <strong>22:00</strong> - Grand Concert (Mia Guissé, Jeeba...)
-              </li>
-            </ul>
-          </div>
-
-          <div className="programme-item">
-            <h3 className="font-display text-xl font-bold">Jour 3 : Clôture & Daande Lenol</h3>
-            <p className="text-sm text-muted-foreground mt-2">7 Décembre 2025 • Scène Principale</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <strong>09:00</strong> - Exposition artisanale
-              </li>
-              <li>
-                <strong>15:00</strong> - Danse et folklore Halpulaar
-              </li>
-              <li>
-                <strong>22:00</strong> - Concert de Clôture (Baaba Maal & Le Daande Lenol)
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link to="/billetterie" className="btn-billetterie opacity-60 hover:opacity-100">
-            Acheter un Pass 3 Jours (Bientôt disponible)
-          </Link>
-        </div>
-      </section>
-
-      <section className="container-page py-12">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold">Artistes</h2>
-            <p className="mt-2 text-muted-foreground">Voix et talents du fleuve.</p>
-          </div>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {artistes.map((a) => (
-            <article
-              key={a.nom}
-              className="rounded-2xl border border-border bg-card overflow-hidden transition hover:border-primary"
-            >
-              <div
-                className="aspect-4/5 bg-muted relative overflow-hidden"
+            <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black text-foreground uppercase tracking-tighter mb-4">
+              Programme &{" "}
+              <span
+                className="relative inline-block"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, oklch(0.3 0.04 250), oklch(0.25 0.06 80))",
+                  background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
                 }}
               >
-                {a.img ? (
-                  <img
-                    src={a.img}
-                    alt={a.nom}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/30">
-                    {a.nom.charAt(0)}
+                Billetterie
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
+              Trois jours de musique, de culture et de célébration au cœur de Podor
+            </p>
+          </motion.div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                day: "Jour 1",
+                title: "Ouverture & Traditions",
+                date: "5 Décembre 2025",
+                location: "Centre Culturel de Podor",
+                events: [
+                  { time: "10:00", event: "Cérémonie d'ouverture" },
+                  { time: "15:00", event: "Course de pirogues traditionnelles" },
+                  { time: "21:00", event: "Concert acoustique (Baaba Maal & Invités)" },
+                ],
+                gradient: "from-emerald-500/20 to-emerald-500/5",
+                border: "border-emerald-500/30",
+                icon: Sparkles,
+              },
+              {
+                day: "Jour 2",
+                title: "La Nuit du Fleuve",
+                date: "6 Décembre 2025",
+                location: "Scène Principale",
+                events: [
+                  { time: "10:00", event: "Panels et conférences (Environnement)" },
+                  { time: "16:00", event: "Animations artistiques dans la ville" },
+                  { time: "22:00", event: "Grand Concert (Mia Guissé, Jeeba...)" },
+                ],
+                gradient: "from-sky-500/20 to-sky-500/5",
+                border: "border-sky-500/30",
+                icon: Waves,
+              },
+              {
+                day: "Jour 3",
+                title: "Clôture & Daande Lenol",
+                date: "7 Décembre 2025",
+                location: "Scène Principale",
+                events: [
+                  { time: "09:00", event: "Exposition artisanale" },
+                  { time: "15:00", event: "Danse et folklore Halpulaar" },
+                  { time: "22:00", event: "Concert de Clôture (Baaba Maal & Le Daande Lenol)" },
+                ],
+                gradient: "from-amber-500/20 to-amber-500/5",
+                border: "border-amber-500/30",
+                icon: Trophy,
+              },
+            ].map((day, idx) => (
+              <motion.div
+                key={day.day}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                className="group relative rounded-3xl border border-border bg-card/50 backdrop-blur-sm overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                {/* Gradient overlay */}
+                <div className={`absolute inset-0 bg-linear-to-br ${day.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                
+                <div className="relative z-10 p-8">
+                  {/* Day badge */}
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${day.border} border bg-white/5 mb-4`}>
+                    <day.icon size={14} className="text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">{day.day}</span>
                   </div>
-                )}
-              </div>
-              <div className="p-5">
-                <h3 className="font-display text-xl font-semibold">{a.nom}</h3>
-                <p className="text-xs uppercase tracking-wider text-primary mt-1">{a.role}</p>
-                <p className="text-xs text-muted-foreground mt-1">{a.origine}</p>
-                <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{a.desc}</p>
-              </div>
-            </article>
-          ))}
+                  
+                  <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {day.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">{day.date}</p>
+                  <p className="text-xs text-muted-foreground/70 mb-6 flex items-center gap-2">
+                    <MapPin size={12} />
+                    {day.location}
+                  </p>
+                  
+                  <div className="space-y-3">
+                    {day.events.map((evt, i) => (
+                      <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50 group-hover:border-primary/30 transition-colors">
+                        <Clock size={14} className="text-primary mt-0.5 shrink-0" />
+                        <div>
+                          <span className="text-xs font-bold text-primary">{evt.time}</span>
+                          <p className="text-sm text-foreground mt-0.5">{evt.event}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Decorative corner */}
+                <div className={`absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-16 text-center"
+          >
+            <div className="inline-flex flex-col items-center gap-4">
+              <MagneticButton>
+                <Link 
+                  to="/billetterie" 
+                  className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:shadow-[0_10px_40px_rgba(245,158,11,0.5)]"
+                  style={{
+                    background: "linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)",
+                  }}
+                >
+                  <span className="relative z-10 text-white">Réserver mon Pass 3 Jours</span>
+                  <ArrowRight size={16} className="relative z-10 text-white group-hover:translate-x-1 transition-transform" />
+                  <span className="absolute inset-0 rounded-2xl bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 skew-x-12" />
+                </Link>
+              </MagneticButton>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">Bientôt disponible</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="container-page py-12 border-t border-border">
-        <h2 className="font-display text-3xl md:text-4xl font-bold">Galerie d'images</h2>
-        <p className="mt-2 text-muted-foreground">Une immersion visuelle au cœur du festival.</p>
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
-          {galleryImages.map((img) => (
-            <div
-              key={img.id}
-              className={`rounded-2xl overflow-hidden border border-border relative group ${img.span || ""}`}
-            >
+      {/* ──────────────────── ARTISTES ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
+        
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
+          >
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+                <Music2 size={14} className="text-primary" />
+                <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                  Line-up
+                </span>
+              </div>
+              <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-4">
+                Artistes
+              </h2>
+              <p className="text-lg text-muted-foreground font-serif">Voix et talents du fleuve.</p>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Star size={16} className="text-amber-500 fill-amber-500" />
+              <span>Artistes confirmés</span>
+            </div>
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {artistes.map((a, idx) => (
+              <motion.article
+                key={a.nom}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className="group relative rounded-3xl border border-border bg-card/50 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-primary/30 hover:-translate-y-2"
+              >
+                {/* Image container */}
+                <div className="relative aspect-4/5 bg-linear-to-br from-muted to-muted/50 overflow-hidden">
+                  {a.img ? (
+                    <OptimizedImage
+                      src={a.img}
+                      alt={a.nom}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/20">
+                      {a.nom.charAt(0)}
+                    </div>
+                  )}
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+                      <Play size={20} className="text-white ml-1" fill="currentColor" />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <div className="p-5 relative">
+                  <div className="absolute -top-6 left-5 right-5">
+                    <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 border border-border/50 shadow-lg">
+                      <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {a.nom}
+                      </h3>
+                      <p className="text-xs uppercase tracking-wider text-primary mt-1 font-semibold">{a.role}</p>
+                      <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        <MapPin size={10} />
+                        {a.origine}
+                      </p>
+                    </div>
+                  </div>
+                  <p className={`mt-8 text-sm text-muted-foreground font-serif leading-relaxed ${expandedArtists.has(a.nom) ? '' : 'line-clamp-3'}`}>{a.desc}</p>
+                  <button
+                    onClick={() => toggleArtistDescription(a.nom)}
+                    className="mt-3 text-xs font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+                  >
+                    {expandedArtists.has(a.nom) ? (
+                      <>
+                        <ChevronUp size={12} /> Réduire
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown size={12} /> Lire la suite
+                      </>
+                    )}
+                  </button>
+                </div>
+                
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-16 h-16 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────── GALERIE & ARCHIVES ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+              <Palette size={14} className="text-primary" />
+              <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                Mémoires visuelles
+              </span>
+            </div>
+            <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-4">
+              Galerie d'images
+            </h2>
+            <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
+              Une immersion visuelle au cœur du festival
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+            {galleryImages.map((img, idx) => (
+              <motion.div
+                key={img.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={`rounded-3xl overflow-hidden border border-border relative group cursor-pointer ${img.span || ""}`}
+              >
+                <OptimizedImage
+                  src={img.src}
+                  alt={img.alt}
+                  className="h-full w-full transition duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                  <div className="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                    <span className="text-white font-medium text-sm">{img.alt}</span>
+                  </div>
+                </div>
+                {/* Zoom icon */}
+                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                  <Zap size={16} className="text-white" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────── ARCHIVES MÉDIA ULTRA PREMIUM ──────────────────── */}
+      <section className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+        <div className="container-page py-24 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-16"
+          >
+            <div className="rounded-3xl overflow-hidden border border-border shadow-2xl aspect-21/9 relative group">
               <img
-                src={img.src}
-                alt={img.alt}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                src={crowdImg}
+                alt="Foule au festival"
+                className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                <span className="text-white font-medium">{img.alt}</span>
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm mb-4">
+                  <Play size={14} className="text-white" />
+                  <span className="text-xs uppercase tracking-wider text-white font-bold">
+                    Archives en direct
+                  </span>
+                </div>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">
+                  Archives média
+                </h2>
+                <p className="text-white/80 mt-2 font-serif">Revivez les moments forts du festival</p>
               </div>
             </div>
-          ))}
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            {videos.map((v, idx) => (
+              <motion.div
+                key={v.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                className="group rounded-3xl overflow-hidden border border-border bg-card/50 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="aspect-video bg-black/40 relative overflow-hidden">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${v.id}`}
+                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}'><span>▶</span></a>`}
+                    title={v.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
+                    <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+                      <Play size={24} className="text-white ml-1" fill="currentColor" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Play size={16} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {v.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Archive vidéo</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="container-page py-12 border-t border-border">
-        <div className="rounded-3xl overflow-hidden border border-border aspect-21/9 mb-12">
-          <img
-            src={crowdImg}
-            alt="Foule au festival"
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </div>
-        <h2 className="font-display text-3xl md:text-4xl font-bold">Archives média</h2>
-        <p className="mt-2 text-muted-foreground">Revivez les moments forts du festival.</p>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {videos.map((v) => (
-            <div key={v.id} className="rounded-2xl overflow-hidden border border-border bg-card">
-              <div className="aspect-video bg-black/40 relative">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${v.id}`}
-                  srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}'><span>▶</span></a>`}
-                  title={v.title}
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <div className="p-4 text-sm font-medium">{v.title}</div>
+      {/* ──────────────────── PARTENAIRES ULTRA PREMIUM ──────────────────── */}
+      <section className="relative py-24 border-y border-border overflow-hidden bg-linear-to-b from-background via-muted/20 to-background">
+        {/* Premium background effects */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        
+        <div className="container-page relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-2xl mx-auto mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
+              <Heart size={14} className="text-primary" />
+              <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                Ils nous soutiennent
+              </span>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-page py-12 border-t border-border">
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-10">
-          Nos partenaires
-        </h2>
-        <div className="flex flex-wrap justify-center gap-10 items-center opacity-70">
-          <span className="text-xl font-bold">ELYDIA</span>
-          <span className="text-xl font-bold">FC</span>
-          <span className="text-xl font-bold">Ministère</span>
-          <span className="text-xl font-bold">nannk media</span>
-          <span className="text-xl font-bold">Mairie Podor</span>
+            <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black text-foreground uppercase tracking-tighter mb-4">
+              Nos{" "}
+              <span
+                className="relative inline-block"
+                style={{
+                  background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                Partenaires
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground font-serif">
+              Ensemble pour la culture et le développement
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {[
+              { name: "ELYDIA", icon: Diamond },
+              { name: "FC", icon: Shield },
+              { name: "Ministère", icon: Award },
+              { name: "NANN-K Media", icon: Globe },
+              { name: "Mairie Podor", icon: MapPin },
+            ].map((partner, idx) => (
+              <motion.div
+                key={partner.name}
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: "easeOut" }}
+                className="group relative flex flex-col items-center justify-center h-40 px-4 rounded-3xl border border-border bg-card/50 backdrop-blur-md overflow-hidden hover:border-primary/50 hover:shadow-[0_0_40px_-5px_rgba(var(--primary),0.3)] transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+              >
+                {/* Reflet de brillance au survol */}
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <partner.icon size={20} className="text-primary" />
+                </div>
+                
+                <span className="font-display text-sm md:text-base font-bold tracking-widest text-muted-foreground group-hover:text-foreground group-hover:scale-105 transition-all duration-300 uppercase text-center relative z-10">
+                  {partner.name}
+                </span>
+                
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-16 h-16 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

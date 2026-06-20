@@ -16,7 +16,7 @@ import {
   ChevronRight,
   Check,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 // Centre culturel image from public folder
 const centreCulturelImg = "/centre culturel.jpg";
 import instrumentsImg from "@/assets/instruments.jpg";
@@ -29,6 +29,7 @@ import { z } from "zod";
 
 import { createSeoMeta } from "@/lib/seo";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { MagneticButton } from "@/components/MagneticButton";
 
 export const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -179,6 +180,18 @@ function Formations() {
   const [turnstileToken, setTurnstileToken] = useState("");
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleVideo = () => {
+    if (!videoRef.current) return;
+    if (isVideoPlaying) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    } else {
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -224,8 +237,8 @@ function Formations() {
             alt="Centre Culturel The Village"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/60 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
         </div>
 
         {/* Décoration ornemental */}
@@ -346,42 +359,42 @@ function Formations() {
 
           {/* Vidéo */}
           <div className="relative">
-            <div className="rounded-3xl overflow-hidden border border-border shadow-2xl aspect-video relative">
-              {isVideoPlaying ? (
-                <video
-                  src={baabaVideo}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-cover"
-                  onEnded={() => setIsVideoPlaying(false)}
-                />
-              ) : (
-                <>
-                  <img
-                    src={instrumentsImg}
-                    alt="Apprentissage des instruments"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <button
-                    onClick={() => setIsVideoPlaying(true)}
-                    className="absolute inset-0 flex items-center justify-center group cursor-pointer"
-                    aria-label="Lancer la vidéo"
-                  >
-                    <div className="w-20 h-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-[0_0_40px_rgba(12,74,110,0.5)] group-hover:scale-110 transition-transform duration-300">
-                      <Play size={28} className="ml-1" fill="currentColor" />
+            <div className="rounded-3xl overflow-hidden shadow-2xl aspect-video relative group cursor-pointer bg-black" onClick={toggleVideo}>
+              <video
+                ref={videoRef}
+                src={baabaVideo}
+                poster={instrumentsImg}
+                className={`w-full h-full object-cover transition-all duration-700 ${!isVideoPlaying && "grayscale opacity-80"}`}
+                onEnded={() => setIsVideoPlaying(false)}
+                playsInline
+              />
+              
+              {/* Overlay sombre conditionnel */}
+              <div className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`} />
+              
+              {/* Bouton Play/Pause Custom */}
+              <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isVideoPlaying ? 'scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100' : 'scale-100 opacity-100'}`}>
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/90 backdrop-blur-md text-primary-foreground flex items-center justify-center shadow-[0_0_40px_rgba(12,74,110,0.5)] transition-transform duration-300 group-hover:scale-110">
+                  {isVideoPlaying ? (
+                    <div className="flex gap-2">
+                      <div className="w-2 h-8 bg-white rounded-full"></div>
+                      <div className="w-2 h-8 bg-white rounded-full"></div>
                     </div>
-                  </button>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-xs uppercase tracking-widest text-amber-400 font-semibold mb-1">
-                      Témoignage vidéo
-                    </p>
-                    <h3 className="text-white font-display text-xl font-bold">
-                      Baaba Maal — Formation des Artistes
-                    </h3>
-                  </div>
-                </>
-              )}
+                  ) : (
+                    <Play size={32} className="ml-2" fill="currentColor" />
+                  )}
+                </div>
+              </div>
+              
+              {/* Informations vidéo */}
+              <div className={`absolute bottom-0 left-0 right-0 p-6 md:p-8 transition-opacity duration-500 pointer-events-none ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+                <p className="text-xs md:text-sm uppercase tracking-widest text-amber-400 font-bold mb-2">
+                  Témoignage vidéo
+                </p>
+                <h3 className="text-white font-display text-2xl md:text-3xl font-bold drop-shadow-lg">
+                  Baaba Maal — Formation des Artistes
+                </h3>
+              </div>
             </div>
 
             {/* Badge flottant */}
@@ -480,7 +493,7 @@ function Formations() {
           {filteredProgrammes.map((prog, idx) => (
             <article
               key={idx}
-              className={`group relative rounded-3xl border border-border bg-gradient-to-br ${prog.couleur} bg-card p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/30 overflow-hidden`}
+              className={`group relative rounded-3xl border border-border bg-linear-to-br ${prog.couleur} bg-card p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/30 overflow-hidden`}
             >
               {/* Tag */}
               <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-background/80 text-muted-foreground border border-border">
@@ -547,7 +560,7 @@ function Formations() {
             {/* Card formulaire */}
             <div className="bg-card border border-border rounded-3xl shadow-sm overflow-hidden">
               {/* Bandeau de couleur en haut */}
-              <div className="h-2 bg-gradient-to-r from-primary via-sky-500 to-amber-500" />
+              <div className="h-2 bg-linear-to-r from-primary via-sky-500 to-amber-500" />
 
               <div className="p-8 md:p-10">
                 {sent ? (
@@ -592,7 +605,7 @@ function Formations() {
                           required
                           value={form.prenom}
                           onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                          className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground/50"
+                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
                           placeholder="Votre prénom"
                         />
                       </div>
@@ -609,7 +622,7 @@ function Formations() {
                           required
                           value={form.nom}
                           onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                          className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground/50"
+                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
                           placeholder="Votre nom"
                         />
                       </div>
@@ -630,7 +643,7 @@ function Formations() {
                           required
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground/50"
+                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
                           placeholder="vous@exemple.com"
                         />
                       </div>
@@ -647,7 +660,7 @@ function Formations() {
                           required
                           value={form.tel}
                           onChange={(e) => setForm({ ...form, tel: e.target.value })}
-                          className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground/50"
+                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
                           placeholder="+221 XX XXX XX XX"
                         />
                       </div>
@@ -667,7 +680,7 @@ function Formations() {
                           required
                           value={form.formation}
                           onChange={(e) => setForm({ ...form, formation: e.target.value })}
-                          className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
+                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all appearance-none cursor-pointer"
                         >
                           <option value="" disabled>
                             Sélectionnez une formation...
@@ -696,10 +709,10 @@ function Formations() {
                       <textarea
                         id="motivation"
                         required
-                        rows={5}
+                        rows={3}
                         value={form.motivation}
                         onChange={(e) => setForm({ ...form, motivation: e.target.value })}
-                        className="w-full bg-background border border-input rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none placeholder:text-muted-foreground/50"
+                        className="w-full bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary rounded-xl px-4 py-4 text-sm transition-all resize-none placeholder:text-muted-foreground/50"
                         placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
                       />
                       <p className="text-xs text-muted-foreground text-right">
@@ -715,14 +728,16 @@ function Formations() {
                       />
                     </div>
 
-                    {/* Bouton envoi */}
-                    <button
-                      type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg transition-all"
-                    >
-                      <Send size={16} />
-                      Soumettre ma candidature
-                    </button>
+                    {/* Bouton envoi Magnétique */}
+                    <MagneticButton className="w-full">
+                      <button
+                        type="submit"
+                        className="w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-5 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all"
+                      >
+                        <Send size={16} />
+                        Soumettre ma candidature
+                      </button>
+                    </MagneticButton>
 
                     <p className="text-xs text-muted-foreground text-center">
                       En soumettant ce formulaire, vous acceptez que vos données soient utilisées
