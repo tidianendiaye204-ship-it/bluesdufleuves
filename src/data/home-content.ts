@@ -1,16 +1,11 @@
 import fleuveImg from "@/assets/fleuve.jpg";
-import gal1Img from "@/assets/gal1.jpg";
-import gal2Img from "@/assets/gal2.jpg";
-import gal3Img from "@/assets/gal3.jpg";
-import gal4Img from "@/assets/gal4.jpg";
-import gal5Img from "@/assets/gal5.jpg";
 
 export const galleryImages = [
-  { src: gal1Img, alt: "Concert" },
-  { src: gal2Img, alt: "Exposition" },
-  { src: gal3Img, alt: "Conférence" },
-  { src: gal4Img, alt: "Master Class" },
-  { src: gal5Img, alt: "Défilé de Mode" },
+  { src: "/gal1.jpg", alt: "Concert" },
+  { src: "/gal2.jpg", alt: "Exposition" },
+  { src: "/gal3.jpg", alt: "Conférence" },
+  { src: "/gal4.jpg", alt: "Master Class" },
+  { src: "/gal5.jpg", alt: "Défilé de Mode" },
 ];
 
 export const articles = [
