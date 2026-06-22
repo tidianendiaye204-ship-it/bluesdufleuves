@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Search } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
@@ -17,7 +17,9 @@ export function Navbar() {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const isTransparent = !scrolled && !open;
 
@@ -82,16 +84,18 @@ export function Navbar() {
             <nav
               className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1"
               aria-label="Navigation principale"
+              role="navigation"
             >
               {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center hover:text-primary ${isTransparent ? 'text-white' : 'text-foreground'}`}
+                  className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1 ${isTransparent ? 'text-white' : 'text-foreground'}`}
                   activeProps={{
                     className: "text-primary !after:w-full",
                   }}
                   activeOptions={{ exact: l.to === "/" }}
+                  role="menuitem"
                 >
                   {l.label}
                 </Link>
@@ -131,12 +135,45 @@ export function Navbar() {
               </div>
 
               {/* Recherche desktop */}
-              <button
-                className={`hidden md:inline-flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${isTransparent ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-foreground/5'}`}
-                aria-label="Rechercher"
-              >
-                <Search size={16} strokeWidth={1.5} />
-              </button>
+              <div className="relative hidden md:flex items-center">
+                <AnimatePresence>
+                  {searchOpen && (
+                    <motion.div
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 200, opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Rechercher..."
+                        className={`w-full h-8 px-3 text-sm rounded-l-full border-y border-l focus:outline-none transition-colors ${
+                          isTransparent
+                            ? "bg-white/10 border-white/20 text-white placeholder-white/50"
+                            : "bg-background border-border text-foreground placeholder-muted-foreground"
+                        }`}
+                        autoFocus
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <button
+                  onClick={() => setSearchOpen(!searchOpen)}
+                  className={`h-8 w-8 items-center justify-center rounded-r-full transition-all duration-300 flex ${
+                    searchOpen && isTransparent
+                      ? "bg-white/10 border-y border-r border-white/20 text-white"
+                      : searchOpen && !isTransparent
+                      ? "bg-background border-y border-r border-border text-foreground"
+                      : isTransparent
+                      ? "text-white hover:bg-white/10 rounded-full"
+                      : "text-foreground hover:bg-foreground/5 rounded-full"
+                  }`}
+                  aria-label="Rechercher"
+                >
+                  <Search size={16} strokeWidth={1.5} />
+                </button>
+              </div>
 
               {/* Theme toggle desktop */}
               <div className="hidden md:block">
@@ -145,10 +182,12 @@ export function Navbar() {
 
               {/* Hamburger mobile — toujours visible */}
               <button
+                ref={menuButtonRef}
+                onClick={() => setOpen(!open)}
                 className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all ${isTransparent ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-foreground/5'}`}
-                onClick={() => setOpen((v) => !v)}
                 aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
                 aria-expanded={open}
+                aria-controls="mobile-menu"
               >
                 {open ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
               </button>
@@ -180,6 +219,9 @@ export function Navbar() {
               transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
               className="fixed inset-y-0 right-0 w-full max-w-sm z-200 lg:hidden flex flex-col bg-card border-l border-border shadow-2xl"
               aria-hidden={!open}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
             >
               {/* En-tête du menu mobile */}
               <div className="flex items-center justify-between px-6 h-20 border-b border-border shrink-0">
@@ -214,9 +256,10 @@ export function Navbar() {
                     <Link
                       to={l.to}
                       onClick={() => setOpen(false)}
-                      className="block text-xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors"
+                      className="block text-xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1"
                       activeProps={{ className: "!text-primary" }}
                       activeOptions={{ exact: l.to === "/" }}
+                      role="menuitem"
                     >
                       {l.label}
                     </Link>

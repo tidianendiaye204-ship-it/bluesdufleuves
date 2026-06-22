@@ -232,8 +232,8 @@ function RootComponent() {
           <Navbar />
           <main id="main-content" className="flex-1">
             <Outlet />
-            <Footer />
           </main>
+          <Footer />
           <PWAInstallPrompt />
         </div>
       </SmoothScroll>

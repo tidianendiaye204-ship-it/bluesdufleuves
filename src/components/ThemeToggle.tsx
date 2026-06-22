@@ -10,6 +10,13 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    // Set dark mode as default on first load
+    if (mounted && !theme) {
+      setTheme("dark");
+    }
+  }, [mounted, theme, setTheme]);
+
   if (!mounted) {
     return <div className="w-9 h-9" />; // Placeholder to avoid layout shift
   }
@@ -18,7 +25,7 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="relative inline-flex items-center justify-center w-9 h-9 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 transition-colors"
-      aria-label="Toggle theme"
+      aria-label={theme === "dark" ? "Passer en mode clair" : "Passer en mode sombre"}
     >
       <span className="relative flex items-center justify-center w-[1.2rem] h-[1.2rem]">
         <Sun className="absolute h-full w-full rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

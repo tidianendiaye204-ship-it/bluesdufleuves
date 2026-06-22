@@ -60,3 +60,63 @@ export const DEFAULT_SEO = {
   keywords:
     "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k",
 };
+
+export const createStructuredData = (type: "Event" | "Organization" | "MusicEvent", data: any) => {
+  const structuredData: any = {
+    "@context": "https://schema.org",
+    "@type": type,
+  };
+
+  if (type === "Event" || type === "MusicEvent") {
+    structuredData.name = data.name;
+    structuredData.startDate = data.startDate;
+    structuredData.endDate = data.endDate;
+    structuredData.location = {
+      "@type": "Place",
+      name: data.locationName,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: data.city,
+        addressCountry: data.country,
+      },
+    };
+    structuredData.description = data.description;
+    structuredData.image = data.image;
+    structuredData.url = data.url;
+    structuredData.performer = data.performers?.map((performer: any) => ({
+      "@type": "MusicGroup",
+      name: performer.name,
+    }));
+    structuredData.organizer = {
+      "@type": "Organization",
+      name: data.organizer,
+      url: data.organizerUrl,
+    };
+    structuredData.offers = {
+      "@type": "Offer",
+      url: data.ticketUrl,
+      price: data.price,
+      priceCurrency: data.priceCurrency || "XOF",
+      availability: "https://schema.org/InStock",
+    };
+  }
+
+  if (type === "Organization") {
+    structuredData.name = data.name;
+    structuredData.url = data.url;
+    structuredData.logo = data.logo;
+    structuredData.description = data.description;
+    structuredData.founder = {
+      "@type": "Person",
+      name: data.founder,
+    };
+    structuredData.address = {
+      "@type": "PostalAddress",
+      addressLocality: data.city,
+      addressCountry: data.country,
+    };
+    structuredData.sameAs = data.socialLinks;
+  }
+
+  return JSON.stringify(structuredData);
+};

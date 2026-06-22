@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
   Phone,
@@ -143,7 +144,7 @@ function FloatingInput({
         className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
           peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
           peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
-          peer-[&:not(:placeholder-shown)]:top-1.5 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:text-primary`}
+          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-primary`}
       >
         {label}
       </label>
@@ -202,6 +203,8 @@ function ContactPage() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [csrfToken, setCsrfToken] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
+  const [sujetOpen, setSujetOpen] = useState(false);
 
   const { ref: formRef, visible: formVisible } = useReveal();
   const { ref: infoRef, visible: infoVisible } = useReveal();
@@ -212,6 +215,7 @@ function ContactPage() {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -224,6 +228,8 @@ function ContactPage() {
       csrfToken: "",
     },
   });
+
+  const selectedSujet = watch("sujet");
 
   useEffect(() => {
     const fetchCSRFToken = async () => {
@@ -240,6 +246,7 @@ function ContactPage() {
 
   const onSubmit = async (data: ContactFormValues) => {
     setLoading(true);
+    setFormError(null);
     try {
       const result = await soumettreContact({ data });
       if (result.success) {
@@ -255,7 +262,7 @@ function ContactPage() {
       }
     } catch (error) {
       console.error("Erreur lors de l'envoi du message", error);
-      alert("Une erreur est survenue lors de l'envoi de votre message.");
+      setFormError("Une erreur est survenue lors de l'envoi de votre message.");
     } finally {
       setLoading(false);
     }
@@ -423,7 +430,7 @@ function ContactPage() {
             </div>
 
             {/* Map embed */}
-            <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-48">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-80">
               <iframe
                 title="Localisation Podor, Sénégal"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
@@ -480,7 +487,7 @@ function ContactPage() {
           >
             <div className="bg-card border border-border rounded-3xl shadow-sm overflow-hidden">
               {/* Form header */}
-              <div className="bg-gradient-to-r from-primary/10 to-sky-500/10 border-b border-border px-8 py-6">
+              <div className="bg-linear-to-r from-primary/10 to-sky-500/10 border-b border-border px-8 py-6">
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground">
                   Envoyez-nous un message
                 </h3>
@@ -507,6 +514,11 @@ function ContactPage() {
                 ) : (
                   /* ── Form ── */
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+                    {formError && (
+                      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-600 text-sm font-medium">
+                        {formError}
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FloatingInput
                         id="nom"
@@ -525,32 +537,52 @@ function ContactPage() {
                       />
                     </div>
 
-                    {/* Sujet select-style */}
+                    {/* Sujet select-style custom */}
                     <div className="relative group">
-                      <select
-                        id="sujet"
-                        {...register("sujet")}
-                        className={`peer w-full bg-background/60 border-2 ${
+                      <input type="hidden" {...register("sujet")} />
+                      <button
+                        type="button"
+                        onClick={() => setSujetOpen(!sujetOpen)}
+                        className={`peer w-full text-left bg-background/60 border-2 ${
                           errors.sujet ? "border-red-400" : "border-border group-hover:border-primary/40"
-                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-200 appearance-none cursor-pointer`}
-                        defaultValue=""
+                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-200 cursor-pointer`}
                       >
-                        <option value="" disabled />
-                        <option value="Information générale">Information générale</option>
-                        <option value="Partenariat">Partenariat</option>
-                        <option value="Candidature artiste">Candidature artiste</option>
-                        <option value="Formations NANN-K">Formations NANN-K</option>
-                        <option value="Presse / Accréditation">Presse / Accréditation</option>
-                        <option value="Billetterie">Billetterie</option>
-                        <option value="Autre">Autre</option>
-                      </select>
+                        {selectedSujet || <span className="text-transparent">Sujet</span>}
+                      </button>
                       <label
-                        htmlFor="sujet"
-                        className="absolute left-4 top-1.5 text-xs font-semibold uppercase tracking-wider text-primary pointer-events-none"
+                        className={`absolute left-4 transition-all duration-200 pointer-events-none font-semibold uppercase tracking-wider
+                          ${selectedSujet || sujetOpen ? "top-1.5 text-xs text-primary" : "top-4 text-sm text-muted-foreground"}
+                        `}
                       >
                         Sujet *
                       </label>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                      <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none transition-transform duration-300 ${sujetOpen ? "rotate-180" : ""}`} />
+                      
+                      <AnimatePresence>
+                        {sujetOpen && (
+                          <motion.ul
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute z-50 w-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden py-1"
+                          >
+                            {["Information générale", "Partenariat", "Candidature artiste", "Formations NANN-K", "Presse / Accréditation", "Billetterie", "Autre"].map((option) => (
+                              <li key={option}>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setValue("sujet", option, { shouldValidate: true });
+                                    setSujetOpen(false);
+                                  }}
+                                  className={`w-full text-left px-4 py-3 text-sm hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${selectedSujet === option ? "bg-primary/5 text-primary font-semibold" : "text-foreground"}`}
+                                >
+                                  {option}
+                                </button>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
                       {errors.sujet && (
                         <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
                           {errors.sujet.message}
@@ -575,7 +607,7 @@ function ContactPage() {
                         className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
                           peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
                           peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
-                          peer-[&:not(:placeholder-shown)]:top-1.5 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:text-primary`}
+                          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-primary`}
                       >
                         Votre message *
                       </label>
@@ -608,7 +640,7 @@ function ContactPage() {
                       type="submit"
                       disabled={loading}
                       aria-busy={loading}
-                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-4 text-sm min-h-[52px] rounded-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-4 text-sm min-h-13 rounded-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                       style={{
                         background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
                         color: "#fff",
@@ -616,7 +648,7 @@ function ContactPage() {
                       }}
                     >
                       {/* Shine effect */}
-                      <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
+                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
                       {loading ? (
                         <>
                           <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">

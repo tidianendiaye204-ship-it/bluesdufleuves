@@ -79,7 +79,9 @@ export function Footer() {
             {[
               { to: "/", label: "Centre Culturel" },
               { to: "/blues-du-fleuve", label: "Le Festival" },
+              { to: "/billetterie", label: "Billetterie" },
               { to: "/nann-k-media", label: "NANN-k" },
+              { to: "/formations", label: "Formations" },
               { to: "/contact", label: "Contact" },
             ].map((item) => (
               <li key={item.to}>

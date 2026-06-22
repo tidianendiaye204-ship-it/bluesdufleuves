@@ -15,6 +15,7 @@ import {
   Award,
   ChevronRight,
   Check,
+  AlertCircle
 } from "lucide-react";
 import { useState, useRef } from "react";
 // Centre culturel image from public folder
@@ -26,10 +27,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
 import { inscriptions } from "@/db/schema";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createSeoMeta } from "@/lib/seo";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { MagneticButton } from "@/components/MagneticButton";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -38,11 +42,16 @@ export const inscriptionSchema = z.object({
   tel: z.string().min(1, "Le téléphone est requis"),
   formation: z.string().min(1, "La formation est requise"),
   motivation: z.string().min(10, "La motivation doit faire au moins 10 caractères"),
+  csrfToken: z.string().optional(),
 });
 
+type InscriptionFormData = z.infer<typeof inscriptionSchema>;
+
 export const soumettreInscription = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof inscriptionSchema>) => inscriptionSchema.parse(data))
+  .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
+    // CSRF verification would go here in a real production app with session management
+    
     const db = getDb();
     try {
       await withRetry(
@@ -168,19 +177,39 @@ const avantages = [
 ];
 
 function Formations() {
-  const [form, setForm] = useState({
-    prenom: "",
-    nom: "",
-    email: "",
-    tel: "",
-    formation: "",
-    motivation: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    trigger,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<InscriptionFormData>({
+    resolver: zodResolver(inscriptionSchema),
+    defaultValues: {
+      prenom: "",
+      nom: "",
+      email: "",
+      tel: "",
+      formation: "",
+      motivation: "",
+      csrfToken: "dummy-csrf-token",
+    },
   });
+
   const [sent, setSent] = useState(false);
+  const [step, setStep] = useState(1);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formationOpen, setFormationOpen] = useState(false);
+  const selectedFormation = watch("formation");
+  
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  const motivationLength = watch("motivation")?.length || 0;
 
   const toggleVideo = () => {
     if (!videoRef.current) return;
@@ -193,30 +222,45 @@ function Formations() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!turnstileToken) {
-      alert("Veuillez valider le captcha.");
+  const handleNextStep = async () => {
+    let fieldsToValidate: any[] = [];
+    if (step === 1) fieldsToValidate = ["prenom", "nom", "email", "tel"];
+    if (step === 2) fieldsToValidate = ["formation"];
+    
+    const isValid = await trigger(fieldsToValidate);
+    if (isValid) {
+      setStep(step + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    setStep(step - 1);
+  };
+
+  const onSubmit = async (data: InscriptionFormData) => {
+    setFormError(null);
+    if (!turnstileToken && import.meta.env.PROD) {
+      setFormError("Veuillez valider le captcha de sécurité.");
       return;
     }
     try {
-      const result = await soumettreInscription({ data: form });
+      const result = await soumettreInscription({ data });
       if (result.success) {
         setSent(true);
         // Ouvre le client email pour notifier l'équipe
         const emailTo = "contact@lesbluesdufleuve.sn";
-        const subject = `Nouvelle inscription de ${form.prenom} ${form.nom}`;
-        const body = `Prénom: ${form.prenom}\nNom: ${form.nom}\nEmail: ${form.email}\nTéléphone: ${form.tel}\nFormation: ${form.formation}\n\nMotivation:\n${form.motivation}`;
+        const subject = `Nouvelle inscription de ${data.prenom} ${data.nom}`;
+        const body = `Prénom: ${data.prenom}\nNom: ${data.nom}\nEmail: ${data.email}\nTéléphone: ${data.tel}\nFormation: ${data.formation}\n\nMotivation:\n${data.motivation}`;
         window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         setTimeout(() => {
-          setForm({ prenom: "", nom: "", email: "", tel: "", formation: "", motivation: "" });
+          reset();
           setSent(false);
-        }, 5000);
+        }, 8000);
       }
     } catch (error) {
       console.error("Erreur lors de l'inscription", error);
-      alert("Une erreur est survenue lors de l'envoi de votre candidature.");
+      setFormError("Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.");
     }
   };
 
@@ -373,7 +417,11 @@ function Formations() {
               <div className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`} />
               
               {/* Bouton Play/Pause Custom */}
-              <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isVideoPlaying ? 'scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100' : 'scale-100 opacity-100'}`}>
+              <button 
+                type="button"
+                aria-label={isVideoPlaying ? "Mettre en pause la vidéo" : "Lire la vidéo"}
+                className={`absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 cursor-pointer ${isVideoPlaying ? 'scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100' : 'scale-100 opacity-100'}`}
+              >
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/90 backdrop-blur-md text-primary-foreground flex items-center justify-center shadow-[0_0_40px_rgba(12,74,110,0.5)] transition-transform duration-300 group-hover:scale-110">
                   {isVideoPlaying ? (
                     <div className="flex gap-2">
@@ -384,7 +432,7 @@ function Formations() {
                     <Play size={32} className="ml-2" fill="currentColor" />
                   )}
                 </div>
-              </div>
+              </button>
               
               {/* Informations vidéo */}
               <div className={`absolute bottom-0 left-0 right-0 p-6 md:p-8 transition-opacity duration-500 pointer-events-none ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
@@ -589,160 +637,232 @@ function Formations() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Prénom + Nom */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="prenom"
-                          className="text-xs font-bold uppercase tracking-wider text-foreground"
-                        >
-                          Prénom <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="prenom"
-                          type="text"
-                          required
-                          value={form.prenom}
-                          onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
-                          placeholder="Votre prénom"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="nom"
-                          className="text-xs font-bold uppercase tracking-wider text-foreground"
-                        >
-                          Nom <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="nom"
-                          type="text"
-                          required
-                          value={form.nom}
-                          onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
-                          placeholder="Votre nom"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email + Téléphone */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="text-xs font-bold uppercase tracking-wider text-foreground"
-                        >
-                          Adresse Email <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          required
-                          value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
-                          placeholder="vous@exemple.com"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="tel"
-                          className="text-xs font-bold uppercase tracking-wider text-foreground"
-                        >
-                          Téléphone <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="tel"
-                          type="tel"
-                          required
-                          value={form.tel}
-                          onChange={(e) => setForm({ ...form, tel: e.target.value })}
-                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50"
-                          placeholder="+221 XX XXX XX XX"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Formation souhaitée */}
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="formation"
-                        className="text-xs font-bold uppercase tracking-wider text-foreground"
-                      >
-                        Programme de formation souhaité <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="formation"
-                          required
-                          value={form.formation}
-                          onChange={(e) => setForm({ ...form, formation: e.target.value })}
-                          className="w-full bg-transparent border-0 border-b-2 border-border focus:border-primary focus:ring-0 px-0 py-3 text-sm transition-all appearance-none cursor-pointer"
-                        >
-                          <option value="" disabled>
-                            Sélectionnez une formation...
-                          </option>
-                          {programmes.map((prog, idx) => (
-                            <option key={idx} value={prog.titre}>
-                              {prog.titre}
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronRight
-                          size={16}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 rotate-90 text-muted-foreground pointer-events-none"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Motivation */}
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="motivation"
-                        className="text-xs font-bold uppercase tracking-wider text-foreground"
-                      >
-                        Vos motivations <span className="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        id="motivation"
-                        required
-                        rows={3}
-                        value={form.motivation}
-                        onChange={(e) => setForm({ ...form, motivation: e.target.value })}
-                        className="w-full bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary rounded-xl px-4 py-4 text-sm transition-all resize-none placeholder:text-muted-foreground/50"
-                        placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    {/* Stepper Indicator */}
+                    <div className="flex items-center justify-between mb-8 relative">
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-muted rounded-full z-0" />
+                      <div 
+                        className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full z-0 transition-all duration-300"
+                        style={{ width: `${((step - 1) / 2) * 100}%` }}
                       />
-                      <p className="text-xs text-muted-foreground text-right">
-                        {form.motivation.length} / min. 10 caractères
-                      </p>
+                      {[1, 2, 3].map((num) => (
+                        <div key={num} className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-all duration-300 ${step >= num ? 'bg-primary text-white shadow-md' : 'bg-card border-2 border-muted text-muted-foreground'}`}>
+                          {step > num ? <Check size={14} /> : num}
+                        </div>
+                      ))}
                     </div>
 
-                    {/* Captcha */}
-                    <div className="space-y-2">
-                      <Turnstile
-                        siteKey="1x00000000000000000000AA"
-                        onSuccess={(token) => setTurnstileToken(token)}
-                      />
+                    {formError && (
+                      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-600 text-sm font-medium flex items-center gap-3">
+                        <AlertCircle size={18} className="shrink-0" />
+                        {formError}
+                      </div>
+                    )}
+                    
+                    {/* Step 1: Prénom + Nom + Email + Téléphone */}
+                    {step === 1 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div className="space-y-2">
+                            <label
+                              htmlFor="prenom"
+                              className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                            >
+                              <span>Prénom <span className="text-red-500">*</span></span>
+                              {errors.prenom && <span className="text-red-500 font-normal normal-case">{errors.prenom.message}</span>}
+                            </label>
+                            <input
+                              id="prenom"
+                              type="text"
+                              {...register("prenom")}
+                              className={`w-full bg-transparent border-0 border-b-2 ${errors.prenom ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              placeholder="Votre prénom"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label
+                              htmlFor="nom"
+                              className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                            >
+                              <span>Nom <span className="text-red-500">*</span></span>
+                              {errors.nom && <span className="text-red-500 font-normal normal-case">{errors.nom.message}</span>}
+                            </label>
+                            <input
+                              id="nom"
+                              type="text"
+                              {...register("nom")}
+                              className={`w-full bg-transparent border-0 border-b-2 ${errors.nom ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              placeholder="Votre nom"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div className="space-y-2">
+                            <label
+                              htmlFor="email"
+                              className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                            >
+                              <span>Adresse Email <span className="text-red-500">*</span></span>
+                              {errors.email && <span className="text-red-500 font-normal normal-case">{errors.email.message}</span>}
+                            </label>
+                            <input
+                              id="email"
+                              type="email"
+                              {...register("email")}
+                              className={`w-full bg-transparent border-0 border-b-2 ${errors.email ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              placeholder="vous@exemple.com"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label
+                              htmlFor="tel"
+                              className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                            >
+                              <span>Téléphone <span className="text-red-500">*</span></span>
+                              {errors.tel && <span className="text-red-500 font-normal normal-case">{errors.tel.message}</span>}
+                            </label>
+                            <input
+                              id="tel"
+                              type="tel"
+                              {...register("tel")}
+                              className={`w-full bg-transparent border-0 border-b-2 ${errors.tel ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              placeholder="+221 XX XXX XX XX"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 2: Formation souhaitée */}
+                    {step === 2 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="formation"
+                            className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                          >
+                            <span>Programme de formation souhaité <span className="text-red-500">*</span></span>
+                            {errors.formation && <span className="text-red-500 font-normal normal-case">{errors.formation.message}</span>}
+                          </label>
+                          <div className="relative group">
+                            <input type="hidden" {...register("formation")} />
+                            <button
+                              type="button"
+                              onClick={() => setFormationOpen(!formationOpen)}
+                              className={`w-full text-left bg-transparent border-0 border-b-2 ${
+                                errors.formation ? "border-red-500" : "border-border hover:border-primary/50"
+                              } px-0 py-3 text-sm transition-all cursor-pointer ${
+                                selectedFormation ? "text-foreground" : "text-muted-foreground/50"
+                              }`}
+                            >
+                              {selectedFormation || "Sélectionnez une formation..."}
+                            </button>
+                            <ChevronRight
+                              size={16}
+                              className={`absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none transition-transform duration-300 ${
+                                formationOpen ? "-rotate-90" : "rotate-90"
+                              }`}
+                            />
+
+                            <AnimatePresence>
+                              {formationOpen && (
+                                <motion.ul
+                                  initial={{ opacity: 0, y: -10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -10 }}
+                                  className="absolute z-50 w-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto"
+                                >
+                                  {programmes.map((prog, idx) => (
+                                    <li key={idx}>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setValue("formation", prog.titre, { shouldValidate: true });
+                                          setFormationOpen(false);
+                                        }}
+                                        className={`w-full text-left px-4 py-3 text-sm hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${
+                                          selectedFormation === prog.titre ? "bg-primary/5 text-primary font-semibold" : "text-foreground"
+                                        }`}
+                                      >
+                                        {prog.titre}
+                                      </button>
+                                    </li>
+                                  ))}
+                                </motion.ul>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 3: Motivation */}
+                    {step === 3 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="motivation"
+                            className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
+                          >
+                            <span>Vos motivations <span className="text-red-500">*</span></span>
+                            {errors.motivation && <span className="text-red-500 font-normal normal-case">{errors.motivation.message}</span>}
+                          </label>
+                          <textarea
+                            id="motivation"
+                            rows={4}
+                            {...register("motivation")}
+                            className={`w-full bg-background border ${errors.motivation ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-primary focus:ring-primary"} focus:ring-1 rounded-xl px-4 py-4 text-sm transition-all resize-none placeholder:text-muted-foreground/50`}
+                            placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
+                          />
+                          <p className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}>
+                            {motivationLength} / min. 10 caractères
+                          </p>
+                        </div>
+
+                        {/* Captcha */}
+                        <div className="space-y-2 flex justify-center">
+                          <Turnstile
+                            siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+                            onSuccess={(token) => setTurnstileToken(token)}
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Navigation Buttons */}
+                    <div className="flex gap-4 pt-4">
+                      {step > 1 && (
+                        <button
+                          type="button"
+                          onClick={handlePrevStep}
+                          className="flex-1 bg-muted hover:bg-border text-foreground font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl transition-all cursor-pointer"
+                        >
+                          Retour
+                        </button>
+                      )}
+                      
+                      {step < 3 ? (
+                        <button
+                          type="button"
+                          onClick={handleNextStep}
+                          className="flex-1 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                        >
+                          Suivant
+                        </button>
+                      ) : (
+                        <MagneticButton className="flex-1">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={`w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all cursor-pointer ${isSubmitting ? 'opacity-70 pointer-events-none' : ''}`}
+                          >
+                            <Send size={16} />
+                            {isSubmitting ? "Envoi en cours..." : "Soumettre"}
+                          </button>
+                        </MagneticButton>
+                      )}
                     </div>
-
-                    {/* Bouton envoi Magnétique */}
-                    <MagneticButton className="w-full">
-                      <button
-                        type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-5 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all"
-                      >
-                        <Send size={16} />
-                        Soumettre ma candidature
-                      </button>
-                    </MagneticButton>
-
-                    <p className="text-xs text-muted-foreground text-center">
-                      En soumettant ce formulaire, vous acceptez que vos données soient utilisées
-                      pour le traitement de votre candidature.
-                    </p>
                   </form>
                 )}
               </div>

@@ -14,6 +14,7 @@ import {
   TreePine,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
   Play,
   Clock,
   Star,
@@ -28,16 +29,19 @@ import {
   Crown,
   Diamond,
   Infinity,
+  X,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import logoFestival from "@/assets/logo-festival.png";
-import { createSeoMeta } from "@/lib/seo";
+import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import crowdImg from "@/assets/festival-crowd.jpg";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { artistes, piliers, videos, galleryImages } from "@/data/festival-content";
 import { MagneticButton } from "@/components/MagneticButton";
+import { Countdown } from "@/components/Countdown";
+import { FESTIVAL_CONFIG } from "@/config/festival";
 
 export const Route = createFileRoute("/blues-du-fleuve")({
   head: () => {
@@ -53,7 +57,33 @@ export const Route = createFileRoute("/blues-du-fleuve")({
         "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
       canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
     });
-    return { meta, links };
+
+    const structuredData = createStructuredData("MusicEvent", {
+      name: "Blues du Fleuve - 17ème édition",
+      startDate: "2025-12-05T18:00:00",
+      endDate: "2025-12-07T23:59:59",
+      locationName: "The Village Podor",
+      city: "Podor",
+      country: "Sénégal",
+      description: "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
+      image: crowdImg,
+      url: "https://lesbluesdufleuve.sn/blues-du-fleuve",
+      performers: artistes.map(artist => ({ name: artist.nom })),
+      organizer: "The Village Podor",
+      organizerUrl: "https://lesbluesdufleuve.sn",
+      ticketUrl: "https://lesbluesdufleuve.sn/blues-du-fleuve#billetterie",
+      price: "5000",
+      priceCurrency: "XOF",
+    });
+
+    const scripts = [
+      {
+        type: "application/ld+json",
+        innerHTML: structuredData,
+      },
+    ];
+
+    return { meta, links, scripts };
   },
   pendingComponent: PageSkeleton,
   component: BluesDuFleuve,
@@ -61,7 +91,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
 
 function BluesDuFleuve() {
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const [expandedArtists, setExpandedArtists] = useState<Set<string>>(new Set());
+  const [selectedArtist, setSelectedArtist] = useState<typeof artistes[0] | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -70,18 +100,6 @@ function BluesDuFleuve() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
-  const toggleArtistDescription = (artistName: string) => {
-    setExpandedArtists(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(artistName)) {
-        newSet.delete(artistName);
-      } else {
-        newSet.add(artistName);
-      }
-      return newSet;
-    });
-  };
-
   return (
     <>
       <section ref={heroRef} className="relative min-h-screen overflow-hidden border-b border-border">
@@ -89,7 +107,6 @@ function BluesDuFleuve() {
           <iframe
             src="https://www.youtube.com/embed/IHAWprBOmzs?autoplay=1&mute=1&loop=1&playlist=IHAWprBOmzs&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
             title="Festival Background Video"
-            frameBorder="0"
             allow="autoplay; encrypted-media"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-80"
             style={{
@@ -182,13 +199,19 @@ function BluesDuFleuve() {
               <div className="mt-10 flex flex-wrap gap-4">
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
                   <MapPin size={18} className="text-amber-400" /> 
-                  <span className="text-sm font-semibold tracking-wide">Podor, Sénégal</span>
+                  <span className="text-sm font-semibold tracking-wide">{FESTIVAL_CONFIG.location}</span>
                 </div>
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
                   <Calendar size={18} className="text-amber-400" /> 
-                  <span className="text-sm font-semibold tracking-wide">5–7 Décembre 2025</span>
+                  <span className="text-sm font-semibold tracking-wide">{FESTIVAL_CONFIG.dateTexte}</span>
                 </div>
               </div>
+
+              {/* Compte à rebours */}
+              <div className="mt-8">
+                <Countdown targetDate={FESTIVAL_CONFIG.startDate} />
+              </div>
+
               <div className="mt-8">
                 <MagneticButton>
                   <a
@@ -580,7 +603,7 @@ function BluesDuFleuve() {
                   className="absolute -inset-6 rounded-3xl bg-linear-to-br from-primary/20 to-amber-500/20 blur-2xl -z-10"
                 />
                 <div className="relative w-72 md:w-96 aspect-4/5 rounded-3xl overflow-hidden border-4 border-background shadow-2xl group">
-                  <OptimizedImage
+                  <img
                     src="/oumar-wade.jpg"
                     alt="Oumar Wade — Producteur Exécutif du Festival Blues du Fleuve"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -636,7 +659,7 @@ function BluesDuFleuve() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
               <Calendar size={14} className="text-primary" />
               <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                5 – 7 Décembre 2025
+                {FESTIVAL_CONFIG.dateTexte}
               </span>
             </div>
             <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black text-foreground uppercase tracking-tighter mb-4">
@@ -857,20 +880,12 @@ function BluesDuFleuve() {
                       </p>
                     </div>
                   </div>
-                  <p className={`mt-8 text-sm text-muted-foreground font-serif leading-relaxed ${expandedArtists.has(a.nom) ? '' : 'line-clamp-3'}`}>{a.desc}</p>
+                  <p className="mt-8 text-sm text-muted-foreground font-serif leading-relaxed line-clamp-3">{a.desc}</p>
                   <button
-                    onClick={() => toggleArtistDescription(a.nom)}
+                    onClick={() => setSelectedArtist(a)}
                     className="mt-3 text-xs font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
                   >
-                    {expandedArtists.has(a.nom) ? (
-                      <>
-                        <ChevronUp size={12} /> Réduire
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown size={12} /> Lire la suite
-                      </>
-                    )}
+                    Lire la suite <ChevronRight size={12} />
                   </button>
                 </div>
                 
@@ -1022,7 +1037,7 @@ function BluesDuFleuve() {
       {/* ──────────────────── PARTENAIRES ULTRA PREMIUM ──────────────────── */}
       <section className="relative py-24 border-y border-border overflow-hidden bg-linear-to-b from-background via-muted/20 to-background">
         {/* Premium background effects */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-100 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
         
@@ -1160,6 +1175,52 @@ function BluesDuFleuve() {
           </div>
         </div>
       </section>
+
+      {/* ──────────────────── MODAL ARTISTE ──────────────────── */}
+      <AnimatePresence>
+        {selectedArtist && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedArtist(null)}
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-card border border-border rounded-3xl p-6 md:p-8 max-w-2xl w-full relative overflow-hidden shadow-2xl"
+            >
+              <button 
+                onClick={() => setSelectedArtist(null)} 
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-muted hover:bg-primary/20 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                aria-label="Fermer"
+              >
+                <X size={16} />
+              </button>
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-full md:w-1/3 aspect-square rounded-2xl overflow-hidden bg-muted">
+                  {selectedArtist.img ? (
+                    <img src={selectedArtist.img} alt={selectedArtist.nom} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-display text-6xl text-primary/20">{selectedArtist.nom.charAt(0)}</div>
+                  )}
+                </div>
+                <div className="md:w-2/3">
+                  <h3 className="font-display text-3xl font-bold text-foreground mb-1">{selectedArtist.nom}</h3>
+                  <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-4">{selectedArtist.role} · {selectedArtist.origine}</p>
+                  <div className="h-px w-full bg-border mb-4" />
+                  <p className="text-muted-foreground font-serif leading-relaxed">
+                    {selectedArtist.desc}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

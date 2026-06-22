@@ -360,7 +360,7 @@ function Home() {
               </div>
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
-            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-[150px] md:max-w-[180px]">
+            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-37.5 md:max-w-45">
               <img
                 src="/Baba.jpg"
                 alt="Baaba Maal en concert"
@@ -468,9 +468,9 @@ function Home() {
                 Vivez des moments inoubliables avec des concerts live, des performances d'artistes
                 internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/blues-du-fleuve" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 En savoir plus <ArrowRight size={16} />
-              </div>
+              </Link>
             </div>
           </article>
 
@@ -497,9 +497,9 @@ function Home() {
                 Découvrez des expositions d'art contemporain et traditionnel, valorisant le
                 patrimoine halpulaar et les savoir-faire locaux.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 En savoir plus <ArrowRight size={16} />
-              </div>
+              </Link>
             </div>
           </article>
 
@@ -526,9 +526,9 @@ function Home() {
                 Echanges sur le développement durable, la culture, l'éducation et l'avenir de
                 l'Afrique avec des experts et des acteurs du terrain.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 En savoir plus <ArrowRight size={16} />
-              </div>
+              </Link>
             </div>
           </article>
 
@@ -555,14 +555,14 @@ function Home() {
                 Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de
                 savoir-faire ancestraux.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/formations" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 En savoir plus <ArrowRight size={16} />
-              </div>
+              </Link>
             </div>
           </article>
 
           {/* Défilé de Mode */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2 md:col-span-2 lg:col-span-1 lg:col-start-2">
             <div
               className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
               onClick={() => openLightbox(galleryImages, 4)}
@@ -584,9 +584,9 @@ function Home() {
                 Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode
                 traditionnelle et contemporaine.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 En savoir plus <ArrowRight size={16} />
-              </div>
+              </Link>
             </div>
           </article>
         </div>
