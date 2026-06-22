@@ -22,6 +22,7 @@ export function OptimizedImage({
   quality = 85,
 }: OptimizedImageProps) {
   const [loaded, setLoaded] = useState(false);
+  const [webpFailed, setWebpFailed] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   const getWebPSrc = (originalSrc: string) => {
@@ -34,10 +35,7 @@ export function OptimizedImage({
   };
 
   const handleError = () => {
-    // Fallback to original image if WebP fails
-    if (imgRef.current && imgRef.current.src.includes('.webp')) {
-      imgRef.current.src = src;
-    }
+    setWebpFailed(true);
   };
 
   return (
@@ -51,10 +49,12 @@ export function OptimizedImage({
       />
       
       <picture>
-        <source 
-          srcSet={getWebPSrc(src)} 
-          type="image/webp"
-        />
+        {!webpFailed && (
+          <source 
+            srcSet={getWebPSrc(src)} 
+            type="image/webp"
+          />
+        )}
         <img
           ref={imgRef}
           src={src}
