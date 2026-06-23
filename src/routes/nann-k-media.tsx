@@ -1,5 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, X, Leaf, Cpu, Palette, ChevronRight, ChevronLeft, TreePine, Users, Heart, Globe } from "lucide-react";
+import {
+  Play,
+  X,
+  Leaf,
+  Cpu,
+  Palette,
+  ChevronRight,
+  ChevronLeft,
+  TreePine,
+  Users,
+  Heart,
+  Globe,
+} from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
@@ -140,8 +152,18 @@ function useCounter(target: number, duration = 1500) {
   return { count, setStarted };
 }
 
-function StatCard({ icon: Icon, value, suffix, prefix = "", label }: {
-  icon: typeof TreePine; value: number; suffix: string; prefix?: string; label: string;
+function StatCard({
+  icon: Icon,
+  value,
+  suffix,
+  prefix = "",
+  label,
+}: {
+  icon: typeof TreePine;
+  value: number;
+  suffix: string;
+  prefix?: string;
+  label: string;
 }) {
   const { count, setStarted } = useCounter(value, 1200);
 
@@ -158,9 +180,13 @@ function StatCard({ icon: Icon, value, suffix, prefix = "", label }: {
         <Icon className="text-primary w-6 h-6" />
       </div>
       <span className="font-display text-3xl md:text-4xl font-bold text-foreground">
-        {prefix}{count}{suffix}
+        {prefix}
+        {count}
+        {suffix}
       </span>
-      <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{label}</span>
+      <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">
+        {label}
+      </span>
     </motion.div>
   );
 }
@@ -172,7 +198,7 @@ function NannkMedia() {
     isLocal?: boolean;
   } | null>(null);
   const [activeTab, setActiveTab] = useState(0);
-  
+
   // Lightbox state (index of currently open image, null if closed)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -202,23 +228,28 @@ function NannkMedia() {
   }, [emblaApi]);
 
   // Lightbox navigation
-  const nextLightboxImg = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (lightboxIndex !== null) {
-      setLightboxIndex((lightboxIndex + 1) % agriImages.length);
-    }
-  }, [lightboxIndex]);
+  const nextLightboxImg = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (lightboxIndex !== null) {
+        setLightboxIndex((lightboxIndex + 1) % agriImages.length);
+      }
+    },
+    [lightboxIndex],
+  );
 
-  const prevLightboxImg = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (lightboxIndex !== null) {
-      setLightboxIndex((lightboxIndex - 1 + agriImages.length) % agriImages.length);
-    }
-  }, [lightboxIndex]);
+  const prevLightboxImg = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (lightboxIndex !== null) {
+        setLightboxIndex((lightboxIndex - 1 + agriImages.length) % agriImages.length);
+      }
+    },
+    [lightboxIndex],
+  );
 
   return (
     <div className="bg-background min-h-screen">
-
       {/* ──────────────────── HERO ──────────────────── */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
         <div
@@ -226,8 +257,14 @@ function NannkMedia() {
           style={{ backgroundImage: `url(${fleuveImg})` }}
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse" style={{ animationDuration: "4s" }} />
-        <div className="absolute bottom-1/4 right-1/4 w-60 h-60 rounded-full bg-sky-500/10 blur-3xl animate-pulse" style={{ animationDuration: "6s" }} />
+        <div
+          className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse"
+          style={{ animationDuration: "4s" }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-60 h-60 rounded-full bg-sky-500/10 blur-3xl animate-pulse"
+          style={{ animationDuration: "6s" }}
+        />
 
         <div className="relative z-10 container-page text-center max-w-4xl mx-auto py-20 md:py-28">
           <motion.div
@@ -249,7 +286,8 @@ function NannkMedia() {
           >
             <span
               style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #7dd3fc 40%, #38bdf8 70%, #0ea5e9 100%)",
+                background:
+                  "linear-gradient(135deg, #ffffff 0%, #7dd3fc 40%, #38bdf8 70%, #0ea5e9 100%)",
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
                 color: "transparent",
@@ -274,11 +312,17 @@ function NannkMedia() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex items-center justify-center gap-2 mt-8"
           >
-            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Culture</span>
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
+              Culture
+            </span>
             <span className="text-primary font-black">·</span>
-            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Savoir</span>
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
+              Savoir
+            </span>
             <span className="text-primary font-black">·</span>
-            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">Travail</span>
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
+              Travail
+            </span>
           </motion.div>
         </div>
       </section>
@@ -315,9 +359,9 @@ function NannkMedia() {
               accessibles.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-              Notre credo ? <strong>«&nbsp;Culture – Savoir – Travail&nbsp;»</strong>. Nous construisons une
-              conscience citoyenne active pour que chaque habitant de la vallée devienne
-              acteur de son propre avenir.
+              Notre credo ? <strong>«&nbsp;Culture – Savoir – Travail&nbsp;»</strong>. Nous
+              construisons une conscience citoyenne active pour que chaque habitant de la vallée
+              devienne acteur de son propre avenir.
             </p>
             {/* Pillars */}
             <div className="space-y-4">
@@ -332,14 +376,20 @@ function NannkMedia() {
                     key={p.title}
                     className={`flex items-start gap-4 p-4 rounded-2xl border ${p.border} ${p.bg} transition-all duration-300 hover:shadow-md`}
                   >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-white/50 dark:bg-white/10`}>
+                    <div
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-white/50 dark:bg-white/10`}
+                    >
                       <Icon className={`w-5 h-5 ${p.iconColor}`} />
                     </div>
                     <div>
-                      <strong className={`block mb-0.5 font-sans uppercase tracking-wider text-xs ${p.iconColor}`}>
+                      <strong
+                        className={`block mb-0.5 font-sans uppercase tracking-wider text-xs ${p.iconColor}`}
+                      >
                         {p.title}
                       </strong>
-                      <span className="text-sm text-muted-foreground font-serif">{p.description}</span>
+                      <span className="text-sm text-muted-foreground font-serif">
+                        {p.description}
+                      </span>
                     </div>
                   </motion.div>
                 );
@@ -422,8 +472,12 @@ function NannkMedia() {
                 <span className="font-display text-4xl font-black text-primary/20 group-hover:text-primary/40 transition-colors block mb-3">
                   {item.num}
                 </span>
-                <h3 className="font-display text-lg font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="font-serif text-muted-foreground text-sm leading-relaxed">{item.text}</p>
+                <h3 className="font-display text-lg font-bold text-foreground mb-3">
+                  {item.title}
+                </h3>
+                <p className="font-serif text-muted-foreground text-sm leading-relaxed">
+                  {item.text}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -530,12 +584,18 @@ function NannkMedia() {
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
-                      <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                      <Play
+                        size={20}
+                        className="text-primary-foreground ml-0.5"
+                        fill="currentColor"
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="p-4">
-                  <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{item.name}</h4>
+                  <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
+                    {item.name}
+                  </h4>
                   <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
                 </div>
               </motion.article>
@@ -592,11 +652,13 @@ function NannkMedia() {
 
               {/* Quote premium */}
               <div className="relative bg-linear-to-br from-primary/5 to-sky-500/5 border border-primary/20 rounded-2xl p-6 mt-4">
-                <div className="absolute -top-3 left-6 text-5xl text-primary font-serif leading-none select-none">"</div>
+                <div className="absolute -top-3 left-6 text-5xl text-primary font-serif leading-none select-none">
+                  "
+                </div>
                 <blockquote className="pt-4 italic font-serif text-foreground text-base leading-relaxed">
-                  La protection de l'environnement est une urgence et une responsabilité
-                  collective. En soutenant Podor Vert, nous investissons dans un avenir durable
-                  pour nos communautés et pour les générations futures.
+                  La protection de l'environnement est une urgence et une responsabilité collective.
+                  En soutenant Podor Vert, nous investissons dans un avenir durable pour nos
+                  communautés et pour les générations futures.
                 </blockquote>
                 <footer className="mt-3 text-sm font-bold text-primary uppercase tracking-wider">
                   — Baaba Maal
@@ -610,7 +672,6 @@ function NannkMedia() {
       {/* ──────────────────── REBOISEMENT & ESPACE AGRICOLE (ALTERNATING LAYOUTS) ──────────────────── */}
       <section className="container-page py-14 border-t border-border">
         <div className="max-w-6xl mx-auto space-y-24">
-          
           {/* Reboisement */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -649,7 +710,12 @@ function NannkMedia() {
               className="order-1 md:order-2 rounded-3xl overflow-hidden border border-border bg-card shadow-xl"
             >
               <div className="aspect-video bg-black">
-                <video className="w-full h-full" src="/podor%20vert.mp4" controls preload="metadata">
+                <video
+                  className="w-full h-full"
+                  src="/podor%20vert.mp4"
+                  controls
+                  preload="metadata"
+                >
                   Votre navigateur ne supporte pas la vidéo.
                 </video>
               </div>
@@ -689,16 +755,24 @@ function NannkMedia() {
                 Espace Agricole de NANN-K
               </h2>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L'espace agricole NANN-K est le cœur de notre pilier agriculture. Il sert de modèle d'exploitation durable, intégrant des techniques modernes d'irrigation et de culture pour maximiser les rendements tout en préservant les ressources de la vallée du fleuve Sénégal.
+                L'espace agricole NANN-K est le cœur de notre pilier agriculture. Il sert de modèle
+                d'exploitation durable, intégrant des techniques modernes d'irrigation et de culture
+                pour maximiser les rendements tout en préservant les ressources de la vallée du
+                fleuve Sénégal.
               </p>
               <ul className="space-y-2 mt-4 text-muted-foreground font-serif">
-                <li className="flex items-center gap-2"><Leaf className="w-4 h-4 text-primary" /> Sécurité alimentaire</li>
-                <li className="flex items-center gap-2"><Leaf className="w-4 h-4 text-primary" /> Autonomisation des femmes</li>
-                <li className="flex items-center gap-2"><Leaf className="w-4 h-4 text-primary" /> Techniques agroécologiques</li>
+                <li className="flex items-center gap-2">
+                  <Leaf className="w-4 h-4 text-primary" /> Sécurité alimentaire
+                </li>
+                <li className="flex items-center gap-2">
+                  <Leaf className="w-4 h-4 text-primary" /> Autonomisation des femmes
+                </li>
+                <li className="flex items-center gap-2">
+                  <Leaf className="w-4 h-4 text-primary" /> Techniques agroécologiques
+                </li>
               </ul>
             </motion.div>
           </div>
-
         </div>
       </section>
 
@@ -782,7 +856,7 @@ function NannkMedia() {
         {/* Background elements */}
         <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-sky-500/10" />
         <div className="absolute right-0 bottom-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full translate-x-1/2 translate-y-1/2" />
-        
+
         <div className="relative z-10 container-page max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -794,7 +868,8 @@ function NannkMedia() {
               Rejoignez le <span className="text-primary">Mouvement</span>
             </h2>
             <p className="font-serif text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Que vous soyez un acteur local, un partenaire potentiel ou simplement passionné par le développement de la vallée, votre voix compte.
+              Que vous soyez un acteur local, un partenaire potentiel ou simplement passionné par le
+              développement de la vallée, votre voix compte.
             </p>
             <Link
               to="/contact"
@@ -823,7 +898,7 @@ function NannkMedia() {
             >
               <X size={24} />
             </button>
-            
+
             {/* Nav Prev */}
             <button
               onClick={prevLightboxImg}
@@ -852,7 +927,7 @@ function NannkMedia() {
             >
               <ChevronRight size={32} />
             </button>
-            
+
             {/* Caption */}
             <div className="absolute bottom-8 left-0 right-0 text-center text-white font-serif tracking-wide text-sm opacity-80 pointer-events-none">
               {agriImages[lightboxIndex].alt}
@@ -900,7 +975,9 @@ function NannkMedia() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold font-display">{activeVideo.name}</h3>
-                <p className="text-xs text-muted-foreground mt-1 uppercase tracking-widest font-bold">Nannka TV Média</p>
+                <p className="text-xs text-muted-foreground mt-1 uppercase tracking-widest font-bold">
+                  Nannka TV Média
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -909,4 +986,3 @@ function NannkMedia() {
     </div>
   );
 }
-

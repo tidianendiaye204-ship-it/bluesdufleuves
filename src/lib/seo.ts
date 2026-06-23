@@ -61,7 +61,9 @@ export const DEFAULT_SEO = {
     "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createStructuredData = (type: "Event" | "Organization" | "MusicEvent", data: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const structuredData: any = {
     "@context": "https://schema.org",
     "@type": type,
@@ -83,6 +85,7 @@ export const createStructuredData = (type: "Event" | "Organization" | "MusicEven
     structuredData.description = data.description;
     structuredData.image = data.image;
     structuredData.url = data.url;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     structuredData.performer = data.performers?.map((performer: any) => ({
       "@type": "MusicGroup",
       name: performer.name,

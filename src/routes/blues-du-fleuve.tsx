@@ -20,18 +20,14 @@ import {
   Star,
   ArrowRight,
   Zap,
-  Flame,
   Waves,
-  Compass,
   Shield,
-  Lightbulb,
   Trophy,
   Crown,
   Diamond,
-  Infinity,
   X,
 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import crowdImg from "@/assets/festival-crowd.jpg";
@@ -65,10 +61,11 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       locationName: "The Village Podor",
       city: "Podor",
       country: "Sénégal",
-      description: "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
+      description:
+        "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
       image: crowdImg,
       url: "https://lesbluesdufleuve.sn/blues-du-fleuve",
-      performers: artistes.map(artist => ({ name: artist.nom })),
+      performers: artistes.map((artist) => ({ name: artist.nom })),
       organizer: "The Village Podor",
       organizerUrl: "https://lesbluesdufleuve.sn",
       ticketUrl: "https://lesbluesdufleuve.sn/blues-du-fleuve#billetterie",
@@ -91,7 +88,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
 
 function BluesDuFleuve() {
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const [selectedArtist, setSelectedArtist] = useState<typeof artistes[0] | null>(null);
+  const [selectedArtist, setSelectedArtist] = useState<(typeof artistes)[0] | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -100,9 +97,13 @@ function BluesDuFleuve() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
+
   return (
     <>
-      <section ref={heroRef} className="relative min-h-screen overflow-hidden border-b border-border">
+      <section
+        ref={heroRef}
+        className="relative min-h-screen overflow-hidden border-b border-border"
+      >
         <div className="absolute inset-0 bg-black overflow-hidden">
           <iframe
             src="https://www.youtube.com/embed/IHAWprBOmzs?autoplay=1&mute=1&loop=1&playlist=IHAWprBOmzs&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
@@ -119,9 +120,10 @@ function BluesDuFleuve() {
         </div>
 
         {/* Main content with parallax */}
-        <motion.div 
+        <motion.div
           style={{ y, opacity }}
-          className="container-page py-20 md:py-32 relative grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center z-10">
+          className="container-page py-20 md:py-32 relative grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center z-10"
+        >
           <div>
             {/* Logo du Festival */}
             <div className="mb-6">
@@ -135,18 +137,21 @@ function BluesDuFleuve() {
             <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
               Festival International · 17ème édition
             </p>
-            <h1 className="luxury-text text-6xl md:text-8xl mb-6 text-white uppercase tracking-tighter">
+            <h1 className="luxury-text text-4xl sm:text-5xl md:text-8xl mb-6 text-white uppercase tracking-tighter">
               Blues du <span className="text-gradient-gold">Fleuve</span>
             </h1>
             <div className="mt-8 space-y-6 max-w-2xl">
-              <p className="text-xl md:text-2xl font-light text-white leading-relaxed">
-                Porté sur les fonds baptismaux par l’artiste international Sénégalais <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>, le festival les Blues du fleuve célèbre sa 17ème édition.
+              <p className="text-lg md:text-2xl font-light text-white leading-relaxed">
+                Porté sur les fonds baptismaux par l’artiste international Sénégalais{" "}
+                <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>, le festival
+                les Blues du fleuve célèbre sa 17ème édition.
               </p>
-              
+
               <div className="h-px w-24 bg-linear-to-r from-amber-400 to-transparent"></div>
-              
-              <p className="text-base md:text-lg text-white/90 leading-relaxed font-medium">
-                Seul Festival d’intégration en Afrique de l’ouest, le Blues du Fleuve symbolise la solidarité des pays riverains du fleuve Sénégal.
+
+              <p className="text-sm md:text-lg text-white/90 leading-relaxed font-medium">
+                Seul Festival d’intégration en Afrique de l’ouest, le Blues du Fleuve symbolise la
+                solidarité des pays riverains du fleuve Sénégal.
               </p>
 
               <div className="md:hidden">
@@ -168,10 +173,16 @@ function BluesDuFleuve() {
 
               <div className="hidden md:block space-y-4 text-sm md:text-base text-white/70 leading-relaxed">
                 <p>
-                  Le Festival consacre ses éditions à travers diverses expressions des peuples dont la culture est fortement influencée par l’eau. Cette culture est représentée essentiellement par les arts vivants : musique, danse, spectacles traditionnels et artisanat. Ce patrimoine populaire et les préoccupations de développement sont aussi représentés à travers des expositions thématiques et des conférences.
+                  Le Festival consacre ses éditions à travers diverses expressions des peuples dont
+                  la culture est fortement influencée par l’eau. Cette culture est représentée
+                  essentiellement par les arts vivants : musique, danse, spectacles traditionnels et
+                  artisanat. Ce patrimoine populaire et les préoccupations de développement sont
+                  aussi représentés à travers des expositions thématiques et des conférences.
                 </p>
                 <p>
-                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la diversité, d’autre part sur l’émergence du Sénégal.
+                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix
+                  et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la
+                  diversité, d’autre part sur l’émergence du Sénégal.
                 </p>
               </div>
 
@@ -185,10 +196,17 @@ function BluesDuFleuve() {
                       className="overflow-hidden space-y-4 text-sm text-white/70 leading-relaxed mt-4"
                     >
                       <p>
-                        Le Festival consacre ses éditions à travers diverses expressions des peuples dont la culture est fortement influencée par l’eau. Cette culture est représentée essentiellement par les arts vivants : musique, danse, spectacles traditionnels et artisanat. Ce patrimoine populaire et les préoccupations de développement sont aussi représentés à travers des expositions thématiques et des conférences.
+                        Le Festival consacre ses éditions à travers diverses expressions des peuples
+                        dont la culture est fortement influencée par l’eau. Cette culture est
+                        représentée essentiellement par les arts vivants : musique, danse,
+                        spectacles traditionnels et artisanat. Ce patrimoine populaire et les
+                        préoccupations de développement sont aussi représentés à travers des
+                        expositions thématiques et des conférences.
                       </p>
                       <p>
-                        Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la diversité, d’autre part sur l’émergence du Sénégal.
+                        Cette manifestation sera inscrite cette année d’une part sous le sceau de la
+                        paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et
+                        la diversité, d’autre part sur l’émergence du Sénégal.
                       </p>
                     </motion.div>
                   )}
@@ -198,12 +216,16 @@ function BluesDuFleuve() {
               {/* Badges d'information */}
               <div className="mt-10 flex flex-wrap gap-4">
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                  <MapPin size={18} className="text-amber-400" /> 
-                  <span className="text-sm font-semibold tracking-wide">{FESTIVAL_CONFIG.location}</span>
+                  <MapPin size={18} className="text-amber-400" />
+                  <span className="text-sm font-semibold tracking-wide">
+                    {FESTIVAL_CONFIG.location}
+                  </span>
                 </div>
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                  <Calendar size={18} className="text-amber-400" /> 
-                  <span className="text-sm font-semibold tracking-wide">{FESTIVAL_CONFIG.dateTexte}</span>
+                  <Calendar size={18} className="text-amber-400" />
+                  <span className="text-sm font-semibold tracking-wide">
+                    {FESTIVAL_CONFIG.dateTexte}
+                  </span>
                 </div>
               </div>
 
@@ -218,7 +240,9 @@ function BluesDuFleuve() {
                     href="#billetterie"
                     onClick={(e) => {
                       e.preventDefault();
-                      document.getElementById('billetterie')?.scrollIntoView({ behavior: 'smooth' });
+                      document
+                        .getElementById("billetterie")
+                        ?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="inline-block btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
                   >
@@ -228,7 +252,7 @@ function BluesDuFleuve() {
               </div>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl">
+          <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl max-w-sm mx-auto lg:max-w-none w-full">
             <OptimizedImage
               src="/festival baba maal.jpg"
               alt="Baaba Maal"
@@ -244,9 +268,9 @@ function BluesDuFleuve() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
+
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -292,7 +316,7 @@ function BluesDuFleuve() {
               >
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="relative z-10">
                   <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary/20 to-primary/10 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Icon size={24} />
@@ -302,7 +326,7 @@ function BluesDuFleuve() {
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed font-serif">{desc}</p>
                 </div>
-                
+
                 {/* Decorative corner */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
@@ -314,14 +338,26 @@ function BluesDuFleuve() {
       {/* ──────────────────── PRÉSENTATION SECTION ULTRA PREMIUM ──────────────────── */}
       <section className="relative border-b border-border bg-linear-to-b from-background via-muted/10 to-background">
         <div className="container-page py-20">
-          <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-5xl mx-auto"
+          >
             <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
             <h2 className="luxury-text text-4xl md:text-6xl mb-12 uppercase tracking-tighter">
               Le Festival et la Ville de <span className="text-gradient-gold">Podor</span>
             </h2>
 
             {/* Introduction Card */}
-            <div className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors"
+            >
               <div className="flex items-start gap-4">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
                   <Sparkles size={24} />
@@ -340,10 +376,16 @@ function BluesDuFleuve() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Bénéficiaires Card */}
-            <div className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors"
+            >
               <div className="flex items-start gap-4">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
                   <Users size={24} />
@@ -359,10 +401,16 @@ function BluesDuFleuve() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Objectifs Grid */}
-            <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
+            >
               <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Target size={20} />
@@ -408,10 +456,16 @@ function BluesDuFleuve() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Résultats Grid */}
-            <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
+            >
               <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Award size={20} />
@@ -454,10 +508,16 @@ function BluesDuFleuve() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Activités Phares Card */}
-            <div className="rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-colors">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-colors"
+            >
               <div className="flex items-start gap-4 mb-6">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
                   <Mic size={24} />
@@ -492,8 +552,8 @@ function BluesDuFleuve() {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -502,9 +562,9 @@ function BluesDuFleuve() {
         {/* Decorative elements */}
         <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
-        
+
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -535,7 +595,7 @@ function BluesDuFleuve() {
                   </span>
                 </h2>
               </div>
-              
+
               <div className="space-y-6 font-serif text-muted-foreground text-lg leading-relaxed">
                 <p className="text-foreground/90">
                   Oui, le Festival des Blues du Fleuve est devenu un souffle, un moteur, un moment
@@ -553,23 +613,29 @@ function BluesDuFleuve() {
                   esprits.
                 </p>
               </div>
-              
+
               {/* Citation premium */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="relative rounded-3xl overflow-hidden border border-primary/20"
-                style={{ background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)" }}
+                style={{
+                  background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
+                }}
               >
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent" />
                 <div className="relative px-8 py-10 text-white">
-                  <div className="absolute top-4 left-6 text-6xl text-white/20 font-serif leading-none">"</div>
+                  <div className="absolute top-4 left-6 text-6xl text-white/20 font-serif leading-none">
+                    "
+                  </div>
                   <p className="luxury-text text-2xl md:text-3xl font-bold mb-4 uppercase tracking-tight">
                     Je vous souhaite un magnifique festival.
                   </p>
-                  <p className="text-3xl md:text-4xl font-black tracking-widest mt-4">YOO WUL WELA !</p>
+                  <p className="text-3xl md:text-4xl font-black tracking-widest mt-4">
+                    YOO WUL WELA !
+                  </p>
                   <div className="mt-8 border-t border-white/30 pt-6 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
                       <Crown size={20} className="text-white" />
@@ -586,7 +652,7 @@ function BluesDuFleuve() {
             </div>
 
             {/* Photo - droite */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -595,8 +661,8 @@ function BluesDuFleuve() {
             >
               <div className="relative">
                 {/* Décoration premium derrière la photo */}
-                <motion.div 
-                  animate={{ 
+                <motion.div
+                  animate={{
                     rotate: [0, 5, -5, 0],
                   }}
                   transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -611,10 +677,10 @@ function BluesDuFleuve() {
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                
+
                 {/* Badge flottant premium */}
-                <motion.div 
-                  animate={{ 
+                <motion.div
+                  animate={{
                     y: [0, -10, 0],
                   }}
                   transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -632,7 +698,7 @@ function BluesDuFleuve() {
                     </div>
                   </div>
                 </motion.div>
-                
+
                 {/* Decorative corner elements */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 border-t-2 border-r-2 border-primary/30 rounded-tr-3xl" />
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b-2 border-l-2 border-amber-500/30 rounded-bl-3xl" />
@@ -643,13 +709,16 @@ function BluesDuFleuve() {
       </section>
 
       {/* ──────────────────── PROGRAMME & BILLETTERIE ULTRA PREMIUM ──────────────────── */}
-      <section id="billetterie" className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
+      <section
+        id="billetterie"
+        className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden"
+      >
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
+
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -735,15 +804,21 @@ function BluesDuFleuve() {
                 className="group relative rounded-3xl border border-border bg-card/50 backdrop-blur-sm overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
                 {/* Gradient overlay */}
-                <div className={`absolute inset-0 bg-linear-to-br ${day.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                
+                <div
+                  className={`absolute inset-0 bg-linear-to-br ${day.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
+
                 <div className="relative z-10 p-8">
                   {/* Day badge */}
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${day.border} border bg-white/5 mb-4`}>
+                  <div
+                    className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${day.border} border bg-white/5 mb-4`}
+                  >
                     <day.icon size={14} className="text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">{day.day}</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      {day.day}
+                    </span>
                   </div>
-                  
+
                   <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {day.title}
                   </h3>
@@ -752,10 +827,13 @@ function BluesDuFleuve() {
                     <MapPin size={12} />
                     {day.location}
                   </p>
-                  
+
                   <div className="space-y-3">
                     {day.events.map((evt, i) => (
-                      <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50 group-hover:border-primary/30 transition-colors">
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50 group-hover:border-primary/30 transition-colors"
+                      >
                         <Clock size={14} className="text-primary mt-0.5 shrink-0" />
                         <div>
                           <span className="text-xs font-bold text-primary">{evt.time}</span>
@@ -765,14 +843,16 @@ function BluesDuFleuve() {
                     ))}
                   </div>
                 </div>
-                
+
                 {/* Decorative corner */}
-                <div className={`absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div
+                  className={`absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
               </motion.div>
             ))}
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -781,19 +861,24 @@ function BluesDuFleuve() {
           >
             <div className="inline-flex flex-col items-center gap-4">
               <MagneticButton>
-                <Link 
-                  to="/billetterie" 
+                <Link
+                  to="/billetterie"
                   className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:shadow-[0_10px_40px_rgba(245,158,11,0.5)]"
                   style={{
                     background: "linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)",
                   }}
                 >
                   <span className="relative z-10 text-white">Réserver mon Pass 3 Jours</span>
-                  <ArrowRight size={16} className="relative z-10 text-white group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight
+                    size={16}
+                    className="relative z-10 text-white group-hover:translate-x-1 transition-transform"
+                  />
                   <span className="absolute inset-0 rounded-2xl bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 skew-x-12" />
                 </Link>
               </MagneticButton>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">Bientôt disponible</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                Bientôt disponible
+              </p>
             </div>
           </motion.div>
         </div>
@@ -804,9 +889,9 @@ function BluesDuFleuve() {
         {/* Decorative elements */}
         <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
-        
+
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -854,10 +939,10 @@ function BluesDuFleuve() {
                       {a.nom.charAt(0)}
                     </div>
                   )}
-                  
+
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
@@ -865,7 +950,7 @@ function BluesDuFleuve() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-5 relative">
                   <div className="absolute -top-6 left-5 right-5">
@@ -873,14 +958,18 @@ function BluesDuFleuve() {
                       <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                         {a.nom}
                       </h3>
-                      <p className="text-xs uppercase tracking-wider text-primary mt-1 font-semibold">{a.role}</p>
+                      <p className="text-xs uppercase tracking-wider text-primary mt-1 font-semibold">
+                        {a.role}
+                      </p>
                       <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                         <MapPin size={10} />
                         {a.origine}
                       </p>
                     </div>
                   </div>
-                  <p className="mt-8 text-sm text-muted-foreground font-serif leading-relaxed line-clamp-3">{a.desc}</p>
+                  <p className="mt-8 text-sm text-muted-foreground font-serif leading-relaxed line-clamp-3">
+                    {a.desc}
+                  </p>
                   <button
                     onClick={() => setSelectedArtist(a)}
                     className="mt-3 text-xs font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
@@ -888,7 +977,7 @@ function BluesDuFleuve() {
                     Lire la suite <ChevronRight size={12} />
                   </button>
                 </div>
-                
+
                 {/* Decorative corner */}
                 <div className="absolute top-0 right-0 w-16 h-16 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.article>
@@ -902,9 +991,9 @@ function BluesDuFleuve() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
+
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -958,7 +1047,7 @@ function BluesDuFleuve() {
       {/* ──────────────────── ARCHIVES MÉDIA ULTRA PREMIUM ──────────────────── */}
       <section className="relative border-b border-border bg-linear-to-b from-background via-muted/20 to-background overflow-hidden">
         <div className="container-page py-24 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -983,7 +1072,9 @@ function BluesDuFleuve() {
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">
                   Archives média
                 </h2>
-                <p className="text-white/80 mt-2 font-serif">Revivez les moments forts du festival</p>
+                <p className="text-white/80 mt-2 font-serif">
+                  Revivez les moments forts du festival
+                </p>
               </div>
             </div>
           </motion.div>
@@ -1024,7 +1115,9 @@ function BluesDuFleuve() {
                       <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                         {v.title}
                       </h3>
-                      <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">Archive vidéo</p>
+                      <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
+                        Archive vidéo
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1040,9 +1133,9 @@ function BluesDuFleuve() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-100 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
+
         <div className="container-page relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -1073,7 +1166,7 @@ function BluesDuFleuve() {
               Ensemble pour la culture et le développement
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
               { name: "ELYDIA", icon: Diamond },
@@ -1092,16 +1185,16 @@ function BluesDuFleuve() {
               >
                 {/* Reflet de brillance au survol */}
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                
+
                 {/* Icon */}
                 <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
                   <partner.icon size={20} className="text-primary" />
                 </div>
-                
+
                 <span className="font-display text-sm md:text-base font-bold tracking-widest text-muted-foreground group-hover:text-foreground group-hover:scale-105 transition-all duration-300 uppercase text-center relative z-10">
                   {partner.name}
                 </span>
-                
+
                 {/* Decorative corner */}
                 <div className="absolute top-0 right-0 w-16 h-16 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>
@@ -1193,8 +1286,8 @@ function BluesDuFleuve() {
               onClick={(e) => e.stopPropagation()}
               className="bg-card border border-border rounded-3xl p-6 md:p-8 max-w-2xl w-full relative overflow-hidden shadow-2xl"
             >
-              <button 
-                onClick={() => setSelectedArtist(null)} 
+              <button
+                onClick={() => setSelectedArtist(null)}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-muted hover:bg-primary/20 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                 aria-label="Fermer"
               >
@@ -1203,14 +1296,24 @@ function BluesDuFleuve() {
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 <div className="w-full md:w-1/3 aspect-square rounded-2xl overflow-hidden bg-muted">
                   {selectedArtist.img ? (
-                    <img src={selectedArtist.img} alt={selectedArtist.nom} className="w-full h-full object-cover" />
+                    <img
+                      src={selectedArtist.img}
+                      alt={selectedArtist.nom}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center font-display text-6xl text-primary/20">{selectedArtist.nom.charAt(0)}</div>
+                    <div className="w-full h-full flex items-center justify-center font-display text-6xl text-primary/20">
+                      {selectedArtist.nom.charAt(0)}
+                    </div>
                   )}
                 </div>
                 <div className="md:w-2/3">
-                  <h3 className="font-display text-3xl font-bold text-foreground mb-1">{selectedArtist.nom}</h3>
-                  <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-4">{selectedArtist.role} · {selectedArtist.origine}</p>
+                  <h3 className="font-display text-3xl font-bold text-foreground mb-1">
+                    {selectedArtist.nom}
+                  </h3>
+                  <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-4">
+                    {selectedArtist.role} · {selectedArtist.origine}
+                  </p>
                   <div className="h-px w-full bg-border mb-4" />
                   <p className="text-muted-foreground font-serif leading-relaxed">
                     {selectedArtist.desc}

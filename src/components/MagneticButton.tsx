@@ -13,16 +13,16 @@ export function MagneticButton({ children, className = "", onClick }: MagneticBu
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
-    
+
     // Désactiver sur mobile
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current.getBoundingClientRect();
-    
+
     const middleX = clientX - (left + width / 2);
     const middleY = clientY - (top + height / 2);
-    
+
     // Multiplicateur pour déterminer la force de l'aimant
     setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
   };

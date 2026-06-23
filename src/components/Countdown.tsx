@@ -17,7 +17,7 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
 
   useEffect(() => {
     const target = new Date(targetDate).getTime();
-    
+
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const difference = target - now;
@@ -45,19 +45,23 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
       >
         <span className="text-2xl md:text-4xl font-bold">{value}</span>
       </motion.div>
-      <span className="text-xs md:text-sm font-semibold text-white/80 mt-2 uppercase tracking-wider">{label}</span>
+      <span className="text-xs md:text-sm font-semibold text-white/80 mt-2 uppercase tracking-wider">
+        {label}
+      </span>
     </div>
   );
 
   return (
-    <div className={`bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 ${className}`}>
+    <div
+      className={`bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 ${className}`}
+    >
       <div className="flex items-center justify-center gap-2 mb-6">
         <Calendar className="text-amber-400" size={20} />
         <h3 className="text-lg md:text-xl font-bold text-white uppercase tracking-wider">
           Compte à rebours
         </h3>
       </div>
-      
+
       <div className="flex justify-center gap-4 md:gap-6 mb-6">
         <TimeUnit value={timeLeft.days} label="Jours" />
         <TimeUnit value={timeLeft.hours} label="Heures" />

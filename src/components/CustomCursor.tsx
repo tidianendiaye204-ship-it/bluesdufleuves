@@ -9,7 +9,7 @@ export function CustomCursor() {
   useEffect(() => {
     // Ne pas activer sur mobile ou tactile
     if (window.matchMedia("(pointer: coarse)").matches) return;
-    
+
     setIsVisible(true);
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -19,14 +19,14 @@ export function CustomCursor() {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       // Vérifie si on survole un élément interactif
-      const isInteractive = 
+      const isInteractive =
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
         target.closest("a") ||
         target.closest("button") ||
         target.classList.contains("cursor-pointer") ||
         window.getComputedStyle(target).cursor === "pointer";
-        
+
       setIsHovering(!!isInteractive);
     };
 

@@ -52,10 +52,10 @@ export function Navbar() {
 
   return (
     <>
-      <header 
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || open 
-            ? "bg-background/90 backdrop-blur-2xl border-b border-border shadow-sm py-0" 
+          scrolled || open
+            ? "bg-background/90 backdrop-blur-2xl border-b border-border shadow-sm py-0"
             : "bg-transparent border-transparent py-4"
         }`}
       >
@@ -70,10 +70,14 @@ export function Navbar() {
                   className="h-9 md:h-14 w-auto object-contain"
                 />
                 <div className="flex flex-col items-start">
-                  <span className={`luxury-text text-lg md:text-3xl xl:text-4xl uppercase tracking-tighter transition-colors ${isTransparent ? 'text-white' : 'text-foreground'}`}>
+                  <span
+                    className={`luxury-text text-lg md:text-3xl xl:text-4xl uppercase tracking-tighter transition-colors ${isTransparent ? "text-white" : "text-foreground"}`}
+                  >
                     The <span className="text-gradient-river">Village</span>
                   </span>
-                  <span className={`text-[5px] md:text-[6px] xl:text-[7px] uppercase tracking-[0.4em] font-semibold font-sans transition-colors ${isTransparent ? 'text-white/80' : 'text-muted-foreground'}`}>
+                  <span
+                    className={`text-[5px] md:text-[6px] xl:text-[7px] uppercase tracking-[0.4em] font-semibold font-sans transition-colors ${isTransparent ? "text-white/80" : "text-muted-foreground"}`}
+                  >
                     blues des fleuves · NANN-k
                   </span>
                 </div>
@@ -90,7 +94,7 @@ export function Navbar() {
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1 ${isTransparent ? 'text-white' : 'text-foreground'}`}
+                  className={`text-[10px] font-semibold uppercase tracking-[0.18em] transition-all nav-link whitespace-nowrap min-h-10 flex items-center hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1 ${isTransparent ? "text-white" : "text-foreground"}`}
                   activeProps={{
                     className: "text-primary !after:w-full",
                   }}
@@ -110,24 +114,34 @@ export function Navbar() {
               </div>
 
               {/* Sélecteur de langue desktop */}
-              <div className={`hidden md:flex items-center gap-2 border-r pr-4 transition-colors ${isTransparent ? 'border-white/20' : 'border-border text-foreground'}`}>
+              <div
+                className={`hidden md:flex items-center gap-2 border-r pr-4 transition-colors ${isTransparent ? "border-white/20" : "border-border text-foreground"}`}
+              >
                 <button
                   onClick={() => i18n.changeLanguage("fr")}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "fr"
                       ? "text-primary font-black"
-                      : isTransparent ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-foreground"
+                      : isTransparent
+                        ? "text-white/80 hover:text-white"
+                        : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   FR
                 </button>
-                <span className={`text-[8px] transition-colors ${isTransparent ? 'text-white/30' : 'text-muted-foreground/30'}`}>|</span>
+                <span
+                  className={`text-[8px] transition-colors ${isTransparent ? "text-white/30" : "text-muted-foreground/30"}`}
+                >
+                  |
+                </span>
                 <button
                   onClick={() => i18n.changeLanguage("en")}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "en"
                       ? "text-primary font-black"
-                      : isTransparent ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-foreground"
+                      : isTransparent
+                        ? "text-white/80 hover:text-white"
+                        : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   EN
@@ -164,10 +178,10 @@ export function Navbar() {
                     searchOpen && isTransparent
                       ? "bg-white/10 border-y border-r border-white/20 text-white"
                       : searchOpen && !isTransparent
-                      ? "bg-background border-y border-r border-border text-foreground"
-                      : isTransparent
-                      ? "text-white hover:bg-white/10 rounded-full"
-                      : "text-foreground hover:bg-foreground/5 rounded-full"
+                        ? "bg-background border-y border-r border-border text-foreground"
+                        : isTransparent
+                          ? "text-white hover:bg-white/10 rounded-full"
+                          : "text-foreground hover:bg-foreground/5 rounded-full"
                   }`}
                   aria-label="Rechercher"
                 >
@@ -184,7 +198,7 @@ export function Navbar() {
               <button
                 ref={menuButtonRef}
                 onClick={() => setOpen(!open)}
-                className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all ${isTransparent ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-foreground/5'}`}
+                className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all ${isTransparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-foreground/5"}`}
                 aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
                 aria-expanded={open}
                 aria-controls="mobile-menu"
@@ -268,7 +282,7 @@ export function Navbar() {
               </nav>
 
               {/* Pied du menu mobile */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}

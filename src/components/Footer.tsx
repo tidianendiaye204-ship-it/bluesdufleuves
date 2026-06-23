@@ -38,7 +38,7 @@ export function Footer() {
       {/* Decorative background elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-sky-500/5 rounded-full blur-3xl translate-y-1/2" />
-      
+
       {/* Animated dots pattern */}
       <div
         className="absolute inset-0 opacity-[0.02]"
@@ -111,7 +111,10 @@ export function Footer() {
             </p>
             <form className="flex gap-3" onSubmit={handleSubscribe}>
               <div className="relative flex-1 group">
-                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-primary transition-colors" />
+                <Mail
+                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-primary transition-colors"
+                />
                 <input
                   type="email"
                   required
@@ -130,15 +133,29 @@ export function Footer() {
                   {status === "loading" ? (
                     <>
                       <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        />
                       </svg>
                       Envoi...
                     </>
                   ) : (
                     <>
                       S'abonner
-                      <ArrowUp size={12} className="group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUp
+                        size={12}
+                        className="group-hover:-translate-y-0.5 transition-transform"
+                      />
                     </>
                   )}
                 </span>
@@ -164,23 +181,23 @@ export function Footer() {
             </h4>
             <div className="flex gap-3">
               {[
-                { 
-                  Icon: Youtube, 
-                  label: "YouTube", 
+                {
+                  Icon: Youtube,
+                  label: "YouTube",
                   to: "https://www.youtube.com/@nannktv",
-                  gradient: "hover:from-red-600 hover:to-red-700"
+                  gradient: "hover:from-red-600 hover:to-red-700",
                 },
                 {
                   Icon: Facebook,
                   label: "Facebook",
                   to: "https://www.facebook.com/festivalbluesdufleuve",
-                  gradient: "hover:from-blue-600 hover:to-blue-700"
+                  gradient: "hover:from-blue-600 hover:to-blue-700",
                 },
-                { 
-                  Icon: Instagram, 
-                  label: "Instagram", 
+                {
+                  Icon: Instagram,
+                  label: "Instagram",
                   to: "https://www.instagram.com/nannkmedia",
-                  gradient: "hover:from-purple-600 hover:to-pink-600"
+                  gradient: "hover:from-purple-600 hover:to-pink-600",
                 },
               ].map(({ Icon, label, to, gradient }) => (
                 <a
@@ -193,8 +210,13 @@ export function Footer() {
                 >
                   <Icon size={20} className="group-hover:scale-110 transition-transform" />
                   {/* Gradient overlay on hover */}
-                  <span className={`absolute inset-0 rounded-full bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                  <Icon size={20} className="absolute inset-0 m-auto text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span
+                    className={`absolute inset-0 rounded-full bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  />
+                  <Icon
+                    size={20}
+                    className="absolute inset-0 m-auto text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                 </a>
               ))}
             </div>

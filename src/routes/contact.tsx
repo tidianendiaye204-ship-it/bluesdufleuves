@@ -189,8 +189,10 @@ function useReveal() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true); },
-      { threshold: 0.12 }
+      ([e]) => {
+        if (e.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.12 },
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
@@ -328,7 +330,6 @@ function ContactPage() {
 
   return (
     <div className="bg-background min-h-screen">
-
       {/* ──────────────── HERO ──────────────── */}
       <section className="relative overflow-hidden bg-[#0a1628] py-20 md:py-28">
         {/* Decorative blobs */}
@@ -377,10 +378,7 @@ function ContactPage() {
 
       {/* ──────────────── CONTACT CARDS ──────────────── */}
       <section className="container-page -mt-8 mb-4 relative z-10">
-        <div
-          ref={infoRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
+        <div ref={infoRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {contactItems.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -413,7 +411,6 @@ function ContactPage() {
       {/* ──────────────── FORM + SOCIAL ──────────────── */}
       <section className="container-page py-14">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
-
           {/* Left column – context + social */}
           <div className="lg:col-span-4 space-y-10">
             <div>
@@ -544,7 +541,9 @@ function ContactPage() {
                         type="button"
                         onClick={() => setSujetOpen(!sujetOpen)}
                         className={`peer w-full text-left bg-background/60 border-2 ${
-                          errors.sujet ? "border-red-400" : "border-border group-hover:border-primary/40"
+                          errors.sujet
+                            ? "border-red-400"
+                            : "border-border group-hover:border-primary/40"
                         } rounded-xl px-4 pt-6 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-200 cursor-pointer`}
                       >
                         {selectedSujet || <span className="text-transparent">Sujet</span>}
@@ -556,8 +555,10 @@ function ContactPage() {
                       >
                         Sujet *
                       </label>
-                      <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none transition-transform duration-300 ${sujetOpen ? "rotate-180" : ""}`} />
-                      
+                      <ChevronDown
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none transition-transform duration-300 ${sujetOpen ? "rotate-180" : ""}`}
+                      />
+
                       <AnimatePresence>
                         {sujetOpen && (
                           <motion.ul
@@ -566,7 +567,15 @@ function ContactPage() {
                             exit={{ opacity: 0, y: -10 }}
                             className="absolute z-50 w-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden py-1"
                           >
-                            {["Information générale", "Partenariat", "Candidature artiste", "Formations NANN-K", "Presse / Accréditation", "Billetterie", "Autre"].map((option) => (
+                            {[
+                              "Information générale",
+                              "Partenariat",
+                              "Candidature artiste",
+                              "Formations NANN-K",
+                              "Presse / Accréditation",
+                              "Billetterie",
+                              "Autre",
+                            ].map((option) => (
                               <li key={option}>
                                 <button
                                   type="button"
@@ -599,7 +608,9 @@ function ContactPage() {
                         placeholder=" "
                         aria-invalid={errors.message ? "true" : "false"}
                         className={`peer w-full bg-background/60 border-2 ${
-                          errors.message ? "border-red-400" : "border-border group-hover:border-primary/40"
+                          errors.message
+                            ? "border-red-400"
+                            : "border-border group-hover:border-primary/40"
                         } rounded-xl px-4 pt-6 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-200 resize-none`}
                       />
                       <label
@@ -621,7 +632,9 @@ function ContactPage() {
                     {/* Captcha */}
                     <div className="space-y-1">
                       <Turnstile
-                        siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"}
+                        siteKey={
+                          import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
+                        }
                         onSuccess={(token) => {
                           setValue("cfTurnstileResponse", token, { shouldValidate: true });
                         }}
@@ -642,7 +655,8 @@ function ContactPage() {
                       aria-busy={loading}
                       className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-4 text-sm min-h-13 rounded-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                       style={{
-                        background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
+                        background:
+                          "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
                         color: "#fff",
                         boxShadow: "0 4px 20px rgba(12, 74, 110, 0.4)",
                       }}
@@ -652,8 +666,19 @@ function ContactPage() {
                       {loading ? (
                         <>
                           <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            />
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            />
                           </svg>
                           Envoi en cours…
                         </>

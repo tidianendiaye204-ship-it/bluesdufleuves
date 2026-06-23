@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Ticket, Calendar, Clock, MapPin, CheckCircle2, ChevronDown, Bell } from "lucide-react";
+import { Ticket, Calendar, MapPin, CheckCircle2, ChevronDown, Bell } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createSeoMeta } from "@/lib/seo";
@@ -213,7 +213,8 @@ function Billetterie() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-white/80 font-serif max-w-2xl mx-auto mb-12"
           >
-            Préparez-vous à vivre une expérience inoubliable au cœur du Fouta Toro. Les pass pour le prochain festival Les Blues du Fleuve seront bientôt disponibles.
+            Préparez-vous à vivre une expérience inoubliable au cœur du Fouta Toro. Les pass pour le
+            prochain festival Les Blues du Fleuve seront bientôt disponibles.
           </motion.p>
 
           {/* Info Bar */}
@@ -272,7 +273,8 @@ function Billetterie() {
                 Soyez les premiers informés
               </h2>
               <p className="text-sm text-muted-foreground font-serif mb-6">
-                Inscrivez-vous pour recevoir une alerte par email dès l'ouverture officielle de la billetterie.
+                Inscrivez-vous pour recevoir une alerte par email dès l'ouverture officielle de la
+                billetterie.
               </p>
               <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
@@ -350,7 +352,7 @@ function Billetterie() {
                   Tarif indicatif
                 </span>
               </div>
-              
+
               <ul className="space-y-4 mb-8 flex-1">
                 {pass.features.map((feat) => (
                   <li key={feat} className="flex items-start gap-3">
@@ -365,8 +367,8 @@ function Billetterie() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById('notify-form')?.scrollIntoView({ behavior: 'smooth' });
-                  document.getElementById('email-input')?.focus();
+                  document.getElementById("notify-form")?.scrollIntoView({ behavior: "smooth" });
+                  document.getElementById("email-input")?.focus();
                 }}
                 className={`w-full py-4 rounded-xl font-bold uppercase tracking-widest text-sm transition-all hover:scale-105 cursor-pointer ${
                   pass.popular

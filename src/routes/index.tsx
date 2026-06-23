@@ -1,14 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronRight, Landmark, Music, GraduationCap, Calendar, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  Landmark,
+  Music,
+  GraduationCap,
+  Calendar,
+  CheckCircle2,
+} from "lucide-react";
 import { createSeoMeta } from "@/lib/seo";
 import { subscribeNewsletterFn } from "@/routes/__root";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { Lightbox } from "@/components/Lightbox";
 import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
-
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -28,8 +35,6 @@ export const Route = createFileRoute("/")({
   },
   component: Home,
 });
-
-
 
 function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -143,15 +148,23 @@ function Home() {
           </motion.div>
         </div>
 
-        <div 
+        <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group"
-          onClick={() => document.getElementById('presentation')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() =>
+            document.getElementById("presentation")?.scrollIntoView({ behavior: "smooth" })
+          }
           role="button"
           tabIndex={0}
           aria-label="Défiler vers la présentation"
-          onKeyDown={(e) => { if (e.key === 'Enter') document.getElementById('presentation')?.scrollIntoView({ behavior: 'smooth' }) }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter")
+              document.getElementById("presentation")?.scrollIntoView({ behavior: "smooth" });
+          }}
         >
-          <ArrowRight className="rotate-90 text-white/50 group-hover:text-primary transition-colors" size={24} />
+          <ArrowRight
+            className="rotate-90 text-white/50 group-hover:text-primary transition-colors"
+            size={24}
+          />
         </div>
       </section>
 
@@ -389,28 +402,28 @@ function Home() {
                   >
                     <p>
                       Dès son plus jeune âge, il baigne dans la culture musicale traditionnelle. Son
-                      père, un fisherman et griot, lui transmet l'amour de la musique et de la culture
-                      pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs instruments,
-                      notamment le ngoni et la kora.
+                      père, un fisherman et griot, lui transmet l'amour de la musique et de la
+                      culture pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs
+                      instruments, notamment le ngoni et la kora.
                     </p>
                     <p>
                       Dans les années 1970, il se rend à Dakar pour poursuivre ses études. C'est là
                       que son parcours musical prend son envol. Il collabore avec divers artistes et
                       enregistre ses premiers albums. Son style unique, mélange de traditions
-                      musicales peules et d'influences modernes, lui permet de se faire connaître bien
-                      au-delà des frontières du Sénégal.
+                      musicales peules et d'influences modernes, lui permet de se faire connaître
+                      bien au-delà des frontières du Sénégal.
                     </p>
                     <p>
-                      Au cours des décennies suivantes, Baaba Maal devient une figure emblématique de
-                      la musique africaine mondiale. Il a collaboré avec de grands artistes
+                      Au cours des décennies suivantes, Baaba Maal devient une figure emblématique
+                      de la musique africaine mondiale. Il a collaboré avec de grands artistes
                       internationaux et a donné des concerts dans les plus grandes salles du monde.
                     </p>
                     <p>
                       Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
                       profondément engagé dans le développement de sa région. Il est le fondateur du
                       mouvement NANN-K et du centre culturel The Village à Podor, qui ont pour
-                      objectif de promouvoir la culture, l'éducation et le développement durable dans
-                      la vallée du fleuve Sénégal.
+                      objectif de promouvoir la culture, l'éducation et le développement durable
+                      dans la vallée du fleuve Sénégal.
                     </p>
                   </motion.div>
                 )}
@@ -468,7 +481,10 @@ function Home() {
                 Vivez des moments inoubliables avec des concerts live, des performances d'artistes
                 internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
               </p>
-              <Link to="/blues-du-fleuve" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              <Link
+                to="/blues-du-fleuve"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
                 En savoir plus <ArrowRight size={16} />
               </Link>
             </div>
@@ -497,7 +513,10 @@ function Home() {
                 Découvrez des expositions d'art contemporain et traditionnel, valorisant le
                 patrimoine halpulaar et les savoir-faire locaux.
               </p>
-              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              <Link
+                to="/nann-k-media"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
                 En savoir plus <ArrowRight size={16} />
               </Link>
             </div>
@@ -526,7 +545,10 @@ function Home() {
                 Echanges sur le développement durable, la culture, l'éducation et l'avenir de
                 l'Afrique avec des experts et des acteurs du terrain.
               </p>
-              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              <Link
+                to="/nann-k-media"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
                 En savoir plus <ArrowRight size={16} />
               </Link>
             </div>
@@ -555,7 +577,10 @@ function Home() {
                 Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de
                 savoir-faire ancestraux.
               </p>
-              <Link to="/formations" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              <Link
+                to="/formations"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
                 En savoir plus <ArrowRight size={16} />
               </Link>
             </div>
@@ -584,15 +609,16 @@ function Home() {
                 Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode
                 traditionnelle et contemporaine.
               </p>
-              <Link to="/nann-k-media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              <Link
+                to="/nann-k-media"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
                 En savoir plus <ArrowRight size={16} />
               </Link>
             </div>
           </article>
         </div>
       </section>
-
-
 
       {/* Actualités - Modern News Cards */}
       <section className="bg-muted/30 py-32">

@@ -15,7 +15,7 @@ import {
   Award,
   ChevronRight,
   Check,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 import { useState, useRef } from "react";
 // Centre culturel image from public folder
@@ -51,7 +51,7 @@ export const soumettreInscription = createServerFn({ method: "POST" })
   .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
     // CSRF verification would go here in a real production app with session management
-    
+
     const db = getDb();
     try {
       await withRetry(
@@ -204,11 +204,11 @@ function Formations() {
   const [formError, setFormError] = useState<string | null>(null);
   const [formationOpen, setFormationOpen] = useState(false);
   const selectedFormation = watch("formation");
-  
+
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
+
   const motivationLength = watch("motivation")?.length || 0;
 
   const toggleVideo = () => {
@@ -223,10 +223,10 @@ function Formations() {
   };
 
   const handleNextStep = async () => {
-    let fieldsToValidate: any[] = [];
+    let fieldsToValidate: (keyof InscriptionFormData)[] = [];
     if (step === 1) fieldsToValidate = ["prenom", "nom", "email", "tel"];
     if (step === 2) fieldsToValidate = ["formation"];
-    
+
     const isValid = await trigger(fieldsToValidate);
     if (isValid) {
       setStep(step + 1);
@@ -260,18 +260,18 @@ function Formations() {
       }
     } catch (error) {
       console.error("Erreur lors de l'inscription", error);
-      setFormError("Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.");
+      setFormError(
+        "Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.",
+      );
     }
   };
 
-  const filteredProgrammes =
-    activeTab ? programmes.filter((p) => p.tag === activeTab) : programmes;
+  const filteredProgrammes = activeTab ? programmes.filter((p) => p.tag === activeTab) : programmes;
 
   const allTags = [...new Set(programmes.map((p) => p.tag))];
 
   return (
     <div className="bg-background min-h-screen">
-
       {/* ===== HERO ===== */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Image de fond */}
@@ -300,8 +300,7 @@ function Formations() {
             </div>
 
             <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-              Formations &{" "}
-              <span className="text-gradient-gold">Recherche</span>
+              Formations & <span className="text-gradient-gold">Recherche</span>
             </h1>
 
             <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl font-serif">
@@ -340,14 +339,13 @@ function Formations() {
         <div className="container-page py-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
             {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center text-center gap-2 py-4"
-              >
+              <div key={i} className="flex flex-col items-center text-center gap-2 py-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-1">
                   <stat.icon size={22} />
                 </div>
-                <span className="font-display text-4xl font-bold text-foreground">{stat.value}</span>
+                <span className="font-display text-4xl font-bold text-foreground">
+                  {stat.value}
+                </span>
                 <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">
                   {stat.label}
                 </span>
@@ -378,9 +376,9 @@ function Formations() {
               </p>
               <p>
                 Ce pôle éducatif est ouvert aux jeunes de la région désireux de s'approprier leur
-                culture, ainsi qu'aux chercheurs, ethnomusicologues et étudiants internationaux.
-                Il propose un programme complet allant de la pratique d'instruments (hoddu, riti,
-                tama, flûte peule) à la lutherie, en passant par l'artisanat local.
+                culture, ainsi qu'aux chercheurs, ethnomusicologues et étudiants internationaux. Il
+                propose un programme complet allant de la pratique d'instruments (hoddu, riti, tama,
+                flûte peule) à la lutherie, en passant par l'artisanat local.
               </p>
               <p>
                 Des partenariats académiques stratégiques sont en cours de développement avec
@@ -403,7 +401,10 @@ function Formations() {
 
           {/* Vidéo */}
           <div className="relative">
-            <div className="rounded-3xl overflow-hidden shadow-2xl aspect-video relative group cursor-pointer bg-black" onClick={toggleVideo}>
+            <div
+              className="rounded-3xl overflow-hidden shadow-2xl aspect-video relative group cursor-pointer bg-black"
+              onClick={toggleVideo}
+            >
               <video
                 ref={videoRef}
                 src={baabaVideo}
@@ -412,15 +413,17 @@ function Formations() {
                 onEnded={() => setIsVideoPlaying(false)}
                 playsInline
               />
-              
+
               {/* Overlay sombre conditionnel */}
-              <div className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`} />
-              
+              <div
+                className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 ${isVideoPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}
+              />
+
               {/* Bouton Play/Pause Custom */}
-              <button 
+              <button
                 type="button"
                 aria-label={isVideoPlaying ? "Mettre en pause la vidéo" : "Lire la vidéo"}
-                className={`absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 cursor-pointer ${isVideoPlaying ? 'scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100' : 'scale-100 opacity-100'}`}
+                className={`absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 cursor-pointer ${isVideoPlaying ? "scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100" : "scale-100 opacity-100"}`}
               >
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/90 backdrop-blur-md text-primary-foreground flex items-center justify-center shadow-[0_0_40px_rgba(12,74,110,0.5)] transition-transform duration-300 group-hover:scale-110">
                   {isVideoPlaying ? (
@@ -433,9 +436,11 @@ function Formations() {
                   )}
                 </div>
               </button>
-              
+
               {/* Informations vidéo */}
-              <div className={`absolute bottom-0 left-0 right-0 p-6 md:p-8 transition-opacity duration-500 pointer-events-none ${isVideoPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+              <div
+                className={`absolute bottom-0 left-0 right-0 p-6 md:p-8 transition-opacity duration-500 pointer-events-none ${isVideoPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}
+              >
                 <p className="text-xs md:text-sm uppercase tracking-widest text-amber-400 font-bold mb-2">
                   Témoignage vidéo
                 </p>
@@ -462,9 +467,11 @@ function Formations() {
       {/* ===== CITATION BAABA MAAL ===== */}
       <section className="relative overflow-hidden py-20 bg-primary">
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-full h-full"
+          <div
+            className="absolute top-0 left-0 w-full h-full"
             style={{
-              backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
+              backgroundImage:
+                "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
               backgroundSize: "60px 60px",
             }}
           />
@@ -478,8 +485,8 @@ function Formations() {
             <path d="M10 8C6.686 8 4 10.686 4 14v10h10V14H8c0-1.105.895-2 2-2V8zm14 0c-3.314 0-6 2.686-6 6v10h10V14h-6c0-1.105.895-2 2-2V8z" />
           </svg>
           <blockquote className="font-display text-2xl md:text-3xl font-bold text-white leading-relaxed italic mb-8">
-            "La musique de la vallée du fleuve est un héritage vivant. Il est de notre devoir de
-            la transmettre, de la faire grandir et de l'offrir au monde entier."
+            "La musique de la vallée du fleuve est un héritage vivant. Il est de notre devoir de la
+            transmettre, de la faire grandir et de l'offrir au monde entier."
           </blockquote>
           <div className="flex items-center justify-center gap-4">
             <img
@@ -549,7 +556,9 @@ function Formations() {
               </span>
 
               {/* Icône */}
-              <div className={`w-14 h-14 rounded-2xl ${prog.iconBg} flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}>
+              <div
+                className={`w-14 h-14 rounded-2xl ${prog.iconBg} flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}
+              >
                 <prog.icon size={26} />
               </div>
 
@@ -590,7 +599,6 @@ function Formations() {
       <section id="inscription" className="py-20 bg-muted/30 border-t border-border">
         <div className="container-page">
           <div className="max-w-2xl mx-auto">
-
             {/* En-tête */}
             <div className="text-center mb-12">
               <span className="text-xs uppercase tracking-[0.3em] text-primary mb-4 block font-bold">
@@ -632,8 +640,8 @@ function Formations() {
                       Candidature envoyée !
                     </h3>
                     <p className="text-muted-foreground font-serif text-lg">
-                      Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande
-                      et vous contactera très prochainement.
+                      Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et
+                      vous contactera très prochainement.
                     </p>
                   </div>
                 ) : (
@@ -641,12 +649,15 @@ function Formations() {
                     {/* Stepper Indicator */}
                     <div className="flex items-center justify-between mb-8 relative">
                       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-muted rounded-full z-0" />
-                      <div 
+                      <div
                         className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full z-0 transition-all duration-300"
                         style={{ width: `${((step - 1) / 2) * 100}%` }}
                       />
                       {[1, 2, 3].map((num) => (
-                        <div key={num} className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-all duration-300 ${step >= num ? 'bg-primary text-white shadow-md' : 'bg-card border-2 border-muted text-muted-foreground'}`}>
+                        <div
+                          key={num}
+                          className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-all duration-300 ${step >= num ? "bg-primary text-white shadow-md" : "bg-card border-2 border-muted text-muted-foreground"}`}
+                        >
                           {step > num ? <Check size={14} /> : num}
                         </div>
                       ))}
@@ -658,18 +669,29 @@ function Formations() {
                         {formError}
                       </div>
                     )}
-                    
+
                     {/* Step 1: Prénom + Nom + Email + Téléphone */}
                     {step === 1 && (
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div className="space-y-2">
                             <label
                               htmlFor="prenom"
                               className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                             >
-                              <span>Prénom <span className="text-red-500">*</span></span>
-                              {errors.prenom && <span className="text-red-500 font-normal normal-case">{errors.prenom.message}</span>}
+                              <span>
+                                Prénom <span className="text-red-500">*</span>
+                              </span>
+                              {errors.prenom && (
+                                <span className="text-red-500 font-normal normal-case">
+                                  {errors.prenom.message}
+                                </span>
+                              )}
                             </label>
                             <input
                               id="prenom"
@@ -684,8 +706,14 @@ function Formations() {
                               htmlFor="nom"
                               className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                             >
-                              <span>Nom <span className="text-red-500">*</span></span>
-                              {errors.nom && <span className="text-red-500 font-normal normal-case">{errors.nom.message}</span>}
+                              <span>
+                                Nom <span className="text-red-500">*</span>
+                              </span>
+                              {errors.nom && (
+                                <span className="text-red-500 font-normal normal-case">
+                                  {errors.nom.message}
+                                </span>
+                              )}
                             </label>
                             <input
                               id="nom"
@@ -703,8 +731,14 @@ function Formations() {
                               htmlFor="email"
                               className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                             >
-                              <span>Adresse Email <span className="text-red-500">*</span></span>
-                              {errors.email && <span className="text-red-500 font-normal normal-case">{errors.email.message}</span>}
+                              <span>
+                                Adresse Email <span className="text-red-500">*</span>
+                              </span>
+                              {errors.email && (
+                                <span className="text-red-500 font-normal normal-case">
+                                  {errors.email.message}
+                                </span>
+                              )}
                             </label>
                             <input
                               id="email"
@@ -719,8 +753,14 @@ function Formations() {
                               htmlFor="tel"
                               className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                             >
-                              <span>Téléphone <span className="text-red-500">*</span></span>
-                              {errors.tel && <span className="text-red-500 font-normal normal-case">{errors.tel.message}</span>}
+                              <span>
+                                Téléphone <span className="text-red-500">*</span>
+                              </span>
+                              {errors.tel && (
+                                <span className="text-red-500 font-normal normal-case">
+                                  {errors.tel.message}
+                                </span>
+                              )}
                             </label>
                             <input
                               id="tel"
@@ -736,14 +776,26 @@ function Formations() {
 
                     {/* Step 2: Formation souhaitée */}
                     {step === 2 && (
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
                         <div className="space-y-2">
                           <label
                             htmlFor="formation"
                             className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                           >
-                            <span>Programme de formation souhaité <span className="text-red-500">*</span></span>
-                            {errors.formation && <span className="text-red-500 font-normal normal-case">{errors.formation.message}</span>}
+                            <span>
+                              Programme de formation souhaité{" "}
+                              <span className="text-red-500">*</span>
+                            </span>
+                            {errors.formation && (
+                              <span className="text-red-500 font-normal normal-case">
+                                {errors.formation.message}
+                              </span>
+                            )}
                           </label>
                           <div className="relative group">
                             <input type="hidden" {...register("formation")} />
@@ -751,7 +803,9 @@ function Formations() {
                               type="button"
                               onClick={() => setFormationOpen(!formationOpen)}
                               className={`w-full text-left bg-transparent border-0 border-b-2 ${
-                                errors.formation ? "border-red-500" : "border-border hover:border-primary/50"
+                                errors.formation
+                                  ? "border-red-500"
+                                  : "border-border hover:border-primary/50"
                               } px-0 py-3 text-sm transition-all cursor-pointer ${
                                 selectedFormation ? "text-foreground" : "text-muted-foreground/50"
                               }`}
@@ -778,11 +832,15 @@ function Formations() {
                                       <button
                                         type="button"
                                         onClick={() => {
-                                          setValue("formation", prog.titre, { shouldValidate: true });
+                                          setValue("formation", prog.titre, {
+                                            shouldValidate: true,
+                                          });
                                           setFormationOpen(false);
                                         }}
                                         className={`w-full text-left px-4 py-3 text-sm hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${
-                                          selectedFormation === prog.titre ? "bg-primary/5 text-primary font-semibold" : "text-foreground"
+                                          selectedFormation === prog.titre
+                                            ? "bg-primary/5 text-primary font-semibold"
+                                            : "text-foreground"
                                         }`}
                                       >
                                         {prog.titre}
@@ -799,14 +857,25 @@ function Formations() {
 
                     {/* Step 3: Motivation */}
                     {step === 3 && (
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
                         <div className="space-y-2">
                           <label
                             htmlFor="motivation"
                             className="text-xs font-bold uppercase tracking-wider text-foreground flex justify-between"
                           >
-                            <span>Vos motivations <span className="text-red-500">*</span></span>
-                            {errors.motivation && <span className="text-red-500 font-normal normal-case">{errors.motivation.message}</span>}
+                            <span>
+                              Vos motivations <span className="text-red-500">*</span>
+                            </span>
+                            {errors.motivation && (
+                              <span className="text-red-500 font-normal normal-case">
+                                {errors.motivation.message}
+                              </span>
+                            )}
                           </label>
                           <textarea
                             id="motivation"
@@ -815,7 +884,9 @@ function Formations() {
                             className={`w-full bg-background border ${errors.motivation ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-primary focus:ring-primary"} focus:ring-1 rounded-xl px-4 py-4 text-sm transition-all resize-none placeholder:text-muted-foreground/50`}
                             placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
                           />
-                          <p className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}>
+                          <p
+                            className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
+                          >
                             {motivationLength} / min. 10 caractères
                           </p>
                         </div>
@@ -823,7 +894,9 @@ function Formations() {
                         {/* Captcha */}
                         <div className="space-y-2 flex justify-center">
                           <Turnstile
-                            siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+                            siteKey={
+                              import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+                            }
                             onSuccess={(token) => setTurnstileToken(token)}
                           />
                         </div>
@@ -841,7 +914,7 @@ function Formations() {
                           Retour
                         </button>
                       )}
-                      
+
                       {step < 3 ? (
                         <button
                           type="button"
@@ -855,7 +928,7 @@ function Formations() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all cursor-pointer ${isSubmitting ? 'opacity-70 pointer-events-none' : ''}`}
+                            className={`w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all cursor-pointer ${isSubmitting ? "opacity-70 pointer-events-none" : ""}`}
                           >
                             <Send size={16} />
                             {isSubmitting ? "Envoi en cours..." : "Soumettre"}
