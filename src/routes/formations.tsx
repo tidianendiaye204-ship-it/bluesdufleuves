@@ -199,6 +199,7 @@ function Formations() {
   });
 
   const [sent, setSent] = useState(false);
+  const [sentFormation, setSentFormation] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
@@ -246,16 +247,13 @@ function Formations() {
     try {
       const result = await soumettreInscription({ data });
       if (result.success) {
+        setSentFormation(data.formation);
         setSent(true);
-        // Ouvre le client email pour notifier l'équipe
-        const emailTo = "contact@lesbluesdufleuve.sn";
-        const subject = `Nouvelle inscription de ${data.prenom} ${data.nom}`;
-        const body = `Prénom: ${data.prenom}\nNom: ${data.nom}\nEmail: ${data.email}\nTéléphone: ${data.tel}\nFormation: ${data.formation}\n\nMotivation:\n${data.motivation}`;
-        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
         setTimeout(() => {
           reset();
           setSent(false);
+          setSentFormation(null);
+          setStep(1);
         }, 8000);
       }
     } catch (error) {
@@ -620,30 +618,47 @@ function Formations() {
 
               <div className="p-8 md:p-10">
                 {sent ? (
-                  <div className="text-center py-12">
-                    <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <svg
-                        className="w-10 h-10"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center py-12 space-y-6"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+                      className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-full flex items-center justify-center mx-auto"
+                    >
+                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
+                    </motion.div>
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-foreground mb-3">
+                        Candidature envoyée !
+                      </h3>
+                      <p className="text-muted-foreground font-serif text-base max-w-xs mx-auto">
+                        Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et
+                        vous contactera très prochainement.
+                      </p>
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-foreground mb-3">
-                      Candidature envoyée !
-                    </h3>
-                    <p className="text-muted-foreground font-serif text-lg">
-                      Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et
-                      vous contactera très prochainement.
-                    </p>
-                  </div>
+                    {sentFormation && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 border border-primary/20 rounded-2xl text-primary font-semibold text-sm"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422A12.08 12.08 0 0121 13c0 5.523-4.477 10-10 10S1 18.523 1 13c0-.607.076-1.196.214-1.78L12 14z" />
+                        </svg>
+                        Formation : {sentFormation}
+                      </motion.div>
+                    )}
+                  </motion.div>
+
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     {/* Stepper Indicator */}

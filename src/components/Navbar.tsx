@@ -6,15 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { to: "/", label: "Centre Culturel" },
-  { to: "/blues-du-fleuve", label: "Le Festival" },
-  { to: "/formations", label: "Formations" },
-  { to: "/nann-k-media", label: "NANN-k" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", labelKey: "nav.home" },
+  { to: "/blues-du-fleuve", labelKey: "nav.festival" },
+  { to: "/formations", labelKey: "nav.formations" },
+  { to: "/nann-k-media", labelKey: "nav.media" },
+  { to: "/contact", labelKey: "nav.contact" },
 ] as const;
 
 export function Navbar() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -101,7 +101,7 @@ export function Navbar() {
                   activeOptions={{ exact: l.to === "/" }}
                   role="menuitem"
                 >
-                  {l.label}
+                  {t(l.labelKey)}
                 </Link>
               ))}
             </nav>
@@ -275,7 +275,7 @@ export function Navbar() {
                       activeOptions={{ exact: l.to === "/" }}
                       role="menuitem"
                     >
-                      {l.label}
+                      {t(l.labelKey)}
                     </Link>
                   </motion.div>
                 ))}

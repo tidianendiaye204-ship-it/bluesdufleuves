@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   MapPin,
   Phone,
@@ -12,6 +13,8 @@ import {
   Youtube,
   CheckCircle2,
   ChevronDown,
+  User,
+  MessageSquare,
 } from "lucide-react";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb, withRetry } from "@/lib/db";
@@ -202,7 +205,9 @@ function useReveal() {
 
 // ── Main component ────────────────────────────────────────────────────────────
 function ContactPage() {
+  const { t } = useTranslation();
   const [sent, setSent] = useState(false);
+  const [sentData, setSentData] = useState<{ nom: string; email: string; sujet: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [csrfToken, setCsrfToken] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
@@ -252,19 +257,17 @@ function ContactPage() {
     try {
       const result = await soumettreContact({ data });
       if (result.success) {
+        setSentData({ nom: data.nom, email: data.email, sujet: data.sujet });
         setSent(true);
-        const emailTo = "contact@lesbluesdufleuve.sn";
-        const subject = `Nouveau message de ${data.nom}`;
-        const body = `Nom: ${data.nom}\nEmail: ${data.email}\nSujet: ${data.sujet}\n\nMessage:\n${data.message}`;
-        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         setTimeout(() => {
           reset();
           setSent(false);
-        }, 5000);
+          setSentData(null);
+        }, 8000);
       }
     } catch (error) {
       console.error("Erreur lors de l'envoi du message", error);
-      setFormError("Une erreur est survenue lors de l'envoi de votre message.");
+      setFormError(t("contact.errorMessage") || "Une erreur est survenue lors de l'envoi de votre message.");
     } finally {
       setLoading(false);
     }
@@ -496,18 +499,51 @@ function ContactPage() {
               <div className="p-8">
                 {sent ? (
                   /* ── Success state ── */
-                  <div className="text-center py-12 space-y-4">
-                    <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto animate-bounce">
-                      <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center py-10 space-y-6"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+                      className="w-24 h-24 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto"
+                    >
+                      <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
+                    </motion.div>
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">
+                        {t("contact.successTitle")}
+                      </h3>
+                      <p className="text-muted-foreground font-serif max-w-xs mx-auto">
+                        {t("contact.successMessage")}
+                      </p>
                     </div>
-                    <h3 className="font-display text-2xl font-bold text-foreground">
-                      Message envoyé !
-                    </h3>
-                    <p className="text-muted-foreground font-serif max-w-xs mx-auto">
-                      Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs
-                      délais.
-                    </p>
-                  </div>
+                    {sentData && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="bg-muted/50 rounded-2xl p-5 text-left max-w-sm mx-auto space-y-3 border border-border"
+                      >
+                        <p className="text-xs uppercase tracking-widest text-primary font-bold mb-2">Récapitulatif</p>
+                        <div className="flex items-center gap-3 text-sm text-foreground">
+                          <User size={14} className="text-muted-foreground shrink-0" />
+                          <span>{sentData.nom}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm text-foreground">
+                          <Mail size={14} className="text-muted-foreground shrink-0" />
+                          <span>{sentData.email}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm text-foreground">
+                          <MessageSquare size={14} className="text-muted-foreground shrink-0" />
+                          <span>{sentData.sujet}</span>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
                 ) : (
                   /* ── Form ── */
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
@@ -680,12 +716,12 @@ function ContactPage() {
                               d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                             />
                           </svg>
-                          Envoi en cours…
+                          {t("contact.sending")}
                         </>
                       ) : (
                         <>
                           <Send size={16} aria-hidden="true" />
-                          Envoyer le message
+                          {t("contact.submit")}
                         </>
                       )}
                     </button>

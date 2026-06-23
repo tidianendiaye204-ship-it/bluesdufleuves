@@ -1,9 +1,9 @@
 {
   "nav": {
-    "home": "Home",
-    "festival": "Blues du Fleuve",
+    "home": "Cultural Center",
+    "festival": "The Festival",
     "formations": "Training",
-    "media": "NANN-k Media",
+    "media": "NANN-k",
     "tv": "NANN-ka TV",
     "contact": "Contact",
     "tickets": "Tickets"
@@ -27,7 +27,15 @@
     "submit": "Send message",
     "sending": "Sending...",
     "successTitle": "Message sent!",
-    "successMessage": "Thank you for contacting us. Our team will respond as soon as possible."
+    "successMessage": "Thank you for contacting us. Our team will respond as soon as possible.",
+    "errorMessage": "An error occurred while sending your message. Please try again."
+  },
+  "formations": {
+    "title": "Training & Research",
+    "subtitle": "Learning & Transmission",
+    "applyTitle": "Application sent!",
+    "applyMessage": "Thank you for your interest. Our teaching team will review your request and contact you shortly.",
+    "applyLabel": "Program:"
   },
   "common": {
     "loading": "Loading..."

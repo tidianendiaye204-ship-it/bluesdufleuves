@@ -1,9 +1,9 @@
 {
   "nav": {
-    "home": "Accueil",
-    "festival": "Blues du Fleuve",
+    "home": "Centre Culturel",
+    "festival": "Le Festival",
     "formations": "Formations",
-    "media": "NANN-k Média",
+    "media": "NANN-k",
     "tv": "NANN-ka TV",
     "contact": "Contact",
     "tickets": "Billetterie"
@@ -27,7 +27,15 @@
     "submit": "Envoyer le message",
     "sending": "Envoi en cours...",
     "successTitle": "Message envoyé !",
-    "successMessage": "Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs délais."
+    "successMessage": "Merci de nous avoir contactés. Notre équipe vous répondra dans les plus brefs délais.",
+    "errorMessage": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer."
+  },
+  "formations": {
+    "title": "Formations & Recherche",
+    "subtitle": "Apprentissage & Transmission",
+    "applyTitle": "Candidature envoyée !",
+    "applyMessage": "Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et vous contactera très prochainement.",
+    "applyLabel": "Formation :"
   },
   "common": {
     "loading": "Chargement..."
