@@ -1100,7 +1100,7 @@ function BluesDuFleuve() {
                     allowFullScreen
                   />
                   {/* Play button overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none">
                     <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
                       <Play size={24} className="text-white ml-1" fill="currentColor" />
                     </div>
