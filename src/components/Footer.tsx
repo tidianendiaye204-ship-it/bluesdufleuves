@@ -34,7 +34,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative mt-24 border-t border-border/20 bg-gradient-to-b from-[#0a0908] to-[#050404] text-white overflow-hidden">
+    <footer className="relative mt-24 border-t border-border/20 bg-linear-to-b from-[#0a0908] to-[#050404] text-white overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-sky-500/5 rounded-full blur-3xl translate-y-1/2" />
@@ -72,7 +72,7 @@ export function Footer() {
         {/* Navigation Column */}
         <div className="md:col-span-1">
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
-            <span className="w-6 h-px bg-gradient-to-r from-primary/50 to-transparent" />
+            <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
             Navigation
           </h4>
           <ul className="space-y-3">
@@ -103,7 +103,7 @@ export function Footer() {
           {/* Newsletter */}
           <div>
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
-              <span className="w-6 h-px bg-gradient-to-r from-primary/50 to-transparent" />
+              <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               La Lettre de l'Éditeur
             </h4>
             <p className="text-sm text-white/60 mb-6 font-serif">
@@ -127,7 +127,7 @@ export function Footer() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="group relative overflow-hidden rounded-full bg-gradient-to-r from-primary to-sky-600 px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-white hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+                className="group relative overflow-hidden rounded-full bg-linear-to-r from-primary to-sky-600 px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-white hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {status === "loading" ? (
@@ -160,7 +160,7 @@ export function Footer() {
                   )}
                 </span>
                 {/* Shine effect */}
-                <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
               </button>
             </form>
             {msg && (
@@ -176,7 +176,7 @@ export function Footer() {
           {/* Social Links */}
           <div>
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
-              <span className="w-6 h-px bg-gradient-to-r from-primary/50 to-transparent" />
+              <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               Suivez l'aventure
             </h4>
             <div className="flex gap-3">
@@ -211,7 +211,7 @@ export function Footer() {
                   <Icon size={20} className="group-hover:scale-110 transition-transform" />
                   {/* Gradient overlay on hover */}
                   <span
-                    className={`absolute inset-0 rounded-full bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                    className={`absolute inset-0 rounded-full bg-linear-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                   />
                   <Icon
                     size={20}

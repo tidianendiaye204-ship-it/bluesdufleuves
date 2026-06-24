@@ -11,6 +11,8 @@ import {
   Users,
   Heart,
   Globe,
+  Waves,
+  PawPrint,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -97,39 +99,59 @@ const stats = [
   { icon: TreePine, value: 180, suffix: "+", label: "Plants reboisés" },
   { icon: Users, value: 3, suffix: "", label: "Villages touchés" },
   { icon: Heart, value: 5, suffix: "M+", label: "CFA investis", prefix: "" },
-  { icon: Globe, value: 3, suffix: "", label: "Piliers d'action" },
+  { icon: Globe, value: 5, suffix: "", label: "Piliers d'action" },
 ];
 
 const pillars = [
   {
     icon: Leaf,
-    title: "Agriculture",
+    title: "N : Ndemma (Agriculture)",
     color: "from-emerald-500 to-green-700",
     bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
     border: "border-emerald-500/30",
     iconColor: "text-emerald-600 dark:text-emerald-400",
     description:
-      "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un véritable levier de croissance inclusive.",
+      "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un levier de croissance inclusive.",
   },
   {
-    icon: Palette,
-    title: "Artisanat",
+    icon: Waves,
+    title: "A : Awo (Pêche)",
+    color: "from-blue-500 to-sky-700",
+    bg: "bg-blue-500/10 dark:bg-blue-500/20",
+    border: "border-blue-500/30",
+    iconColor: "text-blue-600 dark:text-blue-400",
+    description:
+      "Valoriser les ressources halieutiques du fleuve Sénégal et soutenir les communautés de pêcheurs artisans.",
+  },
+  {
+    icon: PawPrint,
+    title: "N : Ngaynaka (Élevage)",
     color: "from-amber-500 to-orange-700",
     bg: "bg-amber-500/10 dark:bg-amber-500/20",
     border: "border-amber-500/30",
     iconColor: "text-amber-600 dark:text-amber-400",
     description:
-      "Redorer le savoir-faire local, créer des filières rentables et offrir des perspectives économiques à la jeunesse.",
+      "Développer l'élevage pastoral traditionnel, optimiser la gestion des troupeaux et moderniser la filière.",
+  },
+  {
+    icon: Palette,
+    title: "N : Nalankagal (Culture)",
+    color: "from-indigo-500 to-purple-700",
+    bg: "bg-indigo-500/10 dark:bg-indigo-500/20",
+    border: "border-indigo-500/30",
+    iconColor: "text-indigo-600 dark:text-indigo-400",
+    description:
+      "Servir de moteur culturel et social pour l'éducation, l'identité et la transmission dans la vallée.",
   },
   {
     icon: Cpu,
-    title: "Technologies (TIC)",
-    color: "from-sky-500 to-blue-700",
-    bg: "bg-sky-500/10 dark:bg-sky-500/20",
-    border: "border-sky-500/30",
-    iconColor: "text-sky-600 dark:text-sky-400",
+    title: "K : Karalagal (Technologies)",
+    color: "from-rose-500 to-pink-700",
+    bg: "bg-rose-500/10 dark:bg-rose-500/20",
+    border: "border-rose-500/30",
+    iconColor: "text-rose-600 dark:text-rose-400",
     description:
-      "Connecter la vallée aux innovations du monde, faciliter l'accès à l'information et accélérer l'entrepreneuriat.",
+      "Moderniser l'ensemble des secteurs d'activité traditionnels par l'apport d'outils numériques innovants.",
   },
 ];
 
@@ -300,11 +322,15 @@ function NannkMedia() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-slate-300 leading-relaxed mb-4 max-w-2xl mx-auto font-serif"
+            className="text-lg md:text-xl text-slate-300 leading-relaxed mb-4 max-w-4xl mx-auto font-serif"
           >
-            Dans la langue peulh, <em className="text-sky-300">"NANN-K"</em> vient du verbe{" "}
-            <em className="text-sky-300">"nanni"</em> — «&nbsp;ouïr&nbsp;». Faire entendre,
-            comprendre, agir.
+            <strong>NANN-K</strong> est un sigle qui signifie :{" "}
+            <span className="text-primary font-bold">N</span>demma (agriculture) ·{" "}
+            <span className="text-primary font-bold">A</span>wo (Pêche) ·{" "}
+            <span className="text-primary font-bold">N</span>gaynaka (Élevage) ·{" "}
+            <span className="text-primary font-bold">N</span>alankagal (Culture - servant de moteur
+            au développement) · <span className="text-primary font-bold">K</span>aralagal (Nouvelles
+            technologies, pour moderniser les autres secteurs).
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
@@ -324,6 +350,71 @@ function NannkMedia() {
               Travail
             </span>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ──────────────────── SIGNIFICATION DU SIGLE NANN-K ──────────────────── */}
+      <section className="container-page py-16 relative overflow-hidden">
+        <div className="text-center mb-12">
+          <span className="text-xs uppercase tracking-[0.3em] text-primary mb-3 block font-bold">
+            Les Fondements
+          </span>
+          <h2 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
+            Que signifie <span className="text-gradient-gold">NANN-K</span> ?
+          </h2>
+          <p className="font-serif text-muted-foreground mt-4 text-base md:text-lg max-w-2xl mx-auto">
+            Un mouvement d'émergence sociale et économique structuré autour de 5 secteurs d'activité
+            stratégiques :
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          {pillars.map((p, i) => {
+            const Icon = p.icon;
+            const letter = p.title.charAt(0);
+            const peulhWord = p.title.split(" : ")[1]?.split(" (")[0] || "";
+            const frenchWord = p.title.split("(")[1]?.replace(")", "") || "";
+
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                key={p.title}
+                className={`relative flex flex-col justify-between p-6 rounded-3xl border ${p.border} ${p.bg} hover:shadow-xl hover:scale-105 transition-all duration-300 group overflow-hidden`}
+              >
+                {/* Decorative letter background */}
+                <span className="absolute -right-4 -bottom-6 font-display text-8xl md:text-9xl font-black opacity-10 select-none transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
+                  {letter}
+                </span>
+
+                <div className="space-y-4 relative z-10">
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-white/30 dark:bg-white/10 flex items-center justify-center shadow-sm">
+                      <Icon className={`w-6 h-6 ${p.iconColor}`} />
+                    </div>
+                    <span className="font-display text-3xl font-black opacity-45 group-hover:opacity-100 transition-opacity duration-300">
+                      {letter}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+                      {peulhWord}
+                    </h3>
+                    <p className={`text-xs uppercase tracking-wider font-semibold ${p.iconColor}`}>
+                      {frenchWord}
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground font-serif leading-relaxed">
+                    {p.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
@@ -353,10 +444,9 @@ function NannkMedia() {
             </h2>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
               NANN-K est un mouvement citoyen qui insuffle une dynamique nouvelle au cœur de la
-              vallée du fleuve Sénégal. Il promeut trois piliers essentiels : une{" "}
-              <strong>agriculture durable</strong> nourricière, un{" "}
-              <strong>artisanat valorisé</strong> et des <strong>technologies modernes</strong>{" "}
-              accessibles.
+              vallée du fleuve Sénégal. Il promeut cinq axes d'action essentiels : l'
+              <strong>agriculture</strong>, la <strong>pêche</strong>, l'<strong>élevage</strong>,
+              la <strong>culture</strong> et les <strong>nouvelles technologies</strong>.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
               Notre credo ? <strong>«&nbsp;Culture – Savoir – Travail&nbsp;»</strong>. Nous
