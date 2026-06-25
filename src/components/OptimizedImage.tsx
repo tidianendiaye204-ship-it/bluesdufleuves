@@ -26,16 +26,24 @@ export function OptimizedImage({
   const imgRef = useRef<HTMLImageElement>(null);
 
   const getWebPSrc = (originalSrc: string) => {
+    // Only attempt webp substitution for public-folder URLs (starting with /)
+    // Vite-bundled assets already have content-hash URLs and don't need this
+    if (!originalSrc.startsWith("/")) return null;
     if (originalSrc.includes(".webp")) return originalSrc;
     return originalSrc.replace(/\.(jpg|jpeg|png)$/i, ".webp");
   };
+
+  const webpSrc = getWebPSrc(src);
 
   const handleLoad = () => {
     setLoaded(true);
   };
 
   const handleError = () => {
+    // If webp failed, mark webp as failed (browser falls back to jpg src)
+    // Always force visible so the fallback jpg can show
     setWebpFailed(true);
+    setLoaded(true);
   };
 
   return (
@@ -49,7 +57,7 @@ export function OptimizedImage({
       />
 
       <picture>
-        {!webpFailed && <source srcSet={getWebPSrc(src)} type="image/webp" />}
+        {!webpFailed && webpSrc && <source srcSet={webpSrc} type="image/webp" />}
         <img
           ref={imgRef}
           src={src}

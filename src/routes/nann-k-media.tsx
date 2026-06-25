@@ -105,7 +105,7 @@ const stats = [
 const pillars = [
   {
     icon: Leaf,
-    title: "N : Ndemma (Agriculture)",
+    title: "Ndemma (Agriculture)",
     color: "from-emerald-500 to-green-700",
     bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
     border: "border-emerald-500/30",
@@ -115,7 +115,7 @@ const pillars = [
   },
   {
     icon: Waves,
-    title: "A : Awo (Pêche)",
+    title: "Awo (Pêche)",
     color: "from-blue-500 to-sky-700",
     bg: "bg-blue-500/10 dark:bg-blue-500/20",
     border: "border-blue-500/30",
@@ -125,7 +125,7 @@ const pillars = [
   },
   {
     icon: PawPrint,
-    title: "N : Ngaynaka (Élevage)",
+    title: "Ngaynaka (Élevage)",
     color: "from-amber-500 to-orange-700",
     bg: "bg-amber-500/10 dark:bg-amber-500/20",
     border: "border-amber-500/30",
@@ -135,7 +135,7 @@ const pillars = [
   },
   {
     icon: Palette,
-    title: "N : Nalankagal (Culture)",
+    title: "Nalankagal (Culture)",
     color: "from-indigo-500 to-purple-700",
     bg: "bg-indigo-500/10 dark:bg-indigo-500/20",
     border: "border-indigo-500/30",
@@ -145,7 +145,7 @@ const pillars = [
   },
   {
     icon: Cpu,
-    title: "K : Karalagal (Technologies)",
+    title: "Karalagal (Technologies)",
     color: "from-rose-500 to-pink-700",
     bg: "bg-rose-500/10 dark:bg-rose-500/20",
     border: "border-rose-500/30",
@@ -276,7 +276,7 @@ function NannkMedia() {
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(${fleuveImg})` }}
+          style={{ backgroundImage: `url(/arriereplan-nannk.jpg)` }}
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
         <div
@@ -453,38 +453,6 @@ function NannkMedia() {
               construisons une conscience citoyenne active pour que chaque habitant de la vallée
               devienne acteur de son propre avenir.
             </p>
-            {/* Pillars */}
-            <div className="space-y-4">
-              {pillars.map((p, i) => {
-                const Icon = p.icon;
-                return (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    key={p.title}
-                    className={`flex items-start gap-4 p-4 rounded-2xl border ${p.border} ${p.bg} transition-all duration-300 hover:shadow-md`}
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-white/50 dark:bg-white/10`}
-                    >
-                      <Icon className={`w-5 h-5 ${p.iconColor}`} />
-                    </div>
-                    <div>
-                      <strong
-                        className={`block mb-0.5 font-sans uppercase tracking-wider text-xs ${p.iconColor}`}
-                      >
-                        {p.title}
-                      </strong>
-                      <span className="text-sm text-muted-foreground font-serif">
-                        {p.description}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
           </motion.div>
 
           <motion.div
@@ -499,7 +467,7 @@ function NannkMedia() {
               <img
                 src={logoNannk}
                 alt="Logo NANN-K"
-                className="max-w-full max-h-full object-contain hover:scale-110 transition-transform duration-1000"
+                className="max-w-[70%] max-h-[70%] object-contain hover:scale-110 transition-transform duration-1000"
               />
             </div>
             {/* Floating badge */}

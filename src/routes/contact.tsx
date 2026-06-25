@@ -335,6 +335,11 @@ function ContactPage() {
     <div className="bg-background min-h-screen">
       {/* ──────────────── HERO ──────────────── */}
       <section className="relative overflow-hidden bg-[#0a1628] py-20 md:py-28">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url(/arriereplan-contact.jpg)" }}
+        />
         {/* Decorative blobs */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />

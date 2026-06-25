@@ -28,9 +28,7 @@ import {
   X,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import logoFestival from "@/assets/logo-festival.png";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
-import crowdImg from "@/assets/festival-crowd.jpg";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
@@ -48,7 +46,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       ogTitle: "Blues du Fleuve — Festival au The Village Podor",
       ogDescription:
         "Découvrez la 17ème édition du Festival Blues du Fleuve avec Baaba Maal au The Village, le centre culturel de Podor, et des artistes de la région du Fouta Toro.",
-      ogImage: crowdImg,
+      ogImage: "/festival-crowd.jpg",
       keywords:
         "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
       canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
@@ -63,7 +61,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       country: "Sénégal",
       description:
         "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
-      image: crowdImg,
+      image: "/festival-crowd.jpg",
       url: "https://lesbluesdufleuve.sn/blues-du-fleuve",
       performers: artistes.map((artist) => ({ name: artist.nom })),
       organizer: "The Village Podor",
@@ -128,7 +126,7 @@ function BluesDuFleuve() {
             {/* Logo du Festival */}
             <div className="mb-6">
               <img
-                src={logoFestival}
+                src="/logo-festival.png"
                 alt="Les Blues du Fleuve — Logo officiel"
                 className="h-24 md:h-32 w-auto object-contain drop-shadow-2xl"
                 style={{ filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.5))" }}
@@ -335,7 +333,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      {/* ──────────────────── PRÉSENTATION SECTION ULTRA PREMIUM ──────────────────── */}
+      {/* ──────────────────── PRÉSENTATION SECTION ──────────────────── */}
       <section className="relative border-b border-border bg-linear-to-b from-background via-muted/10 to-background">
         <div className="container-page py-20">
           <motion.div
@@ -343,214 +341,154 @@ function BluesDuFleuve() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="max-w-5xl mx-auto"
+            className="max-w-6xl mx-auto"
           >
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
-            <h2 className="luxury-text text-4xl md:text-6xl mb-12 uppercase tracking-tighter">
-              Le Festival et la Ville de <span className="text-gradient-gold">Podor</span>
-            </h2>
+            {/* Header */}
+            <div className="mb-12">
+              <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
+              <h2 className="luxury-text text-4xl md:text-6xl uppercase tracking-tighter mb-4">
+                Le Festival et la Ville de{" "}
+                <span className="text-gradient-gold">Podor</span>
+              </h2>
+              <p className="text-muted-foreground font-serif text-lg max-w-2xl">
+                Un cadre d'excellence pour la culture africaine, organisé à l'initiative de{" "}
+                <strong>Baaba Maal</strong>, président d'honneur du festival.
+              </p>
+            </div>
 
-            {/* Introduction Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-              className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors"
-            >
-              <div className="flex items-start gap-4">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
-                  <Sparkles size={24} />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                    Introduction
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Le festival « Les Blues du Fleuve » est un cadre idéal pour l'épanouissement
-                    culturel et le développement, axé sur diverses expressions des cultures
-                    influencées par l'eau, notamment les arts vivants (musique, danse, spectacles
-                    traditionnels), l'artisanat et le patrimoine populaire. Il est organisé par une
-                    association créée à Podor à l'initiative de Baaba Maal, qui en est le président
-                    d'honneur.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+            {/* Main grid: 2 cols on desktop */}
+            <div className="grid lg:grid-cols-2 gap-8">
 
-            {/* Bénéficiaires Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="rounded-2xl border border-border bg-card p-8 mb-6 hover:border-primary/30 transition-colors"
-            >
-              <div className="flex items-start gap-4">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
-                  <Users size={24} />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                    Bénéficiaires
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Les musiciens de Podor, du Sénégal et de la sous-région ouest-africaine, les
-                    associations locales de femmes, de jeunes, d'artisans, d'éleveurs, de pêcheurs,
-                    d'agriculteurs et l'ensemble de la population autour de Podor.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Objectifs Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-              className="mb-6"
-            >
-              <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Target size={20} />
-                </div>
-                Les Grands Objectifs du Festival
-              </h3>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Globe className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Établir une forte communauté culturelle unie par le fleuve Sénégal, favorisant
-                      l'intégration sous-régionale.
-                    </p>
+              {/* LEFT — Objectifs */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="rounded-3xl border border-border bg-card p-8 space-y-5"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Target size={18} className="text-primary" />
                   </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Music2 className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Stimuler les échanges locaux, sous-régionaux et internationaux entre artistes
-                      (musiciens, danseurs, artisans) et promouvoir des partenariats offrant une
-                      meilleure visibilité à leurs œuvres.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Palette className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Revaloriser et promouvoir diverses formes d'expressions artistiques africaines
-                      (musique, arts de la scène, danse, artisanat).
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Award className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Favoriser l'installation durable d'infrastructures culturelles à Podor comme
-                      point de convergence pour les artistes africains et internationaux.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Résultats Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-              className="mb-6"
-            >
-              <h3 className="font-display text-xl font-semibold mb-4 text-foreground flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Award size={20} />
-                </div>
-                Les Résultats Attendus
-              </h3>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Heart className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Le festival renforce la coopération culturelle et promeut des partenariats
-                      durables.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <Target className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Il crée des opportunités économiques pour les populations locales et les
-                      prestataires de services.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Il bénéficie considérablement à l'industrie touristique à moyen terme.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex items-start gap-3">
-                    <TreePine className="text-primary mt-1 shrink-0" size={20} />
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Il met en valeur la richesse artisanale et agricole de la sous-région.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Activités Phares Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-              className="rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-colors"
-            >
-              <div className="flex items-start gap-4 mb-6">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
-                  <Mic size={24} />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-semibold mb-3 text-foreground">
-                    Les Activités Phares
+                  <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                    Objectifs
                   </h3>
                 </div>
+                {[
+                  { icon: Globe, text: "Unir les peuples du fleuve Sénégal" },
+                  { icon: Music2, text: "Stimuler les échanges artistiques régionaux" },
+                  { icon: Palette, text: "Promouvoir les expressions africaines" },
+                  { icon: Award, text: "Développer des infrastructures culturelles" },
+                ].map(({ icon: Icon, text }, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <span
+                      className="w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-black flex items-center justify-center shrink-0"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <Icon size={15} className="text-primary shrink-0" />
+                      <p className="text-sm text-muted-foreground font-serif">{text}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* RIGHT — Résultats + Activités */}
+              <div className="space-y-6">
+
+                {/* Résultats */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="rounded-3xl border border-border bg-card p-8"
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                      <Sparkles size={18} className="text-amber-500" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                      Retombées
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: Heart, label: "Coopération culturelle", color: "text-rose-500" },
+                      { icon: Target, label: "Opportunités économiques", color: "text-primary" },
+                      { icon: MapPin, label: "Tourisme local", color: "text-amber-500" },
+                      { icon: TreePine, label: "Artisanat valorisé", color: "text-emerald-500" },
+                    ].map(({ icon: Icon, label, color }) => (
+                      <div
+                        key={label}
+                        className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border"
+                      >
+                        <Icon size={14} className={`${color} shrink-0`} />
+                        <span className="text-xs font-semibold text-foreground leading-tight">{label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Activités Phares */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="rounded-3xl border border-border bg-card p-8"
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                      <Mic size={18} className="text-sky-500" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                      Activités Phares
+                    </h3>
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { icon: Music2, label: "Grands concerts & artistes internationaux" },
+                      { icon: Palette, label: "Expositions artisanales & folklore" },
+                      { icon: Users, label: "Conférences & caravanes éducatives" },
+                    ].map(({ icon: Icon, label }) => (
+                      <div key={label} className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0">
+                          <Icon size={14} className="text-sky-500" />
+                        </div>
+                        <span className="text-sm text-muted-foreground font-serif">{label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
               </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Music2 className="text-primary mt-1 shrink-0" size={20} />
-                  <p className="text-muted-foreground leading-relaxed">
-                    Grands concerts attirant un public important des localités environnantes et de
-                    la Diaspora.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Palette className="text-primary mt-1 shrink-0" size={20} />
-                  <p className="text-muted-foreground leading-relaxed">
-                    Événements traditionnels et expositions artisanales mettant en valeur la
-                    diversité créative des populations de la sous-région à travers des spectacles
-                    folkloriques, chants et danses, ainsi que le savoir-faire technique et
-                    esthétique de divers peuples.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Sparkles className="text-primary mt-1 shrink-0" size={20} />
-                  <p className="text-muted-foreground leading-relaxed">
-                    Conférences et caravanes éducatives, d'information et de sensibilisation.
-                  </p>
-                </div>
+            </div>
+
+            {/* Bottom strip — Bénéficiaires */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 rounded-2xl border border-border bg-muted/30 px-8 py-5 flex flex-wrap items-center gap-4"
+            >
+              <div className="flex items-center gap-2 shrink-0">
+                <Users size={16} className="text-primary" />
+                <span className="text-xs font-bold uppercase tracking-widest text-primary">Bénéficiaires</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {["Musiciens", "Artisans", "Femmes", "Jeunes", "Éleveurs", "Pêcheurs", "Agriculteurs", "Population locale"].map(
+                  (tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full bg-card border border-border text-xs font-semibold text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  )
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -1056,7 +994,7 @@ function BluesDuFleuve() {
           >
             <div className="rounded-3xl overflow-hidden border border-border shadow-2xl aspect-21/9 relative group">
               <img
-                src={crowdImg}
+                src="/festival-crowd.jpg"
                 alt="Foule au festival"
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 loading="lazy"
