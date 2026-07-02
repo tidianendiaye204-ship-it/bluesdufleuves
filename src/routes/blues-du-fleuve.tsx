@@ -28,6 +28,7 @@ import {
   X,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
@@ -85,6 +86,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
 });
 
 function BluesDuFleuve() {
+  const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<(typeof artistes)[0] | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -133,23 +135,21 @@ function BluesDuFleuve() {
               />
             </div>
             <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
-              Festival International · 17ème édition
+              {t('festival.internationalFestival')}
             </p>
             <h1 className="luxury-text text-4xl sm:text-5xl md:text-8xl mb-6 text-white uppercase tracking-tighter">
               Blues du <span className="text-gradient-gold">Fleuve</span>
             </h1>
             <div className="mt-8 space-y-6 max-w-2xl">
               <p className="text-lg md:text-2xl font-light text-white leading-relaxed">
-                Porté sur les fonds baptismaux par l’artiste international Sénégalais{" "}
-                <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>, le festival
-                les Blues du fleuve célèbre sa 17ème édition.
+                {t('festival.heroDesc1')}{" "}
+                <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>{t('festival.heroDesc1b')}
               </p>
 
               <div className="h-px w-24 bg-linear-to-r from-amber-400 to-transparent"></div>
 
               <p className="text-sm md:text-lg text-white/90 leading-relaxed font-medium">
-                Seul Festival d’intégration en Afrique de l’ouest, le Blues du Fleuve symbolise la
-                solidarité des pays riverains du fleuve Sénégal.
+                {t('festival.heroDesc2')}
               </p>
 
               <div className="md:hidden">
@@ -159,29 +159,19 @@ function BluesDuFleuve() {
                 >
                   {showFullDescription ? (
                     <>
-                      <ChevronUp size={16} /> Fermer
+                      <ChevronUp size={16} /> {t('festival.close')}
                     </>
                   ) : (
                     <>
-                      <ChevronDown size={16} /> Découvrir la vision
+                      <ChevronDown size={16} /> {t('festival.discoverVision')}
                     </>
                   )}
                 </button>
               </div>
 
               <div className="hidden md:block space-y-4 text-sm md:text-base text-white/70 leading-relaxed">
-                <p>
-                  Le Festival consacre ses éditions à travers diverses expressions des peuples dont
-                  la culture est fortement influencée par l’eau. Cette culture est représentée
-                  essentiellement par les arts vivants : musique, danse, spectacles traditionnels et
-                  artisanat. Ce patrimoine populaire et les préoccupations de développement sont
-                  aussi représentés à travers des expositions thématiques et des conférences.
-                </p>
-                <p>
-                  Cette manifestation sera inscrite cette année d’une part sous le sceau de la paix
-                  et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et la
-                  diversité, d’autre part sur l’émergence du Sénégal.
-                </p>
+                <p>{t('festival.heroLongDesc1')}</p>
+                <p>{t('festival.heroLongDesc2')}</p>
               </div>
 
               <div className="md:hidden">
@@ -193,19 +183,8 @@ function BluesDuFleuve() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden space-y-4 text-sm text-white/70 leading-relaxed mt-4"
                     >
-                      <p>
-                        Le Festival consacre ses éditions à travers diverses expressions des peuples
-                        dont la culture est fortement influencée par l’eau. Cette culture est
-                        représentée essentiellement par les arts vivants : musique, danse,
-                        spectacles traditionnels et artisanat. Ce patrimoine populaire et les
-                        préoccupations de développement sont aussi représentés à travers des
-                        expositions thématiques et des conférences.
-                      </p>
-                      <p>
-                        Cette manifestation sera inscrite cette année d’une part sous le sceau de la
-                        paix et l’harmonie sociale pour le vivre ensemble Africain dans l’unité et
-                        la diversité, d’autre part sur l’émergence du Sénégal.
-                      </p>
+                      <p>{t('festival.heroLongDesc1')}</p>
+                    <p>{t('festival.heroLongDesc2')}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -244,7 +223,7 @@ function BluesDuFleuve() {
                     }}
                     className="inline-block btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
                   >
-                    Voir le Programme
+                    {t('festival.viewProgram')}
                   </a>
                 </MagneticButton>
               </div>
@@ -278,11 +257,11 @@ function BluesDuFleuve() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                Thème · 17ème Édition
+                {t('festival.theme17')}
               </span>
             </div>
             <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-6">
-              Les Rives de{" "}
+              {t('festival.themeTitle1')}{" "}
               <span
                 className="relative inline-block"
                 style={{
@@ -292,12 +271,12 @@ function BluesDuFleuve() {
                   color: "transparent",
                 }}
               >
-                l'Harmonie
+                {t('festival.themeTitle2')}
               </span>
             </h2>
             <div className="max-w-3xl mx-auto">
               <p className="text-lg md:text-xl text-muted-foreground italic font-serif leading-relaxed">
-                « Culture – Sécurité – Environnement et Solidarité autour du Fleuve Sénégal »
+                {t('festival.themeSubtitle')}
               </p>
             </div>
           </motion.div>
@@ -345,14 +324,14 @@ function BluesDuFleuve() {
           >
             {/* Header */}
             <div className="mb-12">
-              <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Présentation</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">{t('festival.presentation')}</p>
               <h2 className="luxury-text text-4xl md:text-6xl uppercase tracking-tighter mb-4">
-                Le Festival et la Ville de{" "}
+                {t('festival.presentationTitle1')}{" "}
                 <span className="text-gradient-gold">Podor</span>
               </h2>
               <p className="text-muted-foreground font-serif text-lg max-w-2xl">
-                Un cadre d'excellence pour la culture africaine, organisé à l'initiative de{" "}
-                <strong>Baaba Maal</strong>, président d'honneur du festival.
+                {t('festival.presentationDesc')}{" "}
+                <strong>Baaba Maal</strong>{t('festival.presentationDesc2')}
               </p>
             </div>
 
@@ -372,14 +351,14 @@ function BluesDuFleuve() {
                     <Target size={18} className="text-primary" />
                   </div>
                   <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
-                    Objectifs
+                    {t('festival.objectives')}
                   </h3>
                 </div>
                 {[
-                  { icon: Globe, text: "Unir les peuples du fleuve Sénégal" },
-                  { icon: Music2, text: "Stimuler les échanges artistiques régionaux" },
-                  { icon: Palette, text: "Promouvoir les expressions africaines" },
-                  { icon: Award, text: "Développer des infrastructures culturelles" },
+                  { icon: Globe, text: t('festival.obj1') },
+                  { icon: Music2, text: t('festival.obj2') },
+                  { icon: Palette, text: t('festival.obj3') },
+                  { icon: Award, text: t('festival.obj4') },
                 ].map(({ icon: Icon, text }, i) => (
                   <div key={i} className="flex items-center gap-4">
                     <span
@@ -411,15 +390,15 @@ function BluesDuFleuve() {
                       <Sparkles size={18} className="text-amber-500" />
                     </div>
                     <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
-                      Retombées
+                      {t('festival.outcomes')}
                     </h3>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { icon: Heart, label: "Coopération culturelle", color: "text-rose-500" },
-                      { icon: Target, label: "Opportunités économiques", color: "text-primary" },
-                      { icon: MapPin, label: "Tourisme local", color: "text-amber-500" },
-                      { icon: TreePine, label: "Artisanat valorisé", color: "text-emerald-500" },
+                      { icon: Heart, label: t('festival.outcome1'), color: "text-rose-500" },
+                      { icon: Target, label: t('festival.outcome2'), color: "text-primary" },
+                      { icon: MapPin, label: t('festival.outcome3'), color: "text-amber-500" },
+                      { icon: TreePine, label: t('festival.outcome4'), color: "text-emerald-500" },
                     ].map(({ icon: Icon, label, color }) => (
                       <div
                         key={label}
@@ -445,14 +424,14 @@ function BluesDuFleuve() {
                       <Mic size={18} className="text-sky-500" />
                     </div>
                     <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
-                      Activités Phares
+                      {t('festival.keyActivities')}
                     </h3>
                   </div>
                   <div className="space-y-3">
                     {[
-                      { icon: Music2, label: "Grands concerts & artistes internationaux" },
-                      { icon: Palette, label: "Expositions artisanales & folklore" },
-                      { icon: Users, label: "Conférences & caravanes éducatives" },
+                      { icon: Music2, label: t('festival.activity1') },
+                      { icon: Palette, label: t('festival.activity2') },
+                      { icon: Users, label: t('festival.activity3') },
                     ].map(({ icon: Icon, label }) => (
                       <div key={label} className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0">
@@ -476,10 +455,19 @@ function BluesDuFleuve() {
             >
               <div className="flex items-center gap-2 shrink-0">
                 <Users size={16} className="text-primary" />
-                <span className="text-xs font-bold uppercase tracking-widest text-primary">Bénéficiaires</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-primary">{t('festival.beneficiaries')}</span>
               </div>
               <div className="flex flex-wrap gap-2">
-                {["Musiciens", "Artisans", "Femmes", "Jeunes", "Éleveurs", "Pêcheurs", "Agriculteurs", "Population locale"].map(
+                {[
+                  t('festival.benMusicians'),
+                  t('festival.benArtisans'),
+                  t('festival.benWomen'),
+                  t('festival.benYouth'),
+                  t('festival.benHerders'),
+                  t('festival.benFishermen'),
+                  t('festival.benFarmers'),
+                  t('festival.benLocal')
+                ].map(
                   (tag) => (
                     <span
                       key={tag}
@@ -515,11 +503,11 @@ function BluesDuFleuve() {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                    Mot du Producteur
+                    {t('festival.producerWord')}
                   </span>
                 </div>
                 <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-6">
-                  Le message d'
+                  {t('festival.producerTitle')}
                   <span
                     className="relative inline-block"
                     style={{
@@ -536,19 +524,13 @@ function BluesDuFleuve() {
 
               <div className="space-y-6 font-serif text-muted-foreground text-lg leading-relaxed">
                 <p className="text-foreground/90">
-                  Oui, le Festival des Blues du Fleuve est devenu un souffle, un moteur, un moment
-                  faste où Podor vit et sourit davantage. Tenir chaque année un festival est un défi
-                  majeur.
+                  {t('festival.producerMsg1')}
                 </p>
                 <p>
-                  Chers festivaliers venus du Sénégal, des pays voisins, du reste de l'Afrique et de
-                  l'extérieur, vous êtes chez vous ici, sur cette terre où le fleuve porte notre
-                  histoire, notre culture et nos traditions ancestrales.
+                  {t('festival.producerMsg2')}
                 </p>
                 <p>
-                  Bienvenue à Podor Wuro Njaak Buubu et Baaba Maal, où la musique nous rassemble et
-                  nous unit ; où la voix chaleureuse de Baaba réjouit nos cœurs et éveillent nos
-                  esprits.
+                  {t('festival.producerMsg3')}
                 </p>
               </div>
 
@@ -569,7 +551,7 @@ function BluesDuFleuve() {
                     "
                   </div>
                   <p className="luxury-text text-2xl md:text-3xl font-bold mb-4 uppercase tracking-tight">
-                    Je vous souhaite un magnifique festival.
+                    {t('festival.producerQuote')}
                   </p>
                   <p className="text-3xl md:text-4xl font-black tracking-widest mt-4">
                     YOO WUL WELA !
@@ -581,7 +563,7 @@ function BluesDuFleuve() {
                     <div>
                       <p className="font-bold text-lg">Oumar Wade</p>
                       <p className="text-sm opacity-80 uppercase tracking-wider">
-                        Producteur Exécutif
+                        {t('festival.executiveProducer')}
                       </p>
                     </div>
                   </div>
@@ -670,7 +652,7 @@ function BluesDuFleuve() {
               </span>
             </div>
             <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black text-foreground uppercase tracking-tighter mb-4">
-              Programme &{" "}
+              {t('festival.programAndTickets')}{" "}
               <span
                 className="relative inline-block"
                 style={{
@@ -680,53 +662,53 @@ function BluesDuFleuve() {
                   color: "transparent",
                 }}
               >
-                Billetterie
+                {t('festival.ticketing')}
               </span>
             </h2>
             <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
-              Trois jours de musique, de culture et de célébration au cœur de Podor
+              {t('festival.programDesc')}
             </p>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3">
             {[
               {
-                day: "Jour 1",
-                title: "Ouverture & Traditions",
+                day: t('festival.day1'),
+                title: t('festival.day1Title'),
                 date: "5 Décembre 2025",
-                location: "Centre Culturel de Podor",
+                location: t('festival.culturalCenter'),
                 events: [
-                  { time: "10:00", event: "Cérémonie d'ouverture" },
-                  { time: "15:00", event: "Course de pirogues traditionnelles" },
-                  { time: "21:00", event: "Concert acoustique (Baaba Maal & Invités)" },
+                  { time: "10:00", event: t('festival.day1Event1') },
+                  { time: "15:00", event: t('festival.day1Event2') },
+                  { time: "21:00", event: t('festival.day1Event3') },
                 ],
                 gradient: "from-emerald-500/20 to-emerald-500/5",
                 border: "border-emerald-500/30",
                 icon: Sparkles,
               },
               {
-                day: "Jour 2",
-                title: "La Nuit du Fleuve",
+                day: t('festival.day2'),
+                title: t('festival.day2Title'),
                 date: "6 Décembre 2025",
-                location: "Scène Principale",
+                location: t('festival.mainStage'),
                 events: [
-                  { time: "10:00", event: "Panels et conférences (Environnement)" },
-                  { time: "16:00", event: "Animations artistiques dans la ville" },
-                  { time: "22:00", event: "Grand Concert (Mia Guissé, Jeeba...)" },
+                  { time: "10:00", event: t('festival.day2Event1') },
+                  { time: "16:00", event: t('festival.day2Event2') },
+                  { time: "22:00", event: t('festival.day2Event3') },
                 ],
                 gradient: "from-sky-500/20 to-sky-500/5",
                 border: "border-sky-500/30",
                 icon: Waves,
               },
               {
-                day: "Jour 3",
-                title: "Clôture & Daande Lenol",
+                day: t('festival.day3'),
+                title: t('festival.day3Title'),
                 date: "7 Décembre 2025",
-                location: "Scène Principale",
+                location: t('festival.mainStage'),
                 events: [
-                  { time: "09:00", event: "Exposition artisanale" },
-                  { time: "15:00", event: "Danse et folklore Halpulaar" },
-                  { time: "22:00", event: "Concert de Clôture (Baaba Maal & Le Daande Lenol)" },
+                  { time: "09:00", event: t('festival.day3Event1') },
+                  { time: "15:00", event: t('festival.day3Event2') },
+                  { time: "22:00", event: t('festival.day3Event3') },
                 ],
                 gradient: "from-amber-500/20 to-amber-500/5",
                 border: "border-amber-500/30",
@@ -806,7 +788,7 @@ function BluesDuFleuve() {
                     background: "linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)",
                   }}
                 >
-                  <span className="relative z-10 text-white">Réserver mon Pass 3 Jours</span>
+                  <span className="relative z-10 text-white">{t('festival.bookPass')}</span>
                   <ArrowRight
                     size={16}
                     className="relative z-10 text-white group-hover:translate-x-1 transition-transform"
@@ -815,7 +797,7 @@ function BluesDuFleuve() {
                 </Link>
               </MagneticButton>
               <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                Bientôt disponible
+                {t('festival.comingSoon')}
               </p>
             </div>
           </motion.div>
@@ -840,17 +822,17 @@ function BluesDuFleuve() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
                 <Music2 size={14} className="text-primary" />
                 <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                  Line-up
+                  {t('festival.lineup')}
                 </span>
               </div>
               <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-4">
-                Artistes
+                {t('festival.artists')}
               </h2>
-              <p className="text-lg text-muted-foreground font-serif">Voix et talents du fleuve.</p>
+              <p className="text-lg text-muted-foreground font-serif">{t('festival.artistsSubtitle')}</p>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Star size={16} className="text-amber-500 fill-amber-500" />
-              <span>Artistes confirmés</span>
+              <span>{t('festival.confirmedArtists')}</span>
             </div>
           </motion.div>
 
@@ -912,7 +894,7 @@ function BluesDuFleuve() {
                     onClick={() => setSelectedArtist(a)}
                     className="mt-3 text-xs font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
                   >
-                    Lire la suite <ChevronRight size={12} />
+                    {t('festival.readMore')} <ChevronRight size={12} />
                   </button>
                 </div>
 
@@ -939,17 +921,17 @@ function BluesDuFleuve() {
             className="text-center mb-16"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
-              <Palette size={14} className="text-primary" />
-              <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                Mémoires visuelles
-              </span>
-            </div>
-            <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-4">
-              Galerie d'images
-            </h2>
-            <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
-              Une immersion visuelle au cœur du festival
-            </p>
+                <Palette size={14} className="text-primary" />
+                <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
+                  {t('festival.visualMemories')}
+                </span>
+              </div>
+              <h2 className="luxury-text text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter mb-4">
+                {t('festival.imageGallery')}
+              </h2>
+              <p className="text-lg text-muted-foreground font-serif max-w-2xl mx-auto">
+                {t('festival.gallerySubtitle')}
+              </p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
@@ -1004,14 +986,14 @@ function BluesDuFleuve() {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm mb-4">
                   <Play size={14} className="text-white" />
                   <span className="text-xs uppercase tracking-wider text-white font-bold">
-                    Archives en direct
+                    {t('festival.liveArchives')}
                   </span>
                 </div>
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">
-                  Archives média
+                  {t('festival.mediaArchives')}
                 </h2>
                 <p className="text-white/80 mt-2 font-serif">
-                  Revivez les moments forts du festival
+                  {t('festival.mediaArchivesSubtitle')}
                 </p>
               </div>
             </div>
@@ -1054,7 +1036,7 @@ function BluesDuFleuve() {
                         {v.title}
                       </h3>
                       <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
-                        Archive vidéo
+                        {t('festival.videoArchive')}
                       </p>
                     </div>
                   </div>
@@ -1083,11 +1065,11 @@ function BluesDuFleuve() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm mb-6">
               <Heart size={14} className="text-primary" />
               <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold">
-                Ils nous soutiennent
+                {t('festival.theySupportUs')}
               </span>
             </div>
             <h2 className="luxury-text text-4xl md:text-6xl lg:text-7xl font-black text-foreground uppercase tracking-tighter mb-4">
-              Nos{" "}
+              {t('festival.our')}{" "}
               <span
                 className="relative inline-block"
                 style={{
@@ -1097,11 +1079,11 @@ function BluesDuFleuve() {
                   color: "transparent",
                 }}
               >
-                Partenaires
+                {t('festival.partners')}
               </span>
             </h2>
             <p className="text-lg text-muted-foreground font-serif">
-              Ensemble pour la culture et le développement
+              {t('festival.partnersSubtitle')}
             </p>
           </motion.div>
 
@@ -1143,21 +1125,20 @@ function BluesDuFleuve() {
 
       <section className="container-page py-12 border-t border-border bg-card/30">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold">Nous Contacter</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-bold">{t('festival.contactUs')}</h2>
           <p className="mt-4 text-muted-foreground">
-            Nous sommes à votre disposition. Notre back office se chargera de répondre à vos
-            demandes.
+            {t('festival.contactDesc')}
           </p>
           <div className="mt-8 flex flex-col md:flex-row justify-center gap-8 md:gap-16">
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                Adresse
+                {t('festival.address')}
               </span>
               <span className="text-lg font-medium">Dakar, Dakar - Sénégal</span>
             </div>
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                Téléphone
+                {t('festival.phone')}
               </span>
               <a
                 href="tel:+221774967531"

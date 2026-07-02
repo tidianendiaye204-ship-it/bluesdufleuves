@@ -19,10 +19,7 @@ export async function validateSession(): Promise<SessionUser | null> {
     const db = getDb();
 
     const sessionResult = await db
-      .select({
-        adminId: sessions.adminId,
-        expiresAt: sessions.expiresAt,
-      })
+      .select()
       .from(sessions)
       .where(eq(sessions.id, sessionId))
       .limit(1);
@@ -40,10 +37,7 @@ export async function validateSession(): Promise<SessionUser | null> {
 
     // Get admin details
     const adminResult = await db
-      .select({
-        id: admins.id,
-        email: admins.email,
-      })
+      .select()
       .from(admins)
       .where(eq(admins.id, session.adminId))
       .limit(1);

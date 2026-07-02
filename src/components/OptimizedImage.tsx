@@ -50,7 +50,7 @@ export function OptimizedImage({
     <div className={`relative overflow-hidden ${className}`}>
       {/* Skeleton / Placeholder with shimmer effect */}
       <div
-        className={`absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 transition-opacity duration-500 ${loaded ? "opacity-0 pointer-events-none" : "opacity-100 animate-pulse"}`}
+        className={`absolute inset-0 bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 transition-opacity duration-500 ${loaded ? "opacity-0 pointer-events-none" : "opacity-100 animate-pulse"}`}
         style={{
           backgroundSize: "200% 100%",
         }}

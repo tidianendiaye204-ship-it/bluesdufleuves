@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import {
   BookOpen,
   Music,
@@ -79,8 +80,9 @@ import { PageSkeleton } from "@/components/PageSkeleton";
 
 export const Route = createFileRoute("/formations")({
   head: () => {
+    const { t } = useTranslation();
     const { meta, links } = createSeoMeta({
-      title: "Formations & Recherche | The Village Podor",
+      title: t("formations.title") + " | The Village Podor",
       description:
         "Formations au The Village Podor : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie. Centre de formation professionnelle à Podor.",
       ogTitle: "Formations NANN-k — The Village Podor",
@@ -91,92 +93,150 @@ export const Route = createFileRoute("/formations")({
         "The Village, formations, musique traditionnelle, luterie, artisanat, Podor, NANN-k, centre culturel, Sénégal",
       canonical: "https://lesbluesdufleuve.sn/formations",
     });
-    return { meta, links };
+
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Course",
+            "name": "Pratique d'Instruments Traditionnels",
+            "description": "Apprentissage et perfectionnement sur des instruments séculaires (hoddu, riti, tama, flûte peule), encadrés par des maîtres griots.",
+            "provider": {
+              "@type": "Organization",
+              "name": "Centre Culturel NANN-k",
+              "sameAs": "https://lesbluesdufleuve.sn"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Course",
+            "name": "Lutherie Traditionnelle",
+            "description": "Transmission des techniques ancestrales de fabrication, d'entretien et de restauration des instruments de musique locaux.",
+            "provider": {
+              "@type": "Organization",
+              "name": "Centre Culturel NANN-k",
+              "sameAs": "https://lesbluesdufleuve.sn"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Course",
+            "name": "Musicologie & Recherche",
+            "description": "Initiation à l'ethnomusicologie, documentation, transcription et analyse des répertoires, avec des résidences ouvertes aux chercheurs.",
+            "provider": {
+              "@type": "Organization",
+              "name": "Centre Culturel NANN-k",
+              "sameAs": "https://lesbluesdufleuve.sn"
+            }
+          }
+        }
+      ]
+    };
+
+    const scripts = [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify(structuredData),
+      },
+    ];
+
+    return { meta, links, scripts };
   },
   pendingComponent: PageSkeleton,
   component: Formations,
 });
 
-const programmes = [
-  {
-    icon: Music,
-    titre: "Pratique d'Instruments Traditionnels",
-    desc: "Apprentissage et perfectionnement sur des instruments séculaires (hoddu, riti, tama, flûte peule), encadrés par des maîtres griots.",
-    duree: "3 à 24 mois",
-    niveau: "Tous niveaux",
-    couleur: "from-blue-600/20 to-sky-500/10",
-    iconBg: "bg-blue-600/10 text-blue-600 dark:bg-blue-400/10 dark:text-blue-400",
-    tag: "Musique",
-  },
-  {
-    icon: Wrench,
-    titre: "Lutherie Traditionnelle",
-    desc: "Transmission des techniques ancestrales de fabrication, d'entretien et de restauration des instruments de musique locaux.",
-    duree: "6 à 18 mois",
-    niveau: "Intermédiaire",
-    couleur: "from-amber-600/20 to-orange-500/10",
-    iconBg: "bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400",
-    tag: "Artisanat",
-  },
-  {
-    icon: BookOpen,
-    titre: "Musicologie & Recherche",
-    desc: "Initiation à l'ethnomusicologie, documentation, transcription et analyse des répertoires, avec des résidences ouvertes aux chercheurs.",
-    duree: "12 à 24 mois",
-    niveau: "Avancé",
-    couleur: "from-emerald-600/20 to-teal-500/10",
-    iconBg: "bg-emerald-600/10 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400",
-    tag: "Recherche",
-  },
-  {
-    icon: Monitor,
-    titre: "Techniques d'Enregistrement",
-    desc: "Formation aux techniques d'enregistrement et de production musicale au sein du studio professionnel du centre.",
-    duree: "3 à 12 mois",
-    niveau: "Tous niveaux",
-    couleur: "from-violet-600/20 to-purple-500/10",
-    iconBg: "bg-violet-600/10 text-violet-600 dark:bg-violet-400/10 dark:text-violet-400",
-    tag: "Numérique",
-  },
-  {
-    icon: HandMetal,
-    titre: "Poterie & Céramique",
-    desc: "Ateliers pratiques valorisant le travail de la terre cuite, selon les méthodes traditionnelles des artisans de la région du Fouta.",
-    duree: "3 à 9 mois",
-    niveau: "Débutant",
-    couleur: "from-red-600/20 to-rose-500/10",
-    iconBg: "bg-red-600/10 text-red-600 dark:bg-red-400/10 dark:text-red-400",
-    tag: "Artisanat",
-  },
-  {
-    icon: Sprout,
-    titre: "Savonnerie & Artisanat",
-    desc: "Formation aux techniques de fabrication de savons artisanaux et autres produits locaux, favorisant l'entrepreneuriat et l'autonomie.",
-    duree: "1 à 6 mois",
-    niveau: "Débutant",
-    couleur: "from-lime-600/20 to-green-500/10",
-    iconBg: "bg-lime-600/10 text-lime-600 dark:bg-lime-400/10 dark:text-lime-400",
-    tag: "Entrepreneuriat",
-  },
-];
-
-const stats = [
-  { value: "6", label: "Programmes de formation", icon: BookOpen },
-  { value: "3+", label: "Partenaires académiques", icon: Globe },
-  { value: "50+", label: "Apprenants formés", icon: Users },
-  { value: "20+", label: "Ans d'expertise", icon: Award },
-];
-
-const avantages = [
-  "Encadrement par des maîtres griots et artisans reconnus",
-  "Accès au studio d'enregistrement professionnel",
-  "Résidences de recherche internationales",
-  "Certificats de formation reconnus",
-  "Hébergement disponible sur place",
-  "Bourse d'études pour les talents locaux",
-];
-
 function Formations() {
+  const { t } = useTranslation();
+  
+  const programmes = [
+    {
+      icon: Music,
+      titre: t("formations.prog1Title"),
+      desc: t("formations.prog1Desc"),
+      duree: t("formations.prog1Duration"),
+      niveau: t("formations.prog1Level"),
+      couleur: "from-blue-600/20 to-sky-500/10",
+      iconBg: "bg-blue-600/10 text-blue-600 dark:bg-blue-400/10 dark:text-blue-400",
+      tag: t("formations.prog1Tag"),
+    },
+    {
+      icon: Wrench,
+      titre: t("formations.prog2Title"),
+      desc: t("formations.prog2Desc"),
+      duree: t("formations.prog2Duration"),
+      niveau: t("formations.prog2Level"),
+      couleur: "from-amber-600/20 to-orange-500/10",
+      iconBg: "bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400",
+      tag: t("formations.prog2Tag"),
+    },
+    {
+      icon: BookOpen,
+      titre: t("formations.prog3Title"),
+      desc: t("formations.prog3Desc"),
+      duree: t("formations.prog3Duration"),
+      niveau: t("formations.prog3Level"),
+      couleur: "from-emerald-600/20 to-teal-500/10",
+      iconBg: "bg-emerald-600/10 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400",
+      tag: t("formations.prog3Tag"),
+    },
+    {
+      icon: Monitor,
+      titre: t("formations.prog4Title"),
+      desc: t("formations.prog4Desc"),
+      duree: t("formations.prog4Duration"),
+      niveau: t("formations.prog4Level"),
+      couleur: "from-violet-600/20 to-purple-500/10",
+      iconBg: "bg-violet-600/10 text-violet-600 dark:bg-violet-400/10 dark:text-violet-400",
+      tag: t("formations.prog4Tag"),
+    },
+    {
+      icon: HandMetal,
+      titre: t("formations.prog5Title"),
+      desc: t("formations.prog5Desc"),
+      duree: t("formations.prog5Duration"),
+      niveau: t("formations.prog5Level"),
+      couleur: "from-red-600/20 to-rose-500/10",
+      iconBg: "bg-red-600/10 text-red-600 dark:bg-red-400/10 dark:text-red-400",
+      tag: t("formations.prog5Tag"),
+    },
+    {
+      icon: Sprout,
+      titre: t("formations.prog6Title"),
+      desc: t("formations.prog6Desc"),
+      duree: t("formations.prog6Duration"),
+      niveau: t("formations.prog6Level"),
+      couleur: "from-lime-600/20 to-green-500/10",
+      iconBg: "bg-lime-600/10 text-lime-600 dark:bg-lime-400/10 dark:text-lime-400",
+      tag: t("formations.prog6Tag"),
+    },
+  ];
+
+  const stats = [
+    { value: "6", label: t("formations.stat1"), icon: BookOpen },
+    { value: "3+", label: t("formations.stat2"), icon: Globe },
+    { value: "50+", label: t("formations.stat3"), icon: Users },
+    { value: "20+", label: t("formations.stat4"), icon: Award },
+  ];
+
+  const avantages = [
+    t("formations.adv1"),
+    t("formations.adv2"),
+    t("formations.adv3"),
+    t("formations.adv4"),
+    t("formations.adv5"),
+    t("formations.adv6"),
+  ];
   const {
     register,
     handleSubmit,
@@ -293,24 +353,23 @@ function Formations() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
               <Star size={12} className="text-amber-400 fill-amber-400" />
               <span className="text-xs uppercase tracking-[0.25em] text-white/90 font-semibold">
-                Apprentissage & Transmission
+                {t("formations.subtitle")}
               </span>
             </div>
 
             <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-              Formations & <span className="text-gradient-gold">Recherche</span>
+              {t("formations.title")}
             </h1>
 
             <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl font-serif">
-              Un centre d'excellence au{" "}
+              {t("formations.heroSubtitle")}{" "}
               <Link
                 to="/"
                 className="text-amber-300 hover:text-amber-200 font-semibold underline underline-offset-4 transition-colors"
               >
                 The Village Podor
               </Link>{" "}
-              dédié à la préservation des savoir-faire ancestraux et à la formation des artistes,
-              artisans et chercheurs du monde entier.
+              {t("formations.heroDesc")}
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -318,14 +377,14 @@ function Formations() {
                 href="#programmes"
                 className="inline-flex items-center gap-2 btn-gradient-gold font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg"
               >
-                Découvrir les programmes
+                {t("formations.discoverPrograms")}
                 <ChevronRight size={16} />
               </a>
               <a
                 href="#inscription"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl transition-all"
               >
-                Candidater
+                {t("formations.apply")}
               </a>
             </div>
           </div>
@@ -359,28 +418,21 @@ function Formations() {
           {/* Texte */}
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-primary mb-4 block font-bold">
-              Objectif Stratégique (OS3)
+              {t("formations.strategicObjective")}
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 leading-tight text-foreground">
-              Création d'un Centre de Formation et de Recherche
+              {t("formations.centerTitle")}
             </h2>
             <div className="font-serif text-muted-foreground text-base leading-relaxed space-y-5">
               <p>
-                L'un des piliers majeurs de{" "}
-                <span className="text-foreground font-semibold">The Village</span> est de
-                réhabiliter à Podor un Centre de Recherche-Action et de Formation sur les Musiques
-                Traditionnelles de la Vallée du Fleuve Sénégal. Son but : documenter, préserver,
-                enseigner et promouvoir le patrimoine musical de la région.
+                {t("formations.centerDesc1")}{" "}
+                <span className="text-foreground font-semibold">The Village</span> {t("formations.centerDesc1b")}
               </p>
               <p>
-                Ce pôle éducatif est ouvert aux jeunes de la région désireux de s'approprier leur
-                culture, ainsi qu'aux chercheurs, ethnomusicologues et étudiants internationaux. Il
-                propose un programme complet allant de la pratique d'instruments (hoddu, riti, tama,
-                flûte peule) à la lutherie, en passant par l'artisanat local.
+                {t("formations.centerDesc2")}
               </p>
               <p>
-                Des partenariats académiques stratégiques sont en cours de développement avec
-                l'UCAD, l'Université Gaston Berger de Saint-Louis et des conservatoires européens.
+                {t("formations.centerDesc3")}
               </p>
             </div>
 

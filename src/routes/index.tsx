@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -10,7 +11,7 @@ import {
   Calendar,
   CheckCircle2,
 } from "lucide-react";
-import { createSeoMeta } from "@/lib/seo";
+import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { subscribeNewsletterFn } from "@/routes/__root";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { Lightbox } from "@/components/Lightbox";
@@ -19,24 +20,57 @@ import { MagneticButton } from "@/components/MagneticButton";
 
 export const Route = createFileRoute("/")({
   head: () => {
+    const { t, i18n } = useTranslation();
     const { meta, links } = createSeoMeta({
-      title: "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve",
-      description:
-        "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal.",
-      ogTitle: "The Village - Le Village Culturel de Podor par Baaba Maal",
-      ogDescription:
-        "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal.",
+      title: i18n.language === 'fr' 
+        ? "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve"
+        : "The Village Podor | Cultural Center by Baaba Maal - Blues du Fleuve Festival",
+      description: i18n.language === 'fr'
+        ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
+        : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
+      ogTitle: i18n.language === 'fr'
+        ? "The Village - Le Village Culturel de Podor par Baaba Maal"
+        : "The Village - The Cultural Village of Podor by Baaba Maal",
+      ogDescription: i18n.language === 'fr'
+        ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
+        : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
       ogImage: "/centre culturel.jpg",
-      keywords:
-        "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais",
+      keywords: i18n.language === 'fr'
+        ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
+        : "The Village, The Village Podor, Podor village, cultural village, Podor cultural center, Baaba Maal, Blues du Fleuve, Senegal festival, Fouta Toro, Halpulaar, NANN-k, Senegalese heritage",
       canonical: "https://lesbluesdufleuve.sn/",
     });
-    return { meta, links };
+
+    const structuredData = createStructuredData("Organization", {
+      name: "The Village Podor",
+      url: "https://lesbluesdufleuve.sn/",
+      logo: "https://lesbluesdufleuve.sn/logo%20the%20village.jpg",
+      description: i18n.language === 'fr'
+        ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
+        : "A unique cultural center initiated by Baaba Maal in the heart of the Senegal River valley in Podor, bringing together a museum, creation and training spaces.",
+      founder: "Baaba Maal",
+      city: "Podor",
+      country: "Senegal",
+      socialLinks: [
+        "https://www.facebook.com/baabamaal",
+        "https://twitter.com/baabamaal"
+      ]
+    });
+
+    const scripts = [
+      {
+        type: "application/ld+json",
+        innerHTML: structuredData,
+      },
+    ];
+
+    return { meta, links, scripts };
   },
   component: Home,
 });
 
 function Home() {
+  const { t } = useTranslation();
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterStatus, setNewsletterStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -65,12 +99,12 @@ function Home() {
         setNewsletterMsg(res.error);
       } else {
         setNewsletterStatus("success");
-        setNewsletterMsg("Merci pour votre inscription !");
+        setNewsletterMsg(t("home.newsletterSuccess"));
         setNewsletterEmail("");
       }
     } catch {
       setNewsletterStatus("error");
-      setNewsletterMsg("Impossible d'enregistrer votre email. Veuillez réessayer.");
+      setNewsletterMsg(t("home.newsletterError"));
     }
   };
 
@@ -104,7 +138,7 @@ function Home() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-white mb-8"
           >
-            <Landmark size={14} className="text-primary" /> Podor · Vallée du Fleuve
+            <Landmark size={14} className="text-primary" /> {t("home.heroTag")}
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -120,8 +154,7 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/80 font-medium leading-relaxed"
           >
-            L'épicentre culturel de la vallée du fleuve. Un centre unique regroupant musée, espaces
-            de création et de formation.
+            {t("home.heroSubtitle")}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -134,7 +167,7 @@ function Home() {
                 to="/blues-du-fleuve"
                 className="block rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button"
               >
-                Découvrir le Festival
+                {t("home.discoverFestival")}
               </Link>
             </MagneticButton>
             <MagneticButton>
@@ -142,7 +175,7 @@ function Home() {
                 to="/contact"
                 className="block rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white hover:bg-white/20 transition-all"
               >
-                Nous Contacter
+                {t("home.contactUs")}
               </Link>
             </MagneticButton>
           </motion.div>
@@ -155,7 +188,7 @@ function Home() {
           }
           role="button"
           tabIndex={0}
-          aria-label="Défiler vers la présentation"
+          aria-label={t("home.scrollLabel")}
           onKeyDown={(e) => {
             if (e.key === "Enter")
               document.getElementById("presentation")?.scrollIntoView({ behavior: "smooth" });
@@ -173,13 +206,13 @@ function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              Présentation
+              {t("home.presentation")}
             </span>
             <h2 className="luxury-text text-5xl md:text-7xl uppercase tracking-tighter mb-4">
-              L'Âme du <span className="text-primary">Fleuve</span>
+              {t("home.soulOfRiver")}
             </h2>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground tracking-widest italic">
-              Wuro Podor, nde fii ndu jom
+              {t("home.wuroPodor")}
             </p>
           </div>
 
@@ -191,16 +224,16 @@ function Home() {
             className="space-y-6 md:space-y-8 max-w-3xl mx-auto text-center"
           >
             <p className="text-xl md:text-2xl font-serif text-foreground leading-relaxed">
-              The Village est bien plus qu'un centre culturel.
+              {t("home.introText1")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              C'est un village authentique au cœur de Podor.
+              {t("home.introText2")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              Dédié à la préservation de la culture Haalpulaar.
+              {t("home.introText3")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              Et du patrimoine musical du Fleuve Sénégal.
+              {t("home.introText4")}
             </p>
           </motion.div>
 
@@ -216,19 +249,19 @@ function Home() {
               <div>
                 <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">2006</div>
                 <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
-                  Création du Festival
+                  {t("home.statsFestival")}
                 </p>
               </div>
               <div>
                 <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">17</div>
                 <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
-                  Éditions du Blues
+                  {t("home.statsEditions")}
                 </p>
               </div>
               <div>
                 <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">4</div>
                 <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
-                  Pays du Fleuve
+                  {t("home.statsCountries")}
                 </p>
               </div>
             </div>
@@ -264,16 +297,16 @@ function Home() {
             className="space-y-6 md:space-y-8 max-w-3xl mx-auto text-center"
           >
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              Initié par Baaba Maal.
+              {t("home.introText5")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              Il offre à la jeunesse du Fouta un lieu.
+              {t("home.introText6")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              Où tradition et modernité se rencontrent.
+              {t("home.introText7")}
             </p>
             <p className="text-xl md:text-2xl font-serif text-foreground leading-relaxed">
-              Un espace vivant pour créer, apprendre, partager et célébrer.
+              {t("home.introText8")}
             </p>
           </motion.div>
 
@@ -289,13 +322,13 @@ function Home() {
               to="/blues-du-fleuve"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-primary text-white text-sm font-bold uppercase tracking-widest shadow-lg hover:bg-primary/90 transition-all duration-300"
             >
-              Découvrir le Festival
+              {t("home.ctaDiscoverFestival")}
             </Link>
             <a
               href="#instruments"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-primary text-primary text-sm font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300"
             >
-              Voir les Instruments
+              {t("home.ctaViewInstruments")}
             </a>
           </motion.div>
 
@@ -311,11 +344,10 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Music size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">La Musique</h3>
+                <h3 className="text-xl font-bold text-foreground">{t("home.activityMusic")}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Au cœur du village, des studios d'enregistrement, des salles de répétition et des
-                espaces dédiés à la pratique des instruments traditionnels.
+                {t("home.activityMusicDesc")}
               </p>
             </div>
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
@@ -323,11 +355,10 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <GraduationCap size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">Les Formations</h3>
+                <h3 className="text-xl font-bold text-foreground">{t("home.activityTraining")}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Des ateliers de musique, d'artisanat, de poterie et de savonnerie pour transmettre
-                les savoir-faire ancestraux aux jeunes générations.
+                {t("home.activityTrainingDesc")}
               </p>
             </div>
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
@@ -335,11 +366,10 @@ function Home() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Calendar size={18} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">Les Événements</h3>
+                <h3 className="text-xl font-bold text-foreground">{t("home.activityEvents")}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Concerts, expositions, conférences et festivals qui font de The Village un lieu
-                culturel dynamique et incontournable de la région.
+                {t("home.activityEventsDesc")}
               </p>
             </div>
           </motion.div>
@@ -367,7 +397,7 @@ function Home() {
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-8 left-8">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
-                  Fondateur
+                  {t("home.founderLabel")}
                 </span>
                 <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
               </div>
@@ -389,7 +419,7 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
-              La Voix du <span className="text-primary">Fleuve</span>
+              {t("home.bioTitle")}
             </h2>
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
               <AnimatePresence>
@@ -430,15 +460,14 @@ function Home() {
               </AnimatePresence>
 
               <p className="border-l-4 border-primary pl-8 italic text-foreground text-xl">
-                "The Village est l'aboutissement d'un rêve : offrir à la jeunesse de Podor un lieu
-                où tradition et modernité se rencontrent pour créer l'avenir."
+                {t("home.bioShort")}
               </p>
               <div className="pt-8">
                 <button
                   onClick={() => setShowFullBio(!showFullBio)}
                   className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary hover:gap-5 transition-all"
                 >
-                  {showFullBio ? "Réduire" : "Lire la biographie complète"} <ArrowRight size={16} />
+                  {showFullBio ? t("home.bioCollapse") : t("home.bioExpand")} <ArrowRight size={16} />
                 </button>
               </div>
             </div>
@@ -450,10 +479,10 @@ function Home() {
       <section className="container-page py-32 border-b border-border">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-            Nos Activités
+            {t("home.activitiesLabel")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
-            La Vie Culturelle de <span className="text-primary">The Village</span>
+            {t("home.activitiesTitle")}
           </h2>
         </div>
 
@@ -472,20 +501,19 @@ function Home() {
             </div>
             <div className="p-8">
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                Musical
+                {t("home.categoryMusical")}
               </span>
               <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                Concerts & Spectacles
+                {t("home.activityConcertsTitle")}
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Vivez des moments inoubliables avec des concerts live, des performances d'artistes
-                internationaux et locaux, dans un cadre magique au bord du fleuve Sénégal.
+                {t("home.activityConcertsDesc")}
               </p>
               <Link
                 to="/blues-du-fleuve"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
-                En savoir plus <ArrowRight size={16} />
+                {t("home.learnMore")} <ArrowRight size={16} />
               </Link>
             </div>
           </article>
@@ -504,20 +532,19 @@ function Home() {
             </div>
             <div className="p-8">
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                Artistique
+                {t("home.categoryArtistic")}
               </span>
               <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                Expositions & Galeries
+                {t("home.activityExhibitionsTitle")}
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Découvrez des expositions d'art contemporain et traditionnel, valorisant le
-                patrimoine halpulaar et les savoir-faire locaux.
+                {t("home.activityExhibitionsDesc")}
               </p>
               <Link
                 to="/nann-k-media"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
-                En savoir plus <ArrowRight size={16} />
+                {t("home.learnMore")} <ArrowRight size={16} />
               </Link>
             </div>
           </article>
@@ -536,20 +563,19 @@ function Home() {
             </div>
             <div className="p-8">
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                Débat
+                {t("home.categoryDebate")}
               </span>
               <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                Conférences & Tables Rondes
+                {t("home.activityConferencesTitle")}
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Echanges sur le développement durable, la culture, l'éducation et l'avenir de
-                l'Afrique avec des experts et des acteurs du terrain.
+                {t("home.activityConferencesDesc")}
               </p>
               <Link
                 to="/nann-k-media"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
-                En savoir plus <ArrowRight size={16} />
+                {t("home.learnMore")} <ArrowRight size={16} />
               </Link>
             </div>
           </article>
@@ -568,20 +594,19 @@ function Home() {
             </div>
             <div className="p-8">
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                Formation
+                {t("home.categoryFormation")}
               </span>
               <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                Master Classes
+                {t("home.activityMasterclassTitle")}
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Apprenez auprès des maîtres : ateliers de musique, danse, artisanat, transmission de
-                savoir-faire ancestraux.
+                {t("home.activityMasterclassDesc")}
               </p>
               <Link
                 to="/formations"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
-                En savoir plus <ArrowRight size={16} />
+                {t("home.learnMore")} <ArrowRight size={16} />
               </Link>
             </div>
           </article>
@@ -600,20 +625,19 @@ function Home() {
             </div>
             <div className="p-8">
               <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                Création
+                {t("home.categoryCreation")}
               </span>
               <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                Défilés de Mode
+                {t("home.activityFashionTitle")}
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                Mettez en lumière les créateurs sénégalais et africains avec des défilés de mode
-                traditionnelle et contemporaine.
+                {t("home.activityFashionDesc")}
               </p>
               <Link
                 to="/nann-k-media"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
-                En savoir plus <ArrowRight size={16} />
+                {t("home.learnMore")} <ArrowRight size={16} />
               </Link>
             </div>
           </article>
@@ -626,17 +650,17 @@ function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
             <div>
               <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
-                Journal
+                {t("home.newsLabel")}
               </span>
               <h2 className="luxury-text text-5xl md:text-6xl uppercase tracking-tighter">
-                Dernières <span className="text-primary">Nouvelles</span>
+                {t("home.newsTitle")}
               </h2>
             </div>
             <Link
               to="/nann-k-media"
               className="text-[10px] font-black uppercase tracking-widest border-b-2 border-primary pb-1 hover:text-primary transition-colors"
             >
-              Tout le Journal
+              {t("home.newsAll")}
             </Link>
           </div>
 
@@ -676,7 +700,7 @@ function Home() {
                       {articles[0].excerpt}
                     </p>
                     <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                      Lire la suite <ChevronRight size={16} />
+                      {t("home.readMore")} <ChevronRight size={16} />
                     </div>
                   </div>
                 </Link>
@@ -721,7 +745,7 @@ function Home() {
                         {article.excerpt}
                       </p>
                       <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                        Lire la suite <ChevronRight size={14} />
+                        {t("home.readMore")} <ChevronRight size={14} />
                       </div>
                     </div>
                   </Link>
@@ -740,13 +764,13 @@ function Home() {
       >
         <div className="max-w-4xl mx-auto text-center mb-12">
           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
-            Héritage
+            {t("home.heritageLabel")}
           </span>
           <h2
             id="instruments-title"
             className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter"
           >
-            Les Instruments du <span className="text-primary">Fouta</span>
+            {t("home.heritageTitle")}
           </h2>
         </div>
 
@@ -775,31 +799,31 @@ function Home() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
           <div className="max-w-2xl mx-auto relative z-10">
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
-              S'abonner
+              {t("home.newsletterLabel")}
             </span>
             <h2
               id="newsletter-title"
               className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter"
             >
-              La Lettre de <span className="text-primary">l'Éditeur</span>
+              {t("home.newsletterTitle")}
             </h2>
             <p className="text-white/60 mb-10 text-lg">
-              Recevez les actualités culturelles et les analyses du projet NANN-k.
+              {t("home.newsletterDesc")}
             </p>
 
             <form
               className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
               onSubmit={handleNewsletter}
-              aria-label="Inscription à la newsletter"
+              aria-label={t("home.newsletterLabel")}
             >
               <input
                 type="email"
                 required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="votre@email.com"
+                placeholder={t("home.newsletterPlaceholder")}
                 className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white outline-none focus:ring-1 focus:ring-primary transition-all min-h-12"
-                aria-label="Votre email pour la newsletter"
+                aria-label={t("home.newsletterPlaceholder")}
               />
               <button
                 type="submit"
@@ -807,11 +831,11 @@ function Home() {
                 className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50 min-h-12"
                 aria-label={
                   newsletterStatus === "loading"
-                    ? "Inscription en cours"
-                    : "S'abonner à la newsletter"
+                    ? t("home.newsletterLoading")
+                    : t("home.newsletterCta")
                 }
               >
-                {newsletterStatus === "loading" ? "..." : "S'abonner"}
+                {newsletterStatus === "loading" ? "..." : t("home.newsletterCta")}
               </button>
             </form>
             {newsletterMsg && (

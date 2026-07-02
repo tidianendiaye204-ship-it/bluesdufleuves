@@ -1,9 +1,11 @@
 import { Youtube, Facebook, Instagram, Mail, ArrowUp, Globe, Heart } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { subscribeNewsletterFn } from "@/routes/__root";
 
 export function Footer() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [msg, setMsg] = useState("");
@@ -19,19 +21,28 @@ export function Footer() {
         setMsg(res.error);
       } else {
         setStatus("success");
-        setMsg("Merci pour votre inscription !");
+        setMsg(t("footer.thankYou"));
         setEmail("");
       }
     } catch (err: unknown) {
       console.error(err);
       setStatus("error");
-      setMsg("Erreur inattendue.");
+      setMsg(t("footer.unexpectedError"));
     }
   };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const navLinks = [
+    { to: "/", labelKey: "footer.centerLabel" },
+    { to: "/blues-du-fleuve", labelKey: "footer.festivalLabel" },
+    { to: "/billetterie", labelKey: "footer.ticketsLabel" },
+    { to: "/nann-k-media", labelKey: "footer.nannkLabel" },
+    { to: "/formations", labelKey: "footer.formationsLabel" },
+    { to: "/contact", labelKey: "footer.contactLabel" },
+  ];
 
   return (
     <footer className="relative mt-24 border-t border-border/20 bg-linear-to-b from-[#0a0908] to-[#050404] text-white overflow-hidden">
@@ -60,8 +71,7 @@ export function Footer() {
             </span>
           </Link>
           <p className="text-sm text-white/60 leading-relaxed font-serif">
-            L'épicentre culturel de la vallée du fleuve Sénégal. Un projet porté par Baaba Maal pour
-            le rayonnement des arts et de la culture.
+            {t("footer.brandDesc")}
           </p>
           <div className="flex items-center gap-2 text-xs text-white/40">
             <Globe size={14} />
@@ -73,17 +83,10 @@ export function Footer() {
         <div className="md:col-span-1">
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
             <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
-            Navigation
+            {t("footer.navigation")}
           </h4>
           <ul className="space-y-3">
-            {[
-              { to: "/", label: "Centre Culturel" },
-              { to: "/blues-du-fleuve", label: "Le Festival" },
-              { to: "/billetterie", label: "Billetterie" },
-              { to: "/nann-k-media", label: "NANN-k" },
-              { to: "/formations", label: "Formations" },
-              { to: "/contact", label: "Contact" },
-            ].map((item) => (
+            {navLinks.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
@@ -91,7 +94,7 @@ export function Footer() {
                   className="group flex items-center gap-2 text-sm text-white/60 hover:text-primary transition-all duration-300 py-1"
                 >
                   <span className="w-0 h-px bg-primary group-hover:w-4 transition-all duration-300" />
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               </li>
             ))}
@@ -104,10 +107,10 @@ export function Footer() {
           <div>
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
-              La Lettre de l'Éditeur
+              {t("footer.editorLetter")}
             </h4>
             <p className="text-sm text-white/60 mb-6 font-serif">
-              Recevez les actualités culturelles de la vallée directement dans votre boîte mail.
+              {t("footer.newsletterDesc")}
             </p>
             <form className="flex gap-3" onSubmit={handleSubscribe}>
               <div className="relative flex-1 group">
@@ -120,7 +123,7 @@ export function Footer() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="votre@email.com"
+                  placeholder={t("footer.placeholder")}
                   className="w-full rounded-full border border-white/10 bg-white/5 pl-11 pr-4 py-3.5 text-sm outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 focus:bg-white/10 transition-all duration-300 text-white placeholder:text-white/30"
                 />
               </div>
@@ -147,11 +150,11 @@ export function Footer() {
                           d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                         />
                       </svg>
-                      Envoi...
+                      {t("footer.sending")}
                     </>
                   ) : (
                     <>
-                      S'abonner
+                      {t("footer.subscribe")}
                       <ArrowUp
                         size={12}
                         className="group-hover:-translate-y-0.5 transition-transform"
@@ -177,7 +180,7 @@ export function Footer() {
           <div>
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
-              Suivez l'aventure
+              {t("footer.followAdventure")}
             </h4>
             <div className="flex gap-3">
               {[
@@ -229,7 +232,7 @@ export function Footer() {
         <div className="container-page py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
-              © {new Date().getFullYear()} The Village — Projet NANN-k. Tous droits réservés.
+              © {new Date().getFullYear()} The Village — Projet NANN-k. {t("footer.rights")}
             </p>
             <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
               <span className="flex items-center gap-2">
@@ -238,15 +241,15 @@ export function Footer() {
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-500/50" />
-                Vallée du Fleuve
+                {t("footer.riverValley")}
               </span>
             </div>
             <button
               onClick={scrollToTop}
-              aria-label="Retour en haut"
+              aria-label={t("footer.backToTop")}
               className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-primary transition-colors"
             >
-              <span className="hidden md:inline">Haut de page</span>
+              <span className="hidden md:inline">{t("footer.topOfPage")}</span>
               <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />
             </button>
           </div>

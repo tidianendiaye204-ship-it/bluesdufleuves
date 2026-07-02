@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createSeoMeta } from "@/lib/seo";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
@@ -29,52 +30,55 @@ export const Route = createFileRoute("/nannka-tv")({
   component: NannkaTV,
 });
 
-const categories = [
-  {
-    titre: "Émissions Culturelles",
-    items: [
-      { name: "Mémoires du fleuve", id: "No0IoqGSiLw" },
-      { name: "Paroles de griots", id: "V5RcwQAl-_g" },
-      { name: "Voix de Podor", id: "JuBhFrMD-G0" },
-      { name: "Récits pulaar", id: "Mig1P7pQMh0" },
-    ],
-  },
-  {
-    titre: "Concerts Live",
-    items: [
-      { name: "Baaba Maal · Acoustique", id: "cGUML8xR5UU" },
-      { name: "Nuit Jolofbeats", id: "Qtm-Wry-8cc" },
-      { name: "Soirée Yéla", id: "uHHKBJBvvPg" },
-      { name: "Hommage à Mansour Seck", id: "yNgDR1cTi_I" },
-    ],
-  },
-  {
-    titre: "Instruments Traditionnels",
-    items: [
-      { name: "Le Xalam", id: "wl-zb8FPvzo" },
-      { name: "Le Sabar", id: "V5RcwQAl-_g" },
-      { name: "La Tama", id: "JuBhFrMD-G0" },
-      { name: "La Kora", id: "No0IoqGSiLw" },
-    ],
-  },
-];
+
 
 function NannkaTV() {
+  const { t } = useTranslation();
   const [isHeroPlaying, setIsHeroPlaying] = useState(false);
   const [activeVideo, setActiveVideo] = useState<{ name: string; id: string } | null>(null);
+
+  const categories = [
+    {
+      titre: t('tv.cat1'),
+      items: [
+        { name: t('nannk.vid1Name', 'Mémoires du fleuve'), id: "No0IoqGSiLw" },
+        { name: t('nannk.vid2Name', 'Paroles de griots'), id: "V5RcwQAl-_g" },
+        { name: t('nannk.vid3Name', 'Voix de Podor'), id: "JuBhFrMD-G0" },
+        { name: t('nannk.vid4Name', 'Récits pulaar'), id: "Mig1P7pQMh0" },
+      ],
+    },
+    {
+      titre: t('tv.cat2'),
+      items: [
+        { name: t('nannk.vid5Name', 'Baaba Maal · Acoustique'), id: "cGUML8xR5UU" },
+        { name: t('nannk.vid6Name', 'Nuit Jolobeats'), id: "Qtm-Wry-8cc" },
+        { name: t('nannk.vid7Name', 'Soirée Yéla'), id: "uHHKBJBvvPg" },
+        { name: t('nannk.vid8Name', 'Hommage à Mansour Seck'), id: "yNgDR1cTi_I" },
+      ],
+    },
+    {
+      titre: t('tv.cat3'),
+      items: [
+        { name: t('nannk.vid9Name', 'Le Xalam'), id: "wl-zb8FPvzo" },
+        { name: t('nannk.vid10Name', 'Le Sabar'), id: "V5RcwQAl-_g" },
+        { name: t('nannk.vid11Name', 'La Tama'), id: "JuBhFrMD-G0" },
+        { name: t('nannk.vid12Name', 'La Kora'), id: "No0IoqGSiLw" },
+      ],
+    },
+  ];
 
   return (
     <>
       <section className="border-b border-border" style={{ background: "var(--gradient-hero)" }}>
         <div className="container-page py-16 md:py-12">
           <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">
-            Patrimoine en images
+            {t('tv.heritage')}
           </p>
           <h1 className="font-display text-5xl md:text-6xl font-bold">
-            NANN-k <span className="text-gradient-gold">TV Média</span>
+            {t('tv.title')} <span className="text-gradient-gold">{t('tv.titleAccent')}</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-            Documentaires, concerts live et préservation des traditions de la vallée du fleuve.
+            {t('tv.subtitle')}
           </p>
         </div>
       </section>
@@ -86,7 +90,7 @@ function NannkaTV() {
               <iframe
                 className="absolute inset-0 w-full h-full border-0"
                 src="https://www.youtube.com/embed/No0IoqGSiLw?autoplay=1"
-                title="Podor, mémoire vivante du fleuve"
+                title={t('tv.featuredTitle')}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -94,23 +98,23 @@ function NannkaTV() {
               <>
                 <img
                   src={heroPoster}
-                  alt="En vedette"
+                  alt={t('tv.featured')}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40" />
                 <button
                   onClick={() => setIsHeroPlaying(true)}
-                  aria-label="Lecture"
+                  aria-label={t('common.play', 'Play')}
                   className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--shadow-glow) hover:scale-105 transition cursor-pointer"
                 >
                   <Play size={28} className="ml-1" fill="currentColor" />
                 </button>
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-linear-to-t from-black/90 to-transparent">
-                  <p className="text-xs uppercase tracking-widest text-primary mb-2">En vedette</p>
+                  <p className="text-xs uppercase tracking-widest text-primary mb-2">{t('tv.featured')}</p>
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
-                    Podor, mémoire vivante du fleuve
+                    {t('tv.featuredTitle')}
                   </h2>
-                  <p className="text-sm text-white/80 mt-1">Documentaire · 42 min</p>
+                  <p className="text-sm text-white/80 mt-1">{t('tv.featuredMeta')}</p>
                 </div>
               </>
             )}
@@ -123,7 +127,7 @@ function NannkaTV() {
           <div key={cat.titre}>
             <div className="flex items-end justify-between mb-6">
               <h2 className="font-display text-2xl md:text-3xl font-bold">{cat.titre}</h2>
-              <span className="text-sm text-muted-foreground hidden md:inline">Voir tout</span>
+              <span className="text-sm text-muted-foreground hidden md:inline">{t('tv.viewAll')}</span>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {cat.items.map((item, i) => (
@@ -167,7 +171,7 @@ function NannkaTV() {
             <button
               onClick={() => setActiveVideo(null)}
               className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 transition cursor-pointer"
-              aria-label="Fermer"
+              aria-label={t('tv.close')}
             >
               <X size={20} />
             </button>

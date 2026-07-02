@@ -13,6 +13,7 @@ import { z } from "zod";
 import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import "../styles.css";
 import { Navbar } from "@/components/Navbar";
@@ -73,20 +74,21 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
   });
 
 function NotFoundComponent() {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page non trouvée</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{t("root.pageNotFound")}</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          La page que vous recherchez n'existe pas ou a été déplacée.
+          {t("root.pageNotFoundDesc")}
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Retour à l'accueil
+            {t("root.backToHome")}
           </Link>
         </div>
       </div>
@@ -97,15 +99,16 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Cette page n'a pas chargé
+          {t("root.pageError")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Une erreur est survenue. Vous pouvez réessayer ou retourner à l'accueil.
+          {t("root.pageErrorDesc")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -115,13 +118,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Réessayer
+            {t("root.retry")}
           </button>
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Retour à l'accueil
+            {t("root.backToHome")}
           </Link>
         </div>
       </div>
@@ -193,6 +196,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const [isHydrated, setIsHydrated] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsHydrated(true);
@@ -212,7 +216,7 @@ function RootComponent() {
   if (!isHydrated) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="animate-pulse text-primary">Chargement...</div>
+        <div className="animate-pulse text-primary">{t("common.loading")}</div>
       </div>
     );
   }
@@ -227,7 +231,7 @@ function RootComponent() {
             href="#main-content"
             className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
           >
-            Passer au contenu principal
+            {t("root.skipToContent")}
           </a>
           <Navbar />
           <main id="main-content" className="flex-1">

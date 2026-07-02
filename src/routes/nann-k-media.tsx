@@ -18,6 +18,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
+import { useTranslation } from "react-i18next";
 
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
@@ -35,125 +36,22 @@ import agri8Img from "@/assets/nann-k-agri8.jpg";
 
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
-const agriImages = [
-  { src: agri1Img, alt: "Agriculture NANN-K – Champs irrigués" },
-  { src: agri2Img, alt: "Agriculture NANN-K – Cultures maraîchères" },
-  { src: agri3Img, alt: "Agriculture NANN-K – Récolte" },
-  { src: agri4Img, alt: "Agriculture NANN-K – Irrigation fleuve" },
-  { src: agri5Img, alt: "Agriculture NANN-K – Femmes cultivatrices" },
-  { src: agri6Img, alt: "Agriculture NANN-K – Marché local" },
-  { src: agri7Img, alt: "Agriculture NANN-K – Pépinière" },
-  { src: agri8Img, alt: "Agriculture NANN-K – Reboisement" },
-];
-
 export const Route = createFileRoute("/nann-k-media")({
   head: () => {
+    const { t } = useTranslation();
     const { meta, links } = createSeoMeta({
-      title: "NANN-k & The Village | Mouvement Culturel & Économique Podor",
-      description:
-        "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal.",
-      ogTitle: "NANN-k & The Village - Baaba Maal Podor",
-      ogDescription:
-        "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar.",
+      title: t("nannk.seoTitle", "NANN-k & The Village | Mouvement Culturel & Économique Podor"),
+      description: t("nannk.seoDesc", "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal."),
+      ogTitle: t("nannk.seoOgTitle", "NANN-k & The Village - Baaba Maal Podor"),
+      ogDescription: t("nannk.seoOgDesc", "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar."),
       ogImage: logoNannk,
-      keywords:
-        "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
+      keywords: t("nannk.seoKeywords", "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique"),
       canonical: "https://lesbluesdufleuve.sn/nann-k-media",
     });
     return { meta, links };
   },
   component: NannkMedia,
 });
-
-const categories = [
-  {
-    titre: "Émissions Culturelles",
-    items: [
-      { name: "Mémoires du fleuve", id: "No0IoqGSiLw" },
-      { name: "Paroles de griots", id: "V5RcwQAl-_g" },
-      { name: "Voix de Podor", id: "JuBhFrMD-G0" },
-      { name: "Récits pulaar", id: "Mig1P7pQMh0" },
-    ],
-  },
-  {
-    titre: "Concerts Live",
-    items: [
-      { name: "Baaba Maal · Acoustique", id: "cGUML8xR5UU" },
-      { name: "Nuit Jolofbeats", id: "Qtm-Wry-8cc" },
-      { name: "Soirée Yéla", id: "uHHKBJBvvPg" },
-      { name: "Hommage à Mansour Seck", id: "yNgDR1cTi_I" },
-    ],
-  },
-  {
-    titre: "Instruments Traditionnels",
-    items: [
-      { name: "Le Xalam", id: "wl-zb8FPvzo" },
-      { name: "Le Sabar", id: "V5RcwQAl-_g" },
-      { name: "La Tama", id: "JuBhFrMD-G0" },
-      { name: "La Kora", id: "No0IoqGSiLw" },
-    ],
-  },
-];
-
-const stats = [
-  { icon: TreePine, value: 180, suffix: "+", label: "Plants reboisés" },
-  { icon: Users, value: 3, suffix: "", label: "Villages touchés" },
-  { icon: Heart, value: 5, suffix: "M+", label: "CFA investis", prefix: "" },
-  { icon: Globe, value: 5, suffix: "", label: "Piliers d'action" },
-];
-
-const pillars = [
-  {
-    icon: Leaf,
-    title: "Ndemma (Agriculture)",
-    color: "from-emerald-500 to-green-700",
-    bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
-    border: "border-emerald-500/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    description:
-      "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un levier de croissance inclusive.",
-  },
-  {
-    icon: Waves,
-    title: "Awo (Pêche)",
-    color: "from-blue-500 to-sky-700",
-    bg: "bg-blue-500/10 dark:bg-blue-500/20",
-    border: "border-blue-500/30",
-    iconColor: "text-blue-600 dark:text-blue-400",
-    description:
-      "Valoriser les ressources halieutiques du fleuve Sénégal et soutenir les communautés de pêcheurs artisans.",
-  },
-  {
-    icon: PawPrint,
-    title: "Ngaynaka (Élevage)",
-    color: "from-amber-500 to-orange-700",
-    bg: "bg-amber-500/10 dark:bg-amber-500/20",
-    border: "border-amber-500/30",
-    iconColor: "text-amber-600 dark:text-amber-400",
-    description:
-      "Développer l'élevage pastoral traditionnel, optimiser la gestion des troupeaux et moderniser la filière.",
-  },
-  {
-    icon: Palette,
-    title: "Nalankagal (Culture)",
-    color: "from-indigo-500 to-purple-700",
-    bg: "bg-indigo-500/10 dark:bg-indigo-500/20",
-    border: "border-indigo-500/30",
-    iconColor: "text-indigo-600 dark:text-indigo-400",
-    description:
-      "Servir de moteur culturel et social pour l'éducation, l'identité et la transmission dans la vallée.",
-  },
-  {
-    icon: Cpu,
-    title: "Karalagal (Technologies)",
-    color: "from-rose-500 to-pink-700",
-    bg: "bg-rose-500/10 dark:bg-rose-500/20",
-    border: "border-rose-500/30",
-    iconColor: "text-rose-600 dark:text-rose-400",
-    description:
-      "Moderniser l'ensemble des secteurs d'activité traditionnels par l'apport d'outils numériques innovants.",
-  },
-];
 
 function useCounter(target: number, duration = 1500) {
   const [count, setCount] = useState(0);
@@ -214,12 +112,109 @@ function StatCard({
 }
 
 function NannkMedia() {
+  const { t } = useTranslation();
   const [activeVideo, setActiveVideo] = useState<{
     name: string;
     id: string;
     isLocal?: boolean;
   } | null>(null);
   const [activeTab, setActiveTab] = useState(0);
+
+  const agriImages = [
+    { src: agri1Img, alt: t("nannk.agri1Alt", "Agriculture NANN-K – Champs irrigués") },
+    { src: agri2Img, alt: t("nannk.agri2Alt", "Agriculture NANN-K – Cultures maraîchères") },
+    { src: agri3Img, alt: t("nannk.agri3Alt", "Agriculture NANN-K – Récolte") },
+    { src: agri4Img, alt: t("nannk.agri4Alt", "Agriculture NANN-K – Irrigation fleuve") },
+    { src: agri5Img, alt: t("nannk.agri5Alt", "Agriculture NANN-K – Femmes cultivatrices") },
+    { src: agri6Img, alt: t("nannk.agri6Alt", "Agriculture NANN-K – Marché local") },
+    { src: agri7Img, alt: t("nannk.agri7Alt", "Agriculture NANN-K – Pépinière") },
+    { src: agri8Img, alt: t("nannk.agri8Alt", "Agriculture NANN-K – Reboisement") },
+  ];
+
+  const categories = [
+    {
+      titre: t("nannk.cat1", "Émissions Culturelles"),
+      items: [
+        { name: t("nannk.vid1Name", "Mémoires du fleuve"), id: "No0IoqGSiLw" },
+        { name: t("nannk.vid2Name", "Paroles de griots"), id: "V5RcwQAl-_g" },
+        { name: t("nannk.vid3Name", "Voix de Podor"), id: "JuBhFrMD-G0" },
+        { name: t("nannk.vid4Name", "Récits pulaar"), id: "Mig1P7pQMh0" },
+      ],
+    },
+    {
+      titre: t("nannk.cat2", "Concerts Live"),
+      items: [
+        { name: t("nannk.vid5Name", "Baaba Maal · Acoustique"), id: "cGUML8xR5UU" },
+        { name: t("nannk.vid6Name", "Nuit Jolofbeats"), id: "Qtm-Wry-8cc" },
+        { name: t("nannk.vid7Name", "Soirée Yéla"), id: "uHHKBJBvvPg" },
+        { name: t("nannk.vid8Name", "Hommage à Mansour Seck"), id: "yNgDR1cTi_I" },
+      ],
+    },
+    {
+      titre: t("nannk.cat3", "Instruments Traditionnels"),
+      items: [
+        { name: t("nannk.vid9Name", "Le Xalam"), id: "wl-zb8FPvzo" },
+        { name: t("nannk.vid10Name", "Le Sabar"), id: "V5RcwQAl-_g" },
+        { name: t("nannk.vid11Name", "La Tama"), id: "JuBhFrMD-G0" },
+        { name: t("nannk.vid12Name", "La Kora"), id: "No0IoqGSiLw" },
+      ],
+    },
+  ];
+
+  const stats = [
+    { icon: TreePine, value: 180, suffix: "+", label: t("nannk.stat1", "Plants reboisés") },
+    { icon: Users, value: 3, suffix: "", label: t("nannk.stat2", "Villages touchés") },
+    { icon: Heart, value: 5, suffix: "M+", label: t("nannk.stat3", "CFA investis"), prefix: "" },
+    { icon: Globe, value: 5, suffix: "", label: t("nannk.stat4", "Piliers d'action") },
+  ];
+
+  const pillars = [
+    {
+      icon: Leaf,
+      title: t("nannk.pillar1Title", "Ndemma (Agriculture)"),
+      color: "from-emerald-500 to-green-700",
+      bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
+      border: "border-emerald-500/30",
+      iconColor: "text-emerald-600 dark:text-emerald-400",
+      description: t("nannk.pillar1Desc", "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un levier de croissance inclusive."),
+    },
+    {
+      icon: Waves,
+      title: t("nannk.pillar2Title", "Awo (Pêche)"),
+      color: "from-blue-500 to-sky-700",
+      bg: "bg-blue-500/10 dark:bg-blue-500/20",
+      border: "border-blue-500/30",
+      iconColor: "text-blue-600 dark:text-blue-400",
+      description: t("nannk.pillar2Desc", "Valoriser les ressources halieutiques du fleuve Sénégal et soutenir les communautés de pêcheurs artisans."),
+    },
+    {
+      icon: PawPrint,
+      title: t("nannk.pillar3Title", "Ngaynaka (Élevage)"),
+      color: "from-amber-500 to-orange-700",
+      bg: "bg-amber-500/10 dark:bg-amber-500/20",
+      border: "border-amber-500/30",
+      iconColor: "text-amber-600 dark:text-amber-400",
+      description: t("nannk.pillar3Desc", "Développer l'élevage pastoral traditionnel, optimiser la gestion des troupeaux et moderniser la filière."),
+    },
+    {
+      icon: Palette,
+      title: t("nannk.pillar4Title", "Nalankagal (Culture)"),
+      color: "from-indigo-500 to-purple-700",
+      bg: "bg-indigo-500/10 dark:bg-indigo-500/20",
+      border: "border-indigo-500/30",
+      iconColor: "text-indigo-600 dark:text-indigo-400",
+      description: t("nannk.pillar4Desc", "Servir de moteur culturel et social pour l'éducation, l'identité et la transmission dans la vallée."),
+    },
+    {
+      icon: Cpu,
+      title: t("nannk.pillar5Title", "Karalagal (Technologies)"),
+      color: "from-rose-500 to-pink-700",
+      bg: "bg-rose-500/10 dark:bg-rose-500/20",
+      border: "border-rose-500/30",
+      iconColor: "text-rose-600 dark:text-rose-400",
+      description: t("nannk.pillar5Desc", "Moderniser l'ensemble des secteurs d'activité traditionnels par l'apport d'outils numériques innovants."),
+    },
+  ];
 
   // Lightbox state (index of currently open image, null if closed)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -297,7 +292,7 @@ function NannkMedia() {
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-xs uppercase tracking-[0.3em] text-primary font-bold">
-              Mouvement Culturel & Économique
+              {t("nannk.culturalMovement")}
             </span>
           </motion.div>
           <motion.h1
@@ -324,13 +319,7 @@ function NannkMedia() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-slate-300 leading-relaxed mb-4 max-w-4xl mx-auto font-serif"
           >
-            <strong>NANN-K</strong> est un sigle qui signifie :{" "}
-            <span className="text-primary font-bold">N</span>demma (agriculture) ·{" "}
-            <span className="text-primary font-bold">A</span>wo (Pêche) ·{" "}
-            <span className="text-primary font-bold">N</span>gaynaka (Élevage) ·{" "}
-            <span className="text-primary font-bold">N</span>alankagal (Culture - servant de moteur
-            au développement) · <span className="text-primary font-bold">K</span>aralagal (Nouvelles
-            technologies, pour moderniser les autres secteurs).
+            <strong>NANN-K</strong> {t("nannk.heroDesc")} {t("nannk.heroDescFull")}
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
@@ -339,15 +328,15 @@ function NannkMedia() {
             className="flex items-center justify-center gap-2 mt-8"
           >
             <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
-              Culture
+              {t("nannk.culture")}
             </span>
             <span className="text-primary font-black">·</span>
             <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
-              Savoir
+              {t("nannk.knowledge")}
             </span>
             <span className="text-primary font-black">·</span>
             <span className="text-slate-400 text-sm font-semibold uppercase tracking-widest">
-              Travail
+              {t("nannk.work")}
             </span>
           </motion.div>
         </div>
@@ -357,14 +346,13 @@ function NannkMedia() {
       <section className="container-page py-16 relative overflow-hidden">
         <div className="text-center mb-12">
           <span className="text-xs uppercase tracking-[0.3em] text-primary mb-3 block font-bold">
-            Les Fondements
+            {t("nannk.foundations")}
           </span>
           <h2 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
-            Que signifie <span className="text-gradient-gold">NANN-K</span> ?
+            {t("nannk.whatMeans")} <span className="text-gradient-gold">NANN-K</span> ?
           </h2>
           <p className="font-serif text-muted-foreground mt-4 text-base md:text-lg max-w-2xl mx-auto">
-            Un mouvement d'émergence sociale et économique structuré autour de 5 secteurs d'activité
-            stratégiques :
+            {t("nannk.foundationsDesc")}
           </p>
         </div>
 
@@ -372,9 +360,9 @@ function NannkMedia() {
           {pillars.map((p, i) => {
             const Icon = p.icon;
             const letter = p.title.charAt(0);
-            const peulhWord = p.title.split(" : ")[1]?.split(" (")[0] || "";
+            const peulhWord = p.title.split(" (")[0] || "";
             const frenchWord = p.title.split("(")[1]?.replace(")", "") || "";
-
+ 
             return (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -437,21 +425,16 @@ function NannkMedia() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              L'initiative de Baaba Maal
+              {t("nannk.initiative")}
             </span>
             <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tight text-foreground">
-              Notre Mission
+              {t("nannk.ourMission")}
             </h2>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              NANN-K est un mouvement citoyen qui insuffle une dynamique nouvelle au cœur de la
-              vallée du fleuve Sénégal. Il promeut cinq axes d'action essentiels : l'
-              <strong>agriculture</strong>, la <strong>pêche</strong>, l'<strong>élevage</strong>,
-              la <strong>culture</strong> et les <strong>nouvelles technologies</strong>.
+              {t("nannk.missionDesc1")}<strong>{t("nannk.agriculture")}</strong>, la <strong>{t("nannk.fishing")}</strong>, l'<strong>{t("nannk.livestock")}</strong>, la <strong>{t("nannk.cultureWord")}</strong> et les <strong>{t("nannk.newTech")}</strong>.
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
-              Notre credo ? <strong>«&nbsp;Culture – Savoir – Travail&nbsp;»</strong>. Nous
-              construisons une conscience citoyenne active pour que chaque habitant de la vallée
-              devienne acteur de son propre avenir.
+              {t("nannk.missionDesc2")}
             </p>
           </motion.div>
 
@@ -485,38 +468,29 @@ function NannkMedia() {
         </div>
       </section>
 
-      {/* ──────────────────── POURQUOI NANN-K ──────────────────── */}
-      <section className="py-16 bg-muted/50 border-y border-border mt-8">
-        <div className="container-page max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              Notre raison d'être
+      {/* ─────            <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
+              {t("nannk.ourRaisonDEtre", "Notre raison d'être")}
             </span>
             <h2 className="font-display text-3xl font-bold mb-10 uppercase tracking-tight text-foreground">
-              Pourquoi NANN-K ?
+              {t("nannk.whyNannk", "Pourquoi NANN-K ?")}
             </h2>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 num: "01",
-                title: "Le défi du développement",
-                text: "L'Afrique fait face à des défis colossaux. Les initiatives institutionnelles ne prennent pas toujours racine dans les réalités du terrain. NANN-K naît de ce constat : le changement doit venir des citoyens eux-mêmes.",
+                title: t("nannk.why1Title", "Le défi du développement"),
+                text: t("nannk.why1Text", "L'Afrique fait face à des défis colossaux. Les initiatives institutionnelles ne prennent pas toujours racine dans les réalités du terrain. NANN-K naît de ce constat : le changement doit venir des citoyens eux-mêmes."),
               },
               {
                 num: "02",
-                title: "Une réponse aux populations",
-                text: "Emplois, revenus, sécurité alimentaire : les besoins sont criants. NANN-K donne les outils : formations, accès au financement, équipements et visibilité médiatique forte.",
+                title: t("nannk.why2Title", "Une réponse aux populations"),
+                text: t("nannk.why2Text", "Emplois, revenus, sécurité alimentaire : les besoins sont criants. NANN-K donne les outils : formations, accès au financement, équipements et visibilité médiatique forte."),
               },
               {
                 num: "03",
-                title: "L'agriculture, priorité nationale",
-                text: "Le Sénégal a fait de l'agriculture son moteur de croissance. NANN-K est l'alternative concrète : un accompagnement terrain, proche des agriculteurs.",
+                title: t("nannk.why3Title", "L'agriculture, priorité nationale"),
+                text: t("nannk.why3Text", "Le Sénégal a fait de l'agriculture son moteur de croissance. NANN-K est l'alternative concrète : un accompagnement terrain, proche des agriculteurs."),
               },
             ].map((item, i) => (
               <motion.div
@@ -560,7 +534,7 @@ function NannkMedia() {
           <div>
             <div className="flex flex-col mb-4">
               <span className="text-xs uppercase tracking-widest text-primary mb-2 font-bold">
-                Espace de Diffusion
+                {t("nannk.tvSpace")}
               </span>
               <h2 className="font-display text-4xl font-bold uppercase tracking-tight">
                 NANN-k TV
@@ -568,15 +542,10 @@ function NannkMedia() {
             </div>
             <div className="space-y-4 font-serif text-muted-foreground text-base leading-relaxed">
               <p>
-                <strong>NANN-k TV</strong> est le canal audiovisuel de The Village — voix du
-                patrimoine musical de la vallée du Fleuve Sénégal. Documentaires, concerts en live,
-                émissions culturelles, portraits de griots et masterclasses d'instruments
-                traditionnels.
+                <strong>NANN-k TV</strong> {t("nannk.tvDesc1")}
               </p>
               <p>
-                Disponible sur toutes les plateformes numériques, NANN-k TV ambitionne d'être la
-                mémoire vivante et diffusée du Fouta Toro — accessible depuis Podor comme depuis
-                Paris, New York ou Dakar.
+                {t("nannk.tvDesc2")}
               </p>
             </div>
           </div>
@@ -666,10 +635,10 @@ function NannkMedia() {
       <section className="container-page py-14 border-t border-border bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-            Un engagement concret
+            {t("nannk.trustCommitment")}
           </span>
           <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tight text-foreground">
-            NANNK TRUST soutient la lutte contre la désertification
+            {t("nannk.trustTitle")}
           </h2>
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <motion.div
@@ -697,15 +666,10 @@ function NannkMedia() {
               className="space-y-5"
             >
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                La fondation NANNK TRUST, initiée par l'artiste planétaire Baaba Maal, a remis un
-                chèque de plus de <strong>5 millions de francs CFA</strong> à l'association{" "}
-                <strong>Podor Vert</strong>, marquant une étape clé dans leur partenariat pour
-                l'environnement.
+                {t("nannk.trustDesc1")} <strong>{t("nannk.trustAmount")}</strong> {t("nannk.trustDesc1b")} <strong>Podor Vert</strong>{t("nannk.trustDesc1c")}
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Cette contribution constitue la deuxième tranche du financement engagé par la
-                fondation pour soutenir les actions de reboisement et de restauration des
-                écosystèmes locaux.
+                {t("nannk.trustDesc2")}
               </p>
 
               {/* Quote premium */}
@@ -714,9 +678,7 @@ function NannkMedia() {
                   "
                 </div>
                 <blockquote className="pt-4 italic font-serif text-foreground text-base leading-relaxed">
-                  La protection de l'environnement est une urgence et une responsabilité collective.
-                  En soutenant Podor Vert, nous investissons dans un avenir durable pour nos
-                  communautés et pour les générations futures.
+                  {t("nannk.trustQuote")}
                 </blockquote>
                 <footer className="mt-3 text-sm font-bold text-primary uppercase tracking-wider">
                   — Baaba Maal
@@ -740,24 +702,19 @@ function NannkMedia() {
               className="order-2 md:order-1 space-y-5"
             >
               <span className="text-xs uppercase tracking-widest text-primary mb-1 block font-bold">
-                Journée citoyenne
+                {t("nannk.citizenDay")}
               </span>
               <h2 className="font-display text-3xl font-bold mb-4 uppercase tracking-tight text-foreground">
-                Reboisement à Mbolo Birame
+                {t("nannk.reforestationTitle")}
               </h2>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Dans le cadre de la journée nationale de l'arbre initiée par le Président Bassirou
-                Diomaye Faye, le département de Podor s'est manifesté à travers le député Ismaela
-                Wone et l'Association Podor Vert par une grande journée de reboisement dans la
-                commune de <strong>Mbolo Birame</strong> le dimanche 31 août 2025.
+                {t("nannk.reforestationDesc1")} <strong>Mbolo Birame</strong> {t("nannk.reforestationDate")}
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                Les villages de Lougué Sebbé, Lougué Toroobé et Lougué Fulbé ont bénéficié de{" "}
-                <strong>180 plants ombragés et fruitiers</strong> issus des pépinières de Fanaye et
-                de Mery.
+                {t("nannk.reforestationDesc2")} <strong>{t("nannk.reforestationPlants")}</strong> {t("nannk.reforestationDesc2b")}
               </p>
               <p className="font-serif text-lg leading-relaxed font-semibold text-primary">
-                Ensemble, œuvrons pour un Podor Vert et durable.
+                {t("nannk.reforestationCTA")}
               </p>
             </motion.div>
             <motion.div
@@ -774,7 +731,7 @@ function NannkMedia() {
                   controls
                   preload="metadata"
                 >
-                  Votre navigateur ne supporte pas la vidéo.
+                  {t("nannk.browserNoVideo")}
                 </video>
               </div>
             </motion.div>
@@ -807,26 +764,23 @@ function NannkMedia() {
               className="space-y-5"
             >
               <span className="text-xs uppercase tracking-widest text-primary mb-1 block font-bold">
-                Développement Local
+                {t("nannk.localDev")}
               </span>
               <h2 className="font-display text-3xl font-bold mb-4 uppercase tracking-tight text-foreground">
-                Espace Agricole de NANN-K
+                {t("nannk.agriSpaceTitle")}
               </h2>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                L'espace agricole NANN-K est le cœur de notre pilier agriculture. Il sert de modèle
-                d'exploitation durable, intégrant des techniques modernes d'irrigation et de culture
-                pour maximiser les rendements tout en préservant les ressources de la vallée du
-                fleuve Sénégal.
+                {t("nannk.agriSpaceDesc")}
               </p>
               <ul className="space-y-2 mt-4 text-muted-foreground font-serif">
                 <li className="flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-primary" /> Sécurité alimentaire
+                  <Leaf className="w-4 h-4 text-primary" /> {t("nannk.foodSecurity")}
                 </li>
                 <li className="flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-primary" /> Autonomisation des femmes
+                  <Leaf className="w-4 h-4 text-primary" /> {t("nannk.womenEmpowerment")}
                 </li>
                 <li className="flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-primary" /> Techniques agroécologiques
+                  <Leaf className="w-4 h-4 text-primary" /> {t("nannk.agroTech")}
                 </li>
               </ul>
             </motion.div>
@@ -846,10 +800,10 @@ function NannkMedia() {
           >
             <div>
               <span className="text-xs uppercase tracking-widest text-primary mb-2 block font-bold">
-                En images
+                {t("nannk.inImages")}
               </span>
               <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-foreground">
-                L'Agriculture NANN-K
+                {t("nannk.agriGallery")}
               </h2>
             </div>
             {/* Carousel Navigation */}
@@ -902,7 +856,7 @@ function NannkMedia() {
                 className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
                   i === selectedIndex ? "bg-primary w-6" : "bg-primary/20"
                 }`}
-                aria-label={`Aller à l'image ${i + 1}`}
+                aria-label={`${t("nannk.goToImage")} ${i + 1}`}
               />
             ))}
           </div>
@@ -923,17 +877,16 @@ function NannkMedia() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight mb-6">
-              Rejoignez le <span className="text-primary">Mouvement</span>
+              {t("nannk.joinMovement")} <span className="text-primary">{t("nannk.movement")}</span>
             </h2>
             <p className="font-serif text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Que vous soyez un acteur local, un partenaire potentiel ou simplement passionné par le
-              développement de la vallée, votre voix compte.
+              {t("nannk.joinDesc")}
             </p>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300"
             >
-              Nous Contacter
+              {t("nannk.contactUs")}
               <ChevronRight size={18} />
             </Link>
           </motion.div>
@@ -952,7 +905,7 @@ function NannkMedia() {
           >
             <button
               className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition cursor-pointer border border-white/20"
-              aria-label="Fermer"
+              aria-label={t("nannk.close")}
             >
               <X size={24} />
             </button>
@@ -961,7 +914,7 @@ function NannkMedia() {
             <button
               onClick={prevLightboxImg}
               className="absolute left-4 md:left-8 z-10 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition cursor-pointer border border-white/20"
-              aria-label="Précédent"
+              aria-label={t("nannk.previous")}
             >
               <ChevronLeft size={32} />
             </button>
@@ -981,7 +934,7 @@ function NannkMedia() {
             <button
               onClick={nextLightboxImg}
               className="absolute right-4 md:right-8 z-10 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition cursor-pointer border border-white/20"
-              aria-label="Suivant"
+              aria-label={t("nannk.next")}
             >
               <ChevronRight size={32} />
             </button>
@@ -1014,7 +967,7 @@ function NannkMedia() {
               <button
                 onClick={() => setActiveVideo(null)}
                 className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 transition cursor-pointer"
-                aria-label="Fermer"
+                aria-label={t("nannk.close")}
               >
                 <X size={20} />
               </button>
