@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
 import instrumentsImg from "@/assets/instruments.jpg";
 import piroguesImg from "@/assets/pirogues.jpg";
@@ -30,7 +31,60 @@ export const Route = createFileRoute("/nannka-tv")({
   component: NannkaTV,
 });
 
+function VideoCarousel({ category, thumbs, setActiveVideo, t }: any) {
+  const [emblaRef] = useEmblaCarousel({
+    align: "start",
+    dragFree: true,
+    containScroll: "trimSnaps",
+  });
 
+  return (
+    <div key={category.titre}>
+      <div className="flex items-end justify-between mb-6">
+        <h2 className="font-display text-2xl md:text-3xl font-bold">{category.titre}</h2>
+        <span className="text-sm text-muted-foreground hidden md:inline">{t('tv.viewAll')}</span>
+      </div>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-5">
+          {category.items.map((item: any, i: number) => (
+            <div key={item.name} className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_23%]">
+              <article
+                onClick={() => setActiveVideo({ name: item.name, id: item.id })}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveVideo({ name: item.name, id: item.id });
+                  }
+                }}
+                className="group h-full rounded-xl overflow-hidden border border-border bg-card shadow-sm hover:shadow-md transition hover:border-primary cursor-pointer flex flex-col"
+              >
+                <div className="aspect-video relative overflow-hidden bg-muted/30">
+                  <img
+                    src={thumbs[i % thumbs.length]}
+                    alt={item.name}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
+                    <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
+                      <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 flex-1 flex flex-col">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">{item.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">Nannka TV</p>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function NannkaTV() {
   const { t } = useTranslation();
@@ -122,50 +176,28 @@ function NannkaTV() {
         </div>
       </section>
 
-      <section className="container-page pb-16 space-y-16">
+      <section className="container-page pb-16 space-y-16 overflow-hidden">
         {categories.map((cat) => (
-          <div key={cat.titre}>
-            <div className="flex items-end justify-between mb-6">
-              <h2 className="font-display text-2xl md:text-3xl font-bold">{cat.titre}</h2>
-              <span className="text-sm text-muted-foreground hidden md:inline">{t('tv.viewAll')}</span>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {cat.items.map((item, i) => (
-                <article
-                  key={item.name}
-                  onClick={() => setActiveVideo({ name: item.name, id: item.id })}
-                  className="group rounded-xl overflow-hidden border border-border bg-card transition hover:border-primary cursor-pointer"
-                >
-                  <div className="aspect-video relative overflow-hidden">
-                    <img
-                      src={thumbs[i % thumbs.length]}
-                      alt={item.name}
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition">
-                      <Play size={32} className="text-primary-foreground" fill="currentColor" />
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-semibold">{item.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">Nannka TV</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+          <VideoCarousel
+            key={cat.titre}
+            category={cat}
+            thumbs={thumbs}
+            setActiveVideo={setActiveVideo}
+            t={t}
+          />
         ))}
       </section>
 
       {/* Video Modal Player */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xs p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 transition-all duration-300"
           onClick={() => setActiveVideo(null)}
+          role="dialog"
+          aria-modal="true"
         >
           <div
-            className="relative w-full max-w-4xl bg-card rounded-2xl overflow-hidden border border-border shadow-2xl"
+            className="relative w-full max-w-4xl bg-card rounded-2xl overflow-hidden border border-border/50 shadow-2xl scale-100 animate-in fade-in zoom-in duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             <button

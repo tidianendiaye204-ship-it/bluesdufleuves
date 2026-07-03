@@ -38,14 +38,13 @@ const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
 export const Route = createFileRoute("/nann-k-media")({
   head: () => {
-    const { t } = useTranslation();
     const { meta, links } = createSeoMeta({
-      title: t("nannk.seoTitle", "NANN-k & The Village | Mouvement Culturel & Économique Podor"),
-      description: t("nannk.seoDesc", "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal."),
-      ogTitle: t("nannk.seoOgTitle", "NANN-k & The Village - Baaba Maal Podor"),
-      ogDescription: t("nannk.seoOgDesc", "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar."),
+      title: "NANN-k & The Village | Mouvement Culturel & Économique Podor",
+      description: "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal.",
+      ogTitle: "NANN-k & The Village - Baaba Maal Podor",
+      ogDescription: "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar.",
       ogImage: logoNannk,
-      keywords: t("nannk.seoKeywords", "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique"),
+      keywords: "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
       canonical: "https://lesbluesdufleuve.sn/nann-k-media",
     });
     return { meta, links };
@@ -108,6 +107,55 @@ function StatCard({
         {label}
       </span>
     </motion.div>
+  );
+}
+
+function VideoCarousel({ items, thumbs, setActiveVideo }: any) {
+  const [emblaRef] = useEmblaCarousel({
+    align: "start",
+    dragFree: true,
+    containScroll: "trimSnaps",
+  });
+
+  return (
+    <div className="overflow-hidden" ref={emblaRef}>
+      <div className="flex gap-5">
+        {items.map((item: any, i: number) => (
+          <div key={item.name} className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_23%]">
+            <article
+              onClick={() => setActiveVideo({ name: item.name, id: item.id })}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveVideo({ name: item.name, id: item.id });
+                }
+              }}
+              className="group h-full rounded-xl overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer flex flex-col"
+            >
+              <div className="aspect-video relative overflow-hidden bg-muted/30">
+                <img
+                  src={thumbs[i % thumbs.length]}
+                  alt={item.name}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
+                  <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 flex-1 flex flex-col">
+                <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{item.name}</h4>
+                <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -590,45 +638,21 @@ function NannkMedia() {
         </div>
 
         {/* Video grid for active tab */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <AnimatePresence mode="wait">
-            {categories[activeTab].items.map((item, i) => (
-              <motion.article
-                key={item.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                onClick={() => setActiveVideo({ name: item.name, id: item.id })}
-                className="group rounded-xl overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer"
-              >
-                <div className="aspect-video relative overflow-hidden">
-                  <img
-                    src={thumbs[i % thumbs.length]}
-                    alt={item.name}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
-                      <Play
-                        size={20}
-                        className="text-primary-foreground ml-0.5"
-                        fill="currentColor"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
-                    {item.name}
-                  </h4>
-                  <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
-                </div>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <VideoCarousel
+              items={categories[activeTab].items}
+              thumbs={thumbs}
+              setActiveVideo={setActiveVideo}
+            />
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {/* ──────────────────── NANNK TRUST ──────────────────── */}
@@ -954,14 +978,16 @@ function NannkMedia() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 transition-all duration-300"
             onClick={() => setActiveVideo(null)}
+            role="dialog"
+            aria-modal="true"
           >
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              className="relative w-full max-w-4xl bg-card rounded-2xl overflow-hidden border border-border shadow-2xl"
+              className="relative w-full max-w-4xl bg-card rounded-2xl overflow-hidden border border-border/50 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button

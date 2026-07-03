@@ -57,7 +57,7 @@ export function OptimizedImage({
       />
 
       <picture>
-        {!webpFailed && webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+        {!webpFailed && webpSrc && <source srcSet={encodeURI(webpSrc)} type="image/webp" />}
         <img
           ref={imgRef}
           src={src}

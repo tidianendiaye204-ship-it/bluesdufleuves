@@ -118,7 +118,7 @@ function Billetterie() {
   const [checkoutEmail, setCheckoutEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<"wave" | "orange" | "card">("wave");
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "processing" | "success">("idle");
+  const [checkoutStep, setCheckoutStep] = useState<"personal_info" | "payment" | "processing" | "success">("personal_info");
   const [generatedTicketId, setGeneratedTicketId] = useState("");
 
   // Target date for countdown
@@ -169,7 +169,7 @@ function Billetterie() {
   const openCheckout = (pass: Pass) => {
     setSelectedPass(pass);
     setIsCheckoutOpen(true);
-    setPaymentStatus("idle");
+    setCheckoutStep("personal_info");
   };
 
   const closeCheckout = () => {
@@ -179,9 +179,13 @@ function Billetterie() {
 
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setPaymentStatus("processing");
+    if (checkoutStep === "personal_info") {
+      setCheckoutStep("payment");
+      return;
+    }
+    setCheckoutStep("processing");
     setTimeout(() => {
-      setPaymentStatus("success");
+      setCheckoutStep("success");
       const randomId = `VLG-${FESTIVAL_CONFIG.editionYear}-${Math.floor(1000 + Math.random() * 9000)}`;
       setGeneratedTicketId(randomId);
     }, 2000);
@@ -517,7 +521,7 @@ function Billetterie() {
               <div className="flex items-center justify-between p-6 border-b border-border bg-muted/30">
                 <div>
                   <h3 className="font-display text-xl font-bold uppercase tracking-tight">
-                    {paymentStatus === "success" ? t("tickets.paymentSuccess") : t("tickets.checkoutTitle")}
+                    {checkoutStep === "success" ? t("tickets.paymentSuccess") : t("tickets.checkoutTitle")}
                   </h3>
                   <p className="text-xs text-muted-foreground mt-0.5">
                     {t("tickets.passTypeLabel")} : <span className="font-bold text-primary">{selectedPass.name}</span>
@@ -533,123 +537,115 @@ function Billetterie() {
               </div>
 
               {/* Body */}
-              <div className="p-6 overflow-y-auto flex-1">
-                {paymentStatus === "idle" && (
-                  <form onSubmit={handleCheckoutSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-firstname">
-                          {t("tickets.firstName")}
-                        </label>
-                        <input
-                          id="chk-firstname"
-                          type="text"
-                          required
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-lastname">
-                          {t("tickets.lastName")}
-                        </label>
-                        <input
-                          id="chk-lastname"
-                          type="text"
-                          required
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-email">
-                          {t("tickets.email")}
-                        </label>
-                        <input
-                          id="chk-email"
-                          type="email"
-                          required
-                          value={checkoutEmail}
-                          onChange={(e) => setCheckoutEmail(e.target.value)}
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-phone">
-                          {t("tickets.phone")}
-                        </label>
-                        <input
-                          id="chk-phone"
-                          type="tel"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-                          placeholder="+221 ..."
-                        />
-                      </div>
-                    </div>
-
-                    {/* Payment choice */}
-                    <div>
-                      <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                        {t("tickets.paymentMethod")}
-                      </span>
-                      <div className="grid grid-cols-3 gap-3">
-                        {[
-                          { id: "wave", label: "Wave", color: "bg-blue-600/10 text-blue-600 border-blue-600/30", selectColor: "ring-2 ring-blue-600 border-blue-600" },
-                          { id: "orange", label: "Orange Money", color: "bg-orange-500/10 text-orange-500 border-orange-500/30", selectColor: "ring-2 ring-orange-500 border-orange-500" },
-                          { id: "card", label: "Carte Bancaire", color: "bg-neutral-600/10 text-foreground border-neutral-600/30", selectColor: "ring-2 ring-foreground border-foreground" },
-                        ].map((method) => (
-                          <div
-                            key={method.id}
-                            onClick={() => setPaymentMethod(method.id as any)}
-                            className={`flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer transition-all hover:scale-102 ${
-                              paymentMethod === method.id ? method.selectColor : "border-border bg-card"
-                            }`}
-                          >
-                            {method.id === "card" ? <CreditCard className="w-6 h-6 mb-2" /> : <Wallet className="w-6 h-6 mb-2" />}
-                            <span className="text-xs font-bold uppercase tracking-wide">{method.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Security message */}
-                    <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10">
-                      <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                      <p className="text-xs text-muted-foreground leading-normal font-serif">
-                        Les transactions sont simulées et sécurisées. Vos informations personnelles restent confidentielles.
-                      </p>
-                    </div>
-
-                    {/* Process checkout button */}
-                    <button
-                      type="submit"
-                      className="w-full bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2"
+              <div className="p-6 overflow-y-auto flex-1 overflow-x-hidden">
+                <AnimatePresence mode="wait">
+                  {checkoutStep === "personal_info" && (
+                    <motion.form 
+                      key="step1"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      transition={{ duration: 0.3 }}
+                      onSubmit={(e) => { e.preventDefault(); setCheckoutStep("payment"); }} 
+                      className="space-y-6"
                     >
-                      <span>{t("tickets.processPayment")}</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </form>
-                )}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-firstname">{t("tickets.firstName")}</label>
+                          <input id="chk-firstname" type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-lastname">{t("tickets.lastName")}</label>
+                          <input id="chk-lastname" type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                        </div>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-email">{t("tickets.email")}</label>
+                          <input id="chk-email" type="email" required value={checkoutEmail} onChange={(e) => setCheckoutEmail(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-phone">{t("tickets.phone")}</label>
+                          <input id="chk-phone" type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="+221 ..." />
+                        </div>
+                      </div>
+                      <button type="submit" className="w-full bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2">
+                        <span>Continuer</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </motion.form>
+                  )}
 
-                {paymentStatus === "processing" && (
-                  <div className="flex flex-col items-center justify-center py-16 space-y-4">
-                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-                    <p className="text-sm font-semibold tracking-wide text-foreground uppercase animate-pulse">
-                      {t("tickets.processing")}
-                    </p>
-                  </div>
-                )}
+                  {checkoutStep === "payment" && (
+                    <motion.form
+                      key="step2"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      onSubmit={handleCheckoutSubmit} 
+                      className="space-y-6"
+                    >
+                      <div className="bg-muted/30 p-4 rounded-xl border border-border">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Récapitulatif</h4>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="font-semibold text-foreground">{selectedPass.name}</span>
+                          <span className="text-primary font-black text-lg">{selectedPass.priceLabel}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">{t("tickets.paymentMethod")}</span>
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { id: "wave", label: "Wave", color: "bg-blue-600/10 text-blue-600 border-blue-600/30", selectColor: "ring-2 ring-blue-600 border-blue-600" },
+                            { id: "orange", label: "Orange", color: "bg-orange-500/10 text-orange-500 border-orange-500/30", selectColor: "ring-2 ring-orange-500 border-orange-500" },
+                            { id: "card", label: "Carte", color: "bg-neutral-600/10 text-foreground border-neutral-600/30", selectColor: "ring-2 ring-foreground border-foreground" },
+                          ].map((method) => (
+                            <div key={method.id} onClick={() => setPaymentMethod(method.id as any)} className={`flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer transition-all hover:scale-102 ${paymentMethod === method.id ? method.selectColor : "border-border bg-card"}`}>
+                              {method.id === "card" ? <CreditCard className="w-6 h-6 mb-2" /> : <Wallet className="w-6 h-6 mb-2" />}
+                              <span className="text-xs font-bold uppercase tracking-wide">{method.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10">
+                        <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
+                        <p className="text-xs text-muted-foreground leading-normal font-serif">Transactions sécurisées.</p>
+                      </div>
+                      <div className="flex gap-4">
+                        <button type="button" onClick={() => setCheckoutStep("personal_info")} className="flex-1 bg-muted text-foreground font-bold uppercase tracking-widest text-xs py-4 rounded-xl border border-border hover:bg-muted/80 transition-all hover:scale-102 cursor-pointer">
+                          Retour
+                        </button>
+                        <button type="submit" className="flex-2 bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2">
+                          <span>{t("tickets.processPayment")}</span>
+                          <ShieldCheck className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </motion.form>
+                  )}
 
-                {paymentStatus === "success" && (
-                  <div className="space-y-8 flex flex-col items-center py-4">
+                  {checkoutStep === "processing" && (
+                    <motion.div
+                      key="step3"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex flex-col items-center justify-center py-16 space-y-4"
+                    >
+                      <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                      <p className="text-sm font-semibold tracking-wide text-foreground uppercase animate-pulse">
+                        {t("tickets.processing")}
+                      </p>
+                    </motion.div>
+                  )}
+
+                  {checkoutStep === "success" && (
+                    <motion.div
+                      key="step4"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="space-y-8 flex flex-col items-center py-4"
+                    >
                     {/* SVG Premium E-Ticket */}
                     <div className="w-full max-w-md border-4 border-border rounded-3xl overflow-hidden shadow-2xl bg-[#091526] text-white">
                       <svg
@@ -735,8 +731,9 @@ function Billetterie() {
                         {t("tickets.back")}
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+                </AnimatePresence>
               </div>
             </motion.div>
           </div>

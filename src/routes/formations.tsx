@@ -80,9 +80,8 @@ import { PageSkeleton } from "@/components/PageSkeleton";
 
 export const Route = createFileRoute("/formations")({
   head: () => {
-    const { t } = useTranslation();
     const { meta, links } = createSeoMeta({
-      title: t("formations.title") + " | The Village Podor",
+      title: "Formations | The Village Podor",
       description:
         "Formations au The Village Podor : musiques traditionnelles, lutherie, artisanat, poterie et savonnerie. Centre de formation professionnelle à Podor.",
       ogTitle: "Formations NANN-k — The Village Podor",

@@ -17,25 +17,29 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { Lightbox } from "@/components/Lightbox";
 import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
+import { ActivityCard } from "@/components/ActivityCard";
+import { NewsCard } from "@/components/NewsCard";
 
 export const Route = createFileRoute("/")({
   head: () => {
-    const { t, i18n } = useTranslation();
+    // Default to French for SSR to avoid hydration mismatch
+    const lang = "fr";
+    
     const { meta, links } = createSeoMeta({
-      title: i18n.language === 'fr' 
+      title: lang === 'fr' 
         ? "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve"
         : "The Village Podor | Cultural Center by Baaba Maal - Blues du Fleuve Festival",
-      description: i18n.language === 'fr'
+      description: lang === 'fr'
         ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
         : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
-      ogTitle: i18n.language === 'fr'
+      ogTitle: lang === 'fr'
         ? "The Village - Le Village Culturel de Podor par Baaba Maal"
         : "The Village - The Cultural Village of Podor by Baaba Maal",
-      ogDescription: i18n.language === 'fr'
+      ogDescription: lang === 'fr'
         ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
         : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
       ogImage: "/centre culturel.jpg",
-      keywords: i18n.language === 'fr'
+      keywords: lang === 'fr'
         ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
         : "The Village, The Village Podor, Podor village, cultural village, Podor cultural center, Baaba Maal, Blues du Fleuve, Senegal festival, Fouta Toro, Halpulaar, NANN-k, Senegalese heritage",
       canonical: "https://lesbluesdufleuve.sn/",
@@ -45,7 +49,7 @@ export const Route = createFileRoute("/")({
       name: "The Village Podor",
       url: "https://lesbluesdufleuve.sn/",
       logo: "https://lesbluesdufleuve.sn/logo%20the%20village.jpg",
-      description: i18n.language === 'fr'
+      description: lang === 'fr'
         ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
         : "A unique cultural center initiated by Baaba Maal in the heart of the Senegal River valley in Podor, bringing together a museum, creation and training spaces.",
       founder: "Baaba Maal",
@@ -121,6 +125,7 @@ function Home() {
             poster="/centre culturel.jpg"
             className="h-full w-full object-cover scale-105"
           >
+            <source src="/video the village.webm" type="video/webm" />
             <source src="/video the village.mp4" type="video/mp4" />
           </video>
           <motion.div
@@ -190,8 +195,10 @@ function Home() {
           tabIndex={0}
           aria-label={t("home.scrollLabel")}
           onKeyDown={(e) => {
-            if (e.key === "Enter")
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
               document.getElementById("presentation")?.scrollIntoView({ behavior: "smooth" });
+            }
           }}
         >
           <ArrowRight
@@ -389,10 +396,10 @@ function Home() {
           >
             {/* Photo principale — portrait Baaba Maal */}
             <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
-              <img
+              <OptimizedImage
                 src="/photo baba maal.jpg"
                 alt="Portrait Baaba Maal"
-                className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
+                className="h-full w-full transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-8 left-8">
@@ -404,10 +411,10 @@ function Home() {
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
             <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-37.5 md:max-w-45">
-              <img
+              <OptimizedImage
                 src="/Baba.jpg"
                 alt="Baaba Maal en concert"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
+                className="h-full w-full transition-transform duration-700 hover:scale-110"
               />
             </div>
           </motion.div>
@@ -430,31 +437,10 @@ function Home() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden space-y-8"
                   >
-                    <p>
-                      Dès son plus jeune âge, il baigne dans la culture musicale traditionnelle. Son
-                      père, un fisherman et griot, lui transmet l'amour de la musique et de la
-                      culture pulaar. Il étudie la musique traditionnelle et maîtrise plusieurs
-                      instruments, notamment le ngoni et la kora.
-                    </p>
-                    <p>
-                      Dans les années 1970, il se rend à Dakar pour poursuivre ses études. C'est là
-                      que son parcours musical prend son envol. Il collabore avec divers artistes et
-                      enregistre ses premiers albums. Son style unique, mélange de traditions
-                      musicales peules et d'influences modernes, lui permet de se faire connaître
-                      bien au-delà des frontières du Sénégal.
-                    </p>
-                    <p>
-                      Au cours des décennies suivantes, Baaba Maal devient une figure emblématique
-                      de la musique africaine mondiale. Il a collaboré avec de grands artistes
-                      internationaux et a donné des concerts dans les plus grandes salles du monde.
-                    </p>
-                    <p>
-                      Mais Baaba Maal n'est pas seulement un musicien : il est aussi un humaniste
-                      profondément engagé dans le développement de sa région. Il est le fondateur du
-                      mouvement NANN-K et du centre culturel The Village à Podor, qui ont pour
-                      objectif de promouvoir la culture, l'éducation et le développement durable
-                      dans la vallée du fleuve Sénégal.
-                    </p>
+                    <p>{t("home.bioFull1")}</p>
+                    <p>{t("home.bioFull2")}</p>
+                    <p>{t("home.bioFull3")}</p>
+                    <p>{t("home.bioFull4")}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -487,160 +473,61 @@ function Home() {
         </div>
 
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {/* Concert */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div
-              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
-              onClick={() => openLightbox(galleryImages, 0)}
-            >
-              <img
-                src={galleryImages[0].src}
-                alt="Concert"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-8">
-              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                {t("home.categoryMusical")}
-              </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                {t("home.activityConcertsTitle")}
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                {t("home.activityConcertsDesc")}
-              </p>
-              <Link
-                to="/blues-du-fleuve"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
-              >
-                {t("home.learnMore")} <ArrowRight size={16} />
-              </Link>
-            </div>
-          </article>
+          <ActivityCard
+            imageSrc={galleryImages[0].src}
+            imageAlt="Concert"
+            category={t("home.categoryMusical")}
+            title={t("home.activityConcertsTitle")}
+            description={t("home.activityConcertsDesc")}
+            linkTo="/blues-du-fleuve"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 0)}
+          />
 
-          {/* Exposition */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div
-              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
-              onClick={() => openLightbox(galleryImages, 1)}
-            >
-              <img
-                src={galleryImages[1].src}
-                alt="Exposition"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-8">
-              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                {t("home.categoryArtistic")}
-              </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                {t("home.activityExhibitionsTitle")}
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                {t("home.activityExhibitionsDesc")}
-              </p>
-              <Link
-                to="/nann-k-media"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
-              >
-                {t("home.learnMore")} <ArrowRight size={16} />
-              </Link>
-            </div>
-          </article>
+          <ActivityCard
+            imageSrc={galleryImages[1].src}
+            imageAlt="Exposition"
+            category={t("home.categoryArtistic")}
+            title={t("home.activityExhibitionsTitle")}
+            description={t("home.activityExhibitionsDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 1)}
+          />
 
-          {/* Conférence */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div
-              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
-              onClick={() => openLightbox(galleryImages, 2)}
-            >
-              <img
-                src={galleryImages[2].src}
-                alt="Conférence"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-8">
-              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                {t("home.categoryDebate")}
-              </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                {t("home.activityConferencesTitle")}
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                {t("home.activityConferencesDesc")}
-              </p>
-              <Link
-                to="/nann-k-media"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
-              >
-                {t("home.learnMore")} <ArrowRight size={16} />
-              </Link>
-            </div>
-          </article>
+          <ActivityCard
+            imageSrc={galleryImages[2].src}
+            imageAlt="Conférence"
+            category={t("home.categoryDebate")}
+            title={t("home.activityConferencesTitle")}
+            description={t("home.activityConferencesDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 2)}
+          />
 
-          {/* Master Class */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-            <div
-              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
-              onClick={() => openLightbox(galleryImages, 3)}
-            >
-              <OptimizedImage
-                src={galleryImages[3].src}
-                alt="Master Class"
-                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-8">
-              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                {t("home.categoryFormation")}
-              </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                {t("home.activityMasterclassTitle")}
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                {t("home.activityMasterclassDesc")}
-              </p>
-              <Link
-                to="/formations"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
-              >
-                {t("home.learnMore")} <ArrowRight size={16} />
-              </Link>
-            </div>
-          </article>
+          <ActivityCard
+            imageSrc={galleryImages[3].src}
+            imageAlt="Master Class"
+            category={t("home.categoryFormation")}
+            title={t("home.activityMasterclassTitle")}
+            description={t("home.activityMasterclassDesc")}
+            linkTo="/formations"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 3)}
+          />
 
-          {/* Défilé de Mode */}
-          <article className="group rounded-3xl overflow-hidden border border-border bg-card shadow-elegant hover:shadow-xl transition-all duration-500 hover:-translate-y-2 md:col-span-2 lg:col-span-1 lg:col-start-2">
-            <div
-              className="aspect-4/3 overflow-hidden bg-muted/50 cursor-pointer"
-              onClick={() => openLightbox(galleryImages, 4)}
-            >
-              <img
-                src={galleryImages[4].src}
-                alt="Défilé de Mode"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="p-8">
-              <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                {t("home.categoryCreation")}
-              </span>
-              <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-                {t("home.activityFashionTitle")}
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-                {t("home.activityFashionDesc")}
-              </p>
-              <Link
-                to="/nann-k-media"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
-              >
-                {t("home.learnMore")} <ArrowRight size={16} />
-              </Link>
-            </div>
-          </article>
+          <ActivityCard
+            imageSrc={galleryImages[4].src}
+            imageAlt="Défilé de Mode"
+            category={t("home.categoryCreation")}
+            title={t("home.activityFashionTitle")}
+            description={t("home.activityFashionDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 4)}
+            className="md:col-span-2 lg:col-span-1 lg:col-start-2"
+          />
         </div>
       </section>
 
@@ -673,37 +560,16 @@ function Home() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Link
+                <NewsCard
                   to={articles[0].to}
-                  className="group flex flex-col md:flex-row bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
-                >
-                  <div className="relative md:w-1/2 aspect-video md:aspect-auto overflow-hidden bg-muted/30">
-                    <OptimizedImage
-                      src={articles[0].img}
-                      alt={articles[0].title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
-                        {articles[0].category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
-                    <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                      {articles[0].date}
-                    </span>
-                    <h3 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-6 group-hover:text-primary transition-colors">
-                      {articles[0].title}
-                    </h3>
-                    <p className="text-base text-muted-foreground mb-8 font-medium leading-relaxed">
-                      {articles[0].excerpt}
-                    </p>
-                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                      {t("home.readMore")} <ChevronRight size={16} />
-                    </div>
-                  </div>
-                </Link>
+                  imgSrc={articles[0].img}
+                  category={articles[0].category}
+                  date={articles[0].date}
+                  title={articles[0].title}
+                  excerpt={articles[0].excerpt}
+                  readMoreText={t("home.readMore")}
+                  featured
+                />
               </motion.div>
             )}
 
@@ -718,37 +584,15 @@ function Home() {
                   transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="h-full"
                 >
-                  <Link
+                  <NewsCard
                     to={article.to}
-                    className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
-                  >
-                    <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
-                      <OptimizedImage
-                        src={article.img}
-                        alt={article.title}
-                        className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
-                          {article.category}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-8 flex flex-col flex-1">
-                      <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                        {article.date}
-                      </span>
-                      <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
-                        {article.excerpt}
-                      </p>
-                      <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-                        {t("home.readMore")} <ChevronRight size={14} />
-                      </div>
-                    </div>
-                  </Link>
+                    imgSrc={article.img}
+                    category={article.category}
+                    date={article.date}
+                    title={article.title}
+                    excerpt={article.excerpt}
+                    readMoreText={t("home.readMore")}
+                  />
                 </motion.div>
               ))}
             </div>
