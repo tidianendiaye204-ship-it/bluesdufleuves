@@ -15,7 +15,7 @@ import {
   PawPrint,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
 import { useTranslation } from "react-i18next";
@@ -132,7 +132,7 @@ function VideoCarousel({ items, thumbs, setActiveVideo }: any) {
                   setActiveVideo({ name: item.name, id: item.id });
                 }
               }}
-              className="group h-full rounded-xl overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer flex flex-col"
+              className="group h-full rounded-xl overflow-hidden glass-dark border border-border/30 transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:-translate-y-1 cursor-pointer flex flex-col"
             >
               <div className="aspect-video relative overflow-hidden bg-muted/30">
                 <img
@@ -167,6 +167,9 @@ function NannkMedia() {
     isLocal?: boolean;
   } | null>(null);
   const [activeTab, setActiveTab] = useState(0);
+
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 800], ["0%", "40%"]);
 
   const agriImages = [
     { src: agri1Img, alt: t("nannk.agri1Alt", "Agriculture NANN-K – Champs irrigués") },
@@ -316,10 +319,10 @@ function NannkMedia() {
   return (
     <div className="bg-background min-h-screen">
       {/* ──────────────────── HERO ──────────────────── */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(/arriereplan-nannk.jpg)` }}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-[#0a1628] py-32">
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center opacity-30 scale-110"
+          style={{ backgroundImage: `url(/arriereplan-nannk.jpg)`, y: heroY }}
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
         <div
@@ -391,8 +394,8 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── SIGNIFICATION DU SIGLE NANN-K ──────────────────── */}
-      <section className="container-page py-16 relative overflow-hidden">
-        <div className="text-center mb-12">
+      <section className="container-page py-24 relative overflow-hidden">
+        <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-[0.3em] text-primary mb-3 block font-bold">
             {t("nannk.foundations")}
           </span>
@@ -418,7 +421,7 @@ function NannkMedia() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
                 key={p.title}
-                className={`relative flex flex-col justify-between p-6 rounded-3xl border ${p.border} ${p.bg} hover:shadow-xl hover:scale-105 transition-all duration-300 group overflow-hidden`}
+                className={`relative flex flex-col justify-between p-6 rounded-3xl border ${p.border} glass-dark hover:shadow-2xl hover:scale-105 transition-all duration-500 group overflow-hidden`}
               >
                 {/* Decorative letter background */}
                 <span className="absolute -right-4 -bottom-6 font-display text-8xl md:text-9xl font-black opacity-10 select-none transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
@@ -455,7 +458,7 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── STATS ──────────────────── */}
-      <section className="container-page py-12">
+      <section className="container-page py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((s) => (
             <StatCard key={s.label} {...s} />
@@ -464,7 +467,7 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── MISSION ──────────────────── */}
-      <section className="container-page py-12 border-t border-border">
+      <section className="container-page py-24 border-t border-border">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -565,14 +568,14 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── NANN-K TV (MOVED HIGHER) ──────────────────── */}
-      <section className="container-page py-20">
+      <section className="container-page py-24">
         {/* TV Header card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="grid md:grid-cols-[180px_1fr] gap-8 items-center mb-12 bg-card border border-border p-8 rounded-3xl shadow-sm"
+          className="grid md:grid-cols-[180px_1fr] gap-8 items-center mb-16 glass-dark border border-border/30 p-8 rounded-3xl shadow-xl"
         >
           <div className="flex justify-center">
             <div className="w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm">
@@ -605,9 +608,9 @@ function NannkMedia() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl mb-16"
+          className="rounded-3xl overflow-hidden border border-border/30 glass-dark shadow-2xl mb-16 p-2"
         >
-          <div className="aspect-video relative bg-black">
+          <div className="aspect-video relative bg-black rounded-2xl overflow-hidden">
             <iframe
               className="absolute inset-0 w-full h-full border-0"
               src="https://www.youtube.com/embed/L0HX8udwCeg"
@@ -656,7 +659,7 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── NANNK TRUST ──────────────────── */}
-      <section className="container-page py-14 border-t border-border bg-muted/30">
+      <section className="container-page py-24 border-t border-border bg-muted/10">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
             {t("nannk.trustCommitment")}
@@ -714,7 +717,7 @@ function NannkMedia() {
       </section>
 
       {/* ──────────────────── REBOISEMENT & ESPACE AGRICOLE (ALTERNATING LAYOUTS) ──────────────────── */}
-      <section className="container-page py-14 border-t border-border">
+      <section className="container-page py-24 border-t border-border">
         <div className="max-w-6xl mx-auto space-y-24">
           {/* Reboisement */}
           <div className="grid md:grid-cols-2 gap-12 items-center">

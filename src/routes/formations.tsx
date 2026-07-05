@@ -34,7 +34,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createSeoMeta } from "@/lib/seo";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { MagneticButton } from "@/components/MagneticButton";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 export const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -269,6 +269,9 @@ function Formations() {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 800], ["0%", "40%"]);
+
   const motivationLength = watch("motivation")?.length || 0;
 
   const toggleVideo = () => {
@@ -332,15 +335,15 @@ function Formations() {
       {/* ===== HERO ===== */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Image de fond */}
-        <div className="absolute inset-0">
+        <motion.div className="absolute inset-0" style={{ y: heroY }}>
           <img
             src={centreCulturelImg}
             alt="Centre Culturel The Village"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-110"
           />
           <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/60 to-black/30" />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
-        </div>
+        </motion.div>
 
         {/* Décoration ornemental */}
         <div className="absolute top-12 right-12 w-64 h-64 rounded-full border border-white/5 hidden lg:block" />
@@ -597,7 +600,7 @@ function Formations() {
           {filteredProgrammes.map((prog, idx) => (
             <article
               key={idx}
-              className={`group relative rounded-3xl border border-border bg-linear-to-br ${prog.couleur} bg-card p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/30 overflow-hidden`}
+              className={`group relative rounded-3xl border border-border bg-linear-to-br ${prog.couleur} glass-dark p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/50 overflow-hidden`}
             >
               {/* Tag */}
               <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-background/80 text-muted-foreground border border-border">

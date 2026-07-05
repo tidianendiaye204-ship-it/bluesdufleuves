@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   ChevronRight,
@@ -19,6 +19,7 @@ import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ActivityCard } from "@/components/ActivityCard";
 import { NewsCard } from "@/components/NewsCard";
+import { CulturalCarousel } from "@/components/CulturalCarousel";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -85,6 +86,9 @@ function Home() {
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string }>>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 1000], ["0%", "40%"]);
+
   const openLightbox = (images: Array<{ src: string; alt: string }>, index: number) => {
     setLightboxImages(images);
     setLightboxIndex(index);
@@ -116,7 +120,7 @@ function Home() {
     <div className="bg-background min-h-screen">
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
+        <motion.div className="absolute inset-0" style={{ y: heroY }}>
           <video
             autoPlay
             loop
@@ -134,7 +138,7 @@ function Home() {
             transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           />
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-background" />
-        </div>
+        </motion.div>
 
         <div className="container-page relative z-10 text-center">
           <motion.div
@@ -274,7 +278,7 @@ function Home() {
             </div>
           </motion.div>
 
-          {/* Photo intermédiaire */}
+          {/* Carrousel Dynamique - Le Centre Culturel */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -282,18 +286,7 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="my-16"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-video border-4 border-border shadow-xl">
-              <OptimizedImage
-                src="/festival baba maal.jpg"
-                alt="Baaba Maal en concert au Blues du Fleuve"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-6 left-6 text-white">
-                <p className="text-sm uppercase tracking-widest mb-1">Baaba Maal</p>
-                <p className="luxury-text text-2xl">Le Festival Blues du Fleuve</p>
-              </div>
-            </div>
+            <CulturalCarousel />
           </motion.div>
 
           <motion.div
@@ -385,14 +378,14 @@ function Home() {
 
       {/* Section Baaba Maal - Elevated Typography */}
       <section className="container-page py-32 border-b border-border/10">
-        <div className="grid md:grid-cols-2 gap-20 items-center">
-          {/* Galerie photo biographie */}
+        <div className="grid md:grid-cols-2 gap-20 items-start relative">
+          {/* Galerie photo biographie - rendue Sticky */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
+            className="relative md:sticky md:top-32"
           >
             {/* Photo principale — portrait Baaba Maal */}
             <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
@@ -472,7 +465,7 @@ function Home() {
           </h2>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <ActivityCard
             imageSrc={galleryImages[0].src}
             imageAlt="Concert"
@@ -482,6 +475,7 @@ function Home() {
             linkTo="/blues-du-fleuve"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 0)}
+            className="md:col-span-2 lg:col-span-2"
           />
 
           <ActivityCard
@@ -526,7 +520,6 @@ function Home() {
             linkTo="/nann-k-media"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 4)}
-            className="md:col-span-2 lg:col-span-1 lg:col-start-2"
           />
         </div>
       </section>
@@ -622,16 +615,31 @@ function Home() {
           {instruments.map((inst, idx) => (
             <motion.div
               key={inst.nom}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="p-10 rounded-2xl border border-border/10 bg-muted/20 hover:bg-background hover:shadow-elegant transition-all duration-500"
+              transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative p-10 rounded-3xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
             >
-              <h4 className="luxury-text text-2xl text-primary mb-6">{inst.nom}</h4>
-              <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                {inst.desc}
-              </p>
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-8">
+                  <h4 className="luxury-text text-2xl md:text-3xl text-foreground group-hover:text-primary transition-colors">
+                    {inst.nom}
+                  </h4>
+                  <span className="font-display text-4xl md:text-5xl font-black text-primary/10 group-hover:text-primary/20 transition-colors duration-500 select-none">
+                    0{idx + 1}
+                  </span>
+                </div>
+                <p className="text-muted-foreground text-sm font-serif leading-relaxed">
+                  {inst.desc}
+                </p>
+              </div>
+
+              {/* Decorative corner element */}
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-linear-to-tl from-primary/10 to-transparent rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
         </div>

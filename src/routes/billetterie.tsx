@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Ticket, Calendar, MapPin, CheckCircle2, ChevronDown, Bell, X, Download, ShieldCheck, Wallet, CreditCard, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { subscribeNewsletterFn } from "@/routes/__root";
@@ -109,6 +109,9 @@ function Billetterie() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [msg, setMsg] = useState("");
+
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 800], ["0%", "50%"]);
 
   // Checkout Modal State
   const [selectedPass, setSelectedPass] = useState<Pass | null>(null);
@@ -275,12 +278,12 @@ function Billetterie() {
       {/* ──────────────── HERO SECTION ──────────────── */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
         {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: `url(${crowdImg})` }}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center opacity-40"
+          style={{ backgroundImage: `url(${crowdImg})`, y: heroY }}
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-[#0a1628]/80 via-[#0a1628]/60 to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/80 via-[#0a1628]/60 to-background" />
 
         <div className="relative z-10 container-page text-center py-20 md:py-32">
           <motion.div
@@ -426,10 +429,10 @@ function Billetterie() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className={`relative bg-card rounded-3xl p-8 border-2 ${pass.border} shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col`}
+              className={`relative glass-dark rounded-3xl p-8 border-2 ${pass.border} shadow-2xl hover:shadow-[0_20px_50px_rgba(202,138,4,0.15)] transition-all duration-500 flex flex-col group hover:-translate-y-2`}
             >
               {pass.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-gold text-black text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-amber-500/20">
                   {t("tickets.popular")}
                 </div>
               )}
@@ -654,18 +657,25 @@ function Billetterie() {
                         className="w-full h-auto block"
                         xmlns="http://www.w3.org/2000/svg"
                       >
+                        <defs>
+                          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#fef3c7" />
+                            <stop offset="50%" stopColor="#d97706" />
+                            <stop offset="100%" stopColor="#78350f" />
+                          </linearGradient>
+                        </defs>
                         {/* Background */}
                         <rect width="400" height="600" fill="#091526" />
                         
                         {/* Inner Border */}
-                        <rect x="15" y="15" width="370" height="570" fill="none" stroke="#ca8a04" strokeWidth="2" strokeDasharray="6 4" rx="10" />
+                        <rect x="15" y="15" width="370" height="570" fill="none" stroke="url(#goldGradient)" strokeWidth="2" strokeDasharray="6 4" rx="10" />
 
                         {/* Top banner / branding */}
                         <text x="200" y="55" fill="#ffffff" fontSize="11" fontWeight="900" letterSpacing="5" textAnchor="middle">THE VILLAGE · PODOR</text>
-                        <text x="200" y="80" fill="#ca8a04" fontSize="16" fontWeight="bold" letterSpacing="2" textAnchor="middle">FESTIVAL BLUES DU FLEUVE</text>
+                        <text x="200" y="80" fill="url(#goldGradient)" fontSize="16" fontWeight="bold" letterSpacing="2" textAnchor="middle">FESTIVAL BLUES DU FLEUVE</text>
                         
                         {/* Line separation */}
-                        <line x1="30" y1="110" x2="370" y2="110" stroke="#ca8a04" strokeWidth="1" opacity="0.3" />
+                        <line x1="30" y1="110" x2="370" y2="110" stroke="url(#goldGradient)" strokeWidth="1" opacity="0.6" />
 
                         {/* Main Event info */}
                         <text x="200" y="150" fill="#94a3b8" fontSize="9" fontWeight="bold" letterSpacing="2" textAnchor="middle">EVENEMENT</text>

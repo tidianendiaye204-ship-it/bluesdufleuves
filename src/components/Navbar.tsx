@@ -23,15 +23,28 @@ export function Navbar() {
 
   const isTransparent = !scrolled && !open;
 
-  // Détecter le défilement pour la transparence
+  const [hidden, setHidden] = useState(false);
+
+  // Détecter le défilement et la direction pour un effet intelligent (hide on scroll down)
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 50);
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 150 && !open) {
+        setHidden(true); // Scroll bas, on cache
+      } else {
+        setHidden(false); // Scroll haut, on montre
+      }
+      
+      lastScrollY = currentScrollY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [open]);
 
   // Fermer le menu au changement de route
   useEffect(() => {
@@ -53,10 +66,12 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          hidden ? "-translate-y-full" : "translate-y-0"
+        } ${
           scrolled || open
-            ? "bg-background/90 backdrop-blur-2xl border-b border-border shadow-sm py-0"
-            : "bg-transparent border-transparent py-4"
+            ? "glass-premium bg-background/80 py-1"
+            : "bg-transparent border-transparent py-5"
         }`}
       >
         <div className="container-page">
@@ -231,7 +246,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
-              className="fixed inset-y-0 right-0 w-full max-w-sm z-200 lg:hidden flex flex-col bg-card border-l border-border shadow-2xl"
+              className="fixed inset-y-0 right-0 w-full max-w-sm z-200 lg:hidden flex flex-col glass-dark border-l border-border/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] text-white"
               aria-hidden={!open}
               id="mobile-menu"
               role="dialog"

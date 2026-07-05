@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   MapPin,
@@ -167,10 +167,10 @@ function FloatingInput({
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-border rounded-2xl overflow-hidden">
+    <div className="border border-border/30 rounded-2xl overflow-hidden glass-dark">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-4 text-left font-semibold text-foreground hover:bg-muted/50 transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-white hover:bg-white/5 transition-colors cursor-pointer"
       >
         <span>{q}</span>
         <ChevronDown
@@ -180,7 +180,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
       <div
         className={`overflow-hidden transition-all duration-300 ${open ? "max-h-40" : "max-h-0"}`}
       >
-        <p className="px-6 pb-4 text-sm text-muted-foreground font-serif leading-relaxed">{a}</p>
+        <p className="px-6 pb-5 text-sm text-white/70 font-serif leading-relaxed">{a}</p>
       </div>
     </div>
   );
@@ -212,6 +212,9 @@ function ContactPage() {
   const [csrfToken, setCsrfToken] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
   const [sujetOpen, setSujetOpen] = useState(false);
+
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 800], ["0%", "40%"]);
 
   const { ref: formRef, visible: formVisible } = useReveal();
   const { ref: infoRef, visible: infoVisible } = useReveal();
@@ -334,12 +337,14 @@ function ContactPage() {
   return (
     <div className="bg-background min-h-screen">
       {/* ──────────────── HERO ──────────────── */}
-      <section className="relative overflow-hidden bg-[#0a1628] py-20 md:py-28">
+      <section className="relative overflow-hidden min-h-[60vh] flex items-center py-32">
         {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url(/arriereplan-contact.jpg)" }}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center opacity-30 scale-110"
+          style={{ backgroundImage: "url(/arriereplan-contact.jpg)", y: heroY }}
         />
+        {/* Overlay gradient pour mieux fondre l'image */}
+        <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/80 to-background" />
         {/* Decorative blobs */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
@@ -360,20 +365,10 @@ function ContactPage() {
               Échangeons ensemble
             </span>
           </div>
-          <h1 className="font-display text-5xl md:text-7xl font-black mb-6 uppercase tracking-tight leading-none">
-            <span className="text-white">Nous </span>
-            <span
-              style={{
-                background: "linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              Contacter
-            </span>
+          <h1 className="luxury-text text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none text-foreground">
+            Nous <span className="text-gradient-gold">Contacter</span>
           </h1>
-          <p className="text-lg text-slate-300 leading-relaxed font-serif max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-serif max-w-2xl mx-auto">
             Une question sur le festival, un projet de partenariat ou une demande d'information sur
             nos formations au{" "}
             <Link to="/" className="text-sky-300 hover:underline font-medium">
@@ -392,7 +387,7 @@ function ContactPage() {
             return (
               <div
                 key={item.title}
-                className={`bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-500 group ${
+                className={`glass-dark border border-border/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-500 group ${
                   infoVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
@@ -402,11 +397,11 @@ function ContactPage() {
                 >
                   <Icon className={`w-6 h-6 ${item.iconColor}`} />
                 </div>
-                <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-2">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-white mb-2">
                   {item.title}
                 </h3>
                 {item.lines.map((line) => (
-                  <p key={line} className="text-sm text-muted-foreground font-serif">
+                  <p key={line} className="text-sm text-white/70 font-serif">
                     {line}
                   </p>
                 ))}
@@ -417,7 +412,7 @@ function ContactPage() {
       </section>
 
       {/* ──────────────── FORM + SOCIAL ──────────────── */}
-      <section className="container-page py-14">
+      <section className="container-page py-24">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Left column – context + social */}
           <div className="lg:col-span-4 space-y-10">
@@ -435,7 +430,7 @@ function ContactPage() {
             </div>
 
             {/* Map embed */}
-            <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-80">
+            <div className="rounded-2xl overflow-hidden border border-border/30 glass-dark shadow-xl h-80">
               <iframe
                 title="Localisation Podor, Sénégal"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
@@ -476,7 +471,7 @@ function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className={`w-11 h-11 rounded-xl border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-white ${bg} hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg`}
+                    className={`w-11 h-11 rounded-xl border border-border/30 glass-dark flex items-center justify-center text-white hover:text-white ${bg} hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-xl`}
                   >
                     <SocialIcon className="w-5 h-5" />
                   </a>
@@ -490,10 +485,10 @@ function ContactPage() {
             ref={formRef}
             className={`lg:col-span-8 transition-all duration-700 ${formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
-            <div className="bg-card border border-border rounded-3xl shadow-sm overflow-hidden">
+            <div className="glass-dark border border-border/30 rounded-3xl shadow-xl overflow-hidden">
               {/* Form header */}
               <div className="bg-linear-to-r from-primary/10 to-sky-500/10 border-b border-border px-8 py-6">
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground">
+                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white">
                   Envoyez-nous un message
                 </h3>
                 <p className="text-sm text-muted-foreground font-serif mt-1">
@@ -519,7 +514,7 @@ function ContactPage() {
                       <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
                     </motion.div>
                     <div>
-                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">
+                      <h3 className="font-display text-2xl font-bold text-white mb-2">
                         {t("contact.successTitle")}
                       </h3>
                       <p className="text-muted-foreground font-serif max-w-xs mx-auto">
@@ -531,19 +526,19 @@ function ContactPage() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-muted/50 rounded-2xl p-5 text-left max-w-sm mx-auto space-y-3 border border-border"
+                        className="bg-white/5 rounded-2xl p-5 text-left max-w-sm mx-auto space-y-3 border border-border/30"
                       >
                         <p className="text-xs uppercase tracking-widest text-primary font-bold mb-2">Récapitulatif</p>
-                        <div className="flex items-center gap-3 text-sm text-foreground">
-                          <User size={14} className="text-muted-foreground shrink-0" />
+                        <div className="flex items-center gap-3 text-sm text-white">
+                          <User size={14} className="text-white/60 shrink-0" />
                           <span>{sentData.nom}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-foreground">
-                          <Mail size={14} className="text-muted-foreground shrink-0" />
+                        <div className="flex items-center gap-3 text-sm text-white">
+                          <Mail size={14} className="text-white/60 shrink-0" />
                           <span>{sentData.email}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-foreground">
-                          <MessageSquare size={14} className="text-muted-foreground shrink-0" />
+                        <div className="flex items-center gap-3 text-sm text-white">
+                          <MessageSquare size={14} className="text-white/60 shrink-0" />
                           <span>{sentData.sujet}</span>
                         </div>
                       </motion.div>
@@ -606,7 +601,7 @@ function ContactPage() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute z-50 w-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden py-1"
+                            className="absolute z-50 w-full mt-2 glass-dark border border-border/30 rounded-xl shadow-2xl overflow-hidden py-1"
                           >
                             {[
                               "Information générale",
@@ -624,7 +619,7 @@ function ContactPage() {
                                     setValue("sujet", option, { shouldValidate: true });
                                     setSujetOpen(false);
                                   }}
-                                  className={`w-full text-left px-4 py-3 text-sm hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${selectedSujet === option ? "bg-primary/5 text-primary font-semibold" : "text-foreground"}`}
+                                  className={`w-full text-left px-4 py-3 text-sm hover:bg-white/10 hover:text-white transition-colors cursor-pointer ${selectedSujet === option ? "bg-white/5 text-primary font-semibold" : "text-white"}`}
                                 >
                                   {option}
                                 </button>
@@ -739,7 +734,7 @@ function ContactPage() {
       </section>
 
       {/* ──────────────── FAQ ──────────────── */}
-      <section className="bg-muted/40 border-t border-border py-16">
+      <section className="bg-muted/10 border-t border-border py-24">
         <div
           ref={faqRef}
           className={`container-page max-w-3xl mx-auto transition-all duration-700 ${faqVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
