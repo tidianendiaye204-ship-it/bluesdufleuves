@@ -23,28 +23,15 @@ export function Navbar() {
 
   const isTransparent = !scrolled && !open;
 
-  const [hidden, setHidden] = useState(false);
-
-  // Détecter le défilement et la direction pour un effet intelligent (hide on scroll down)
+  // Détecter le défilement
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 50);
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 150 && !open) {
-        setHidden(true); // Scroll bas, on cache
-      } else {
-        setHidden(false); // Scroll haut, on montre
-      }
-      
-      lastScrollY = currentScrollY;
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [open]);
+  }, []);
 
   // Fermer le menu au changement de route
   useEffect(() => {
@@ -66,9 +53,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          hidden ? "-translate-y-full" : "translate-y-0"
-        } ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 ${
           scrolled || open
             ? "glass-premium bg-background/80 py-1"
             : "bg-transparent border-transparent py-5"
