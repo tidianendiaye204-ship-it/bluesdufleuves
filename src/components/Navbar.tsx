@@ -55,7 +55,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 ${
           scrolled || open
-            ? "glass-premium bg-background/80 py-1"
+            ? "bg-background/95 backdrop-blur-2xl border-b border-border/50 shadow-sm py-2"
             : "bg-transparent border-transparent py-5"
         }`}
       >
