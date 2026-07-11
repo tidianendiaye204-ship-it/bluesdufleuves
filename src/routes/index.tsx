@@ -2,14 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import {
-  ArrowRight,
-  Landmark,
-  Music,
-  GraduationCap,
-  Calendar,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight, Landmark, Music, GraduationCap, Calendar, CheckCircle2 } from "lucide-react";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { subscribeNewsletterFn } from "@/routes/__root";
 import { OptimizedImage } from "@/components/OptimizedImage";

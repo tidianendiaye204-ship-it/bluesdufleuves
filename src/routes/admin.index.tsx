@@ -148,7 +148,7 @@ function AdminDashboard() {
     triggerCSVDownload(rows, "contacts.csv", headers);
   };
 
-  const triggerCSVDownload = (data: any[], filename: string, headers: string[]) => {
+  const triggerCSVDownload = (data: Record<string, unknown>[], filename: string, headers: string[]) => {
     const csvRows = [];
     csvRows.push(headers.join(","));
     for (const row of data) {

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, X } from "lucide-react";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/nannka-tv")({
   component: NannkaTV,
 });
 
-function VideoCarousel({ category, thumbs, setActiveVideo, t }: any) {
+function VideoCarousel({ category, thumbs, setActiveVideo, t }: { category: { titre: string, items: { name: string; id: string }[] }, thumbs: string[], setActiveVideo: (v: { name: string; id: string }) => void, t: (key: string) => string }) {
   const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,
@@ -46,7 +46,7 @@ function VideoCarousel({ category, thumbs, setActiveVideo, t }: any) {
       </div>
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-5">
-          {category.items.map((item: any, i: number) => (
+          {category.items.map((item, i: number) => (
             <div key={item.name} className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_23%]">
               <article
                 onClick={() => setActiveVideo({ name: item.name, id: item.id })}

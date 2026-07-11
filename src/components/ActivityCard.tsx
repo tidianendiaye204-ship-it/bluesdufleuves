@@ -54,7 +54,7 @@ export function ActivityCard({
         </span>
         <h3 className="font-display text-2xl font-bold mb-4 text-foreground">{title}</h3>
         <p className="font-serif text-muted-foreground leading-relaxed mb-6">{description}</p>
-        {/* @ts-ignore */}
+        {/* @ts-expect-error */}
         <Link
           to={linkTo}
           className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4 mt-auto"

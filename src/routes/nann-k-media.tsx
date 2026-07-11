@@ -113,7 +113,7 @@ function StatCard({
   );
 }
 
-function VideoCarousel({ items, thumbs, setActiveVideo }: any) {
+function VideoCarousel({ items, thumbs, setActiveVideo }: { items: { name: string; id: string }[], thumbs: string[], setActiveVideo: (video: { name: string; id: string }) => void }) {
   const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,
@@ -123,7 +123,7 @@ function VideoCarousel({ items, thumbs, setActiveVideo }: any) {
   return (
     <div className="overflow-hidden" ref={emblaRef}>
       <div className="flex gap-5">
-        {items.map((item: any, i: number) => (
+        {items.map((item, i: number) => (
           <div key={item.name} className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_23%]">
             <article
               onClick={() => setActiveVideo({ name: item.name, id: item.id })}
@@ -327,7 +327,7 @@ function NannkMedia() {
         setLightboxIndex((lightboxIndex + 1) % agriImages.length);
       }
     },
-    [lightboxIndex],
+    [lightboxIndex, agriImages.length],
   );
 
   const prevLightboxImg = useCallback(
@@ -337,7 +337,7 @@ function NannkMedia() {
         setLightboxIndex((lightboxIndex - 1 + agriImages.length) % agriImages.length);
       }
     },
-    [lightboxIndex],
+    [lightboxIndex, agriImages.length],
   );
 
   return (
