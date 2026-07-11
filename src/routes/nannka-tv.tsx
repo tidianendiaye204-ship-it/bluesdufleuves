@@ -31,7 +31,17 @@ export const Route = createFileRoute("/nannka-tv")({
   component: NannkaTV,
 });
 
-function VideoCarousel({ category, thumbs, setActiveVideo, t }: { category: { titre: string, items: { name: string; id: string }[] }, thumbs: string[], setActiveVideo: (v: { name: string; id: string }) => void, t: (key: string) => string }) {
+function VideoCarousel({
+  category,
+  thumbs,
+  setActiveVideo,
+  t,
+}: {
+  category: { titre: string; items: { name: string; id: string }[] };
+  thumbs: string[];
+  setActiveVideo: (v: { name: string; id: string }) => void;
+  t: (key: string) => string;
+}) {
   const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,

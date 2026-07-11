@@ -113,7 +113,15 @@ function StatCard({
   );
 }
 
-function VideoCarousel({ items, thumbs, setActiveVideo }: { items: { name: string; id: string }[], thumbs: string[], setActiveVideo: (video: { name: string; id: string }) => void }) {
+function VideoCarousel({
+  items,
+  thumbs,
+  setActiveVideo,
+}: {
+  items: { name: string; id: string }[];
+  thumbs: string[];
+  setActiveVideo: (video: { name: string; id: string }) => void;
+}) {
   const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,

@@ -26,7 +26,7 @@ export function NewsCard({
   if (featured) {
     return (
       <>
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error Bypass typing for external library */}
         <Link
           to={to}
           className="group flex flex-col md:flex-row bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
@@ -64,7 +64,7 @@ export function NewsCard({
 
   return (
     <>
-      {/* @ts-expect-error */}
+      {/* @ts-expect-error Bypass typing for external library */}
       <Link
         to={to}
         className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"

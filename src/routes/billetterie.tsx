@@ -707,7 +707,9 @@ function Billetterie() {
                           ].map((method) => (
                             <div
                               key={method.id}
-                              onClick={() => setPaymentMethod(method.id as "orange" | "wave" | "card")}
+                              onClick={() =>
+                                setPaymentMethod(method.id as "orange" | "wave" | "card")
+                              }
                               className={`flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer transition-all hover:scale-102 ${paymentMethod === method.id ? method.selectColor : "border-border bg-card"}`}
                             >
                               {method.id === "card" ? (
