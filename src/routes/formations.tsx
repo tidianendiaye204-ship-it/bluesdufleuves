@@ -96,50 +96,53 @@ export const Route = createFileRoute("/formations")({
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "itemListElement": [
+      itemListElement: [
         {
           "@type": "ListItem",
-          "position": 1,
-          "item": {
+          position: 1,
+          item: {
             "@type": "Course",
-            "name": "Pratique d'Instruments Traditionnels",
-            "description": "Apprentissage et perfectionnement sur des instruments séculaires (hoddu, riti, tama, flûte peule), encadrés par des maîtres griots.",
-            "provider": {
+            name: "Pratique d'Instruments Traditionnels",
+            description:
+              "Apprentissage et perfectionnement sur des instruments séculaires (hoddu, riti, tama, flûte peule), encadrés par des maîtres griots.",
+            provider: {
               "@type": "Organization",
-              "name": "Centre Culturel NANN-k",
-              "sameAs": "https://lesbluesdufleuve.sn"
-            }
-          }
+              name: "Centre Culturel NANN-k",
+              sameAs: "https://lesbluesdufleuve.sn",
+            },
+          },
         },
         {
           "@type": "ListItem",
-          "position": 2,
-          "item": {
+          position: 2,
+          item: {
             "@type": "Course",
-            "name": "Lutherie Traditionnelle",
-            "description": "Transmission des techniques ancestrales de fabrication, d'entretien et de restauration des instruments de musique locaux.",
-            "provider": {
+            name: "Lutherie Traditionnelle",
+            description:
+              "Transmission des techniques ancestrales de fabrication, d'entretien et de restauration des instruments de musique locaux.",
+            provider: {
               "@type": "Organization",
-              "name": "Centre Culturel NANN-k",
-              "sameAs": "https://lesbluesdufleuve.sn"
-            }
-          }
+              name: "Centre Culturel NANN-k",
+              sameAs: "https://lesbluesdufleuve.sn",
+            },
+          },
         },
         {
           "@type": "ListItem",
-          "position": 3,
-          "item": {
+          position: 3,
+          item: {
             "@type": "Course",
-            "name": "Musicologie & Recherche",
-            "description": "Initiation à l'ethnomusicologie, documentation, transcription et analyse des répertoires, avec des résidences ouvertes aux chercheurs.",
-            "provider": {
+            name: "Musicologie & Recherche",
+            description:
+              "Initiation à l'ethnomusicologie, documentation, transcription et analyse des répertoires, avec des résidences ouvertes aux chercheurs.",
+            provider: {
               "@type": "Organization",
-              "name": "Centre Culturel NANN-k",
-              "sameAs": "https://lesbluesdufleuve.sn"
-            }
-          }
-        }
-      ]
+              name: "Centre Culturel NANN-k",
+              sameAs: "https://lesbluesdufleuve.sn",
+            },
+          },
+        },
+      ],
     };
 
     const scripts = [
@@ -157,7 +160,7 @@ export const Route = createFileRoute("/formations")({
 
 function Formations() {
   const { t } = useTranslation();
-  
+
   const programmes = [
     {
       icon: Music,
@@ -428,14 +431,11 @@ function Formations() {
             <div className="font-serif text-muted-foreground text-base leading-relaxed space-y-5">
               <p>
                 {t("formations.centerDesc1")}{" "}
-                <span className="text-foreground font-semibold">The Village</span> {t("formations.centerDesc1b")}
+                <span className="text-foreground font-semibold">The Village</span>{" "}
+                {t("formations.centerDesc1b")}
               </p>
-              <p>
-                {t("formations.centerDesc2")}
-              </p>
-              <p>
-                {t("formations.centerDesc3")}
-              </p>
+              <p>{t("formations.centerDesc2")}</p>
+              <p>{t("formations.centerDesc3")}</p>
             </div>
 
             {/* Avantages */}
@@ -684,8 +684,18 @@ function Formations() {
                       transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
                       className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-full flex items-center justify-center mx-auto"
                     >
-                      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="w-12 h-12"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                     </motion.div>
                     <div>
@@ -693,8 +703,8 @@ function Formations() {
                         Candidature envoyée !
                       </h3>
                       <p className="text-muted-foreground font-serif text-base max-w-xs mx-auto">
-                        Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande et
-                        vous contactera très prochainement.
+                        Merci de votre intérêt. Notre équipe pédagogique va examiner votre demande
+                        et vous contactera très prochainement.
                       </p>
                     </div>
                     {sentFormation && (
@@ -704,15 +714,29 @@ function Formations() {
                         transition={{ delay: 0.3 }}
                         className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 border border-primary/20 rounded-2xl text-primary font-semibold text-sm"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422A12.08 12.08 0 0121 13c0 5.523-4.477 10-10 10S1 18.523 1 13c0-.607.076-1.196.214-1.78L12 14z" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 14l9-5-9-5-9 5 9 5z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 14l6.16-3.422A12.08 12.08 0 0121 13c0 5.523-4.477 10-10 10S1 18.523 1 13c0-.607.076-1.196.214-1.78L12 14z"
+                          />
                         </svg>
                         Formation : {sentFormation}
                       </motion.div>
                     )}
                   </motion.div>
-
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     {/* Stepper Indicator */}

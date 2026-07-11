@@ -207,7 +207,9 @@ function useReveal() {
 function ContactPage() {
   const { t } = useTranslation();
   const [sent, setSent] = useState(false);
-  const [sentData, setSentData] = useState<{ nom: string; email: string; sujet: string } | null>(null);
+  const [sentData, setSentData] = useState<{ nom: string; email: string; sujet: string } | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [csrfToken, setCsrfToken] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
@@ -270,7 +272,9 @@ function ContactPage() {
       }
     } catch (error) {
       console.error("Erreur lors de l'envoi du message", error);
-      setFormError(t("contact.errorMessage") || "Une erreur est survenue lors de l'envoi de votre message.");
+      setFormError(
+        t("contact.errorMessage") || "Une erreur est survenue lors de l'envoi de votre message.",
+      );
     } finally {
       setLoading(false);
     }
@@ -528,7 +532,9 @@ function ContactPage() {
                         transition={{ delay: 0.3 }}
                         className="bg-white/5 rounded-2xl p-5 text-left max-w-sm mx-auto space-y-3 border border-border/30"
                       >
-                        <p className="text-xs uppercase tracking-widest text-primary font-bold mb-2">Récapitulatif</p>
+                        <p className="text-xs uppercase tracking-widest text-primary font-bold mb-2">
+                          Récapitulatif
+                        </p>
                         <div className="flex items-center gap-3 text-sm text-white">
                           <User size={14} className="text-white/60 shrink-0" />
                           <span>{sentData.nom}</span>

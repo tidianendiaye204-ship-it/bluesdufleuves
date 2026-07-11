@@ -5,7 +5,18 @@ import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { FileText, Download, Users, Mail, GraduationCap, BarChart2 } from "lucide-react";
 import { requireAuth } from "@/lib/session-middleware";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  Legend,
+} from "recharts";
 
 const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
   // Validate session
@@ -34,10 +45,7 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
     .select()
     .from(inscriptions)
     .orderBy(desc(inscriptions.dateInscription));
-  const allContacts = await db
-    .select()
-    .from(contacts)
-    .orderBy(desc(contacts.dateEnvoi));
+  const allContacts = await db.select().from(contacts).orderBy(desc(contacts.dateEnvoi));
 
   return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts };
 });
@@ -48,16 +56,20 @@ export const Route = createFileRoute("/admin/")({
 });
 
 function AdminDashboard() {
-  const { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts } = Route.useLoaderData();
+  const { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts } =
+    Route.useLoaderData();
 
   // ──────────────── DATA AGGREGATION FOR CHARTS ────────────────
 
   // 1. Group registrations by training program
-  const formationCounts = allInscriptions.reduce((acc, curr) => {
-    const key = curr.formation || "Autre";
-    acc[key] = (acc[key] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const formationCounts = allInscriptions.reduce(
+    (acc, curr) => {
+      const key = curr.formation || "Autre";
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const formationChartData = Object.entries(formationCounts).map(([name, value]) => ({
     name: name.length > 22 ? name.substring(0, 20) + "..." : name,
@@ -65,7 +77,10 @@ function AdminDashboard() {
   }));
 
   // 2. Timeline of inscriptions and messages (last 7 active days)
-  const activityByDate = {} as Record<string, { date: string; inscriptions: number; messages: number }>;
+  const activityByDate = {} as Record<
+    string,
+    { date: string; inscriptions: number; messages: number }
+  >;
 
   allInscriptions.forEach((item) => {
     const d = new Date(item.dateInscription);
@@ -95,7 +110,17 @@ function AdminDashboard() {
 
   // ──────────────── CSV EXPORT UTILITY ────────────────
   const exportInscriptionsCSV = () => {
-    const headers = ["id", "prenom", "nom", "email", "tel", "formation", "motivation", "dateInscription", "statut"];
+    const headers = [
+      "id",
+      "prenom",
+      "nom",
+      "email",
+      "tel",
+      "formation",
+      "motivation",
+      "dateInscription",
+      "statut",
+    ];
     const rows = allInscriptions.map((i) => ({
       id: i.id,
       prenom: i.prenom,
@@ -135,7 +160,9 @@ function AdminDashboard() {
       csvRows.push(values.join(","));
     }
     const csvString = csvRows.join("\r\n");
-    const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvString], { type: "text/csv;charset=utf-8;" });
+    const blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), csvString], {
+      type: "text/csv;charset=utf-8;",
+    });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
@@ -190,7 +217,9 @@ function AdminDashboard() {
           </div>
           <div>
             <span className="block text-2xl font-black">{allInscriptions.length}</span>
-            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">Inscriptions Totales</span>
+            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+              Inscriptions Totales
+            </span>
           </div>
         </div>
 
@@ -200,7 +229,9 @@ function AdminDashboard() {
           </div>
           <div>
             <span className="block text-2xl font-black">{allContacts.length}</span>
-            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">Messages Reçus</span>
+            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+              Messages Reçus
+            </span>
           </div>
         </div>
 
@@ -210,7 +241,9 @@ function AdminDashboard() {
           </div>
           <div>
             <span className="block text-2xl font-black">{recentArticles.length}</span>
-            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">Articles Publiés</span>
+            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+              Articles Publiés
+            </span>
           </div>
         </div>
       </div>
@@ -225,12 +258,21 @@ function AdminDashboard() {
           </h3>
           <div className="h-80 w-full text-xs">
             {formationChartData.length === 0 ? (
-              <div className="h-full flex items-center justify-center text-muted-foreground">Aucune donnée disponible</div>
+              <div className="h-full flex items-center justify-center text-muted-foreground">
+                Aucune donnée disponible
+              </div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={formationChartData} margin={{ bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.3} />
-                  <XAxis dataKey="name" angle={-15} textAnchor="end" interval={0} stroke="currentColor" opacity={0.7} />
+                  <XAxis
+                    dataKey="name"
+                    angle={-15}
+                    textAnchor="end"
+                    interval={0}
+                    stroke="currentColor"
+                    opacity={0.7}
+                  />
                   <YAxis allowDecimals={false} stroke="currentColor" opacity={0.7} />
                   <Tooltip cursor={{ fill: "rgba(12, 74, 110, 0.05)" }} />
                   <Bar dataKey="inscriptions" fill="#0c4a6e" radius={[4, 4, 0, 0]} />
@@ -248,7 +290,9 @@ function AdminDashboard() {
           </h3>
           <div className="h-80 w-full text-xs">
             {timelineChartData.length === 0 ? (
-              <div className="h-full flex items-center justify-center text-muted-foreground">Aucune activité récente</div>
+              <div className="h-full flex items-center justify-center text-muted-foreground">
+                Aucune activité récente
+              </div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={timelineChartData}>
@@ -257,8 +301,22 @@ function AdminDashboard() {
                   <YAxis allowDecimals={false} stroke="currentColor" opacity={0.7} />
                   <Tooltip />
                   <Legend verticalAlign="top" height={36} />
-                  <Line name="Inscriptions" type="monotone" dataKey="inscriptions" stroke="#0c4a6e" strokeWidth={3} activeDot={{ r: 8 }} />
-                  <Line name="Messages" type="monotone" dataKey="messages" stroke="#10b981" strokeWidth={3} activeDot={{ r: 8 }} />
+                  <Line
+                    name="Inscriptions"
+                    type="monotone"
+                    dataKey="inscriptions"
+                    stroke="#0c4a6e"
+                    strokeWidth={3}
+                    activeDot={{ r: 8 }}
+                  />
+                  <Line
+                    name="Messages"
+                    type="monotone"
+                    dataKey="messages"
+                    stroke="#10b981"
+                    strokeWidth={3}
+                    activeDot={{ r: 8 }}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             )}

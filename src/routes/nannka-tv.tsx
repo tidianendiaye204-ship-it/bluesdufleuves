@@ -42,7 +42,7 @@ function VideoCarousel({ category, thumbs, setActiveVideo, t }: any) {
     <div key={category.titre}>
       <div className="flex items-end justify-between mb-6">
         <h2 className="font-display text-2xl md:text-3xl font-bold">{category.titre}</h2>
-        <span className="text-sm text-muted-foreground hidden md:inline">{t('tv.viewAll')}</span>
+        <span className="text-sm text-muted-foreground hidden md:inline">{t("tv.viewAll")}</span>
       </div>
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-5">
@@ -69,12 +69,18 @@ function VideoCarousel({ category, thumbs, setActiveVideo, t }: any) {
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
                     <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
-                      <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                      <Play
+                        size={20}
+                        className="text-primary-foreground ml-0.5"
+                        fill="currentColor"
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="p-4 flex-1 flex flex-col">
-                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">{item.name}</h3>
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    {item.name}
+                  </h3>
                   <p className="text-xs text-muted-foreground mt-1">Nannka TV</p>
                 </div>
               </article>
@@ -93,30 +99,30 @@ function NannkaTV() {
 
   const categories = [
     {
-      titre: t('tv.cat1'),
+      titre: t("tv.cat1"),
       items: [
-        { name: t('nannk.vid1Name', 'Mémoires du fleuve'), id: "No0IoqGSiLw" },
-        { name: t('nannk.vid2Name', 'Paroles de griots'), id: "V5RcwQAl-_g" },
-        { name: t('nannk.vid3Name', 'Voix de Podor'), id: "JuBhFrMD-G0" },
-        { name: t('nannk.vid4Name', 'Récits pulaar'), id: "Mig1P7pQMh0" },
+        { name: t("nannk.vid1Name", "Mémoires du fleuve"), id: "No0IoqGSiLw" },
+        { name: t("nannk.vid2Name", "Paroles de griots"), id: "V5RcwQAl-_g" },
+        { name: t("nannk.vid3Name", "Voix de Podor"), id: "JuBhFrMD-G0" },
+        { name: t("nannk.vid4Name", "Récits pulaar"), id: "Mig1P7pQMh0" },
       ],
     },
     {
-      titre: t('tv.cat2'),
+      titre: t("tv.cat2"),
       items: [
-        { name: t('nannk.vid5Name', 'Baaba Maal · Acoustique'), id: "cGUML8xR5UU" },
-        { name: t('nannk.vid6Name', 'Nuit Jolobeats'), id: "Qtm-Wry-8cc" },
-        { name: t('nannk.vid7Name', 'Soirée Yéla'), id: "uHHKBJBvvPg" },
-        { name: t('nannk.vid8Name', 'Hommage à Mansour Seck'), id: "yNgDR1cTi_I" },
+        { name: t("nannk.vid5Name", "Baaba Maal · Acoustique"), id: "cGUML8xR5UU" },
+        { name: t("nannk.vid6Name", "Nuit Jolobeats"), id: "Qtm-Wry-8cc" },
+        { name: t("nannk.vid7Name", "Soirée Yéla"), id: "uHHKBJBvvPg" },
+        { name: t("nannk.vid8Name", "Hommage à Mansour Seck"), id: "yNgDR1cTi_I" },
       ],
     },
     {
-      titre: t('tv.cat3'),
+      titre: t("tv.cat3"),
       items: [
-        { name: t('nannk.vid9Name', 'Le Xalam'), id: "wl-zb8FPvzo" },
-        { name: t('nannk.vid10Name', 'Le Sabar'), id: "V5RcwQAl-_g" },
-        { name: t('nannk.vid11Name', 'La Tama'), id: "JuBhFrMD-G0" },
-        { name: t('nannk.vid12Name', 'La Kora'), id: "No0IoqGSiLw" },
+        { name: t("nannk.vid9Name", "Le Xalam"), id: "wl-zb8FPvzo" },
+        { name: t("nannk.vid10Name", "Le Sabar"), id: "V5RcwQAl-_g" },
+        { name: t("nannk.vid11Name", "La Tama"), id: "JuBhFrMD-G0" },
+        { name: t("nannk.vid12Name", "La Kora"), id: "No0IoqGSiLw" },
       ],
     },
   ];
@@ -125,15 +131,11 @@ function NannkaTV() {
     <>
       <section className="border-b border-border" style={{ background: "var(--gradient-hero)" }}>
         <div className="container-page py-16 md:py-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">
-            {t('tv.heritage')}
-          </p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-5">{t("tv.heritage")}</p>
           <h1 className="font-display text-5xl md:text-6xl font-bold">
-            {t('tv.title')} <span className="text-gradient-gold">{t('tv.titleAccent')}</span>
+            {t("tv.title")} <span className="text-gradient-gold">{t("tv.titleAccent")}</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-            {t('tv.subtitle')}
-          </p>
+          <p className="mt-5 max-w-2xl text-lg text-muted-foreground">{t("tv.subtitle")}</p>
         </div>
       </section>
 
@@ -144,7 +146,7 @@ function NannkaTV() {
               <iframe
                 className="absolute inset-0 w-full h-full border-0"
                 src="https://www.youtube.com/embed/No0IoqGSiLw?autoplay=1"
-                title={t('tv.featuredTitle')}
+                title={t("tv.featuredTitle")}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -152,23 +154,25 @@ function NannkaTV() {
               <>
                 <img
                   src={heroPoster}
-                  alt={t('tv.featured')}
+                  alt={t("tv.featured")}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40" />
                 <button
                   onClick={() => setIsHeroPlaying(true)}
-                  aria-label={t('common.play', 'Play')}
+                  aria-label={t("common.play", "Play")}
                   className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--shadow-glow) hover:scale-105 transition cursor-pointer"
                 >
                   <Play size={28} className="ml-1" fill="currentColor" />
                 </button>
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-linear-to-t from-black/90 to-transparent">
-                  <p className="text-xs uppercase tracking-widest text-primary mb-2">{t('tv.featured')}</p>
+                  <p className="text-xs uppercase tracking-widest text-primary mb-2">
+                    {t("tv.featured")}
+                  </p>
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
-                    {t('tv.featuredTitle')}
+                    {t("tv.featuredTitle")}
                   </h2>
-                  <p className="text-sm text-white/80 mt-1">{t('tv.featuredMeta')}</p>
+                  <p className="text-sm text-white/80 mt-1">{t("tv.featuredMeta")}</p>
                 </div>
               </>
             )}
@@ -203,7 +207,7 @@ function NannkaTV() {
             <button
               onClick={() => setActiveVideo(null)}
               className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 transition cursor-pointer"
-              aria-label={t('tv.close')}
+              aria-label={t("tv.close")}
             >
               <X size={20} />
             </button>

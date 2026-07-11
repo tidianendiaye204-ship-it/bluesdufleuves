@@ -109,9 +109,7 @@ export function Footer() {
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               {t("footer.editorLetter")}
             </h4>
-            <p className="text-sm text-white/60 mb-6 font-serif">
-              {t("footer.newsletterDesc")}
-            </p>
+            <p className="text-sm text-white/60 mb-6 font-serif">{t("footer.newsletterDesc")}</p>
             <form className="flex gap-3" onSubmit={handleSubscribe}>
               <div className="relative flex-1 group">
                 <Mail

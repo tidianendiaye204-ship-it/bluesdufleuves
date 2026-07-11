@@ -71,7 +71,12 @@ export const videos = [
 ];
 
 export const galleryImages = [
-  { id: 1, src: "/festival-crowd.jpg", alt: "Foule au festival", span: "md:col-span-2 md:row-span-2" },
+  {
+    id: 1,
+    src: "/festival-crowd.jpg",
+    alt: "Foule au festival",
+    span: "md:col-span-2 md:row-span-2",
+  },
   { id: 2, src: "/festival baba maal.jpg", alt: "Baaba Maal", span: "md:col-span-1 md:row-span-1" },
   { id: 3, src: fleuveImg, alt: "Le fleuve Sénégal", span: "md:col-span-1 md:row-span-1" },
   {
@@ -80,7 +85,12 @@ export const galleryImages = [
     alt: "Instruments traditionnels",
     span: "md:col-span-1 md:row-span-1",
   },
-  { id: 5, src: "/pirogues.jpg", alt: "Pirogues sur le fleuve", span: "md:col-span-2 md:row-span-1" },
+  {
+    id: 5,
+    src: "/pirogues.jpg",
+    alt: "Pirogues sur le fleuve",
+    span: "md:col-span-2 md:row-span-1",
+  },
   { id: 6, src: "/centre-podor.jpg", alt: "Centre Culturel", span: "md:col-span-1 md:row-span-1" },
   { id: 7, src: "/gal1.jpg", alt: "Galerie 1", span: "md:col-span-1 md:row-span-1" },
   { id: 8, src: "/gal2.jpg", alt: "Galerie 2", span: "md:col-span-1 md:row-span-1" },

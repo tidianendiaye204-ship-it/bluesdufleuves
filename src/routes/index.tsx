@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
-  ChevronRight,
   Landmark,
   Music,
   GraduationCap,
@@ -25,24 +24,29 @@ export const Route = createFileRoute("/")({
   head: () => {
     // Default to French for SSR to avoid hydration mismatch
     const lang = "fr";
-    
+
     const { meta, links } = createSeoMeta({
-      title: lang === 'fr' 
-        ? "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve"
-        : "The Village Podor | Cultural Center by Baaba Maal - Blues du Fleuve Festival",
-      description: lang === 'fr'
-        ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
-        : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
-      ogTitle: lang === 'fr'
-        ? "The Village - Le Village Culturel de Podor par Baaba Maal"
-        : "The Village - The Cultural Village of Podor by Baaba Maal",
-      ogDescription: lang === 'fr'
-        ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
-        : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
+      title:
+        lang === "fr"
+          ? "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve"
+          : "The Village Podor | Cultural Center by Baaba Maal - Blues du Fleuve Festival",
+      description:
+        lang === "fr"
+          ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
+          : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
+      ogTitle:
+        lang === "fr"
+          ? "The Village - Le Village Culturel de Podor par Baaba Maal"
+          : "The Village - The Cultural Village of Podor by Baaba Maal",
+      ogDescription:
+        lang === "fr"
+          ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
+          : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
       ogImage: "/centre culturel.jpg",
-      keywords: lang === 'fr'
-        ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
-        : "The Village, The Village Podor, Podor village, cultural village, Podor cultural center, Baaba Maal, Blues du Fleuve, Senegal festival, Fouta Toro, Halpulaar, NANN-k, Senegalese heritage",
+      keywords:
+        lang === "fr"
+          ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
+          : "The Village, The Village Podor, Podor village, cultural village, Podor cultural center, Baaba Maal, Blues du Fleuve, Senegal festival, Fouta Toro, Halpulaar, NANN-k, Senegalese heritage",
       canonical: "https://lesbluesdufleuve.sn/",
     });
 
@@ -50,16 +54,14 @@ export const Route = createFileRoute("/")({
       name: "The Village Podor",
       url: "https://lesbluesdufleuve.sn/",
       logo: "https://lesbluesdufleuve.sn/logo%20the%20village.jpg",
-      description: lang === 'fr'
-        ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
-        : "A unique cultural center initiated by Baaba Maal in the heart of the Senegal River valley in Podor, bringing together a museum, creation and training spaces.",
+      description:
+        lang === "fr"
+          ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
+          : "A unique cultural center initiated by Baaba Maal in the heart of the Senegal River valley in Podor, bringing together a museum, creation and training spaces.",
       founder: "Baaba Maal",
       city: "Podor",
       country: "Senegal",
-      socialLinks: [
-        "https://www.facebook.com/baabamaal",
-        "https://twitter.com/baabamaal"
-      ]
+      socialLinks: ["https://www.facebook.com/baabamaal", "https://twitter.com/baabamaal"],
     });
 
     const scripts = [
@@ -129,7 +131,6 @@ function Home() {
             poster="/centre culturel.jpg"
             className="h-full w-full object-cover scale-105"
           >
-            <source src="/video the village.webm" type="video/webm" />
             <source src="/video the village.mp4" type="video/mp4" />
           </video>
           <motion.div
@@ -346,9 +347,7 @@ function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-foreground">{t("home.activityMusic")}</h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
-                {t("home.activityMusicDesc")}
-              </p>
+              <p className="text-muted-foreground leading-relaxed">{t("home.activityMusicDesc")}</p>
             </div>
             <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
               <div className="mb-4 flex items-center gap-2">
@@ -446,7 +445,8 @@ function Home() {
                   onClick={() => setShowFullBio(!showFullBio)}
                   className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary hover:gap-5 transition-all"
                 >
-                  {showFullBio ? t("home.bioCollapse") : t("home.bioExpand")} <ArrowRight size={16} />
+                  {showFullBio ? t("home.bioCollapse") : t("home.bioExpand")}{" "}
+                  <ArrowRight size={16} />
                 </button>
               </div>
             </div>
@@ -623,7 +623,7 @@ function Home() {
             >
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              
+
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-8">
                   <h4 className="luxury-text text-2xl md:text-3xl text-foreground group-hover:text-primary transition-colors">
@@ -659,9 +659,7 @@ function Home() {
             >
               {t("home.newsletterTitle")}
             </h2>
-            <p className="text-white/60 mb-10 text-lg">
-              {t("home.newsletterDesc")}
-            </p>
+            <p className="text-white/60 mb-10 text-lg">{t("home.newsletterDesc")}</p>
 
             <form
               className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"

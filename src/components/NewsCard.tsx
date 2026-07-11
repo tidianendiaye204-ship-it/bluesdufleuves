@@ -69,33 +69,33 @@ export function NewsCard({
         to={to}
         className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
       >
-      <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
-        <OptimizedImage
-          src={imgSrc}
-          alt={title}
-          className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute top-4 left-4">
-          <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
-            {category}
+        <div className="relative aspect-4/3 overflow-hidden bg-muted/30">
+          <OptimizedImage
+            src={imgSrc}
+            alt={title}
+            className="h-full w-full object-contain object-center bg-muted transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute top-4 left-4">
+            <span className="bg-white/90 backdrop-blur-md text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full text-foreground">
+              {category}
+            </span>
+          </div>
+        </div>
+        <div className="p-8 flex flex-col flex-1">
+          <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
+            {date}
           </span>
+          <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
+            {title}
+          </h3>
+          <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
+            {excerpt}
+          </p>
+          <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
+            {readMoreText} <ChevronRight size={14} />
+          </div>
         </div>
-      </div>
-      <div className="p-8 flex flex-col flex-1">
-        <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-          {date}
-        </span>
-        <h3 className="font-display text-2xl font-bold leading-tight mb-4 group-hover:text-primary transition-colors">
-          {title}
-        </h3>
-        <p className="text-sm text-muted-foreground line-clamp-3 mb-6 font-medium leading-relaxed">
-          {excerpt}
-        </p>
-        <div className="mt-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
-          {readMoreText} <ChevronRight size={14} />
-        </div>
-      </div>
-    </Link>
+      </Link>
     </>
   );
 }

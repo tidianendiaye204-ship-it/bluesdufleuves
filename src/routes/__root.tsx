@@ -80,9 +80,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">{t("root.pageNotFound")}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t("root.pageNotFoundDesc")}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{t("root.pageNotFoundDesc")}</p>
         <div className="mt-6">
           <Link
             to="/"
@@ -107,9 +105,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           {t("root.pageError")}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t("root.pageErrorDesc")}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{t("root.pageErrorDesc")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -216,7 +212,7 @@ function RootComponent() {
   if (!isHydrated) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="animate-pulse text-primary">{t("common.loading")}</div>
+        <div className="animate-pulse w-8 h-8 rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }

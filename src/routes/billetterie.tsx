@@ -1,5 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Ticket, Calendar, MapPin, CheckCircle2, ChevronDown, Bell, X, Download, ShieldCheck, Wallet, CreditCard, ChevronRight } from "lucide-react";
+import {
+  Ticket,
+  Calendar,
+  MapPin,
+  CheckCircle2,
+  ChevronDown,
+  Bell,
+  X,
+  Download,
+  ShieldCheck,
+  Wallet,
+  CreditCard,
+  ChevronRight,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -31,7 +44,8 @@ export const Route = createFileRoute("/billetterie")({
       locationName: "The Village Podor",
       city: "Podor",
       country: "Sénégal",
-      description: "Billetterie officielle pour réserver vos pass pour le festival Blues du Fleuve au centre culturel The Village Podor.",
+      description:
+        "Billetterie officielle pour réserver vos pass pour le festival Blues du Fleuve au centre culturel The Village Podor.",
       image: "/festival-crowd.jpg",
       url: "https://lesbluesdufleuve.sn/billetterie",
       organizer: "The Village Podor",
@@ -121,7 +135,9 @@ function Billetterie() {
   const [checkoutEmail, setCheckoutEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<"wave" | "orange" | "card">("wave");
-  const [checkoutStep, setCheckoutStep] = useState<"personal_info" | "payment" | "processing" | "success">("personal_info");
+  const [checkoutStep, setCheckoutStep] = useState<
+    "personal_info" | "payment" | "processing" | "success"
+  >("personal_info");
   const [generatedTicketId, setGeneratedTicketId] = useState("");
 
   // Target date for countdown
@@ -304,7 +320,8 @@ function Billetterie() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-white drop-shadow-lg"
           >
-            {t("tickets.title").split(" ")[0]} <span className="text-primary">{t("tickets.title").split(" ").slice(1).join(" ")}</span>
+            {t("tickets.title").split(" ")[0]}{" "}
+            <span className="text-primary">{t("tickets.title").split(" ").slice(1).join(" ")}</span>
           </motion.h1>
 
           <motion.p
@@ -313,7 +330,8 @@ function Billetterie() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-white/80 font-serif max-w-2xl mx-auto mb-12"
           >
-            Préparez-vous à vivre une expérience inoubliable au cœur du Fouta Toro. Réservez dès maintenant vos pass officiels pour le festival Les Blues du Fleuve.
+            Préparez-vous à vivre une expérience inoubliable au cœur du Fouta Toro. Réservez dès
+            maintenant vos pass officiels pour le festival Les Blues du Fleuve.
           </motion.p>
 
           {/* Info Bar */}
@@ -372,7 +390,8 @@ function Billetterie() {
                 {t("tickets.faqTitle")}
               </h2>
               <p className="text-sm text-muted-foreground font-serif mb-6">
-                Inscrivez-vous pour recevoir les dernières actualités et des invitations exclusives par email.
+                Inscrivez-vous pour recevoir les dernières actualités et des invitations exclusives
+                par email.
               </p>
               <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
@@ -417,7 +436,10 @@ function Billetterie() {
             Les Tarifs
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
-            {t("tickets.subtitle").split(" ")[0]} <span className="text-primary">{t("tickets.subtitle").split(" ").slice(1).join(" ")}</span>
+            {t("tickets.subtitle").split(" ")[0]}{" "}
+            <span className="text-primary">
+              {t("tickets.subtitle").split(" ").slice(1).join(" ")}
+            </span>
           </h2>
         </div>
 
@@ -524,10 +546,13 @@ function Billetterie() {
               <div className="flex items-center justify-between p-6 border-b border-border bg-muted/30">
                 <div>
                   <h3 className="font-display text-xl font-bold uppercase tracking-tight">
-                    {checkoutStep === "success" ? t("tickets.paymentSuccess") : t("tickets.checkoutTitle")}
+                    {checkoutStep === "success"
+                      ? t("tickets.paymentSuccess")
+                      : t("tickets.checkoutTitle")}
                   </h3>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {t("tickets.passTypeLabel")} : <span className="font-bold text-primary">{selectedPass.name}</span>
+                    {t("tickets.passTypeLabel")} :{" "}
+                    <span className="font-bold text-primary">{selectedPass.name}</span>
                   </p>
                 </div>
                 <button
@@ -543,36 +568,91 @@ function Billetterie() {
               <div className="p-6 overflow-y-auto flex-1 overflow-x-hidden">
                 <AnimatePresence mode="wait">
                   {checkoutStep === "personal_info" && (
-                    <motion.form 
+                    <motion.form
                       key="step1"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ duration: 0.3 }}
-                      onSubmit={(e) => { e.preventDefault(); setCheckoutStep("payment"); }} 
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        setCheckoutStep("payment");
+                      }}
                       className="space-y-6"
                     >
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-firstname">{t("tickets.firstName")}</label>
-                          <input id="chk-firstname" type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                          <label
+                            className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+                            htmlFor="chk-firstname"
+                          >
+                            {t("tickets.firstName")}
+                          </label>
+                          <input
+                            id="chk-firstname"
+                            type="text"
+                            required
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                          />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-lastname">{t("tickets.lastName")}</label>
-                          <input id="chk-lastname" type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                          <label
+                            className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+                            htmlFor="chk-lastname"
+                          >
+                            {t("tickets.lastName")}
+                          </label>
+                          <input
+                            id="chk-lastname"
+                            type="text"
+                            required
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                          />
                         </div>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-email">{t("tickets.email")}</label>
-                          <input id="chk-email" type="email" required value={checkoutEmail} onChange={(e) => setCheckoutEmail(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" />
+                          <label
+                            className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+                            htmlFor="chk-email"
+                          >
+                            {t("tickets.email")}
+                          </label>
+                          <input
+                            id="chk-email"
+                            type="email"
+                            required
+                            value={checkoutEmail}
+                            onChange={(e) => setCheckoutEmail(e.target.value)}
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                          />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2" htmlFor="chk-phone">{t("tickets.phone")}</label>
-                          <input id="chk-phone" type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="+221 ..." />
+                          <label
+                            className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+                            htmlFor="chk-phone"
+                          >
+                            {t("tickets.phone")}
+                          </label>
+                          <input
+                            id="chk-phone"
+                            type="tel"
+                            required
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
+                            placeholder="+221 ..."
+                          />
                         </div>
                       </div>
-                      <button type="submit" className="w-full bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2">
+                      <button
+                        type="submit"
+                        className="w-full bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2"
+                      >
                         <span>Continuer</span>
                         <ChevronRight className="w-4 h-4" />
                       </button>
@@ -586,40 +666,80 @@ function Billetterie() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.3 }}
-                      onSubmit={handleCheckoutSubmit} 
+                      onSubmit={handleCheckoutSubmit}
                       className="space-y-6"
                     >
                       <div className="bg-muted/30 p-4 rounded-xl border border-border">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Récapitulatif</h4>
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                          Récapitulatif
+                        </h4>
                         <div className="flex justify-between items-center text-sm">
                           <span className="font-semibold text-foreground">{selectedPass.name}</span>
-                          <span className="text-primary font-black text-lg">{selectedPass.priceLabel}</span>
+                          <span className="text-primary font-black text-lg">
+                            {selectedPass.priceLabel}
+                          </span>
                         </div>
                       </div>
                       <div>
-                        <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">{t("tickets.paymentMethod")}</span>
+                        <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
+                          {t("tickets.paymentMethod")}
+                        </span>
                         <div className="grid grid-cols-3 gap-3">
                           {[
-                            { id: "wave", label: "Wave", color: "bg-blue-600/10 text-blue-600 border-blue-600/30", selectColor: "ring-2 ring-blue-600 border-blue-600" },
-                            { id: "orange", label: "Orange", color: "bg-orange-500/10 text-orange-500 border-orange-500/30", selectColor: "ring-2 ring-orange-500 border-orange-500" },
-                            { id: "card", label: "Carte", color: "bg-neutral-600/10 text-foreground border-neutral-600/30", selectColor: "ring-2 ring-foreground border-foreground" },
+                            {
+                              id: "wave",
+                              label: "Wave",
+                              color: "bg-blue-600/10 text-blue-600 border-blue-600/30",
+                              selectColor: "ring-2 ring-blue-600 border-blue-600",
+                            },
+                            {
+                              id: "orange",
+                              label: "Orange",
+                              color: "bg-orange-500/10 text-orange-500 border-orange-500/30",
+                              selectColor: "ring-2 ring-orange-500 border-orange-500",
+                            },
+                            {
+                              id: "card",
+                              label: "Carte",
+                              color: "bg-neutral-600/10 text-foreground border-neutral-600/30",
+                              selectColor: "ring-2 ring-foreground border-foreground",
+                            },
                           ].map((method) => (
-                            <div key={method.id} onClick={() => setPaymentMethod(method.id as any)} className={`flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer transition-all hover:scale-102 ${paymentMethod === method.id ? method.selectColor : "border-border bg-card"}`}>
-                              {method.id === "card" ? <CreditCard className="w-6 h-6 mb-2" /> : <Wallet className="w-6 h-6 mb-2" />}
-                              <span className="text-xs font-bold uppercase tracking-wide">{method.label}</span>
+                            <div
+                              key={method.id}
+                              onClick={() => setPaymentMethod(method.id as any)}
+                              className={`flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer transition-all hover:scale-102 ${paymentMethod === method.id ? method.selectColor : "border-border bg-card"}`}
+                            >
+                              {method.id === "card" ? (
+                                <CreditCard className="w-6 h-6 mb-2" />
+                              ) : (
+                                <Wallet className="w-6 h-6 mb-2" />
+                              )}
+                              <span className="text-xs font-bold uppercase tracking-wide">
+                                {method.label}
+                              </span>
                             </div>
                           ))}
                         </div>
                       </div>
                       <div className="flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/10">
                         <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                        <p className="text-xs text-muted-foreground leading-normal font-serif">Transactions sécurisées.</p>
+                        <p className="text-xs text-muted-foreground leading-normal font-serif">
+                          Transactions sécurisées.
+                        </p>
                       </div>
                       <div className="flex gap-4">
-                        <button type="button" onClick={() => setCheckoutStep("personal_info")} className="flex-1 bg-muted text-foreground font-bold uppercase tracking-widest text-xs py-4 rounded-xl border border-border hover:bg-muted/80 transition-all hover:scale-102 cursor-pointer">
+                        <button
+                          type="button"
+                          onClick={() => setCheckoutStep("personal_info")}
+                          className="flex-1 bg-muted text-foreground font-bold uppercase tracking-widest text-xs py-4 rounded-xl border border-border hover:bg-muted/80 transition-all hover:scale-102 cursor-pointer"
+                        >
                           Retour
                         </button>
-                        <button type="submit" className="flex-2 bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2">
+                        <button
+                          type="submit"
+                          className="flex-2 bg-primary text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2"
+                        >
                           <span>{t("tickets.processPayment")}</span>
                           <ShieldCheck className="w-4 h-4" />
                         </button>
@@ -649,100 +769,232 @@ function Billetterie() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="space-y-8 flex flex-col items-center py-4"
                     >
-                    {/* SVG Premium E-Ticket */}
-                    <div className="w-full max-w-md border-4 border-border rounded-3xl overflow-hidden shadow-2xl bg-[#091526] text-white">
-                      <svg
-                        id="e-ticket-svg"
-                        viewBox="0 0 400 600"
-                        className="w-full h-auto block"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <defs>
-                          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#fef3c7" />
-                            <stop offset="50%" stopColor="#d97706" />
-                            <stop offset="100%" stopColor="#78350f" />
-                          </linearGradient>
-                        </defs>
-                        {/* Background */}
-                        <rect width="400" height="600" fill="#091526" />
-                        
-                        {/* Inner Border */}
-                        <rect x="15" y="15" width="370" height="570" fill="none" stroke="url(#goldGradient)" strokeWidth="2" strokeDasharray="6 4" rx="10" />
+                      {/* SVG Premium E-Ticket */}
+                      <div className="w-full max-w-md border-4 border-border rounded-3xl overflow-hidden shadow-2xl bg-[#091526] text-white">
+                        <svg
+                          id="e-ticket-svg"
+                          viewBox="0 0 400 600"
+                          className="w-full h-auto block"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#fef3c7" />
+                              <stop offset="50%" stopColor="#d97706" />
+                              <stop offset="100%" stopColor="#78350f" />
+                            </linearGradient>
+                          </defs>
+                          {/* Background */}
+                          <rect width="400" height="600" fill="#091526" />
 
-                        {/* Top banner / branding */}
-                        <text x="200" y="55" fill="#ffffff" fontSize="11" fontWeight="900" letterSpacing="5" textAnchor="middle">THE VILLAGE · PODOR</text>
-                        <text x="200" y="80" fill="url(#goldGradient)" fontSize="16" fontWeight="bold" letterSpacing="2" textAnchor="middle">FESTIVAL BLUES DU FLEUVE</text>
-                        
-                        {/* Line separation */}
-                        <line x1="30" y1="110" x2="370" y2="110" stroke="url(#goldGradient)" strokeWidth="1" opacity="0.6" />
+                          {/* Inner Border */}
+                          <rect
+                            x="15"
+                            y="15"
+                            width="370"
+                            height="570"
+                            fill="none"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="2"
+                            strokeDasharray="6 4"
+                            rx="10"
+                          />
 
-                        {/* Main Event info */}
-                        <text x="200" y="150" fill="#94a3b8" fontSize="9" fontWeight="bold" letterSpacing="2" textAnchor="middle">EVENEMENT</text>
-                        <text x="200" y="175" fill="#ffffff" fontSize="18" fontWeight="bold" textAnchor="middle">17ÈME ÉDITION 2025</text>
-                        
-                        <text x="200" y="215" fill="#94a3b8" fontSize="9" fontWeight="bold" letterSpacing="2" textAnchor="middle">TITULAIRE</text>
-                        <text x="200" y="235" fill="#ffffff" fontSize="16" fontWeight="bold" textAnchor="middle">{`${firstName} ${lastName}`}</text>
+                          {/* Top banner / branding */}
+                          <text
+                            x="200"
+                            y="55"
+                            fill="#ffffff"
+                            fontSize="11"
+                            fontWeight="900"
+                            letterSpacing="5"
+                            textAnchor="middle"
+                          >
+                            THE VILLAGE · PODOR
+                          </text>
+                          <text
+                            x="200"
+                            y="80"
+                            fill="url(#goldGradient)"
+                            fontSize="16"
+                            fontWeight="bold"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
+                            FESTIVAL BLUES DU FLEUVE
+                          </text>
 
-                        {/* Pass Info Card */}
-                        <rect x="50" y="265" width="300" height="80" fill="rgba(202, 138, 4, 0.1)" stroke="rgba(202, 138, 4, 0.3)" strokeWidth="1" rx="8" />
-                        <text x="200" y="295" fill="#ca8a04" fontSize="10" fontWeight="bold" letterSpacing="3" textAnchor="middle">TYPE DE PASS</text>
-                        <text x="200" y="325" fill="#ffffff" fontSize="20" fontWeight="900" letterSpacing="1" textAnchor="middle">{selectedPass.name.toUpperCase()}</text>
+                          {/* Line separation */}
+                          <line
+                            x1="30"
+                            y1="110"
+                            x2="370"
+                            y2="110"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="1"
+                            opacity="0.6"
+                          />
 
-                        {/* Barcode/QR Separator */}
-                        <line x1="30" y1="380" x2="370" y2="380" stroke="#ca8a04" strokeWidth="1.5" strokeDasharray="8 6" opacity="0.5" />
+                          {/* Main Event info */}
+                          <text
+                            x="200"
+                            y="150"
+                            fill="#94a3b8"
+                            fontSize="9"
+                            fontWeight="bold"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
+                            EVENEMENT
+                          </text>
+                          <text
+                            x="200"
+                            y="175"
+                            fill="#ffffff"
+                            fontSize="18"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                          >
+                            17ÈME ÉDITION 2025
+                          </text>
 
-                        {/* QR Code Pixel Grid Representation */}
-                        <g transform="translate(140, 410)">
-                          {/* Outer QR box */}
-                          <rect width="120" height="120" fill="#ffffff" rx="6" />
-                          {/* Top-Left Finder pattern */}
-                          <rect x="10" y="10" width="30" height="30" fill="#091526" />
-                          <rect x="15" y="15" width="20" height="20" fill="#ffffff" />
-                          <rect x="20" y="20" width="10" height="10" fill="#091526" />
-                          {/* Top-Right Finder pattern */}
-                          <rect x="80" y="10" width="30" height="30" fill="#091526" />
-                          <rect x="85" y="15" width="20" height="20" fill="#ffffff" />
-                          <rect x="90" y="20" width="10" height="10" fill="#091526" />
-                          {/* Bottom-Left Finder pattern */}
-                          <rect x="10" y="80" width="30" height="30" fill="#091526" />
-                          <rect x="15" y="85" width="20" height="20" fill="#ffffff" />
-                          <rect x="20" y="90" width="10" height="10" fill="#091526" />
-                          {/* Simulated pixels */}
-                          <rect x="50" y="20" width="10" height="10" fill="#091526" />
-                          <rect x="60" y="30" width="10" height="10" fill="#091526" />
-                          <rect x="50" y="50" width="20" height="10" fill="#091526" />
-                          <rect x="80" y="50" width="10" height="20" fill="#091526" />
-                          <rect x="90" y="80" width="20" height="10" fill="#091526" />
-                          <rect x="50" y="80" width="10" height="30" fill="#091526" />
-                          <rect x="70" y="90" width="10" height="10" fill="#091526" />
-                          <rect x="90" y="100" width="10" height="10" fill="#091526" />
-                        </g>
+                          <text
+                            x="200"
+                            y="215"
+                            fill="#94a3b8"
+                            fontSize="9"
+                            fontWeight="bold"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
+                            TITULAIRE
+                          </text>
+                          <text
+                            x="200"
+                            y="235"
+                            fill="#ffffff"
+                            fontSize="16"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                          >{`${firstName} ${lastName}`}</text>
 
-                        {/* Ticket Code */}
-                        <text x="200" y="555" fill="#94a3b8" fontSize="11" fontWeight="bold" letterSpacing="4" textAnchor="middle">{generatedTicketId}</text>
-                        <text x="200" y="575" fill="#ca8a04" fontSize="8" fontWeight="bold" letterSpacing="1" textAnchor="middle">ENTRÉE VALABLE UNIQUE</text>
-                      </svg>
-                    </div>
+                          {/* Pass Info Card */}
+                          <rect
+                            x="50"
+                            y="265"
+                            width="300"
+                            height="80"
+                            fill="rgba(202, 138, 4, 0.1)"
+                            stroke="rgba(202, 138, 4, 0.3)"
+                            strokeWidth="1"
+                            rx="8"
+                          />
+                          <text
+                            x="200"
+                            y="295"
+                            fill="#ca8a04"
+                            fontSize="10"
+                            fontWeight="bold"
+                            letterSpacing="3"
+                            textAnchor="middle"
+                          >
+                            TYPE DE PASS
+                          </text>
+                          <text
+                            x="200"
+                            y="325"
+                            fill="#ffffff"
+                            fontSize="20"
+                            fontWeight="900"
+                            letterSpacing="1"
+                            textAnchor="middle"
+                          >
+                            {selectedPass.name.toUpperCase()}
+                          </text>
 
-                    {/* Action buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 w-full">
-                      <button
-                        onClick={downloadTicketSVG}
-                        className="flex-1 bg-primary text-white font-bold uppercase tracking-widest text-xs py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2"
-                      >
-                        <Download className="w-4 h-4" />
-                        <span>{t("tickets.downloadTicket")}</span>
-                      </button>
-                      <button
-                        onClick={closeCheckout}
-                        className="flex-1 bg-muted text-foreground font-bold uppercase tracking-widest text-xs py-4 rounded-xl border border-border hover:bg-muted/80 transition-all hover:scale-102 cursor-pointer"
-                      >
-                        {t("tickets.back")}
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
+                          {/* Barcode/QR Separator */}
+                          <line
+                            x1="30"
+                            y1="380"
+                            x2="370"
+                            y2="380"
+                            stroke="#ca8a04"
+                            strokeWidth="1.5"
+                            strokeDasharray="8 6"
+                            opacity="0.5"
+                          />
+
+                          {/* QR Code Pixel Grid Representation */}
+                          <g transform="translate(140, 410)">
+                            {/* Outer QR box */}
+                            <rect width="120" height="120" fill="#ffffff" rx="6" />
+                            {/* Top-Left Finder pattern */}
+                            <rect x="10" y="10" width="30" height="30" fill="#091526" />
+                            <rect x="15" y="15" width="20" height="20" fill="#ffffff" />
+                            <rect x="20" y="20" width="10" height="10" fill="#091526" />
+                            {/* Top-Right Finder pattern */}
+                            <rect x="80" y="10" width="30" height="30" fill="#091526" />
+                            <rect x="85" y="15" width="20" height="20" fill="#ffffff" />
+                            <rect x="90" y="20" width="10" height="10" fill="#091526" />
+                            {/* Bottom-Left Finder pattern */}
+                            <rect x="10" y="80" width="30" height="30" fill="#091526" />
+                            <rect x="15" y="85" width="20" height="20" fill="#ffffff" />
+                            <rect x="20" y="90" width="10" height="10" fill="#091526" />
+                            {/* Simulated pixels */}
+                            <rect x="50" y="20" width="10" height="10" fill="#091526" />
+                            <rect x="60" y="30" width="10" height="10" fill="#091526" />
+                            <rect x="50" y="50" width="20" height="10" fill="#091526" />
+                            <rect x="80" y="50" width="10" height="20" fill="#091526" />
+                            <rect x="90" y="80" width="20" height="10" fill="#091526" />
+                            <rect x="50" y="80" width="10" height="30" fill="#091526" />
+                            <rect x="70" y="90" width="10" height="10" fill="#091526" />
+                            <rect x="90" y="100" width="10" height="10" fill="#091526" />
+                          </g>
+
+                          {/* Ticket Code */}
+                          <text
+                            x="200"
+                            y="555"
+                            fill="#94a3b8"
+                            fontSize="11"
+                            fontWeight="bold"
+                            letterSpacing="4"
+                            textAnchor="middle"
+                          >
+                            {generatedTicketId}
+                          </text>
+                          <text
+                            x="200"
+                            y="575"
+                            fill="#ca8a04"
+                            fontSize="8"
+                            fontWeight="bold"
+                            letterSpacing="1"
+                            textAnchor="middle"
+                          >
+                            ENTRÉE VALABLE UNIQUE
+                          </text>
+                        </svg>
+                      </div>
+
+                      {/* Action buttons */}
+                      <div className="flex flex-col sm:flex-row gap-4 w-full">
+                        <button
+                          onClick={downloadTicketSVG}
+                          className="flex-1 bg-primary text-white font-bold uppercase tracking-widest text-xs py-4 rounded-xl shadow-lg hover:bg-primary/90 transition-all hover:scale-102 cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          <Download className="w-4 h-4" />
+                          <span>{t("tickets.downloadTicket")}</span>
+                        </button>
+                        <button
+                          onClick={closeCheckout}
+                          className="flex-1 bg-muted text-foreground font-bold uppercase tracking-widest text-xs py-4 rounded-xl border border-border hover:bg-muted/80 transition-all hover:scale-102 cursor-pointer"
+                        >
+                          {t("tickets.back")}
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
                 </AnimatePresence>
               </div>
             </motion.div>
@@ -752,4 +1004,3 @@ function Billetterie() {
     </div>
   );
 }
-

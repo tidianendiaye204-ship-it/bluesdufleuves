@@ -52,12 +52,8 @@ export function ActivityCard({
         <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-4 self-start">
           {category}
         </span>
-        <h3 className="font-display text-2xl font-bold mb-4 text-foreground">
-          {title}
-        </h3>
-        <p className="font-serif text-muted-foreground leading-relaxed mb-6">
-          {description}
-        </p>
+        <h3 className="font-display text-2xl font-bold mb-4 text-foreground">{title}</h3>
+        <p className="font-serif text-muted-foreground leading-relaxed mb-6">{description}</p>
         {/* @ts-ignore */}
         <Link
           to={linkTo}

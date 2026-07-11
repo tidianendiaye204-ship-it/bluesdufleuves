@@ -25,12 +25,9 @@ export function OptimizedImage({
   const [webpFailed, setWebpFailed] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const getWebPSrc = (originalSrc: string) => {
-    // Only attempt webp substitution for public-folder URLs (starting with /)
-    // Vite-bundled assets already have content-hash URLs and don't need this
-    if (!originalSrc.startsWith("/")) return null;
-    if (originalSrc.includes(".webp")) return originalSrc;
-    return originalSrc.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+  const getWebPSrc = (_originalSrc: string) => {
+    // Return null to avoid automatic webp fetching since they aren't generated on the server
+    return null;
   };
 
   const webpSrc = getWebPSrc(src);

@@ -40,11 +40,14 @@ export const Route = createFileRoute("/nann-k-media")({
   head: () => {
     const { meta, links } = createSeoMeta({
       title: "NANN-k & The Village | Mouvement Culturel & Économique Podor",
-      description: "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal.",
+      description:
+        "Découvrez NANN-k et The Village, l'initiative de Baaba Maal pour la culture, l'agriculture et le développement de la vallée du fleuve Sénégal.",
       ogTitle: "NANN-k & The Village - Baaba Maal Podor",
-      ogDescription: "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar.",
+      ogDescription:
+        "NANN-k et The Village : mouvement citoyen pour l'émergence sociale et économique à travers l'agriculture, l'artisanat et la culture Halpulaar.",
       ogImage: logoNannk,
-      keywords: "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
+      keywords:
+        "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
       canonical: "https://lesbluesdufleuve.sn/nann-k-media",
     });
     return { meta, links };
@@ -143,12 +146,18 @@ function VideoCarousel({ items, thumbs, setActiveVideo }: any) {
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
                   <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
-                    <Play size={20} className="text-primary-foreground ml-0.5" fill="currentColor" />
+                    <Play
+                      size={20}
+                      className="text-primary-foreground ml-0.5"
+                      fill="currentColor"
+                    />
                   </div>
                 </div>
               </div>
               <div className="p-4 flex-1 flex flex-col">
-                <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{item.name}</h4>
+                <h4 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
+                  {item.name}
+                </h4>
                 <p className="text-xs text-muted-foreground mt-1 font-serif">Nannka TV</p>
               </div>
             </article>
@@ -227,7 +236,10 @@ function NannkMedia() {
       bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
       border: "border-emerald-500/30",
       iconColor: "text-emerald-600 dark:text-emerald-400",
-      description: t("nannk.pillar1Desc", "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un levier de croissance inclusive."),
+      description: t(
+        "nannk.pillar1Desc",
+        "Garantir la sécurité alimentaire, valoriser les terroirs et faire de l'agriculture un levier de croissance inclusive.",
+      ),
     },
     {
       icon: Waves,
@@ -236,7 +248,10 @@ function NannkMedia() {
       bg: "bg-blue-500/10 dark:bg-blue-500/20",
       border: "border-blue-500/30",
       iconColor: "text-blue-600 dark:text-blue-400",
-      description: t("nannk.pillar2Desc", "Valoriser les ressources halieutiques du fleuve Sénégal et soutenir les communautés de pêcheurs artisans."),
+      description: t(
+        "nannk.pillar2Desc",
+        "Valoriser les ressources halieutiques du fleuve Sénégal et soutenir les communautés de pêcheurs artisans.",
+      ),
     },
     {
       icon: PawPrint,
@@ -245,7 +260,10 @@ function NannkMedia() {
       bg: "bg-amber-500/10 dark:bg-amber-500/20",
       border: "border-amber-500/30",
       iconColor: "text-amber-600 dark:text-amber-400",
-      description: t("nannk.pillar3Desc", "Développer l'élevage pastoral traditionnel, optimiser la gestion des troupeaux et moderniser la filière."),
+      description: t(
+        "nannk.pillar3Desc",
+        "Développer l'élevage pastoral traditionnel, optimiser la gestion des troupeaux et moderniser la filière.",
+      ),
     },
     {
       icon: Palette,
@@ -254,7 +272,10 @@ function NannkMedia() {
       bg: "bg-indigo-500/10 dark:bg-indigo-500/20",
       border: "border-indigo-500/30",
       iconColor: "text-indigo-600 dark:text-indigo-400",
-      description: t("nannk.pillar4Desc", "Servir de moteur culturel et social pour l'éducation, l'identité et la transmission dans la vallée."),
+      description: t(
+        "nannk.pillar4Desc",
+        "Servir de moteur culturel et social pour l'éducation, l'identité et la transmission dans la vallée.",
+      ),
     },
     {
       icon: Cpu,
@@ -263,7 +284,10 @@ function NannkMedia() {
       bg: "bg-rose-500/10 dark:bg-rose-500/20",
       border: "border-rose-500/30",
       iconColor: "text-rose-600 dark:text-rose-400",
-      description: t("nannk.pillar5Desc", "Moderniser l'ensemble des secteurs d'activité traditionnels par l'apport d'outils numériques innovants."),
+      description: t(
+        "nannk.pillar5Desc",
+        "Moderniser l'ensemble des secteurs d'activité traditionnels par l'apport d'outils numériques innovants.",
+      ),
     },
   ];
 
@@ -413,7 +437,7 @@ function NannkMedia() {
             const letter = p.title.charAt(0);
             const peulhWord = p.title.split(" (")[0] || "";
             const frenchWord = p.title.split("(")[1]?.replace(")", "") || "";
- 
+
             return (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -482,7 +506,11 @@ function NannkMedia() {
               {t("nannk.ourMission")}
             </h2>
             <p className="font-serif text-muted-foreground mb-6 text-lg leading-relaxed">
-              {t("nannk.missionDesc1")}<strong>{t("nannk.agriculture")}</strong>, la <strong>{t("nannk.fishing")}</strong>, l'<strong>{t("nannk.livestock")}</strong>, la <strong>{t("nannk.cultureWord")}</strong> et les <strong>{t("nannk.newTech")}</strong>.
+              {t("nannk.missionDesc1")}
+              <strong>{t("nannk.agriculture")}</strong>, la <strong>{t("nannk.fishing")}</strong>,
+              l'<strong>{t("nannk.livestock")}</strong>, la{" "}
+              <strong>{t("nannk.cultureWord")}</strong> et les <strong>{t("nannk.newTech")}</strong>
+              .
             </p>
             <p className="font-serif text-muted-foreground mb-8 text-lg leading-relaxed">
               {t("nannk.missionDesc2")}
@@ -595,9 +623,7 @@ function NannkMedia() {
               <p>
                 <strong>NANN-k TV</strong> {t("nannk.tvDesc1")}
               </p>
-              <p>
-                {t("nannk.tvDesc2")}
-              </p>
+              <p>{t("nannk.tvDesc2")}</p>
             </div>
           </div>
         </motion.div>
@@ -693,7 +719,9 @@ function NannkMedia() {
               className="space-y-5"
             >
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                {t("nannk.trustDesc1")} <strong>{t("nannk.trustAmount")}</strong> {t("nannk.trustDesc1b")} <strong>Podor Vert</strong>{t("nannk.trustDesc1c")}
+                {t("nannk.trustDesc1")} <strong>{t("nannk.trustAmount")}</strong>{" "}
+                {t("nannk.trustDesc1b")} <strong>Podor Vert</strong>
+                {t("nannk.trustDesc1c")}
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
                 {t("nannk.trustDesc2")}
@@ -735,10 +763,12 @@ function NannkMedia() {
                 {t("nannk.reforestationTitle")}
               </h2>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                {t("nannk.reforestationDesc1")} <strong>Mbolo Birame</strong> {t("nannk.reforestationDate")}
+                {t("nannk.reforestationDesc1")} <strong>Mbolo Birame</strong>{" "}
+                {t("nannk.reforestationDate")}
               </p>
               <p className="font-serif text-muted-foreground text-lg leading-relaxed">
-                {t("nannk.reforestationDesc2")} <strong>{t("nannk.reforestationPlants")}</strong> {t("nannk.reforestationDesc2b")}
+                {t("nannk.reforestationDesc2")} <strong>{t("nannk.reforestationPlants")}</strong>{" "}
+                {t("nannk.reforestationDesc2b")}
               </p>
               <p className="font-serif text-lg leading-relaxed font-semibold text-primary">
                 {t("nannk.reforestationCTA")}

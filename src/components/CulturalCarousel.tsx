@@ -8,23 +8,26 @@ const slides = [
     id: 1,
     title: "Un Musée Interactif",
     subtitle: "Patrimoine & Histoire",
-    description: "Plongez dans l'histoire de la vallée du fleuve Sénégal à travers des expositions uniques et interactives.",
+    description:
+      "Plongez dans l'histoire de la vallée du fleuve Sénégal à travers des expositions uniques et interactives.",
     image: "/carousel-musee.jpg",
   },
   {
     id: 2,
     title: "Espaces de Création",
     subtitle: "Formations Artisanales",
-    description: "Découvrez nos ateliers de lutherie, de couture et de métiers d'art, dédiés à la transmission du savoir-faire.",
+    description:
+      "Découvrez nos ateliers de lutherie, de couture et de métiers d'art, dédiés à la transmission du savoir-faire.",
     image: "/carousel-formations.jpg",
   },
   {
     id: 3,
     title: "Le Festival",
     subtitle: "Blues du Fleuve",
-    description: "L'épicentre des cultures halpulaar, célébrant la musique, la danse et l'intégration africaine.",
+    description:
+      "L'épicentre des cultures halpulaar, célébrant la musique, la danse et l'intégration africaine.",
     image: "/carousel-festival.jpg",
-  }
+  },
 ];
 
 export function CulturalCarousel() {
@@ -46,7 +49,7 @@ export function CulturalCarousel() {
   }, [isHovered, nextSlide]);
 
   return (
-    <div 
+    <div
       className="relative w-full aspect-video md:h-[600px] overflow-hidden rounded-2xl group shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-[3px] border-border/50 bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -75,8 +78,6 @@ export function CulturalCarousel() {
               className="w-full h-full object-cover"
             />
           </motion.div>
-          
-
         </motion.div>
       </AnimatePresence>
 
