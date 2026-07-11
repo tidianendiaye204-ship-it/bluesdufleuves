@@ -238,16 +238,16 @@ export function Navbar() {
               aria-modal="true"
             >
               {/* En-tête du menu mobile */}
-              <div className="flex items-center justify-between px-6 h-20 border-b border-border shrink-0">
+              <div className="flex items-center justify-between px-6 h-20 border-b border-white/20 shrink-0">
                 <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
                   <div className="flex flex-col items-start">
-                    <span className="luxury-text text-2xl uppercase tracking-tighter text-foreground">
+                    <span className="luxury-text text-2xl uppercase tracking-tighter text-white">
                       The <span className="text-gradient-river">Village</span>
                     </span>
                   </div>
                 </Link>
                 <button
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted/50 text-foreground hover:bg-foreground/10 transition-all"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all"
                   onClick={() => setOpen(false)}
                   aria-label="Fermer le menu"
                 >
@@ -270,7 +270,7 @@ export function Navbar() {
                     <Link
                       to={l.to}
                       onClick={() => setOpen(false)}
-                      className="block text-xl font-display font-bold uppercase tracking-wider text-foreground/80 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1"
+                      className="block text-xl font-display font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-2 py-1"
                       activeProps={{ className: "!text-primary" }}
                       activeOptions={{ exact: l.to === "/" }}
                       role="menuitem"
@@ -286,13 +286,13 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
-                className="p-8 border-t border-border/50 bg-muted/30 shrink-0"
+                className="p-8 border-t border-white/20 bg-black/20 shrink-0"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground uppercase tracking-widest font-bold">
+                  <span className="text-xs text-white/60 uppercase tracking-widest font-bold">
                     Langue
                   </span>
-                  <div className="flex items-center bg-muted rounded-full p-1">
+                  <div className="flex items-center bg-white/10 rounded-full p-1">
                     <button
                       onClick={() => {
                         i18n.changeLanguage("fr");
@@ -301,7 +301,7 @@ export function Navbar() {
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
                         i18n.language === "fr"
                           ? "bg-primary text-primary-foreground shadow-md"
-                          : "text-muted-foreground hover:text-foreground"
+                          : "text-white/60 hover:text-white"
                       }`}
                     >
                       FR
@@ -314,7 +314,7 @@ export function Navbar() {
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
                         i18n.language === "en"
                           ? "bg-primary text-primary-foreground shadow-md"
-                          : "text-muted-foreground hover:text-foreground"
+                          : "text-white/60 hover:text-white"
                       }`}
                     >
                       EN
