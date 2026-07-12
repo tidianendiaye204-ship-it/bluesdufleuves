@@ -58,6 +58,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           command: d1 migrations apply bluesdufleuve-db --remote
+        env:
+          WRANGLER_LOG: debug
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
@@ -66,3 +68,9 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: npm
           command: deploy
+        env:
+          WRANGLER_LOG: debug
+
+      - name: Debug - Show wrangler logs
+        if: failure()
+        run: cat ~/.config/.wrangler/logs/*.log || true
