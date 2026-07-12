@@ -1,4 +1,4 @@
-CREATE TABLE `contacts` (
+CREATE TABLE IF NOT EXISTS `contacts` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`nom` text NOT NULL,
 	`email` text NOT NULL,

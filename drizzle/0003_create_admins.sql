@@ -1,12 +1,12 @@
-CREATE TABLE `admins` (
+CREATE TABLE IF NOT EXISTS `admins` (
 	`id` text PRIMARY KEY NOT NULL,
 	`email` text NOT NULL,
 	`password_hash` text NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `admins_email_unique` ON `admins` (`email`);
+CREATE UNIQUE INDEX IF NOT EXISTS `admins_email_unique` ON `admins` (`email`);
 --> statement-breakpoint
-CREATE TABLE `sessions` (
+CREATE TABLE IF NOT EXISTS `sessions` (
 	`id` text PRIMARY KEY NOT NULL,
 	`admin_id` text NOT NULL,
 	`expires_at` integer NOT NULL,
