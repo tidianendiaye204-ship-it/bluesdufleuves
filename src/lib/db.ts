@@ -4,8 +4,7 @@ import Database from "better-sqlite3";
 import * as schema from "../db/schema";
 
 export type Database =
-  | ReturnType<typeof drizzleD1<typeof schema>>
-  | ReturnType<typeof drizzleSqlite<typeof schema>>;
+  ReturnType<typeof drizzleD1<typeof schema>> | ReturnType<typeof drizzleSqlite<typeof schema>>;
 
 export async function withRetry<T>(
   operation: () => Promise<T>,
