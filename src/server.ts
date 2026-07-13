@@ -7,12 +7,13 @@ type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
-let serverEntryPromise: Promise<ServerEntry> | undefined;
-
 import * as serverEntryModule from "@tanstack/react-start/server-entry";
 
 async function getServerEntry(): Promise<ServerEntry> {
-  return (serverEntryModule as { default?: ServerEntry }).default ?? (serverEntryModule as unknown as ServerEntry);
+  return (
+    (serverEntryModule as { default?: ServerEntry }).default ??
+    (serverEntryModule as unknown as ServerEntry)
+  );
 }
 
 function brandedErrorResponse(): Response {
