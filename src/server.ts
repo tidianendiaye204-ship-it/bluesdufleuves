@@ -9,13 +9,10 @@ type ServerEntry = {
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
+import * as serverEntryModule from "@tanstack/react-start/server-entry";
+
 async function getServerEntry(): Promise<ServerEntry> {
-  if (!serverEntryPromise) {
-    serverEntryPromise = import("@tanstack/react-start/server-entry").then(
-      (m) => (m as { default?: ServerEntry }).default ?? (m as unknown as ServerEntry),
-    );
-  }
-  return serverEntryPromise;
+  return (serverEntryModule as { default?: ServerEntry }).default ?? (serverEntryModule as unknown as ServerEntry);
 }
 
 function brandedErrorResponse(): Response {

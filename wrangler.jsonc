@@ -7,7 +7,6 @@
   "assets": {
     "directory": "./dist/client"
   },
-  "no_bundle": true,
   "d1_databases": [
     {
       "binding": "DB",

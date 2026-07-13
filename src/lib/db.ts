@@ -1,10 +1,8 @@
 import { drizzle as drizzleD1 } from "drizzle-orm/d1";
-import { drizzle as drizzleSqlite } from "drizzle-orm/better-sqlite3";
-import Database from "better-sqlite3";
 import * as schema from "../db/schema";
 
-export type Database =
-  ReturnType<typeof drizzleD1<typeof schema>> | ReturnType<typeof drizzleSqlite<typeof schema>>;
+// We use 'any' for the local dev sqlite to avoid requiring the types in production
+export type Database = ReturnType<typeof drizzleD1<typeof schema>> | any;
 
 export async function withRetry<T>(
   operation: () => Promise<T>,
@@ -32,19 +30,25 @@ export async function withRetry<T>(
 }
 
 let dbInstance: Database | null = null;
+let DatabaseClass: any = null;
+let drizzleSqlite: any = null;
+
+// Use top-level await for dev dependencies so they are tree-shaken in production
+if (import.meta.env.DEV) {
+  try {
+    DatabaseClass = (await import("better-sqlite3")).default;
+    drizzleSqlite = (await import("drizzle-orm/better-sqlite3")).drizzle;
+  } catch (e) {
+    console.warn("Failed to load local SQLite driver", e);
+  }
+}
 
 function getD1Binding(): D1Database | undefined {
+  if (typeof process === "undefined") return undefined;
   const env = process.env as Record<string, unknown>;
   const db = env.DB as D1Database | undefined;
   if (db) return db;
   return env.bluesdufleuve_db as D1Database | undefined;
-}
-
-function isLocalDev(): boolean {
-  const env = process.env as Record<string, unknown>;
-  return (
-    env.NODE_ENV === "development" || env.MODE === "development" || import.meta.env?.DEV === true
-  );
 }
 
 export function getDb(): Database {
@@ -58,22 +62,24 @@ export function getDb(): Database {
       return dbInstance;
     }
 
-    if (!isLocalDev()) {
-      console.warn("D1 binding not found in production, using in-memory DB");
-      const sqlite = new Database(":memory:");
-      dbInstance = drizzleSqlite(sqlite, { schema });
-      return dbInstance;
+    if (!import.meta.env.DEV || !DatabaseClass || !drizzleSqlite) {
+      if (!import.meta.env.DEV) {
+        console.warn("D1 binding not found in production. Returning mock DB.");
+      }
+      // If we don't have D1 in production, and no local sqlite is available, we shouldn't crash.
+      // But we can't use better-sqlite3. So we throw or mock.
+      throw new Error("D1 Database binding not found and local SQLite is unavailable in production.");
     }
 
     if (dbInstance) return dbInstance;
 
     console.warn("D1 database binding not found, using local SQLite database for development.");
-    const sqlite = new Database("local-dev.db");
+    const sqlite = new DatabaseClass("local-dev.db");
 
     try {
       // Check if tables exist by querying one
       const tableInfo = sqlite.pragma("table_info(newsletter)") as Array<{ name: string }>;
-      if (tableInfo.length > 0 && tableInfo.some((col) => col.name === "dateInscription")) {
+      if (tableInfo.length > 0 && tableInfo.some((col: any) => col.name === "dateInscription")) {
         console.warn("Old schema detected. Please run migrations to update.");
       }
     } catch (e) {
@@ -83,9 +89,7 @@ export function getDb(): Database {
     dbInstance = drizzleSqlite(sqlite, { schema });
     return dbInstance;
   } catch (e) {
-    console.error("Fatal DB init error, using in-memory DB as fallback!", e);
-    const sqlite = new Database(":memory:");
-    dbInstance = drizzleSqlite(sqlite, { schema });
-    return dbInstance;
+    console.error("Fatal DB init error!", e);
+    throw e;
   }
 }
