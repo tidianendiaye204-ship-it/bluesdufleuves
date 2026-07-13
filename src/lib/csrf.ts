@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getCookie, setCookie } from "@tanstack/react-start/server";
 
 const CSRF_COOKIE_NAME = "csrf_token";
 
@@ -7,8 +8,6 @@ function generateCSRFToken(): string {
 }
 
 function setCSRFCookie(token: string): void {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { setCookie } = require("@tanstack/react-start/server");
   setCookie(CSRF_COOKIE_NAME, token, {
     path: "/",
     httpOnly: true,
@@ -19,8 +18,6 @@ function setCSRFCookie(token: string): void {
 }
 
 function getCSRFCookie(): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { getCookie } = require("@tanstack/react-start/server");
   return getCookie(CSRF_COOKIE_NAME);
 }
 
