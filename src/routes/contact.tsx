@@ -114,55 +114,6 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-// ── Floating-label input ──────────────────────────────────────────────────────
-function FloatingInput({
-  id,
-  label,
-  type = "text",
-  placeholder,
-  error,
-  registration,
-}: {
-  id: string;
-  label: string;
-  type?: string;
-  placeholder: string;
-  error?: string;
-  registration: object;
-}) {
-  return (
-    <div className="relative group">
-      <input
-        id={id}
-        type={type}
-        {...registration}
-        placeholder=" "
-        aria-invalid={error ? "true" : "false"}
-        className={`peer w-full bg-background/60 border-2 ${
-          error ? "border-red-400" : "border-border group-hover:border-primary/40"
-        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-200`}
-      />
-      <label
-        htmlFor={id}
-        className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
-          peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
-          peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
-          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-primary`}
-      >
-        {label}
-      </label>
-      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50 pointer-events-none">
-        {placeholder}
-      </span>
-      {error && (
-        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
-
 // ── FAQ Item ─────────────────────────────────────────────────────────────────
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
