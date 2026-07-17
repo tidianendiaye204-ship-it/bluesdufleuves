@@ -177,6 +177,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__name = (target, value) => Object.defineProperty(target, "name", { value, configurable: true });`,
+          }}
+        />
         <HeadContent />
       </head>
       <body>
