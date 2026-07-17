@@ -489,18 +489,19 @@ function ContactPage() {
             ref={formRef}
             className={`lg:col-span-8 transition-all duration-700 ${formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
-            <div className="glass-dark border border-border/30 rounded-3xl shadow-xl overflow-hidden">
+            <div className="bg-card/40 backdrop-blur-2xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden relative">
               {/* Form header */}
-              <div className="bg-linear-to-r from-primary/10 to-sky-500/10 border-b border-border px-8 py-6">
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white">
+              <div className="relative bg-linear-to-r from-amber-500/10 to-orange-600/10 border-b border-border/50 px-8 py-8">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+                <h3 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground relative z-10">
                   Envoyez-nous un message
                 </h3>
-                <p className="text-sm text-muted-foreground font-serif mt-1">
+                <p className="text-base text-muted-foreground font-serif mt-2 relative z-10">
                   Réponse garantie sous 48h ouvrées
                 </p>
               </div>
 
-              <div className="p-8">
+              <div className="p-8 lg:p-10">
                 {sent ? (
                   /* ── Success state ── */
                   <motion.div
@@ -513,15 +514,15 @@ function ContactPage() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-                      className="w-24 h-24 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto"
+                      className="w-24 h-24 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20"
                     >
                       <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
                     </motion.div>
                     <div>
-                      <h3 className="font-display text-2xl font-bold text-white mb-2">
+                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">
                         {t("contact.successTitle")}
                       </h3>
-                      <p className="text-muted-foreground font-serif max-w-xs mx-auto">
+                      <p className="text-muted-foreground font-serif max-w-xs mx-auto text-lg">
                         {t("contact.successMessage")}
                       </p>
                     </div>
@@ -530,50 +531,99 @@ function ContactPage() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-white/5 rounded-2xl p-5 text-left max-w-sm mx-auto space-y-3 border border-border/30"
+                        className="bg-background/50 rounded-2xl p-6 text-left max-w-sm mx-auto space-y-4 border border-border/50 shadow-inner"
                       >
                         <p className="text-xs uppercase tracking-widest text-primary font-bold mb-2">
                           Récapitulatif
                         </p>
-                        <div className="flex items-center gap-3 text-sm text-white">
-                          <User size={14} className="text-white/60 shrink-0" />
-                          <span>{sentData.nom}</span>
+                        <div className="flex items-center gap-4 text-sm text-foreground">
+                          <div className="p-2 bg-primary/10 rounded-lg">
+                            <User size={16} className="text-primary shrink-0" />
+                          </div>
+                          <span className="font-medium">{sentData.nom}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-white">
-                          <Mail size={14} className="text-white/60 shrink-0" />
-                          <span>{sentData.email}</span>
+                        <div className="flex items-center gap-4 text-sm text-foreground">
+                          <div className="p-2 bg-primary/10 rounded-lg">
+                            <Mail size={16} className="text-primary shrink-0" />
+                          </div>
+                          <span className="font-medium">{sentData.email}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-white">
-                          <MessageSquare size={14} className="text-white/60 shrink-0" />
-                          <span>{sentData.sujet}</span>
+                        <div className="flex items-center gap-4 text-sm text-foreground">
+                          <div className="p-2 bg-primary/10 rounded-lg">
+                            <MessageSquare size={16} className="text-primary shrink-0" />
+                          </div>
+                          <span className="font-medium">{sentData.sujet}</span>
                         </div>
                       </motion.div>
                     )}
                   </motion.div>
                 ) : (
                   /* ── Form ── */
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
                     {formError && (
-                      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-600 text-sm font-medium">
+                      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-600 text-sm font-medium flex items-center gap-3">
+                        <span className="w-1.5 h-full bg-red-500 rounded-full" />
                         {formError}
                       </div>
                     )}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <FloatingInput
-                        id="nom"
-                        label="Nom complet *"
-                        placeholder="Votre nom"
-                        error={errors.nom?.message}
-                        registration={register("nom")}
-                      />
-                      <FloatingInput
-                        id="email"
-                        type="email"
-                        label="Email *"
-                        placeholder="vous@exemple.com"
-                        error={errors.email?.message}
-                        registration={register("email")}
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="relative group">
+                        <input
+                          id="nom"
+                          type="text"
+                          {...register("nom")}
+                          placeholder=" "
+                          aria-invalid={errors.nom ? "true" : "false"}
+                          className={`peer w-full bg-background/50 border-2 ${
+                            errors.nom
+                              ? "border-red-400"
+                              : "border-border/50 group-hover:border-primary/50"
+                          } rounded-2xl px-5 pt-7 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-300 focus:bg-background shadow-sm focus:shadow-md`}
+                        />
+                        <label
+                          htmlFor="nom"
+                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                            peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
+                            peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-primary
+                            peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}
+                        >
+                          Nom complet *
+                        </label>
+                        {errors.nom && (
+                          <p className="text-red-500 text-xs mt-2 ml-2 font-medium" role="alert">
+                            {errors.nom.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="relative group">
+                        <input
+                          id="email"
+                          type="email"
+                          {...register("email")}
+                          placeholder=" "
+                          aria-invalid={errors.email ? "true" : "false"}
+                          className={`peer w-full bg-background/50 border-2 ${
+                            errors.email
+                              ? "border-red-400"
+                              : "border-border/50 group-hover:border-primary/50"
+                          } rounded-2xl px-5 pt-7 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-300 focus:bg-background shadow-sm focus:shadow-md`}
+                        />
+                        <label
+                          htmlFor="email"
+                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                            peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
+                            peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-primary
+                            peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}
+                        >
+                          Email *
+                        </label>
+                        {errors.email && (
+                          <p className="text-red-500 text-xs mt-2 ml-2 font-medium" role="alert">
+                            {errors.email.message}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     {/* Sujet select-style custom */}
@@ -582,32 +632,33 @@ function ContactPage() {
                       <button
                         type="button"
                         onClick={() => setSujetOpen(!sujetOpen)}
-                        className={`peer w-full text-left bg-background/60 border-2 ${
+                        className={`peer w-full text-left bg-background/50 border-2 ${
                           errors.sujet
                             ? "border-red-400"
-                            : "border-border group-hover:border-primary/40"
-                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-200 cursor-pointer`}
+                            : "border-border/50 group-hover:border-primary/50"
+                        } rounded-2xl px-5 pt-7 pb-3 text-base text-foreground focus:outline-none focus:border-primary transition-all duration-300 cursor-pointer shadow-sm focus:shadow-md focus:bg-background`}
                       >
                         {selectedSujet || <span className="text-transparent">Sujet</span>}
                       </button>
                       <label
-                        className={`absolute left-4 transition-all duration-200 pointer-events-none font-semibold uppercase tracking-wider
-                          ${selectedSujet || sujetOpen ? "top-1.5 text-xs text-primary" : "top-4 text-sm text-muted-foreground"}
+                        className={`absolute left-5 transition-all duration-300 pointer-events-none font-semibold uppercase tracking-wider
+                          ${selectedSujet || sujetOpen ? "top-2 text-[11px] text-primary" : "top-5 text-sm text-muted-foreground"}
                         `}
                       >
                         Sujet *
                       </label>
                       <ChevronDown
-                        className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none transition-transform duration-300 ${sujetOpen ? "rotate-180" : ""}`}
+                        className={`absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none transition-transform duration-300 ${sujetOpen ? "rotate-180 text-primary" : ""}`}
                       />
 
                       <AnimatePresence>
                         {sujetOpen && (
                           <motion.ul
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="absolute z-50 w-full mt-2 glass-dark border border-border/30 rounded-xl shadow-2xl overflow-hidden py-1"
+                            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute z-50 w-full mt-2 bg-card border border-border/50 rounded-2xl shadow-2xl overflow-y-auto py-2 max-h-64 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
                           >
                             {[
                               "Information générale",
@@ -625,7 +676,7 @@ function ContactPage() {
                                     setValue("sujet", option, { shouldValidate: true });
                                     setSujetOpen(false);
                                   }}
-                                  className={`w-full text-left px-4 py-3 text-sm hover:bg-white/10 hover:text-white transition-colors cursor-pointer ${selectedSujet === option ? "bg-white/5 text-primary font-semibold" : "text-white"}`}
+                                  className={`w-full text-left px-5 py-3 text-sm hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer ${selectedSujet === option ? "bg-primary/5 text-primary font-bold" : "text-foreground"}`}
                                 >
                                   {option}
                                 </button>
@@ -635,7 +686,7 @@ function ContactPage() {
                         )}
                       </AnimatePresence>
                       {errors.sujet && (
-                        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
+                        <p className="text-red-500 text-xs mt-2 ml-2 font-medium" role="alert">
                           {errors.sujet.message}
                         </p>
                       )}
@@ -645,27 +696,27 @@ function ContactPage() {
                     <div className="relative group">
                       <textarea
                         id="message"
-                        rows={5}
+                        rows={6}
                         {...register("message")}
                         placeholder=" "
                         aria-invalid={errors.message ? "true" : "false"}
-                        className={`peer w-full bg-background/60 border-2 ${
+                        className={`peer w-full bg-background/50 border-2 ${
                           errors.message
                             ? "border-red-400"
-                            : "border-border group-hover:border-primary/40"
-                        } rounded-xl px-4 pt-6 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-200 resize-none`}
+                            : "border-border/50 group-hover:border-primary/50"
+                        } rounded-2xl px-5 pt-7 pb-3 text-base text-foreground placeholder-transparent focus:outline-none focus:border-primary transition-all duration-300 resize-none shadow-sm focus:shadow-md focus:bg-background`}
                       />
                       <label
                         htmlFor="message"
-                        className={`absolute left-4 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-200
-                          peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
-                          peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-primary
-                          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-primary`}
+                        className={`absolute left-5 top-5 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                          peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
+                          peer-focus:top-3 peer-focus:text-[11px] peer-focus:text-primary
+                          peer-not-placeholder-shown:top-3 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}
                       >
                         Votre message *
                       </label>
                       {errors.message && (
-                        <p className="text-red-400 text-xs mt-1.5 ml-1 font-medium" role="alert">
+                        <p className="text-red-500 text-xs mt-2 ml-2 font-medium" role="alert">
                           {errors.message.message}
                         </p>
                       )}
@@ -682,7 +733,7 @@ function ContactPage() {
                         }}
                       />
                       {errors.cfTurnstileResponse && (
-                        <p className="text-red-400 text-xs mt-1 font-medium">
+                        <p className="text-red-500 text-xs mt-2 font-medium">
                           {errors.cfTurnstileResponse.message}
                         </p>
                       )}
@@ -695,16 +746,15 @@ function ContactPage() {
                       type="submit"
                       disabled={loading}
                       aria-busy={loading}
-                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-4 text-sm min-h-13 rounded-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-5 text-sm rounded-2xl transition-all duration-500 disabled:opacity-60 disabled:cursor-not-allowed text-white hover:scale-[1.02] active:scale-[0.98]"
                       style={{
                         background:
-                          "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
-                        color: "#fff",
-                        boxShadow: "0 4px 20px rgba(12, 74, 110, 0.4)",
+                          "linear-gradient(135deg, #ea580c 0%, #f97316 50%, #f59e0b 100%)",
+                        boxShadow: "0 10px 30px -10px rgba(234, 88, 12, 0.5)",
                       }}
                     >
                       {/* Shine effect */}
-                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 skew-x-12 pointer-events-none" />
+                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 skew-x-12 pointer-events-none" />
                       {loading ? (
                         <>
                           <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
@@ -726,7 +776,11 @@ function ContactPage() {
                         </>
                       ) : (
                         <>
-                          <Send size={16} aria-hidden="true" />
+                          <Send
+                            size={18}
+                            aria-hidden="true"
+                            className="group-hover:translate-x-1 transition-transform"
+                          />
                           {t("contact.submit")}
                         </>
                       )}
