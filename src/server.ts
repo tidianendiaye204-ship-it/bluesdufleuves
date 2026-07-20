@@ -74,6 +74,10 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (globalThis as any).process = { env: { ...env } };
       }
+      // Always store full env on globalThis to preserve D1/KV object bindings
+      // (process.env only holds string values reliably)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (globalThis as any).__CF_ENV__ = env;
 
       if (env?.MY_RATE_LIMITER) {
         const ip = request.headers.get("CF-Connecting-IP") || "unknown";

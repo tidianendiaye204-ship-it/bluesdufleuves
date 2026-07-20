@@ -47,6 +47,13 @@ if (import.meta.env.DEV) {
 }
 
 function getD1Binding(): D1Database | undefined {
+  // Check globalThis first (set explicitly by server.ts for reliable object binding)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const g = globalThis as any;
+  if (g.__CF_ENV__?.DB) return g.__CF_ENV__.DB as D1Database;
+  if (g.__CF_ENV__?.bluesdufleuve_db) return g.__CF_ENV__.bluesdufleuve_db as D1Database;
+
+  // Fallback: process.env (works for string values, may work for objects too)
   if (typeof process === "undefined") return undefined;
   const env = process.env as Record<string, unknown>;
   const db = env.DB as D1Database | undefined;

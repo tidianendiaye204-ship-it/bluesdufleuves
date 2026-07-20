@@ -50,7 +50,7 @@ export function CulturalCarousel() {
 
   return (
     <div
-      className="relative w-full aspect-video md:h-[600px] overflow-hidden rounded-2xl group shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-[3px] border-border/50 bg-black"
+      className="relative w-full aspect-video md:h-150 overflow-hidden rounded-2xl group shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-[3px] border-border/50 bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       role="region"

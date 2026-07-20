@@ -223,25 +223,12 @@ function RootComponent() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SmoothScroll>
-        <CustomCursor />
-        <div className="flex flex-col min-h-screen">
-          {/* Skip to Content Link */}
-          <a
-            href="#main-content"
-            className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
-          >
-            {t("root.skipToContent")}
-          </a>
-          <Navbar />
-          <main id="main-content" className="flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-          <PWAInstallPrompt />
-        </div>
-      </SmoothScroll>
-    </QueryClientProvider>
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page non trouvée</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Ce site est temporairement indisponible.</p>
+      </div>
+    </div>
   );
 }

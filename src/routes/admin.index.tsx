@@ -63,7 +63,7 @@ function AdminDashboard() {
 
   // 1. Group registrations by training program
   const formationCounts = allInscriptions.reduce(
-    (acc, curr) => {
+    (acc: Record<string, number>, curr: any) => {
       const key = curr.formation || "Autre";
       acc[key] = (acc[key] || 0) + 1;
       return acc;
@@ -82,7 +82,7 @@ function AdminDashboard() {
     { date: string; inscriptions: number; messages: number }
   >;
 
-  allInscriptions.forEach((item) => {
+  allInscriptions.forEach((item: any) => {
     const d = new Date(item.dateInscription);
     const dateStr = d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
     if (!activityByDate[dateStr]) {
@@ -91,7 +91,7 @@ function AdminDashboard() {
     activityByDate[dateStr].inscriptions += 1;
   });
 
-  allContacts.forEach((item) => {
+  allContacts.forEach((item: any) => {
     const d = new Date(item.dateEnvoi);
     const dateStr = d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
     if (!activityByDate[dateStr]) {
@@ -121,7 +121,7 @@ function AdminDashboard() {
       "dateInscription",
       "statut",
     ];
-    const rows = allInscriptions.map((i) => ({
+    const rows = allInscriptions.map((i: any) => ({
       id: i.id,
       prenom: i.prenom,
       nom: i.nom,
@@ -137,7 +137,7 @@ function AdminDashboard() {
 
   const exportContactsCSV = () => {
     const headers = ["id", "nom", "email", "sujet", "message", "dateEnvoi"];
-    const rows = allContacts.map((c) => ({
+    const rows = allContacts.map((c: any) => ({
       id: c.id,
       nom: c.nom,
       email: c.email,
@@ -335,7 +335,7 @@ function AdminDashboard() {
             <p className="text-muted-foreground text-sm">Aucun article pour le moment.</p>
           ) : (
             <div className="space-y-4">
-              {recentArticles.map((a) => (
+              {recentArticles.map((a: any) => (
                 <div key={a.id} className="p-4 bg-muted/50 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold line-clamp-1">{a.title}</span>
@@ -358,7 +358,7 @@ function AdminDashboard() {
             <p className="text-muted-foreground text-sm">Aucun message pour le moment.</p>
           ) : (
             <div className="space-y-4">
-              {recentContacts.map((c) => (
+              {recentContacts.map((c: any) => (
                 <div key={c.id} className="p-4 bg-muted/50 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">{c.nom}</span>
@@ -387,7 +387,7 @@ function AdminDashboard() {
             <p className="text-muted-foreground text-sm">Aucune inscription pour le moment.</p>
           ) : (
             <div className="space-y-4">
-              {recentInscriptions.map((i) => (
+              {recentInscriptions.map((i: any) => (
                 <div key={i.id} className="p-4 bg-muted/50 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">
