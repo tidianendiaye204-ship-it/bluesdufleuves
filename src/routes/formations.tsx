@@ -427,7 +427,7 @@ function Formations() {
             <span className="text-xs uppercase tracking-[0.3em] text-primary mb-4 block font-bold">
               {t("formations.strategicObjective")}
             </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 leading-tight text-foreground">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 leading-normal py-2 text-foreground">
               {t("formations.centerTitle")}
             </h2>
             <div className="font-serif text-muted-foreground text-base leading-relaxed space-y-5">

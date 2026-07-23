@@ -238,11 +238,11 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/5 relative z-10">
         <div className="container-page py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 text-center md:text-left">
               © {new Date().getFullYear()} The Village — Projet NANN-k. {t("footer.rights")}
             </p>
-            <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
+            <div className="flex flex-wrap justify-center md:justify-end items-center gap-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
                 Podor, Sénégal
@@ -255,7 +255,7 @@ export function Footer() {
             <button
               onClick={scrollToTop}
               aria-label={t("footer.backToTop")}
-              className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-primary transition-colors"
+              className="group flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-primary transition-colors py-2 px-4 border border-white/5 md:border-transparent rounded-full"
             >
               <span className="hidden md:inline">{t("footer.topOfPage")}</span>
               <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />

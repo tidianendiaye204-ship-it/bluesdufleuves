@@ -384,14 +384,13 @@ function Home() {
               </div>
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
-            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-37.5 md:max-w-45">
+            <div className="absolute -bottom-8 -right-8 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10">
               <ParallaxImage
                 src="/Baba.webp"
                 alt="Baaba Maal en concert"
                 className="absolute inset-0 w-full h-full"
                 imageClassName="transition-transform duration-700 hover:scale-110"
-                offset={20}
-                objectPosition="center 10%"
+                offset={10}
               />
             </div>
           </motion.div>
