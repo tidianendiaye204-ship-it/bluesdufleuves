@@ -10,7 +10,7 @@ const slides = [
     subtitle: "Patrimoine & Histoire",
     description:
       "Plongez dans l'histoire de la vallée du fleuve Sénégal à travers des expositions uniques et interactives.",
-    image: "/carousel-musee.jpg",
+    image: "/carousel-musee.webp",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const slides = [
     subtitle: "Formations Artisanales",
     description:
       "Découvrez nos ateliers de lutherie, de couture et de métiers d'art, dédiés à la transmission du savoir-faire.",
-    image: "/carousel-formations.jpg",
+    image: "/carousel-formations.webp",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const slides = [
     subtitle: "Blues du Fleuve",
     description:
       "L'épicentre des cultures halpulaar, célébrant la musique, la danse et l'intégration africaine.",
-    image: "/carousel-festival.jpg",
+    image: "/carousel-festival.webp",
   },
 ];
 

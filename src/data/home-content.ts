@@ -1,18 +1,18 @@
-import fleuveImg from "@/assets/fleuve.jpg";
+import fleuveImg from "@/assets/fleuve.webp";
 
 export const galleryImages = [
-  { src: "/gal1.jpg", alt: "Concert" },
-  { src: "/gal2.jpg", alt: "Exposition" },
-  { src: "/gal3.jpg", alt: "Conférence" },
-  { src: "/gal4.jpg", alt: "Master Class" },
-  { src: "/gal5.jpg", alt: "Défilé de Mode" },
+  { src: "/gal1.webp", alt: "Concert" },
+  { src: "/gal2.webp", alt: "Exposition" },
+  { src: "/gal3.webp", alt: "Conférence" },
+  { src: "/gal4.webp", alt: "Master Class" },
+  { src: "/gal5.webp", alt: "Défilé de Mode" },
 ];
 
 export const articles = [
   {
     to: "/blues-du-fleuve" as const,
     category: "À la Une",
-    title: "La 17ème édition des Blues du Fleuve annoncée sous le signe de l'intégration",
+    title: "La 19ème édition des Blues du Fleuve annoncée sous le signe de l'intégration",
     excerpt:
       "Une édition historique qui réunira les cultures des quatre pays du fleuve pour célébrer l'unité et la fraternité.",
     date: "Aujourd'hui",
@@ -35,7 +35,7 @@ export const articles = [
     excerpt:
       "L'artisanat local mis à l'honneur dans une rétrospective exceptionnelle au cœur de la ville, attirant de nombreux visiteurs.",
     date: "Hier",
-    img: "/centre culturel.jpg",
+    img: "/centre culturel.webp",
   },
 ];
 

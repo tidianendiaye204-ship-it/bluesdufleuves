@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Clock, Calendar, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import { FESTIVAL_CONFIG } from "@/config/festival";
 
 interface CountdownProps {
   targetDate: string;
@@ -41,7 +42,7 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
         key={value}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl p-4 md:p-6 min-w-[70px] md:min-w-[90px] shadow-lg"
+        className="bg-linear-to-br from-amber-500 to-orange-600 text-white rounded-2xl p-4 md:p-6 min-w-17.5 md:min-w-22.5 shadow-lg"
       >
         <span className="text-2xl md:text-4xl font-bold">{value}</span>
       </motion.div>
@@ -69,11 +70,15 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
         <TimeUnit value={timeLeft.seconds} label="Secondes" />
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-white/70 text-sm">
-        <Clock size={16} className="text-amber-400" />
-        <span>5-7 Décembre 2025</span>
-        <MapPin size={16} className="text-amber-400 ml-2" />
-        <span>Podor, Sénégal</span>
+      <div className="flex flex-wrap items-center justify-center gap-4 text-white/90 text-sm font-medium drop-shadow-md mt-4">
+        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-xl">
+          <Clock size={16} className="text-amber-400 drop-shadow-sm" />
+          <span className="drop-shadow-md">{FESTIVAL_CONFIG.dateTexte}</span>
+        </div>
+        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-xl">
+          <MapPin size={16} className="text-amber-400 drop-shadow-sm" />
+          <span className="drop-shadow-md">{FESTIVAL_CONFIG.location}</span>
+        </div>
       </div>
     </div>
   );

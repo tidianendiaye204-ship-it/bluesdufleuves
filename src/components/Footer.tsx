@@ -1,4 +1,4 @@
-import { Youtube, Facebook, Instagram, Mail, ArrowUp, Globe, Heart } from "lucide-react";
+import { Youtube, Facebook, Instagram, Mail, ArrowUp, Globe, Heart, MapPin, Phone } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -73,18 +73,28 @@ export function Footer() {
           <p className="text-sm text-white/60 leading-relaxed font-serif">
             {t("footer.brandDesc")}
           </p>
-          <div className="flex items-center gap-2 text-xs text-white/40">
-            <Globe size={14} />
-            <span>Podor, Sénégal</span>
+          <div className="flex flex-col gap-3 text-xs text-white/40 mt-6">
+            <div className="flex items-center gap-2">
+              <MapPin size={14} className="text-primary" />
+              <span>Avenue Cheikh Oumar TALL, Podor, Sénégal</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone size={14} className="text-primary" />
+              <a href="tel:+221339179481" className="hover:text-white transition-colors">33 917 94 81</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail size={14} className="text-primary" />
+              <a href="mailto:levillagepodor@gmail.com" className="hover:text-white transition-colors">levillagepodor@gmail.com</a>
+            </div>
           </div>
         </div>
 
         {/* Navigation Column */}
         <div className="md:col-span-1">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
+          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
             <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
             {t("footer.navigation")}
-          </h4>
+          </h3>
           <ul className="space-y-3">
             {navLinks.map((item) => (
               <li key={item.to}>
@@ -105,10 +115,10 @@ export function Footer() {
         <div className="md:col-span-2 space-y-10">
           {/* Newsletter */}
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               {t("footer.editorLetter")}
-            </h4>
+            </h3>
             <p className="text-sm text-white/60 mb-6 font-serif">{t("footer.newsletterDesc")}</p>
             <form className="flex gap-3" onSubmit={handleSubscribe}>
               <div className="relative flex-1 group">
@@ -176,10 +186,10 @@ export function Footer() {
 
           {/* Social Links */}
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               {t("footer.followAdventure")}
-            </h4>
+            </h3>
             <div className="flex gap-3">
               {[
                 {

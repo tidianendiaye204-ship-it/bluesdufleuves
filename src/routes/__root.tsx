@@ -5,6 +5,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -14,6 +15,7 @@ import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
 
 import "../styles.css";
 import { Navbar } from "@/components/Navbar";
@@ -154,12 +156,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "icon",
-        type: "image/jpeg",
-        href: "/logo the village.jpg",
+        type: "image/webp",
+        href: "/logo the village.webp",
       },
       {
         rel: "apple-touch-icon",
-        href: "/logo the village.jpg",
+        href: "/logo the village.webp",
       },
       {
         rel: "manifest",
@@ -198,6 +200,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const [isHydrated, setIsHydrated] = useState(false);
   const { t } = useTranslation();
+  const location = useLocation();
 
   useEffect(() => {
     setIsHydrated(true);
@@ -223,12 +226,36 @@ function RootComponent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page non trouvée</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Ce site est temporairement indisponible.</p>
-      </div>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <SmoothScroll>
+        <CustomCursor />
+        <div className="flex flex-col min-h-screen">
+          {/* Skip to Content Link */}
+          <a
+            href="#main-content"
+            className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
+          >
+            {t("root.skipToContent")}
+          </a>
+          <Navbar />
+          <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="w-full flex-1 flex flex-col"
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
+          </main>
+          <Footer />
+          <PWAInstallPrompt />
+        </div>
+      </SmoothScroll>
+    </QueryClientProvider>
   );
 }

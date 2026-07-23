@@ -12,8 +12,4 @@ export default defineConfig({
       preset: "cloudflare-pages",
     },
   },
-  define: {
-    __name:
-      '((target, value) => Object.defineProperty(target, "name", { value, configurable: true }))',
-  },
 });

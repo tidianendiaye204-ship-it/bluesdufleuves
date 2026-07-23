@@ -32,6 +32,8 @@ import { useTranslation } from "react-i18next";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
+import { ParallaxImage } from "@/components/ParallaxImage";
+import { AnimatedText } from "@/components/AnimatedText";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { artistes, piliers, videos, galleryImages } from "@/data/festival-content";
 import { MagneticButton } from "@/components/MagneticButton";
@@ -46,23 +48,23 @@ export const Route = createFileRoute("/blues-du-fleuve")({
         "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
       ogTitle: "Blues du Fleuve — Festival au The Village Podor",
       ogDescription:
-        "Découvrez la 17ème édition du Festival Blues du Fleuve avec Baaba Maal au The Village, le centre culturel de Podor, et des artistes de la région du Fouta Toro.",
-      ogImage: "/festival-crowd.jpg",
+        "Découvrez la 19ème édition du Festival Blues du Fleuve avec Baaba Maal à Podor et Ndioum, et des artistes de la région du Fouta Toro.",
+      ogImage: "/festival-crowd.webp",
       keywords:
         "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
       canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
     });
 
     const structuredData = createStructuredData("MusicEvent", {
-      name: "Blues du Fleuve - 17ème édition",
-      startDate: "2025-12-05T18:00:00",
-      endDate: "2025-12-07T23:59:59",
+      name: "Blues du Fleuve - 19ème édition",
+      startDate: "2026-12-05T18:00:00",
+      endDate: "2026-12-07T23:59:59",
       locationName: "The Village Podor",
-      city: "Podor",
+      city: "Podor et Ndioum",
       country: "Sénégal",
       description:
         "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
-      image: "/festival-crowd.jpg",
+      image: "/festival-crowd.webp",
       url: "https://lesbluesdufleuve.sn/blues-du-fleuve",
       performers: artistes.map((artist) => ({ name: artist.nom })),
       organizer: "The Village Podor",
@@ -127,7 +129,7 @@ function BluesDuFleuve() {
             {/* Logo du Festival */}
             <div className="mb-6">
               <img
-                src="/logo-festival.png"
+                src="/logo-festival.webp"
                 alt="Les Blues du Fleuve — Logo officiel"
                 className="h-24 md:h-32 w-auto object-contain drop-shadow-2xl"
                 style={{ filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.5))" }}
@@ -136,11 +138,14 @@ function BluesDuFleuve() {
             <p className="text-xs uppercase tracking-[0.3em] text-white/80 mb-5">
               {t("festival.internationalFestival")}
             </p>
-            <h1 className="luxury-text text-4xl sm:text-5xl md:text-8xl mb-6 text-white uppercase tracking-tighter">
-              Blues du <span className="text-gradient-gold">Fleuve</span>
-            </h1>
+            <AnimatedText
+              el="h1"
+              text={t("festival.title")}
+              className="luxury-text text-4xl sm:text-5xl md:text-8xl mb-6 text-white uppercase tracking-tighter"
+              delay={0.2}
+            />
             <div className="mt-8 space-y-6 max-w-2xl">
-              <p className="text-lg md:text-2xl font-light text-white leading-relaxed">
+              <p className="text-lg md:text-2xl font-light text-white leading-relaxed drop-shadow-md">
                 {t("festival.heroDesc1")}{" "}
                 <strong className="font-bold text-gradient-gold">Baaba MAAL</strong>
                 {t("festival.heroDesc1b")}
@@ -148,7 +153,7 @@ function BluesDuFleuve() {
 
               <div className="h-px w-24 bg-linear-to-r from-amber-400 to-transparent"></div>
 
-              <p className="text-sm md:text-lg text-white/90 leading-relaxed font-medium">
+              <p className="text-sm md:text-lg text-white/90 leading-relaxed font-medium drop-shadow-md">
                 {t("festival.heroDesc2")}
               </p>
 
@@ -169,7 +174,7 @@ function BluesDuFleuve() {
                 </button>
               </div>
 
-              <div className="hidden md:block space-y-4 text-sm md:text-base text-white/70 leading-relaxed">
+              <div className="hidden md:block space-y-4 text-sm md:text-base text-white/90 leading-relaxed drop-shadow-md">
                 <p>{t("festival.heroLongDesc1")}</p>
                 <p>{t("festival.heroLongDesc2")}</p>
               </div>
@@ -192,15 +197,15 @@ function BluesDuFleuve() {
 
               {/* Badges d'information */}
               <div className="mt-10 flex flex-wrap gap-4">
-                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                  <MapPin size={18} className="text-amber-400" />
-                  <span className="text-sm font-semibold tracking-wide">
+                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 text-white shadow-xl">
+                  <MapPin size={18} className="text-amber-400 drop-shadow-sm" />
+                  <span className="text-sm font-semibold tracking-wide drop-shadow-md">
                     {FESTIVAL_CONFIG.location}
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                  <Calendar size={18} className="text-amber-400" />
-                  <span className="text-sm font-semibold tracking-wide">
+                <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 text-white shadow-xl">
+                  <Calendar size={18} className="text-amber-400 drop-shadow-sm" />
+                  <span className="text-sm font-semibold tracking-wide drop-shadow-md">
                     {FESTIVAL_CONFIG.dateTexte}
                   </span>
                 </div>
@@ -212,28 +217,27 @@ function BluesDuFleuve() {
               </div>
 
               <div className="mt-8">
-                <MagneticButton>
-                  <a
-                    href="#billetterie"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                        .getElementById("billetterie")
-                        ?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="inline-block btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
-                  >
-                    {t("festival.viewProgram")}
-                  </a>
-                </MagneticButton>
+                <a
+                  href="#billetterie"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("billetterie")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="inline-block relative z-50 w-fit btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-transform hover:scale-105 hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
+                >
+                  {t("festival.viewProgram")}
+                </a>
               </div>
             </div>
           </div>
           <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl max-w-sm mx-auto lg:max-w-none w-full">
             <OptimizedImage
-              src="/festival baba maal.jpg"
+              src="/festival baba maal.webp"
               alt="Baaba Maal"
-              className="h-full w-full"
+              className="h-full w-full transition-transform duration-700 hover:scale-105"
+              objectPosition="center 10%"
               priority
             />
           </div>
@@ -328,7 +332,7 @@ function BluesDuFleuve() {
                 {t("festival.presentation")}
               </p>
               <h2 className="luxury-text text-4xl md:text-6xl uppercase tracking-tighter mb-4">
-                {t("festival.presentationTitle1")} <span className="text-gradient-gold">Podor</span>
+                {t("festival.presentationTitle1")} <span className="text-gradient-gold">Podor et Ndioum</span>
               </h2>
               <p className="text-muted-foreground font-serif text-lg max-w-2xl">
                 {t("festival.presentationDesc")} <strong>Baaba Maal</strong>
@@ -583,7 +587,7 @@ function BluesDuFleuve() {
                 />
                 <div className="relative w-72 md:w-96 aspect-4/5 rounded-3xl overflow-hidden border-4 border-background shadow-2xl group">
                   <img
-                    src="/oumar-wade.jpg"
+                    src="/oumar-wade.webp"
                     alt="Oumar Wade — Producteur Exécutif du Festival Blues du Fleuve"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -668,7 +672,7 @@ function BluesDuFleuve() {
               {
                 day: t("festival.day1"),
                 title: t("festival.day1Title"),
-                date: "5 Décembre 2025",
+                date: "5 Décembre 2026",
                 location: t("festival.culturalCenter"),
                 events: [
                   { time: "10:00", event: t("festival.day1Event1") },
@@ -682,7 +686,7 @@ function BluesDuFleuve() {
               {
                 day: t("festival.day2"),
                 title: t("festival.day2Title"),
-                date: "6 Décembre 2025",
+                date: "6 Décembre 2026",
                 location: t("festival.mainStage"),
                 events: [
                   { time: "10:00", event: t("festival.day2Event1") },
@@ -696,7 +700,7 @@ function BluesDuFleuve() {
               {
                 day: t("festival.day3"),
                 title: t("festival.day3Title"),
-                date: "7 Décembre 2025",
+                date: "7 Décembre 2026",
                 location: t("festival.mainStage"),
                 events: [
                   { time: "09:00", event: t("festival.day3Event1") },
@@ -844,10 +848,12 @@ function BluesDuFleuve() {
                 {/* Image container */}
                 <div className="relative aspect-4/5 bg-linear-to-br from-muted to-muted/50 overflow-hidden">
                   {a.img ? (
-                    <OptimizedImage
+                    <ParallaxImage
                       src={a.img}
                       alt={a.nom}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="absolute inset-0 w-full h-full"
+                      imageClassName="transition-transform duration-700 group-hover:scale-110"
+                      objectPosition={a.objectPosition}
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/20">
@@ -939,10 +945,12 @@ function BluesDuFleuve() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className={`rounded-3xl overflow-hidden border border-border relative group cursor-pointer ${img.span || ""}`}
               >
-                <OptimizedImage
+                <ParallaxImage
                   src={img.src}
                   alt={img.alt}
-                  className="h-full w-full transition duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full"
+                  imageClassName="transition duration-700 group-hover:scale-110"
+                  objectPosition={img.objectPosition}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
                   <div className="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
@@ -971,7 +979,7 @@ function BluesDuFleuve() {
           >
             <div className="rounded-3xl overflow-hidden border border-border shadow-2xl aspect-21/9 relative group">
               <img
-                src="/festival-crowd.jpg"
+                src="/festival-crowd.webp"
                 alt="Foule au festival"
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 loading="lazy"

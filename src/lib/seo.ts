@@ -56,7 +56,7 @@ export const DEFAULT_SEO = {
   title: "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve",
   description:
     "The Village à Podor, Sénégal : village culturel unique initié par Baaba Maal. Découvrez le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k.",
-  ogImage: "/logo.png",
+  ogImage: "/logo.webp",
   keywords:
     "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k",
 };

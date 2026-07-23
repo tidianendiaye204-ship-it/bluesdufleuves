@@ -19,9 +19,11 @@ import { useTranslation } from "react-i18next";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { subscribeNewsletterFn } from "@/routes/__root";
 import { FESTIVAL_CONFIG } from "@/config/festival";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import { MagneticButton } from "@/components/MagneticButton";
 
 // Import images
-import crowdImg from "@/assets/festival-crowd.jpg";
+import crowdImg from "@/assets/festival-crowd.webp";
 
 export const Route = createFileRoute("/billetterie")({
   head: () => {
@@ -38,7 +40,7 @@ export const Route = createFileRoute("/billetterie")({
     });
 
     const structuredData = createStructuredData("Event", {
-      name: "Billetterie Festival Blues du Fleuve 17ème édition",
+      name: "Billetterie Festival Blues du Fleuve 19ème édition",
       startDate: FESTIVAL_CONFIG.startDate,
       endDate: FESTIVAL_CONFIG.endDate,
       locationName: "The Village Podor",
@@ -46,7 +48,7 @@ export const Route = createFileRoute("/billetterie")({
       country: "Sénégal",
       description:
         "Billetterie officielle pour réserver vos pass pour le festival Blues du Fleuve au centre culturel The Village Podor.",
-      image: "/festival-crowd.jpg",
+      image: "/festival-crowd.webp",
       url: "https://lesbluesdufleuve.sn/billetterie",
       organizer: "The Village Podor",
       organizerUrl: "https://lesbluesdufleuve.sn",
@@ -295,9 +297,11 @@ function Billetterie() {
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
         {/* Background Image */}
         <motion.div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
-          style={{ backgroundImage: `url(${crowdImg})`, y: heroY }}
-        />
+          className="absolute inset-0 opacity-40 scale-110"
+          style={{ y: heroY }}
+        >
+          <OptimizedImage src={crowdImg} alt="Festival Crowd" className="w-full h-full object-cover" priority />
+        </motion.div>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/80 via-[#0a1628]/60 to-background" />
 
@@ -468,8 +472,8 @@ function Billetterie() {
                 <div className="luxury-text text-3xl md:text-4xl text-primary mb-2">
                   {pass.priceLabel}
                 </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Achat instantané
+                <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                  Prochainement
                 </span>
               </div>
 
@@ -484,19 +488,23 @@ function Billetterie() {
                 ))}
               </ul>
 
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  openCheckout(pass);
-                }}
-                className={`w-full py-4 rounded-xl font-bold uppercase tracking-widest text-sm transition-all hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
-                  pass.popular
-                    ? "bg-primary text-white border border-primary shadow-lg"
-                    : "bg-card text-primary border-2 border-primary hover:bg-primary/5"
-                }`}
-              >
-                {t("tickets.buyPass")}
-              </button>
+              <MagneticButton className="w-full block">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // openCheckout(pass);
+                    // Bientôt disponible - En attente des clés d'API
+                  }}
+                  disabled={true}
+                  className={`w-full py-4 rounded-xl font-bold uppercase tracking-widest text-sm transition-all cursor-not-allowed opacity-70 ${
+                    pass.popular
+                      ? "bg-primary text-white border border-primary shadow-lg"
+                      : "bg-card text-primary border-2 border-primary"
+                  }`}
+                >
+                  Bientôt disponible
+                </button>
+              </MagneticButton>
             </motion.div>
           ))}
         </div>
@@ -857,7 +865,7 @@ function Billetterie() {
                             fontWeight="bold"
                             textAnchor="middle"
                           >
-                            17ÈME ÉDITION 2025
+                            19ÈME ÉDITION 2026
                           </text>
 
                           <text

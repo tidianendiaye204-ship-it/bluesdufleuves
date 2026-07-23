@@ -56,13 +56,13 @@ export function CustomCursor() {
       />
       {/* Cercle suiveur fluide (Aura) */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-primary/50 rounded-full pointer-events-none z-9998 flex items-center justify-center"
+        className={`fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-9998 flex items-center justify-center transition-colors duration-300 ${
+          isHovering ? "border-transparent bg-primary/10" : "border border-primary/50 bg-transparent"
+        }`}
         animate={{
           x: mousePosition.x - 20,
           y: mousePosition.y - 20,
           scale: isHovering ? 1.5 : 1,
-          backgroundColor: isHovering ? "rgba(var(--primary), 0.1)" : "rgba(var(--primary), 0)",
-          borderColor: isHovering ? "rgba(var(--primary), 0)" : "rgba(var(--primary), 0.5)",
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.6 }}
       />

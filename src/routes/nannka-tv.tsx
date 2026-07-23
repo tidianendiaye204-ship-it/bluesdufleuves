@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
-import instrumentsImg from "@/assets/instruments.jpg";
-import piroguesImg from "@/assets/pirogues.jpg";
-import crowdImg from "@/assets/festival-crowd.jpg";
-import fleuveImg from "@/assets/fleuve.jpg";
+import instrumentsImg from "@/assets/instruments.webp";
+import piroguesImg from "@/assets/pirogues.webp";
+import crowdImg from "@/assets/festival-crowd.webp";
+import fleuveImg from "@/assets/fleuve.webp";
 
 const heroPoster = fleuveImg;
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
@@ -76,6 +76,7 @@ function VideoCarousel({
                     alt={item.name}
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    style={{ objectPosition: typeof thumbs[i % thumbs.length] === 'string' && thumbs[i % thumbs.length].includes('instruments') ? 'center 15%' : undefined }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
                     <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">

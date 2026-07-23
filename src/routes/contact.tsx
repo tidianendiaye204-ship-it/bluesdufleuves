@@ -21,6 +21,7 @@ import { getDb, withRetry } from "@/lib/db";
 import { contacts } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -118,10 +119,10 @@ export const Route = createFileRoute("/contact")({
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-border/30 rounded-2xl overflow-hidden glass-dark">
+    <div className="border border-border/30 rounded-2xl overflow-hidden bg-card shadow-sm">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-white hover:bg-white/5 transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-foreground hover:bg-accent transition-colors cursor-pointer"
       >
         <span>{q}</span>
         <ChevronDown
@@ -131,7 +132,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
       <div
         className={`overflow-hidden transition-all duration-300 ${open ? "max-h-40" : "max-h-0"}`}
       >
-        <p className="px-6 pb-5 text-sm text-white/70 font-serif leading-relaxed">{a}</p>
+        <p className="px-6 pb-5 text-sm text-muted-foreground font-serif leading-relaxed">{a}</p>
       </div>
     </div>
   );
@@ -236,9 +237,9 @@ function ContactPage() {
       icon: MapPin,
       title: "Adresse",
       lines: [
-        'Siège du Festival "Les Blues du Fleuve"',
-        "Quartier historique, Podor",
-        "Région de Saint-Louis, Sénégal",
+        "Avenue Cheikh Oumar TALL",
+        "Podor",
+        "Sénégal",
       ],
       color: "from-emerald-500/20 to-emerald-500/5",
       iconBg: "bg-emerald-500/10",
@@ -247,7 +248,7 @@ function ContactPage() {
     {
       icon: Phone,
       title: "Téléphone",
-      lines: ["+221 77 496 75 31", "+221 33 XXX XX XX"],
+      lines: ["+221 77 496 75 31", "+221 33 917 94 81"],
       color: "from-sky-500/20 to-sky-500/5",
       iconBg: "bg-sky-500/10",
       iconColor: "text-sky-600 dark:text-sky-400",
@@ -255,7 +256,7 @@ function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      lines: ["contact@lesbluesdufleuve.sn", "presse@lesbluesdufleuve.sn"],
+      lines: ["levillagepodor@gmail.com", "contact@lesbluesdufleuve.sn"],
       color: "from-violet-500/20 to-violet-500/5",
       iconBg: "bg-violet-500/10",
       iconColor: "text-violet-600 dark:text-violet-400",
@@ -295,9 +296,11 @@ function ContactPage() {
       <section className="relative overflow-hidden min-h-[60vh] flex items-center py-32">
         {/* Background image */}
         <motion.div
-          className="absolute inset-0 bg-cover bg-center opacity-30 scale-110"
-          style={{ backgroundImage: "url(/arriereplan-contact.jpg)", y: heroY }}
-        />
+          className="absolute inset-0 opacity-30 scale-110"
+          style={{ y: heroY }}
+        >
+          <OptimizedImage src="/arriereplan-contact.webp" alt="Background" className="w-full h-full object-cover" priority />
+        </motion.div>
         {/* Overlay gradient pour mieux fondre l'image */}
         <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/80 to-background" />
         {/* Decorative blobs */}
@@ -342,7 +345,7 @@ function ContactPage() {
             return (
               <div
                 key={item.title}
-                className={`glass-dark border border-border/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-500 group ${
+                className={`bg-card border border-border/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all duration-500 group ${
                   infoVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
@@ -352,11 +355,11 @@ function ContactPage() {
                 >
                   <Icon className={`w-6 h-6 ${item.iconColor}`} />
                 </div>
-                <h3 className="font-bold text-sm uppercase tracking-wider text-white mb-2">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-2">
                   {item.title}
                 </h3>
                 {item.lines.map((line) => (
-                  <p key={line} className="text-sm text-white/70 font-serif">
+                  <p key={line} className="text-sm text-muted-foreground font-serif">
                     {line}
                   </p>
                 ))}
@@ -385,7 +388,7 @@ function ContactPage() {
             </div>
 
             {/* Map embed */}
-            <div className="rounded-2xl overflow-hidden border border-border/30 glass-dark shadow-xl h-80">
+            <div className="rounded-2xl overflow-hidden border border-border/30 bg-card shadow-xl h-80">
               <iframe
                 title="Localisation Podor, Sénégal"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
@@ -426,7 +429,7 @@ function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className={`w-11 h-11 rounded-xl border border-border/30 glass-dark flex items-center justify-center text-white hover:text-white ${bg} hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-xl`}
+                    className={`w-11 h-11 rounded-xl border border-border/30 bg-card flex items-center justify-center text-foreground hover:text-white ${bg} hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-xl`}
                   >
                     <SocialIcon className="w-5 h-5" />
                   </a>

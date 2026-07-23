@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 // Centre culturel image from public folder
-const centreCulturelImg = "/centre culturel.jpg";
-import instrumentsImg from "@/assets/instruments.jpg";
+const centreCulturelImg = "/centre culturel.webp";
+import instrumentsImg from "@/assets/instruments.webp";
 const baabaVideo =
   "https://raw.githubusercontent.com/tidianendiaye204-ship-it/bluesdufleuves/main/src/assets/baaba-maal-helping-francais-compressed.mp4";
 import { createServerFn } from "@tanstack/react-start";
@@ -343,6 +343,8 @@ function Formations() {
             src={centreCulturelImg}
             alt="Centre Culturel The Village"
             className="w-full h-full object-cover scale-110"
+            width="1920"
+            height="1080"
           />
           <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/60 to-black/30" />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
@@ -464,7 +466,10 @@ function Formations() {
                 className={`w-full h-full object-cover transition-all duration-700 ${!isVideoPlaying && "grayscale opacity-80"}`}
                 onEnded={() => setIsVideoPlaying(false)}
                 playsInline
-              />
+                style={{ objectPosition: "center 15%" }}
+              >
+                <track kind="captions" srcLang="fr" label="Français" />
+              </video>
 
               {/* Overlay sombre conditionnel */}
               <div
@@ -542,9 +547,12 @@ function Formations() {
           </blockquote>
           <div className="flex items-center justify-center gap-4">
             <img
-              src="/festival baba maal.jpg"
+              src="/festival baba maal.webp"
               alt="Baaba Maal"
               className="w-14 h-14 rounded-full object-cover border-2 border-amber-400/50"
+              style={{ objectPosition: "center 10%" }}
+              width="56"
+              height="56"
             />
             <div className="text-left">
               <p className="font-bold text-white text-base">Baaba Maal</p>

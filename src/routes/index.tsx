@@ -11,7 +11,9 @@ import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ActivityCard } from "@/components/ActivityCard";
 import { NewsCard } from "@/components/NewsCard";
-import { CulturalCarousel } from "@/components/CulturalCarousel";
+import { RotatingWelcomeText } from "@/components/RotatingWelcomeText";
+import { AnimatedText } from "@/components/AnimatedText";
+import { ParallaxImage } from "@/components/ParallaxImage";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -35,7 +37,7 @@ export const Route = createFileRoute("/")({
         lang === "fr"
           ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
           : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
-      ogImage: "/centre culturel.jpg",
+      ogImage: "/centre culturel.webp",
       keywords:
         lang === "fr"
           ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
@@ -46,7 +48,7 @@ export const Route = createFileRoute("/")({
     const structuredData = createStructuredData("Organization", {
       name: "The Village Podor",
       url: "https://lesbluesdufleuve.sn/",
-      logo: "https://lesbluesdufleuve.sn/logo%20the%20village.jpg",
+      logo: "https://lesbluesdufleuve.sn/logo%20the%20village.webp",
       description:
         lang === "fr"
           ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
@@ -121,7 +123,7 @@ function Home() {
             loop
             muted
             playsInline
-            poster="/centre culturel.jpg"
+            poster="/centre culturel.webp"
             className="h-full w-full object-cover scale-105"
           >
             <source src="/video the village.mp4" type="video/mp4" />
@@ -143,14 +145,12 @@ function Home() {
           >
             <Landmark size={14} className="text-primary" /> {t("home.heroTag")}
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          <AnimatedText
+            el="h1"
+            text="The Village"
             className="luxury-text text-6xl md:text-9xl text-white mb-8"
-          >
-            The <span className="text-primary">Village</span>
-          </motion.h1>
+            delay={0.2}
+          />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -211,11 +211,13 @@ function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-primary mb-3 block font-bold">
-              {t("home.presentation")}
-            </span>
-            <h2 className="luxury-text text-5xl md:text-7xl uppercase tracking-tighter mb-4">
               {t("home.soulOfRiver")}
-            </h2>
+            </span>
+            <AnimatedText
+              el="h2"
+              text={t("home.presentation")}
+              className="luxury-text text-5xl md:text-7xl uppercase tracking-tighter mb-4"
+            />
             <p className="text-xl md:text-2xl font-serif text-muted-foreground tracking-widest italic">
               {t("home.wuroPodor")}
             </p>
@@ -258,7 +260,7 @@ function Home() {
                 </p>
               </div>
               <div>
-                <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">17</div>
+                <div className="luxury-text text-5xl md:text-6xl text-primary mb-2">19</div>
                 <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold">
                   {t("home.statsEditions")}
                 </p>
@@ -272,16 +274,8 @@ function Home() {
             </div>
           </motion.div>
 
-          {/* Carrousel Dynamique - Le Centre Culturel */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="my-16"
-          >
-            <CulturalCarousel />
-          </motion.div>
+          {/* Texte de bienvenue rotatif */}
+          <RotatingWelcomeText />
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -331,39 +325,33 @@ function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-16 grid md:grid-cols-3 gap-6"
+            className="mt-16 grid md:grid-cols-3 gap-8"
           >
-            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
-              <div className="mb-4 flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Music size={18} className="text-primary" />
+            {[
+              { icon: Music, title: "home.activityMusic", desc: "home.activityMusicDesc" },
+              { icon: GraduationCap, title: "home.activityTraining", desc: "home.activityTrainingDesc" },
+              { icon: Calendar, title: "home.activityEvents", desc: "home.activityEventsDesc" }
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                className="group relative overflow-hidden rounded-3xl bg-card border border-border/50 p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover:border-primary/40"
+              >
+                {/* Lueur de fond au survol */}
+                <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="relative z-10">
+                  <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:-rotate-6 shadow-sm">
+                    <item.icon size={24} />
+                  </div>
+                  <h3 className="mb-4 font-display text-2xl font-bold text-foreground">
+                    {t(item.title as any)}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {t(item.desc as any)}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{t("home.activityMusic")}</h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed">{t("home.activityMusicDesc")}</p>
-            </div>
-            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
-              <div className="mb-4 flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <GraduationCap size={18} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground">{t("home.activityTraining")}</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                {t("home.activityTrainingDesc")}
-              </p>
-            </div>
-            <div className="group bg-muted/30 rounded-xl p-6 border border-border/10 transition-all duration-300 hover:bg-muted/40 hover:border-primary/20 hover:shadow-md">
-              <div className="mb-4 flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Calendar size={18} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground">{t("home.activityEvents")}</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                {t("home.activityEventsDesc")}
-              </p>
-            </div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -382,9 +370,10 @@ function Home() {
             {/* Photo principale — portrait Baaba Maal */}
             <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
               <OptimizedImage
-                src="/photo baba maal.jpg"
+                src="/photo baba maal.webp"
                 alt="Portrait Baaba Maal"
-                className="h-full w-full transition-transform duration-700 hover:scale-105"
+                className="absolute inset-0 w-full h-full transition-transform duration-700 hover:scale-105"
+                objectPosition="center 10%"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-8 left-8">
@@ -396,10 +385,13 @@ function Home() {
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
             <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-28 md:w-36 lg:w-44 aspect-3/4 rounded-xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-4 border-background max-w-37.5 md:max-w-45">
-              <OptimizedImage
-                src="/Baba.jpg"
+              <ParallaxImage
+                src="/Baba.webp"
                 alt="Baaba Maal en concert"
-                className="h-full w-full transition-transform duration-700 hover:scale-110"
+                className="absolute inset-0 w-full h-full"
+                imageClassName="transition-transform duration-700 hover:scale-110"
+                offset={20}
+                objectPosition="center 10%"
               />
             </div>
           </motion.div>
@@ -410,9 +402,11 @@ function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2 className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter">
-              {t("home.bioTitle")}
-            </h2>
+            <AnimatedText
+              el="h2"
+              text={t("home.bioTitle")}
+              className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter"
+            />
             <div className="space-y-8 text-muted-foreground text-lg leading-relaxed font-medium">
               <AnimatePresence>
                 {showFullBio && (
@@ -525,9 +519,11 @@ function Home() {
               <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-4 block">
                 {t("home.newsLabel")}
               </span>
-              <h2 className="luxury-text text-5xl md:text-6xl uppercase tracking-tighter">
-                {t("home.newsTitle")}
-              </h2>
+              <AnimatedText
+                el="h2"
+                text={t("home.newsTitle")}
+                className="luxury-text text-5xl md:text-7xl mb-8 uppercase tracking-tighter"
+              />
             </div>
             <Link
               to="/nann-k-media"

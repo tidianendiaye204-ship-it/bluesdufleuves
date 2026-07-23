@@ -18,21 +18,22 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import { useTranslation } from "react-i18next";
 
-import instrumentsImg from "@/assets/instruments.jpg";
-import piroguesImg from "@/assets/pirogues.jpg";
-import crowdImg from "@/assets/festival-crowd.jpg";
-import fleuveImg from "@/assets/fleuve.jpg";
-import logoNannk from "@/assets/logo-nannk-new.jpg";
-import agri1Img from "@/assets/nann-k-agri1.jpg";
-import agri2Img from "@/assets/nann-k-agri2.jpg";
-import agri3Img from "@/assets/nann-k-agri3.jpg";
-import agri4Img from "@/assets/nann-k-agri4.jpg";
-import agri5Img from "@/assets/nann-k-agri5.jpg";
-import agri6Img from "@/assets/nann-k-agri6.jpg";
-import agri7Img from "@/assets/nann-k-agri7.jpg";
-import agri8Img from "@/assets/nann-k-agri8.jpg";
+import instrumentsImg from "@/assets/instruments.webp";
+import piroguesImg from "@/assets/pirogues.webp";
+import crowdImg from "@/assets/festival-crowd.webp";
+import fleuveImg from "@/assets/fleuve.webp";
+import logoNannk from "@/assets/logo-nannk-new.webp";
+import agri1Img from "@/assets/nann-k-agri1.webp";
+import agri2Img from "@/assets/nann-k-agri2.webp";
+import agri3Img from "@/assets/nann-k-agri3.webp";
+import agri4Img from "@/assets/nann-k-agri4.webp";
+import agri5Img from "@/assets/nann-k-agri5.webp";
+import agri6Img from "@/assets/nann-k-agri6.webp";
+import agri7Img from "@/assets/nann-k-agri7.webp";
+import agri8Img from "@/assets/nann-k-agri8.webp";
 
 const thumbs = [instrumentsImg, crowdImg, piroguesImg, fleuveImg];
 
@@ -151,6 +152,7 @@ function VideoCarousel({
                   alt={item.name}
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  style={{ objectPosition: typeof thumbs[i % thumbs.length] === 'string' && thumbs[i % thumbs.length].includes('instruments') ? 'center 15%' : undefined }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
                   <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
@@ -353,9 +355,11 @@ function NannkMedia() {
       {/* ──────────────────── HERO ──────────────────── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-[#0a1628] py-32">
         <motion.div
-          className="absolute inset-0 bg-cover bg-center opacity-30 scale-110"
-          style={{ backgroundImage: `url(/arriereplan-nannk.jpg)`, y: heroY }}
-        />
+          className="absolute inset-0 opacity-40 scale-110"
+          style={{ y: heroY }}
+        >
+          <OptimizedImage src="/arriereplan-nannk.webp" alt="NANN-k Media Background" className="w-full h-full object-cover" priority />
+        </motion.div>
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
         <div
           className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse"

@@ -65,7 +65,7 @@ export function Navbar() {
             <div className="flex items-center shrink-0 gap-3">
               <Link to="/" className="flex items-center gap-3 group" onClick={() => setOpen(false)}>
                 <img
-                  src="/logo the village.jpg"
+                  src="/logo the village.webp"
                   alt="Logo The Village"
                   className="h-9 md:h-14 w-auto object-contain"
                 />
