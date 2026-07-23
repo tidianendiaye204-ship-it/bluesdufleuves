@@ -238,7 +238,6 @@ function ContactPage() {
       title: "Adresse",
       lines: [
         "Avenue Cheikh Oumar TALL",
-        "Podor",
         "Sénégal",
       ],
       color: "from-emerald-500/20 to-emerald-500/5",

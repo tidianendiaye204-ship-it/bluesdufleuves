@@ -76,7 +76,7 @@ export function Footer() {
           <div className="flex flex-col gap-3 text-xs text-white/40 mt-6">
             <div className="flex items-center gap-2">
               <MapPin size={14} className="text-primary" />
-              <span>Avenue Cheikh Oumar TALL, Podor, Sénégal</span>
+              <span>Avenue Cheikh Oumar TALL, Sénégal</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-primary" />
