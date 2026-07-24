@@ -1022,7 +1022,8 @@ function Formations() {
                           <div className="space-y-1 flex flex-col items-center">
                             <Turnstile
                               siteKey={
-                                import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+                                import.meta.env.VITE_TURNSTILE_SITE_KEY ||
+                                "1x00000000000000000000AA"
                               }
                               onSuccess={(token) => {
                                 setValue("cfTurnstileResponse", token, { shouldValidate: true });
@@ -1036,7 +1037,11 @@ function Formations() {
                             )}
                           </div>
                         ) : (
-                          <input type="hidden" {...register("cfTurnstileResponse")} value="dummy-token-dev" />
+                          <input
+                            type="hidden"
+                            {...register("cfTurnstileResponse")}
+                            value="dummy-token-dev"
+                          />
                         )}
                       </motion.div>
                     )}

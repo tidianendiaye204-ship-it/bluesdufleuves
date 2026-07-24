@@ -694,7 +694,11 @@ function ContactPage() {
                         )}
                       </div>
                     ) : (
-                      <input type="hidden" {...register("cfTurnstileResponse")} value="dummy-token-dev" />
+                      <input
+                        type="hidden"
+                        {...register("cfTurnstileResponse")}
+                        value="dummy-token-dev"
+                      />
                     )}
 
                     <input type="hidden" {...register("csrfToken")} value={csrfToken} />
