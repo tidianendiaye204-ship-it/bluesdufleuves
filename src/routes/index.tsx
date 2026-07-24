@@ -23,21 +23,21 @@ export const Route = createFileRoute("/")({
     const { meta, links } = createSeoMeta({
       title:
         lang === "fr"
-          ? "The Village - NANN-K - Blues du Fleuves"
-          : "The Village - NANN-K - Blues du Fleuves",
+          ? "The Village - NANN-K - Blues du Fleuve"
+          : "The Village - NANN-K - Blues du Fleuve",
       description:
         lang === "fr"
           ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
           : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
       ogTitle:
         lang === "fr"
-          ? "The Village - NANN-K - Blues du Fleuves"
-          : "The Village - NANN-K - Blues du Fleuves",
+          ? "The Village - NANN-K - Blues du Fleuve"
+          : "The Village - NANN-K - Blues du Fleuve",
       ogDescription:
         lang === "fr"
           ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
           : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
-      ogImage: "/centre culturel.webp",
+      ogImage: "/logo the village.webp",
       keywords:
         lang === "fr"
           ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"

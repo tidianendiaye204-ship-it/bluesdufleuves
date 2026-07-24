@@ -35,9 +35,17 @@ export const createSeoMeta = ({
     { name: "twitter:card", content: twitterCard },
   ];
 
-  if (ogImage) {
-    meta.push({ property: "og:image", content: ogImage });
-    meta.push({ name: "twitter:image", content: ogImage });
+  // Utiliser l'image fournie ou celle par défaut
+  let finalOgImage = ogImage || DEFAULT_SEO.ogImage;
+  
+  if (finalOgImage && finalOgImage.startsWith('/')) {
+    // Les réseaux sociaux exigent une URL absolue pour og:image
+    finalOgImage = `https://levillagepodor.com${encodeURI(finalOgImage)}`;
+  }
+
+  if (finalOgImage) {
+    meta.push({ property: "og:image", content: finalOgImage });
+    meta.push({ name: "twitter:image", content: finalOgImage });
   }
 
   if (keywords) {
@@ -53,7 +61,7 @@ export const createSeoMeta = ({
 };
 
 export const DEFAULT_SEO = {
-  title: "The Village - NANN-K - Blues du Fleuves",
+  title: "The Village - NANN-K - Blues du Fleuve",
   description:
     "The Village à Podor, Sénégal : village culturel unique initié par Baaba Maal. Découvrez le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-K.",
   ogImage: "https://levillagepodor.com/og-image.jpg",
