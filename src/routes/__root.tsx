@@ -23,7 +23,7 @@ import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
-import { SmoothScroll } from "@/components/SmoothScroll";
+
 import { CustomCursor } from "@/components/CustomCursor";
 
 const newsletterSchema = z.object({
