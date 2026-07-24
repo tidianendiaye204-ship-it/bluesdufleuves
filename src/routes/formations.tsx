@@ -43,6 +43,7 @@ export const inscriptionSchema = z.object({
   tel: z.string().min(1, "Le téléphone est requis"),
   formation: z.string().min(1, "La formation est requise"),
   motivation: z.string().min(10, "La motivation doit faire au moins 10 caractères"),
+  cfTurnstileResponse: z.string().min(1, "Veuillez valider le captcha"),
   csrfToken: z.string().optional(),
 });
 
@@ -52,6 +53,26 @@ export const soumettreInscription = createServerFn({ method: "POST" })
   .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
     // CSRF verification would go here in a real production app with session management
+
+    const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+    const secret = process.env.TURNSTILE_SECRET;
+    if (!secret) {
+      throw new Error("Service de validation temporairement indisponible.");
+    }
+
+    try {
+      const tsResponse = await fetch(verifyUrl, {
+        method: "POST",
+        body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+      });
+      const tsResult = (await tsResponse.json()) as { success: boolean };
+      if (!tsResult.success) {
+        throw new Error("Validation Captcha échouée.");
+      }
+    } catch (error) {
+      throw new Error("Service de validation temporairement indisponible.");
+    }
 
     const db = getDb();
     try {
@@ -256,6 +277,7 @@ function Formations() {
       tel: "",
       formation: "",
       motivation: "",
+      cfTurnstileResponse: "",
       csrfToken: "dummy-csrf-token",
     },
   });
@@ -993,13 +1015,21 @@ function Formations() {
                         </div>
 
                         {/* Captcha */}
-                        <div className="space-y-2 flex justify-center">
+                        <div className="space-y-1 flex flex-col items-center">
                           <Turnstile
                             siteKey={
                               import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
                             }
-                            onSuccess={(token) => setTurnstileToken(token)}
+                            onSuccess={(token) => {
+                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                              setTurnstileToken(token);
+                            }}
                           />
+                          {errors.cfTurnstileResponse && (
+                            <p className="text-red-500 text-xs mt-2 font-medium">
+                              {errors.cfTurnstileResponse.message}
+                            </p>
+                          )}
                         </div>
                       </motion.div>
                     )}

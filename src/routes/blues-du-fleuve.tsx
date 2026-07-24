@@ -944,7 +944,7 @@ function BluesDuFleuve() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[220px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-55">
             {galleryImages.map((img, idx) => (
               <motion.div
                 key={img.id}

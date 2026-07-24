@@ -51,10 +51,10 @@ export const soumettreContact = createServerFn({ method: "POST" })
     logger.info("Contact form submission received", { email: data.email, sujet: data.sujet });
 
     const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-    const secret = process.env.TURNSTILE_SECRET_KEY;
+    const secret = process.env.TURNSTILE_SECRET;
 
     if (!secret) {
-      logger.error("TURNSTILE_SECRET_KEY not configured");
+      logger.error("TURNSTILE_SECRET not configured");
       throw new Error("Service de validation temporairement indisponible.");
     }
 
@@ -255,7 +255,7 @@ function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      lines: ["levillagepodor@gmail.com", "contact@lesbluesdufleuve.sn"],
+      lines: ["contact@levillagepodor.com"],
       color: "from-violet-500/20 to-violet-500/5",
       iconBg: "bg-violet-500/10",
       iconColor: "text-violet-600 dark:text-violet-400",

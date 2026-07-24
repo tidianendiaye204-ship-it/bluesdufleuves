@@ -82,9 +82,9 @@ export function Footer() {
               <Phone size={14} className="text-primary" />
               <a href="tel:+221339179481" className="hover:text-white transition-colors">33 917 94 81</a>
             </div>
-            <div className="flex items-center gap-2">
-              <Mail size={14} className="text-primary" />
-              <a href="mailto:levillagepodor@gmail.com" className="hover:text-white transition-colors">levillagepodor@gmail.com</a>
+            <div className="flex items-start gap-3">
+              <Mail size={18} className="text-primary mt-1" />
+              <a href="mailto:contact@levillagepodor.com" className="hover:text-white transition-colors">contact@levillagepodor.com</a>
             </div>
           </div>
         </div>

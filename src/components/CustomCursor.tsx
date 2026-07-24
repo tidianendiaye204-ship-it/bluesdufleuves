@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  
+  const auraX = useSpring(cursorX, { stiffness: 150, damping: 15, mass: 0.6 });
+  const auraY = useSpring(cursorY, { stiffness: 150, damping: 15, mass: 0.6 });
 
   useEffect(() => {
     // Ne pas activer sur mobile ou tactile
@@ -13,7 +18,8 @@ export function CustomCursor() {
     setIsVisible(true);
 
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -22,6 +28,8 @@ export function CustomCursor() {
       const isInteractive =
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
+        target.tagName.toLowerCase() === "input" ||
+        target.tagName.toLowerCase() === "textarea" ||
         target.closest("a") ||
         target.closest("button") ||
         target.classList.contains("cursor-pointer") ||
@@ -37,7 +45,7 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   if (!isVisible) return null;
 
@@ -46,9 +54,13 @@ export function CustomCursor() {
       {/* Point central rapide */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-9999"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
           scale: isHovering ? 0 : 1,
           opacity: isHovering ? 0 : 1,
         }}
@@ -59,12 +71,15 @@ export function CustomCursor() {
         className={`fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-9998 flex items-center justify-center transition-colors duration-300 ${
           isHovering ? "border-transparent bg-primary/10" : "border border-primary/50 bg-transparent"
         }`}
+        style={{
+          x: auraX,
+          y: auraY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: mousePosition.x - 20,
-          y: mousePosition.y - 20,
           scale: isHovering ? 1.5 : 1,
         }}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.6 }}
       />
     </>
   );
