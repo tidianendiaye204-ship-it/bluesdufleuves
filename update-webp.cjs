@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const srcDir = path.join(__dirname, 'src');
-const publicDir = path.join(__dirname, 'public');
-const assetsDir = path.join(srcDir, 'assets');
+const srcDir = path.join(__dirname, "src");
+const publicDir = path.join(__dirname, "public");
+const assetsDir = path.join(srcDir, "assets");
 
 // Get all files with webp extension in public and assets
 const webpFiles = new Set();
@@ -11,23 +11,23 @@ const checkDir = (dir) => {
   if (!fs.existsSync(dir)) return;
   const files = fs.readdirSync(dir);
   for (const file of files) {
-    if (file.endsWith('.webp')) {
-      webpFiles.add(file.replace('.webp', ''));
+    if (file.endsWith(".webp")) {
+      webpFiles.add(file.replace(".webp", ""));
     }
   }
 };
 checkDir(publicDir);
 checkDir(assetsDir);
 
-console.log('Found WebP files:', webpFiles.size);
+console.log("Found WebP files:", webpFiles.size);
 
 // Recursively find all ts/tsx files
 const walkSync = (dir, filelist = []) => {
-  fs.readdirSync(dir).forEach(file => {
+  fs.readdirSync(dir).forEach((file) => {
     const dirFile = path.join(dir, file);
     if (fs.statSync(dirFile).isDirectory()) {
       filelist = walkSync(dirFile, filelist);
-    } else if (file.endsWith('.ts') || file.endsWith('.tsx')) {
+    } else if (file.endsWith(".ts") || file.endsWith(".tsx")) {
       filelist.push(dirFile);
     }
   });
@@ -37,8 +37,8 @@ const walkSync = (dir, filelist = []) => {
 const files = walkSync(srcDir);
 let changedCount = 0;
 
-files.forEach(file => {
-  let content = fs.readFileSync(file, 'utf8');
+files.forEach((file) => {
+  let content = fs.readFileSync(file, "utf8");
   let newContent = content;
 
   // Replace .jpg and .png with .webp
@@ -54,7 +54,7 @@ files.forEach(file => {
   });
 
   if (content !== newContent) {
-    fs.writeFileSync(file, newContent, 'utf8');
+    fs.writeFileSync(file, newContent, "utf8");
     changedCount++;
     console.log(`Updated ${file}`);
   }

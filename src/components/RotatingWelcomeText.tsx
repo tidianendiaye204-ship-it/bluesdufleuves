@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const phrases = [
-  "Bienvenue",
-  "The Village",
-  "Centre Culturel du Fouta"
-];
+const phrases = ["Bienvenue", "The Village", "Centre Culturel du Fouta"];
 
 export function RotatingWelcomeText() {
   const [index, setIndex] = useState(0);

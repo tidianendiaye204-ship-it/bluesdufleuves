@@ -1,4 +1,13 @@
-import { Youtube, Facebook, Instagram, Mail, ArrowUp, Globe, Heart, MapPin, Phone } from "lucide-react";
+import {
+  Youtube,
+  Facebook,
+  Instagram,
+  Mail,
+  ArrowUp,
+  Heart,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -80,11 +89,18 @@ export function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-primary" />
-              <a href="tel:+221339179481" className="hover:text-white transition-colors">33 917 94 81</a>
+              <a href="tel:+221339179481" className="hover:text-white transition-colors">
+                33 917 94 81
+              </a>
             </div>
             <div className="flex items-start gap-3">
               <Mail size={18} className="text-primary mt-1" />
-              <a href="mailto:contact@levillagepodor.com" className="hover:text-white transition-colors">contact@levillagepodor.com</a>
+              <a
+                href="mailto:contact@levillagepodor.com"
+                className="hover:text-white transition-colors"
+              >
+                contact@levillagepodor.com
+              </a>
             </div>
           </div>
         </div>

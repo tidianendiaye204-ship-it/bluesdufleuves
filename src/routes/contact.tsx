@@ -236,10 +236,7 @@ function ContactPage() {
     {
       icon: MapPin,
       title: "Adresse",
-      lines: [
-        "Avenue Cheikh Oumar TALL",
-        "Sénégal",
-      ],
+      lines: ["Avenue Cheikh Oumar TALL", "Sénégal"],
       color: "from-emerald-500/20 to-emerald-500/5",
       iconBg: "bg-emerald-500/10",
       iconColor: "text-emerald-600 dark:text-emerald-400",
@@ -294,11 +291,13 @@ function ContactPage() {
       {/* ──────────────── HERO ──────────────── */}
       <section className="relative overflow-hidden min-h-[60vh] flex items-center py-32">
         {/* Background image */}
-        <motion.div
-          className="absolute inset-0 opacity-30 scale-110"
-          style={{ y: heroY }}
-        >
-          <OptimizedImage src="/arriereplan-contact.webp" alt="Background" className="w-full h-full object-cover" priority />
+        <motion.div className="absolute inset-0 opacity-30 scale-110" style={{ y: heroY }}>
+          <OptimizedImage
+            src="/arriereplan-contact.webp"
+            alt="Background"
+            className="w-full h-full object-cover"
+            priority
+          />
         </motion.div>
         {/* Overlay gradient pour mieux fondre l'image */}
         <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/80 to-background" />

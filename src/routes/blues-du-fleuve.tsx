@@ -92,7 +92,7 @@ function BluesDuFleuve() {
   const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<(typeof artistes)[0] | null>(null);
-  
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -230,9 +230,7 @@ function BluesDuFleuve() {
                   href="#billetterie"
                   onClick={(e) => {
                     e.preventDefault();
-                    document
-                      .getElementById("billetterie")
-                      ?.scrollIntoView({ behavior: "smooth" });
+                    document.getElementById("billetterie")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="inline-block relative z-50 w-fit btn-gradient-premium px-8 py-4 rounded-xl text-white font-bold uppercase tracking-widest text-xs shadow-lg transition-transform hover:scale-105 hover:shadow-[0_10px_30px_rgba(245,158,11,0.3)]"
                 >
@@ -341,7 +339,8 @@ function BluesDuFleuve() {
                 {t("festival.presentation")}
               </p>
               <h2 className="luxury-text text-4xl md:text-6xl uppercase tracking-tighter mb-4">
-                {t("festival.presentationTitle1")} <span className="text-gradient-gold">Podor et Ndioum</span>
+                {t("festival.presentationTitle1")}{" "}
+                <span className="text-gradient-gold">Podor et Ndioum</span>
               </h2>
               <p className="text-muted-foreground font-serif text-lg max-w-2xl">
                 {t("festival.presentationDesc")} <strong>Baaba Maal</strong>

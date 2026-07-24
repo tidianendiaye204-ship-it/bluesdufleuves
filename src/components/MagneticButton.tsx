@@ -19,7 +19,10 @@ export function MagneticButton({ children, className = "", onClick }: MagneticBu
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     // Désactiver sur tactile
-    if (window.matchMedia("(hover: none)").matches || window.matchMedia("(pointer: coarse)").matches) {
+    if (
+      window.matchMedia("(hover: none)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    ) {
       return;
     }
 

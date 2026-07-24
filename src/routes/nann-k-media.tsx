@@ -152,7 +152,13 @@ function VideoCarousel({
                   alt={item.name}
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  style={{ objectPosition: typeof thumbs[i % thumbs.length] === 'string' && thumbs[i % thumbs.length].includes('instruments') ? 'center 15%' : undefined }}
+                  style={{
+                    objectPosition:
+                      typeof thumbs[i % thumbs.length] === "string" &&
+                      thumbs[i % thumbs.length].includes("instruments")
+                        ? "center 15%"
+                        : undefined,
+                  }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
                   <div className="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg scale-75 group-hover:scale-100 transition-transform duration-300">
@@ -354,11 +360,13 @@ function NannkMedia() {
     <div className="bg-background min-h-screen">
       {/* ──────────────────── HERO ──────────────────── */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-[#0a1628] py-32">
-        <motion.div
-          className="absolute inset-0 opacity-40 scale-110"
-          style={{ y: heroY }}
-        >
-          <OptimizedImage src="/arriereplan-nannk.webp" alt="NANN-k Media Background" className="w-full h-full object-cover" priority />
+        <motion.div className="absolute inset-0 opacity-40 scale-110" style={{ y: heroY }}>
+          <OptimizedImage
+            src="/arriereplan-nannk.webp"
+            alt="NANN-k Media Background"
+            className="w-full h-full object-cover"
+            priority
+          />
         </motion.div>
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
         <div

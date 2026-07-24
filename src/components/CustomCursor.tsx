@@ -7,7 +7,7 @@ export function CustomCursor() {
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
+
   const auraX = useSpring(cursorX, { stiffness: 150, damping: 15, mass: 0.6 });
   const auraY = useSpring(cursorY, { stiffness: 150, damping: 15, mass: 0.6 });
 
@@ -58,7 +58,7 @@ export function CustomCursor() {
           x: cursorX,
           y: cursorY,
           translateX: "-50%",
-          translateY: "-50%"
+          translateY: "-50%",
         }}
         animate={{
           scale: isHovering ? 0 : 1,
@@ -69,13 +69,15 @@ export function CustomCursor() {
       {/* Cercle suiveur fluide (Aura) */}
       <motion.div
         className={`fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-9998 flex items-center justify-center transition-colors duration-300 ${
-          isHovering ? "border-transparent bg-primary/10" : "border border-primary/50 bg-transparent"
+          isHovering
+            ? "border-transparent bg-primary/10"
+            : "border border-primary/50 bg-transparent"
         }`}
         style={{
           x: auraX,
           y: auraY,
           translateX: "-50%",
-          translateY: "-50%"
+          translateY: "-50%",
         }}
         animate={{
           scale: isHovering ? 1.5 : 1,

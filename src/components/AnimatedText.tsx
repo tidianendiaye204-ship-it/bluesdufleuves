@@ -8,18 +8,23 @@ interface AnimatedTextProps {
   delay?: number;
 }
 
-export function AnimatedText({ text, el: Wrapper = "h2", className = "", delay = 0 }: AnimatedTextProps) {
+export function AnimatedText({
+  text,
+  el: Wrapper = "h2",
+  className = "",
+  delay = 0,
+}: AnimatedTextProps) {
   // Découpe le texte en mots
   const words = text.split(" ");
-  
+
   // Variants pour le conteneur global (gère le délai et le stagger)
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.1, 
-        delayChildren: delay 
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: delay,
       },
     },
   };
@@ -37,7 +42,7 @@ export function AnimatedText({ text, el: Wrapper = "h2", className = "", delay =
         type: "spring" as const,
         damping: 20,
         stiffness: 100,
-        duration: 0.3
+        duration: 0.3,
       },
     },
   };

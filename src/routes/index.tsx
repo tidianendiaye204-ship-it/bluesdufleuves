@@ -304,16 +304,20 @@ function Home() {
           >
             {[
               { icon: Music, title: "home.activityMusic", desc: "home.activityMusicDesc" },
-              { icon: GraduationCap, title: "home.activityTraining", desc: "home.activityTrainingDesc" },
-              { icon: Calendar, title: "home.activityEvents", desc: "home.activityEventsDesc" }
+              {
+                icon: GraduationCap,
+                title: "home.activityTraining",
+                desc: "home.activityTrainingDesc",
+              },
+              { icon: Calendar, title: "home.activityEvents", desc: "home.activityEventsDesc" },
             ].map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="group relative overflow-hidden rounded-3xl bg-card border border-border/50 p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover:border-primary/40"
               >
                 {/* Lueur de fond au survol */}
                 <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
+
                 <div className="relative z-10">
                   <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:-rotate-6 shadow-sm">
                     <item.icon size={24} />
@@ -321,9 +325,7 @@ function Home() {
                   <h3 className="mb-4 font-display text-2xl font-bold text-foreground">
                     {t(item.title as any)}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t(item.desc as any)}
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">{t(item.desc as any)}</p>
                 </div>
               </div>
             ))}
@@ -607,8 +609,6 @@ function Home() {
           ))}
         </div>
       </section>
-
-
 
       {/* Lightbox */}
       <Lightbox

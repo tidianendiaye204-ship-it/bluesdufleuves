@@ -296,11 +296,13 @@ function Billetterie() {
       {/* ──────────────── HERO SECTION ──────────────── */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
         {/* Background Image */}
-        <motion.div
-          className="absolute inset-0 opacity-40 scale-110"
-          style={{ y: heroY }}
-        >
-          <OptimizedImage src={crowdImg} alt="Festival Crowd" className="w-full h-full object-cover" priority />
+        <motion.div className="absolute inset-0 opacity-40 scale-110" style={{ y: heroY }}>
+          <OptimizedImage
+            src={crowdImg}
+            alt="Festival Crowd"
+            className="w-full h-full object-cover"
+            priority
+          />
         </motion.div>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-b from-[#0a1628]/80 via-[#0a1628]/60 to-background" />

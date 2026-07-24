@@ -44,7 +44,7 @@ export function ParallaxImage({
 
   // Sur mobile, on divise l'effet par 2 pour garder une fluidité parfaite
   const actualOffset = isMobile ? offset / 2 : offset;
-  
+
   // Transforme la progression du scroll (0 à 1) en déplacement vertical
   // On utilise des pourcentages pour que l'effet soit proportionnel à la taille de l'image
   const y = useTransform(scrollYProgress, [0, 1], [`-${actualOffset}%`, `${actualOffset}%`]);
