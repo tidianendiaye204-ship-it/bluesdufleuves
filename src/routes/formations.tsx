@@ -55,24 +55,26 @@ export const soumettreInscription = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     // CSRF verification would go here in a real production app with session management
 
-    const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-    const secret = process.env.TURNSTILE_SECRET;
-    if (!secret) {
-      throw new Error("Service de validation temporairement indisponible.");
-    }
-
-    try {
-      const tsResponse = await fetch(verifyUrl, {
-        method: "POST",
-        body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
-        headers: { "content-type": "application/x-www-form-urlencoded" },
-      });
-      const tsResult = (await tsResponse.json()) as { success: boolean };
-      if (!tsResult.success) {
-        throw new Error("Validation Captcha échouée.");
+    if (process.env.NODE_ENV === "production") {
+      const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+      const secret = process.env.TURNSTILE_SECRET;
+      if (!secret) {
+        throw new Error("Service de validation temporairement indisponible.");
       }
-    } catch (error) {
-      throw new Error("Service de validation temporairement indisponible.");
+
+      try {
+        const tsResponse = await fetch(verifyUrl, {
+          method: "POST",
+          body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
+          headers: { "content-type": "application/x-www-form-urlencoded" },
+        });
+        const tsResult = (await tsResponse.json()) as { success: boolean };
+        if (!tsResult.success) {
+          throw new Error("Validation Captcha échouée.");
+        }
+      } catch (error) {
+        throw new Error("Service de validation temporairement indisponible.");
+      }
     }
 
     const db = getDb();
@@ -1015,23 +1017,27 @@ function Formations() {
                           </p>
                         </div>
 
-                        {/* Captcha */}
-                        <div className="space-y-1 flex flex-col items-center">
-                          <Turnstile
-                            siteKey={
-                              import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
-                            }
-                            onSuccess={(token) => {
-                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                              setTurnstileToken(token);
-                            }}
-                          />
-                          {errors.cfTurnstileResponse && (
-                            <p className="text-red-500 text-xs mt-2 font-medium">
-                              {errors.cfTurnstileResponse.message}
-                            </p>
-                          )}
-                        </div>
+                        {/* Captcha - Only active in production */}
+                        {import.meta.env.PROD ? (
+                          <div className="space-y-1 flex flex-col items-center">
+                            <Turnstile
+                              siteKey={
+                                import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+                              }
+                              onSuccess={(token) => {
+                                setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                                setTurnstileToken(token);
+                              }}
+                            />
+                            {errors.cfTurnstileResponse && (
+                              <p className="text-red-500 text-xs mt-2 font-medium">
+                                {errors.cfTurnstileResponse.message}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <input type="hidden" {...register("cfTurnstileResponse")} value="dummy-token-dev" />
+                        )}
                       </motion.div>
                     )}
 
