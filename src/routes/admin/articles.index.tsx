@@ -21,7 +21,7 @@ export const deleteArticleFn = createServerFn({ method: "POST" })
     return { success: true };
   });
 
-export const Route = createFileRoute("/admin/articles")({
+export const Route = createFileRoute("/admin/articles/")({
   loader: async () => await getArticlesFn(),
   component: AdminArticlesList,
 });
