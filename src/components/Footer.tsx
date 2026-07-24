@@ -1,13 +1,4 @@
-import {
-  Youtube,
-  Facebook,
-  Instagram,
-  Mail,
-  ArrowUp,
-  Heart,
-  MapPin,
-  Phone,
-} from "lucide-react";
+import { Youtube, Facebook, Instagram, Mail, ArrowUp, Heart, MapPin, Phone } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
