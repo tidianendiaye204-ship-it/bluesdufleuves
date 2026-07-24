@@ -52,8 +52,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
 
     if (process.env.NODE_ENV === "production") {
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-      const secret = process.env.TURNSTILE_SECRET;
-
+      const secret = process.env.TURNSTILE_SECRET || process.env.TURNSTILE_SECRET_KEY;
       if (!secret) {
         logger.error("TURNSTILE_SECRET not configured");
         throw new Error("Service de validation temporairement indisponible.");
