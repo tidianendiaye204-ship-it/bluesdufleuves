@@ -227,7 +227,9 @@ function ContactPage() {
     } catch (error) {
       console.error("Erreur lors de l'envoi du message", error);
       setFormError(
-        t("contact.errorMessage") || "Une erreur est survenue lors de l'envoi de votre message.",
+        error instanceof Error
+          ? error.message
+          : "Une erreur est survenue lors de l'envoi de votre message.",
       );
     } finally {
       setLoading(false);

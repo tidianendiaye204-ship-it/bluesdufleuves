@@ -349,7 +349,9 @@ function Formations() {
     } catch (error) {
       console.error("Erreur lors de l'inscription", error);
       setFormError(
-        "Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.",
+        error instanceof Error
+          ? error.message
+          : "Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.",
       );
     }
   };
