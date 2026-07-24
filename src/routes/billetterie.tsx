@@ -470,10 +470,10 @@ function Billetterie() {
                   {pass.desc}
                 </p>
                 <div className="luxury-text text-3xl md:text-4xl text-primary mb-2">
-                  {pass.priceLabel}
+                  TARIF À VENIR
                 </div>
                 <span className="text-xs font-bold uppercase tracking-wider text-primary">
-                  Prochainement
+                  Prochainement disponible
                 </span>
               </div>
 

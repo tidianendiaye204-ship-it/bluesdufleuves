@@ -33,6 +33,7 @@ import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { ParallaxImage } from "@/components/ParallaxImage";
+import { Lightbox } from "@/components/Lightbox";
 import { AnimatedText } from "@/components/AnimatedText";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { artistes, piliers, videos, galleryImages } from "@/data/festival-content";
@@ -91,6 +92,14 @@ function BluesDuFleuve() {
   const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<(typeof artistes)[0] | null>(null);
+  
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -935,7 +944,7 @@ function BluesDuFleuve() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-50">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[220px]">
             {galleryImages.map((img, idx) => (
               <motion.div
                 key={img.id}
@@ -943,6 +952,7 @@ function BluesDuFleuve() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
+                onClick={() => openLightbox(idx)}
                 className={`rounded-3xl overflow-hidden border border-border relative group cursor-pointer ${img.span || ""}`}
               >
                 <ParallaxImage
@@ -1244,6 +1254,13 @@ function BluesDuFleuve() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <Lightbox
+        images={galleryImages.map((img) => ({ src: img.src, alt: img.alt }))}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </>
   );
 }

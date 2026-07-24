@@ -23,16 +23,16 @@ export const Route = createFileRoute("/")({
     const { meta, links } = createSeoMeta({
       title:
         lang === "fr"
-          ? "The Village Podor | Centre Culturel par Baaba Maal - Festival Blues du Fleuve"
-          : "The Village Podor | Cultural Center by Baaba Maal - Blues du Fleuve Festival",
+          ? "The Village - NANN-K - Blues du Fleuves"
+          : "The Village - NANN-K - Blues du Fleuves",
       description:
         lang === "fr"
           ? "The Village à Podor, Sénégal : centre culturel unique initié par Baaba Maal. Découvrez le village culturel, le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-k au cœur de la vallée du fleuve Sénégal."
           : "The Village in Podor, Senegal: a unique cultural center initiated by Baaba Maal. Discover the cultural village, the Blues du Fleuve festival, traditional music and training at the NANN-k center in the heart of the Senegal River valley.",
       ogTitle:
         lang === "fr"
-          ? "The Village - Le Village Culturel de Podor par Baaba Maal"
-          : "The Village - The Cultural Village of Podor by Baaba Maal",
+          ? "The Village - NANN-K - Blues du Fleuves"
+          : "The Village - NANN-K - Blues du Fleuves",
       ogDescription:
         lang === "fr"
           ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
@@ -73,11 +73,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t } = useTranslation();
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterStatus, setNewsletterStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [newsletterMsg, setNewsletterMsg] = useState("");
+
   const [showFullBio, setShowFullBio] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string }>>([]);
@@ -90,27 +86,6 @@ function Home() {
     setLightboxImages(images);
     setLightboxIndex(index);
     setLightboxOpen(true);
-  };
-
-  const handleNewsletter = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    setNewsletterStatus("loading");
-    setNewsletterMsg("");
-    try {
-      const res = await subscribeNewsletterFn({ data: { email: newsletterEmail } });
-      if (res.error) {
-        setNewsletterStatus("error");
-        setNewsletterMsg(res.error);
-      } else {
-        setNewsletterStatus("success");
-        setNewsletterMsg(t("home.newsletterSuccess"));
-        setNewsletterEmail("");
-      }
-    } catch {
-      setNewsletterStatus("error");
-      setNewsletterMsg(t("home.newsletterError"));
-    }
   };
 
   return (
@@ -368,14 +343,15 @@ function Home() {
             className="relative md:sticky md:top-32"
           >
             {/* Photo principale — portrait Baaba Maal */}
-            <div className="relative aspect-3/4 rounded-2xl overflow-hidden shadow-elegant">
+            <div className="relative rounded-2xl overflow-hidden shadow-elegant bg-black/20">
               <OptimizedImage
                 src="/photo baba maal.webp"
                 alt="Portrait Baaba Maal"
-                className="absolute inset-0 w-full h-full transition-transform duration-700 hover:scale-105"
-                objectPosition="center 10%"
+                className="w-full h-auto transition-transform duration-700 hover:scale-105"
+                objectFit="contain"
+                objectPosition="center"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-8 left-8">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70 mb-2 block">
                   {t("home.founderLabel")}
@@ -384,13 +360,12 @@ function Home() {
               </div>
             </div>
             {/* Photo secondaire — concert — positionnée en bas à droite */}
-            <div className="absolute -bottom-8 -right-8 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10">
-              <ParallaxImage
+            <div className="absolute -bottom-8 -right-8 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-square rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10">
+              <OptimizedImage
                 src="/Baba.webp"
                 alt="Baaba Maal en concert"
-                className="absolute inset-0 w-full h-full"
-                imageClassName="transition-transform duration-700 hover:scale-110"
-                offset={10}
+                className="w-full h-full transition-transform duration-700 hover:scale-110"
+                objectPosition="top"
               />
             </div>
           </motion.div>
@@ -633,62 +608,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Newsletter Section - Re-added but cleaned */}
-      <section className="container-page py-24" aria-labelledby="newsletter-title">
-        <div className="bg-[#0a0908] rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-gold" />
-          <div className="max-w-2xl mx-auto relative z-10">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6 block">
-              {t("home.newsletterLabel")}
-            </span>
-            <h2
-              id="newsletter-title"
-              className="luxury-text text-4xl md:text-6xl text-white mb-8 uppercase tracking-tighter"
-            >
-              {t("home.newsletterTitle")}
-            </h2>
-            <p className="text-white/60 mb-10 text-lg">{t("home.newsletterDesc")}</p>
 
-            <form
-              className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
-              onSubmit={handleNewsletter}
-              aria-label={t("home.newsletterLabel")}
-            >
-              <input
-                type="email"
-                required
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder={t("home.newsletterPlaceholder")}
-                className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-sm text-white outline-none focus:ring-1 focus:ring-primary transition-all min-h-12"
-                aria-label={t("home.newsletterPlaceholder")}
-              />
-              <button
-                type="submit"
-                disabled={newsletterStatus === "loading"}
-                className="rounded-full bg-primary px-10 py-4 text-[11px] font-black uppercase tracking-widest text-white premium-button disabled:opacity-50 min-h-12"
-                aria-label={
-                  newsletterStatus === "loading"
-                    ? t("home.newsletterLoading")
-                    : t("home.newsletterCta")
-                }
-              >
-                {newsletterStatus === "loading" ? "..." : t("home.newsletterCta")}
-              </button>
-            </form>
-            {newsletterMsg && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`mt-6 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest ${newsletterStatus === "success" ? "text-emerald-500" : "text-red-500"}`}
-              >
-                {newsletterStatus === "success" && <CheckCircle2 size={16} />}
-                {newsletterMsg}
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Lightbox */}
       <Lightbox

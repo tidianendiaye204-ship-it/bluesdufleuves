@@ -239,13 +239,13 @@ function RootComponent() {
           </a>
           <Navbar />
           <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               <motion.div
                 key={location.pathname}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 className="w-full flex-1 flex flex-col"
               >
                 <Outlet />
