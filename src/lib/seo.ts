@@ -37,8 +37,8 @@ export const createSeoMeta = ({
 
   // Utiliser l'image fournie ou celle par défaut
   let finalOgImage = ogImage || DEFAULT_SEO.ogImage;
-  
-  if (finalOgImage && finalOgImage.startsWith('/')) {
+
+  if (finalOgImage && finalOgImage.startsWith("/")) {
     // Les réseaux sociaux exigent une URL absolue pour og:image
     finalOgImage = `https://levillagepodor.com${encodeURI(finalOgImage)}`;
   }
