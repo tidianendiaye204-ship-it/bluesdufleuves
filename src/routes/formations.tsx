@@ -825,7 +825,7 @@ function Formations() {
                               id="prenom"
                               type="text"
                               {...register("prenom")}
-                              className={`w-full bg-transparent border-0 border-b-2 ${errors.prenom ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              className={`w-full bg-background text-foreground border ${errors.prenom ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                               placeholder="Votre prénom"
                             />
                           </div>
@@ -847,7 +847,7 @@ function Formations() {
                               id="nom"
                               type="text"
                               {...register("nom")}
-                              className={`w-full bg-transparent border-0 border-b-2 ${errors.nom ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              className={`w-full bg-background text-foreground border ${errors.nom ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                               placeholder="Votre nom"
                             />
                           </div>
@@ -872,7 +872,7 @@ function Formations() {
                               id="email"
                               type="email"
                               {...register("email")}
-                              className={`w-full bg-transparent border-0 border-b-2 ${errors.email ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              className={`w-full bg-background text-foreground border ${errors.email ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                               placeholder="vous@exemple.com"
                             />
                           </div>
@@ -894,7 +894,7 @@ function Formations() {
                               id="tel"
                               type="tel"
                               {...register("tel")}
-                              className={`w-full bg-transparent border-0 border-b-2 ${errors.tel ? "border-red-500 focus:border-red-500" : "border-border focus:border-primary"} focus:ring-0 px-0 py-3 text-sm transition-all placeholder:text-muted-foreground/50`}
+                              className={`w-full bg-background text-foreground border ${errors.tel ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
                               placeholder="+221 XX XXX XX XX"
                             />
                           </div>
@@ -1007,10 +1007,10 @@ function Formations() {
                           </label>
                           <textarea
                             id="motivation"
-                            rows={4}
+                            rows={6}
                             {...register("motivation")}
-                            className={`w-full bg-background border ${errors.motivation ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-primary focus:ring-primary"} focus:ring-1 rounded-xl px-4 py-4 text-sm transition-all resize-none placeholder:text-muted-foreground/50`}
-                            placeholder="Expliquez-nous brièvement pourquoi vous souhaitez rejoindre ce programme..."
+                            className={`w-full bg-background text-foreground border ${errors.motivation ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
+                            placeholder="Partagez vos ambitions..."
                           />
                           <p
                             className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
