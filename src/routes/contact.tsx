@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { getCSRFToken, validateCSRFTokenServer } from "@/lib/csrf";
 import { logger } from "@/lib/logger";
+import { sendContactConfirmation } from "@/lib/email";
 
 const contactSchema = z.object({
   nom: z.string().min(1, "Le nom complet est requis"),
@@ -91,6 +92,12 @@ export const soumettreContact = createServerFn({ method: "POST" })
       });
 
       logger.info("Contact message saved successfully", { email: data.email });
+
+      // Envoi de l'email de confirmation en arrière-plan (ne bloque pas la réponse)
+      sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
+        logger.error("Failed to send contact confirmation email", err);
+      });
+
       return { success: true, message: "Votre message a été envoyé avec succès." };
     } catch (error) {
       logger.error("Erreur d'insertion DB (Contact)", error, { email: data.email });

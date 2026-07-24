@@ -36,6 +36,7 @@ import { createSeoMeta } from "@/lib/seo";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { MagneticButton } from "@/components/MagneticButton";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { sendFormationConfirmation } from "@/lib/email";
 
 export const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
@@ -93,6 +94,14 @@ export const soumettreInscription = createServerFn({ method: "POST" })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           }) as Promise<any>,
       );
+
+      // Envoi de l'email de confirmation en arrière-plan
+      sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
+        (err) => {
+          console.error("Failed to send formation confirmation email", err);
+        },
+      );
+
       return { success: true, message: "Votre inscription a été enregistrée avec succès." };
     } catch (error) {
       console.error("Erreur d'insertion DB:", error);
