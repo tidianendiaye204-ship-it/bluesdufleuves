@@ -227,35 +227,33 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SmoothScroll>
-        <CustomCursor />
-        <div className="flex flex-col min-h-screen">
-          {/* Skip to Content Link */}
-          <a
-            href="#main-content"
-            className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
-          >
-            {t("root.skipToContent")}
-          </a>
-          <Navbar />
-          <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="w-full flex-1 flex flex-col"
-              >
-                <Outlet />
-              </motion.div>
-            </AnimatePresence>
-          </main>
-          <Footer />
-          <PWAInstallPrompt />
-        </div>
-      </SmoothScroll>
+      <CustomCursor />
+      <div className="flex flex-col min-h-screen">
+        {/* Skip to Content Link */}
+        <a
+          href="#main-content"
+          className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
+        >
+          {t("root.skipToContent")}
+        </a>
+        <Navbar />
+        <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="w-full flex-1 flex flex-col"
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
+        </main>
+        <Footer />
+        <PWAInstallPrompt />
+      </div>
     </QueryClientProvider>
   );
 }
