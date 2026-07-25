@@ -55,12 +55,15 @@ export const soumettreContact = createServerFn({ method: "POST" })
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cfEnv = (globalThis as any).__CF_ENV__ || process.env;
-      const secret = cfEnv.TURNSTILE_SECRET || cfEnv.TURNSTILE_SECRET_KEY || (cfEnv as any)[" TURNSTILE_SECRET"];
+      const secret =
+        cfEnv.TURNSTILE_SECRET ||
+        cfEnv.TURNSTILE_SECRET_KEY ||
+        (cfEnv as Record<string, string>)[" TURNSTILE_SECRET"];
       if (!secret) {
-        logger.error("TURNSTILE_SECRET not configured", { 
+        logger.error("TURNSTILE_SECRET not configured", {
           hasTurnstileSecret: !!cfEnv.TURNSTILE_SECRET,
           hasTurnstileSecretKey: !!cfEnv.TURNSTILE_SECRET_KEY,
-          hasTurnstileSecretWithSpace: !!(cfEnv as any)[" TURNSTILE_SECRET"]
+          hasTurnstileSecretWithSpace: !!(cfEnv as Record<string, string>)[" TURNSTILE_SECRET"],
         });
         throw new Error("Service de validation temporairement indisponible.");
       }
