@@ -58,7 +58,7 @@ export const soumettreInscription = createServerFn({ method: "POST" })
 
     if (process.env.NODE_ENV === "production") {
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-      const secret = process.env.TURNSTILE_SECRET || process.env.TURNSTILE_SECRET_KEY;
+      const secret = process.env.TURNSTILE_SECRET || process.env.TURNSTILE_SECRET_KEY || (process.env as any)[" TURNSTILE_SECRET"];
       if (!secret) {
         throw new Error("Service de validation temporairement indisponible.");
       }
