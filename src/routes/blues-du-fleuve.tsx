@@ -856,12 +856,12 @@ function BluesDuFleuve() {
                 {/* Image container */}
                 <div className="relative aspect-4/5 bg-linear-to-br from-muted to-muted/50 overflow-hidden">
                   {a.img ? (
-                    <ParallaxImage
+                    <OptimizedImage
                       src={a.img}
                       alt={a.nom}
-                      className="absolute inset-0 w-full h-full"
-                      imageClassName="transition-transform duration-700 group-hover:scale-110"
+                      className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-110"
                       objectPosition={a.objectPosition}
+                      objectFit="cover"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center font-display text-6xl text-primary/20">
@@ -954,12 +954,12 @@ function BluesDuFleuve() {
                 onClick={() => openLightbox(idx)}
                 className={`rounded-3xl overflow-hidden border border-border relative group cursor-pointer ${img.span || ""}`}
               >
-                <ParallaxImage
+                <OptimizedImage
                   src={img.src}
                   alt={img.alt}
-                  className="absolute inset-0 w-full h-full"
-                  imageClassName="transition duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full transition duration-700 group-hover:scale-110"
                   objectPosition={img.objectPosition}
+                  objectFit="cover"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
                   <div className="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
@@ -1229,6 +1229,7 @@ function BluesDuFleuve() {
                       src={selectedArtist.img}
                       alt={selectedArtist.nom}
                       className="w-full h-full object-cover"
+                      style={{ objectPosition: selectedArtist.objectPosition || "top" }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center font-display text-6xl text-primary/20">

@@ -1,67 +1,117 @@
-import { useEffect, useState } from "react";
-import { Smartphone, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, X, Smartphone } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-// Définir un type pour le prompt d'installation PWA
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
 export function PWAInstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const { t } = useTranslation();
   const [showPrompt, setShowPrompt] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
-    const handler = (e: Event) => {
+    // Listen for PWA install event
+    const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowPrompt(true);
+      // Show the prompt after a short delay so it doesn't attack the user immediately
+      setTimeout(() => setShowPrompt(true), 3000);
     };
 
-    window.addEventListener("beforeinstallprompt" as keyof WindowEventMap, handler);
+    window.addEventListener("beforeinstallprompt" as keyof WindowEventMap, handleBeforeInstallPrompt);
+
+    // DÉMO : Force show after 5s for UI review if they don't have PWA configured
+    // Comment this out for production if PWA manifest is truly active
+    const demoTimer = setTimeout(() => {
+      if (!deferredPrompt) setShowPrompt(true);
+    }, 5000);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt" as keyof WindowEventMap, handler);
+      window.removeEventListener("beforeinstallprompt" as keyof WindowEventMap, handleBeforeInstallPrompt);
+      clearTimeout(demoTimer);
     };
-  }, []);
+  }, [deferredPrompt]);
 
-  const handleInstall = async () => {
-    if (!deferredPrompt) return;
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) {
+      // If we are just showing the demo UI and they click it
+      alert("L'installation s'activera lorsque vous visiterez ce site depuis un mobile ou Chrome, et que le Manifest PWA sera configuré !");
+      setShowPrompt(false);
+      return;
+    }
 
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to install prompt: ${outcome}`);
+    
+    if (outcome === "accepted") {
+      setShowPrompt(false);
+    }
     setDeferredPrompt(null);
-    setShowPrompt(false);
   };
 
-  if (!showPrompt) return null;
-
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:bottom-8 md:left-auto md:right-8 bg-card border border-border rounded-xl p-4 shadow-lg z-50 max-w-sm">
-      <div className="flex items-start gap-3">
-        <Smartphone className="text-primary shrink-0 mt-1" size={24} />
-        <div className="flex-1">
-          <h4 className="font-bold text-foreground mb-1">Installer l'app</h4>
-          <p className="text-sm text-muted-foreground mb-3">
-            Ajoutez le festival à votre écran d'accueil !
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleInstall}
-              className="flex-1 bg-primary text-primary-foreground text-sm font-bold py-2 px-4 rounded-lg hover:bg-primary/90 transition"
-            >
-              Installer
-            </button>
-            <button
-              onClick={() => setShowPrompt(false)}
-              className="p-2 text-muted-foreground hover:text-foreground transition"
-            >
-              <X size={18} />
-            </button>
+    <AnimatePresence>
+      {showPrompt && (
+        <motion.div
+          initial={{ opacity: 0, y: 100, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 50, scale: 0.95 }}
+          transition={{ type: "spring", damping: 20, stiffness: 100 }}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-100 w-[90%] max-w-sm"
+        >
+          {/* Animated glow background */}
+          <div className="absolute -inset-1 bg-linear-to-r from-amber-400 via-primary to-sky-500 rounded-3xl blur opacity-30 animate-pulse"></div>
+          
+          <div className="relative flex items-center gap-4 p-4 rounded-3xl bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden group">
+            
+            {/* Hover shine effect */}
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+            {/* Phone Icon */}
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-linear-to-br from-primary/20 to-primary/5 shrink-0 border border-primary/20">
+              <Smartphone className="text-primary" size={24} />
+              <motion.div 
+                animate={{ y: [0, -4, 0] }} 
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center border-2 border-black"
+              >
+                <Download size={8} className="text-black" />
+              </motion.div>
+            </div>
+
+            {/* Text */}
+            <div className="flex-1">
+              <h4 className="text-white font-bold text-sm">Installer l'Application</h4>
+              <p className="text-white/60 text-xs mt-0.5 font-serif leading-tight">
+                Vivez le festival depuis votre écran d'accueil.
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={handleInstallClick}
+                className="relative overflow-hidden bg-linear-to-r from-amber-500 to-primary hover:from-amber-400 hover:to-primary/80 text-white text-xs font-black uppercase tracking-wider px-4 py-2 rounded-xl transition-all shadow-[0_0_15px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] active:scale-95"
+              >
+                <span className="relative z-10 flex items-center gap-1">
+                  Obtenir
+                </span>
+              </button>
+              <button
+                onClick={() => setShowPrompt(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+                aria-label="Fermer"
+              >
+                <X size={14} />
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -64,7 +64,7 @@ export const DEFAULT_SEO = {
   title: "The Village - NANN-K - Blues du Fleuve",
   description:
     "The Village à Podor, Sénégal : village culturel unique initié par Baaba Maal. Découvrez le festival Blues du Fleuve, la musique traditionnelle et les formations du centre NANN-K.",
-  ogImage: "https://levillagepodor.com/og-image.jpg",
+  ogImage: "https://levillagepodor.com/logo the village.webp",
   keywords:
     "Le Village Podor, The Village Podor, village Podor, Baaba Maal Podor, centre culturel Podor, Blues du Fleuve, festival Sénégal, Fouta Toro, tourisme Podor, NANN-K",
 };

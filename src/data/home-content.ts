@@ -1,11 +1,10 @@
-import fleuveImg from "@/assets/fleuve.webp";
 
 export const galleryImages = [
-  { src: "/gal1.webp", alt: "Concert" },
-  { src: "/gal2.webp", alt: "Exposition" },
-  { src: "/gal3.webp", alt: "Conférence" },
-  { src: "/gal4.webp", alt: "Master Class" },
-  { src: "/gal5.webp", alt: "Défilé de Mode" },
+  { src: "/gal1.webp", alt: "Concert", objectPosition: "top" },
+  { src: "/gal2.webp", alt: "Exposition", objectPosition: "top" },
+  { src: "/gal3.webp", alt: "Conférence", objectPosition: "top" },
+  { src: "/gal4.webp", alt: "Master Class", objectPosition: "top" },
+  { src: "/gal5.webp", alt: "Défilé de Mode", objectPosition: "top" },
 ];
 
 export const articles = [
@@ -18,15 +17,6 @@ export const articles = [
     date: "Aujourd'hui",
     img: "/festival baba maal.jpg",
     featured: true,
-  },
-  {
-    to: "/nannka-tv" as const,
-    category: "Médias",
-    title: "NANN-k TV : Archives et documentaires",
-    excerpt:
-      "Découvrez des archives inédites et des documentaires exclusifs retraçant l'histoire fascinante de la vallée du fleuve Sénégal.",
-    date: "Aujourd'hui",
-    img: fleuveImg,
   },
   {
     to: "/nann-k-media" as const,

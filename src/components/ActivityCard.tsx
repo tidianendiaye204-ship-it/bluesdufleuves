@@ -12,6 +12,7 @@ interface ActivityCardProps {
   linkText: string;
   onImageClick: () => void;
   className?: string;
+  objectPosition?: string;
 }
 
 export function ActivityCard({
@@ -24,6 +25,7 @@ export function ActivityCard({
   linkText,
   onImageClick,
   className = "",
+  objectPosition = "center",
 }: ActivityCardProps) {
   return (
     <article
@@ -46,6 +48,7 @@ export function ActivityCard({
           src={imageSrc}
           alt={imageAlt}
           className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+          objectPosition={objectPosition}
         />
       </div>
       <div className="p-8 flex flex-col flex-1">

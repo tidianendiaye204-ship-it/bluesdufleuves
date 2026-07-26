@@ -23,6 +23,8 @@ import { Footer } from "@/components/Footer";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+import { FloatingTicketButton } from "@/components/FloatingTicketButton";
+import { ImmersiveAudio } from "@/components/ImmersiveAudio";
 
 import { CustomCursor } from "@/components/CustomCursor";
 
@@ -253,6 +255,8 @@ function RootComponent() {
         </main>
         <Footer />
         <PWAInstallPrompt />
+        <FloatingTicketButton />
+        <ImmersiveAudio />
       </div>
     </QueryClientProvider>
   );

@@ -438,6 +438,7 @@ function Home() {
             linkTo="/blues-du-fleuve"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 0)}
+            objectPosition={galleryImages[0].objectPosition}
             className="md:col-span-2 lg:col-span-2"
           />
 
@@ -450,6 +451,7 @@ function Home() {
             linkTo="/nann-k-media"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 1)}
+            objectPosition={galleryImages[1].objectPosition}
           />
 
           <ActivityCard
@@ -461,6 +463,7 @@ function Home() {
             linkTo="/nann-k-media"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 2)}
+            objectPosition={galleryImages[2].objectPosition}
           />
 
           <ActivityCard
@@ -472,6 +475,7 @@ function Home() {
             linkTo="/formations"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 3)}
+            objectPosition={galleryImages[3].objectPosition}
           />
 
           <ActivityCard
@@ -483,6 +487,7 @@ function Home() {
             linkTo="/nann-k-media"
             linkText={t("home.learnMore")}
             onImageClick={() => openLightbox(galleryImages, 4)}
+            objectPosition={galleryImages[4].objectPosition}
           />
         </div>
       </section>
