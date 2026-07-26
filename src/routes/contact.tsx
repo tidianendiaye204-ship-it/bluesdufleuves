@@ -80,7 +80,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
           logger.warn("Turnstile validation failed", { email: data.email });
           throw new Error("Validation Captcha échouée.");
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (error instanceof Error && error.message === "Validation Captcha échouée.") {
           throw error;
         }

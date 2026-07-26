@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {
@@ -78,7 +77,7 @@ export const soumettreInscription = createServerFn({ method: "POST" })
         if (!tsResult.success) {
           throw new Error("Validation Captcha échouée.");
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (error instanceof Error && error.message === "Validation Captcha échouée.") {
           throw error;
         }
