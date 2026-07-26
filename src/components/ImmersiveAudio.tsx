@@ -7,11 +7,6 @@ export function ImmersiveAudio() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Initialiser l'audio. L'utilisateur doit mettre un fichier "ambiance.mp3" dans le dossier public/
-    audioRef.current = new Audio("/ambiance.mp3");
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.4;
-
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -21,12 +16,16 @@ export function ImmersiveAudio() {
   }, []);
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/ambiance.mp3");
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.4;
+    }
 
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch((e) => console.error("Audio play failed", e));
+      audioRef.current.play().catch(e => console.error("Audio play failed", e));
     }
     setIsPlaying(!isPlaying);
   };
