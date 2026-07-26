@@ -30,11 +30,20 @@ export function PWAInstallPrompt() {
       handleBeforeInstallPrompt,
     );
 
+    // On remet un minuteur (8 secondes) pour forcer l'affichage 
+    // si le navigateur ne déclenche pas l'événement nativement (souvent le cas sur PC)
+    const fallbackTimer = setTimeout(() => {
+      if (!deferredPrompt) {
+        setShowPrompt(true);
+      }
+    }, 8000);
+
     return () => {
       window.removeEventListener(
         "beforeinstallprompt" as keyof WindowEventMap,
         handleBeforeInstallPrompt,
       );
+      clearTimeout(fallbackTimer);
     };
   }, [deferredPrompt]);
 
