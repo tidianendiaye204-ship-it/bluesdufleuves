@@ -78,7 +78,10 @@ export const soumettreInscription = createServerFn({ method: "POST" })
         if (!tsResult.success) {
           throw new Error("Validation Captcha échouée.");
         }
-      } catch (error) {
+      } catch (error: any) {
+        if (error instanceof Error && error.message === "Validation Captcha échouée.") {
+          throw error;
+        }
         throw new Error("Service de validation temporairement indisponible.");
       }
     }
