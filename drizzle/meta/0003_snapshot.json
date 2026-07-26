@@ -32,16 +32,12 @@
       "indexes": {
         "admins_email_unique": {
           "name": "admins_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "admins_email_idx": {
           "name": "admins_email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         }
       },
@@ -135,37 +131,27 @@
       "indexes": {
         "articles_slug_unique": {
           "name": "articles_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "articles_slug_idx": {
           "name": "articles_slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "articles_published_at_idx": {
           "name": "articles_published_at_idx",
-          "columns": [
-            "published_at"
-          ],
+          "columns": ["published_at"],
           "isUnique": false
         },
         "articles_category_idx": {
           "name": "articles_category_idx",
-          "columns": [
-            "category"
-          ],
+          "columns": ["category"],
           "isUnique": false
         },
         "articles_is_published_idx": {
           "name": "articles_is_published_idx",
-          "columns": [
-            "is_published"
-          ],
+          "columns": ["is_published"],
           "isUnique": false
         }
       },
@@ -231,23 +217,17 @@
       "indexes": {
         "contacts_email_idx": {
           "name": "contacts_email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         },
         "contacts_date_idx": {
           "name": "contacts_date_idx",
-          "columns": [
-            "date_envoi"
-          ],
+          "columns": ["date_envoi"],
           "isUnique": false
         },
         "contacts_status_idx": {
           "name": "contacts_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -327,23 +307,17 @@
       "indexes": {
         "inscriptions_email_idx": {
           "name": "inscriptions_email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         },
         "inscriptions_date_idx": {
           "name": "inscriptions_date_idx",
-          "columns": [
-            "date_inscription"
-          ],
+          "columns": ["date_inscription"],
           "isUnique": false
         },
         "inscriptions_status_idx": {
           "name": "inscriptions_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -380,16 +354,12 @@
       "indexes": {
         "newsletter_email_unique": {
           "name": "newsletter_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "newsletter_email_idx": {
           "name": "newsletter_email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         }
       },
@@ -426,16 +396,12 @@
       "indexes": {
         "sessions_admin_id_idx": {
           "name": "sessions_admin_id_idx",
-          "columns": [
-            "admin_id"
-          ],
+          "columns": ["admin_id"],
           "isUnique": false
         },
         "sessions_expires_at_idx": {
           "name": "sessions_expires_at_idx",
-          "columns": [
-            "expires_at"
-          ],
+          "columns": ["expires_at"],
           "isUnique": false
         }
       },
@@ -444,12 +410,8 @@
           "name": "sessions_admin_id_admins_id_fk",
           "tableFrom": "sessions",
           "tableTo": "admins",
-          "columnsFrom": [
-            "admin_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["admin_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

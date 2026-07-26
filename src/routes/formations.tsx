@@ -73,7 +73,10 @@ export const soumettreInscription = createServerFn({ method: "POST" })
           body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(data.cfTurnstileResponse)}`,
           headers: { "content-type": "application/x-www-form-urlencoded" },
         });
-        const tsResult = (await tsResponse.json()) as { success: boolean; "error-codes"?: string[] };
+        const tsResult = (await tsResponse.json()) as {
+          success: boolean;
+          "error-codes"?: string[];
+        };
         if (!tsResult.success) {
           console.error("Turnstile validation failed in formations:", tsResult);
           throw new Error("Validation Captcha échouée.");

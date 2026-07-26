@@ -75,9 +75,15 @@ export const soumettreContact = createServerFn({ method: "POST" })
           headers: { "content-type": "application/x-www-form-urlencoded" },
         });
 
-        const tsResult = (await tsResponse.json()) as { success: boolean; "error-codes"?: string[] };
+        const tsResult = (await tsResponse.json()) as {
+          success: boolean;
+          "error-codes"?: string[];
+        };
         if (!tsResult.success) {
-          logger.warn("Turnstile validation failed", { email: data.email, errorCodes: tsResult["error-codes"] });
+          logger.warn("Turnstile validation failed", {
+            email: data.email,
+            errorCodes: tsResult["error-codes"],
+          });
           throw new Error("Validation Captcha échouée.");
         }
       } catch (error: unknown) {
