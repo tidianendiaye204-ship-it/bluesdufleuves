@@ -562,7 +562,7 @@ function ContactPage() {
                         />
                         <label
                           htmlFor="nom"
-                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300 pointer-events-none
                             peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
                             peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-primary
                             peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}
@@ -591,7 +591,7 @@ function ContactPage() {
                         />
                         <label
                           htmlFor="email"
-                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                          className={`absolute left-5 top-4 text-sm font-semibold uppercase tracking-wider transition-all duration-300 pointer-events-none
                             peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
                             peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-primary
                             peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}
@@ -688,7 +688,7 @@ function ContactPage() {
                       />
                       <label
                         htmlFor="message"
-                        className={`absolute left-5 top-5 text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                        className={`absolute left-5 top-5 text-sm font-semibold uppercase tracking-wider transition-all duration-300 pointer-events-none
                           peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground
                           peer-focus:top-3 peer-focus:text-[11px] peer-focus:text-primary
                           peer-not-placeholder-shown:top-3 peer-not-placeholder-shown:text-[11px] peer-not-placeholder-shown:text-primary`}

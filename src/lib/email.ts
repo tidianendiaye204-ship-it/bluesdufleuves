@@ -18,12 +18,7 @@ const ADMIN_EMAIL = "contact@levillagepodor.com";
 const FALLBACK_SENDER = "onboarding@resend.dev";
 
 function getSender(): string {
-  // En mode test sans domaine vérifié, on utilise le fallback
-  if (process.env.NODE_ENV === "development" || process.env.RESEND_TEST_MODE === "true") {
-    return `Les Blues du Fleuve <${FALLBACK_SENDER}>`;
-  }
-  // TODO: Remplacer par SENDER_EMAIL une fois le domaine vérifié sur Resend
-  return `Les Blues du Fleuve <${FALLBACK_SENDER}>`;
+  return `Les Blues du Fleuve <contact@levillagepodor.com>`;
 }
 
 export async function sendContactConfirmation(

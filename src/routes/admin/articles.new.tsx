@@ -13,7 +13,7 @@ const articleSchema = z.object({
   category: z.string().min(1),
   excerpt: z.string().min(1),
   content: z.string().min(1),
-  imageUrl: z.string().url(),
+  imageUrl: z.string().min(1),
 });
 
 export const createArticleFn = createServerFn({ method: "POST" })
@@ -50,6 +50,9 @@ function CreateArticlePage() {
     try {
       await createArticleFn({ data: form });
       navigate({ to: "/admin/articles" });
+    } catch (error) {
+      console.error(error);
+      alert("Erreur lors de l'enregistrement de l'article : veuillez vérifier les champs.");
     } finally {
       setLoading(false);
     }
