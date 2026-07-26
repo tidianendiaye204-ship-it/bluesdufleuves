@@ -25,7 +25,7 @@ export function ImmersiveAudio() {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.error("Audio play failed", e));
+      audioRef.current.play().catch((e) => console.error("Audio play failed", e));
     }
     setIsPlaying(!isPlaying);
   };
