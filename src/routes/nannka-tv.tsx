@@ -24,7 +24,7 @@ export const Route = createFileRoute("/nannka-tv")({
       ogImage: fleuveImg,
       keywords:
         "The Village, NANN-k TV, patrimoine, documentaires, archives, musique, Podor, vallée du fleuve, livestream, concerts",
-      canonical: "https://lesbluesdufleuve.sn/nannka-tv",
+      canonical: "https://levillagepodor.com/nannka-tv",
     });
     return { meta, links };
   },

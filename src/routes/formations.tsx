@@ -134,7 +134,7 @@ export const Route = createFileRoute("/formations")({
       ogImage: centreCulturelImg,
       keywords:
         "The Village, formations, musique traditionnelle, luterie, artisanat, Podor, NANN-k, centre culturel, Sénégal",
-      canonical: "https://lesbluesdufleuve.sn/formations",
+      canonical: "https://levillagepodor.com/formations",
     });
 
     const structuredData = {
@@ -152,7 +152,7 @@ export const Route = createFileRoute("/formations")({
             provider: {
               "@type": "Organization",
               name: "Centre Culturel NANN-k",
-              sameAs: "https://lesbluesdufleuve.sn",
+              sameAs: "https://levillagepodor.com",
             },
           },
         },
@@ -167,7 +167,7 @@ export const Route = createFileRoute("/formations")({
             provider: {
               "@type": "Organization",
               name: "Centre Culturel NANN-k",
-              sameAs: "https://lesbluesdufleuve.sn",
+              sameAs: "https://levillagepodor.com",
             },
           },
         },
@@ -182,7 +182,7 @@ export const Route = createFileRoute("/formations")({
             provider: {
               "@type": "Organization",
               name: "Centre Culturel NANN-k",
-              sameAs: "https://lesbluesdufleuve.sn",
+              sameAs: "https://levillagepodor.com",
             },
           },
         },

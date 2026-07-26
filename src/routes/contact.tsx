@@ -134,7 +134,7 @@ export const Route = createFileRoute("/contact")({
         "L'équipe de The Village et du festival Blues du Fleuve vous accueille à Podor. Formulaire de contact et coordonnées disponibles.",
       keywords:
         "The Village, contact, Blues du Fleuve, Podor, formulaire, email, téléphone, festival Sénégal",
-      canonical: "https://lesbluesdufleuve.sn/contact",
+      canonical: "https://levillagepodor.com/contact",
     });
     return { meta, links };
   },

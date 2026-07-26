@@ -52,7 +52,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       ogImage: "/festival-crowd.webp",
       keywords:
         "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
-      canonical: "https://lesbluesdufleuve.sn/blues-du-fleuve",
+      canonical: "https://levillagepodor.com/blues-du-fleuve",
     });
 
     const structuredData = createStructuredData("MusicEvent", {
@@ -65,11 +65,11 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       description:
         "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
       image: "/festival-crowd.webp",
-      url: "https://lesbluesdufleuve.sn/blues-du-fleuve",
+      url: "https://levillagepodor.com/blues-du-fleuve",
       performers: artistes.map((artist) => ({ name: artist.nom })),
       organizer: "The Village Podor",
-      organizerUrl: "https://lesbluesdufleuve.sn",
-      ticketUrl: "https://lesbluesdufleuve.sn/blues-du-fleuve#billetterie",
+      organizerUrl: "https://levillagepodor.com",
+      ticketUrl: "https://levillagepodor.com/blues-du-fleuve#billetterie",
       price: "5000",
       priceCurrency: "XOF",
     });

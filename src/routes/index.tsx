@@ -42,13 +42,13 @@ export const Route = createFileRoute("/")({
         lang === "fr"
           ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
           : "The Village, The Village Podor, Podor village, cultural village, Podor cultural center, Baaba Maal, Blues du Fleuve, Senegal festival, Fouta Toro, Halpulaar, NANN-k, Senegalese heritage",
-      canonical: "https://lesbluesdufleuve.sn/",
+      canonical: "https://levillagepodor.com/",
     });
 
     const structuredData = createStructuredData("Organization", {
       name: "The Village Podor",
-      url: "https://lesbluesdufleuve.sn/",
-      logo: "https://lesbluesdufleuve.sn/logo%20the%20village.webp",
+      url: "https://levillagepodor.com/",
+      logo: "https://levillagepodor.com/logo%20the%20village.webp",
       description:
         lang === "fr"
           ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."

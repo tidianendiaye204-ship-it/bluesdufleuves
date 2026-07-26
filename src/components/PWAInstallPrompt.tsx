@@ -13,7 +13,7 @@ export function PWAInstallPrompt() {
 
   useEffect(() => {
     // Si l'application est déjà installée (ouverte en mode standalone), on ne fait rien
-    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+    if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
       return;
     }
 

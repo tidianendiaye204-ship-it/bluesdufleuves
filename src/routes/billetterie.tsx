@@ -37,7 +37,7 @@ export const Route = createFileRoute("/billetterie")({
         "Billetterie officielle du festival Blues du Fleuve au The Village Podor. Réservez vos pass pour vivre l'expérience du festival.",
       keywords:
         "The Village, billetterie, festival, Blues du Fleuve, pass, tickets, Podor, Sénégal",
-      canonical: "https://lesbluesdufleuve.sn/billetterie",
+      canonical: "https://levillagepodor.com/billetterie",
     });
 
     const structuredData = createStructuredData("Event", {
@@ -50,10 +50,10 @@ export const Route = createFileRoute("/billetterie")({
       description:
         "Billetterie officielle pour réserver vos pass pour le festival Blues du Fleuve au centre culturel The Village Podor.",
       image: "/festival-crowd.webp",
-      url: "https://lesbluesdufleuve.sn/billetterie",
+      url: "https://levillagepodor.com/billetterie",
       organizer: "The Village Podor",
-      organizerUrl: "https://lesbluesdufleuve.sn",
-      ticketUrl: "https://lesbluesdufleuve.sn/billetterie",
+      organizerUrl: "https://levillagepodor.com",
+      ticketUrl: "https://levillagepodor.com/billetterie",
       price: "5000",
       priceCurrency: "XOF",
     });

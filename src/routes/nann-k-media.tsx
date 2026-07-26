@@ -49,7 +49,7 @@ export const Route = createFileRoute("/nann-k-media")({
       ogImage: logoNannk,
       keywords:
         "The Village, NANN-k, Baaba Maal, agriculture, artisanat, technologies, développement, Sénégal, Afrique, Podor, émergence économique",
-      canonical: "https://lesbluesdufleuve.sn/nann-k-media",
+      canonical: "https://levillagepodor.com/nann-k-media",
     });
     return { meta, links };
   },
