@@ -12,6 +12,11 @@ export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
+    // Si l'application est déjà installée (ouverte en mode standalone), on ne fait rien
+    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      return;
+    }
+
     // Listen for PWA install event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
@@ -25,18 +30,11 @@ export function PWAInstallPrompt() {
       handleBeforeInstallPrompt,
     );
 
-    // DÉMO : Force show after 5s for UI review if they don't have PWA configured
-    // Comment this out for production if PWA manifest is truly active
-    const demoTimer = setTimeout(() => {
-      if (!deferredPrompt) setShowPrompt(true);
-    }, 5000);
-
     return () => {
       window.removeEventListener(
         "beforeinstallprompt" as keyof WindowEventMap,
         handleBeforeInstallPrompt,
       );
-      clearTimeout(demoTimer);
     };
   }, [deferredPrompt]);
 
