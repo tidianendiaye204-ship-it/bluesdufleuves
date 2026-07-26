@@ -800,7 +800,14 @@ function Billetterie() {
                               <stop offset="0%" stopColor="#0f172a" />
                               <stop offset="100%" stopColor="#020617" />
                             </linearGradient>
-                            <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <pattern
+                              id="dotPattern"
+                              x="0"
+                              y="0"
+                              width="20"
+                              height="20"
+                              patternUnits="userSpaceOnUse"
+                            >
                               <circle cx="2" cy="2" r="1.5" fill="#ca8a04" opacity="0.15" />
                             </pattern>
                             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -814,50 +821,179 @@ function Billetterie() {
                           <rect width="400" height="650" fill="url(#dotPattern)" rx="24" />
 
                           {/* Outer Border (Golden) */}
-                          <rect x="12" y="12" width="376" height="626" fill="none" stroke="url(#goldGradient)" strokeWidth="2" strokeDasharray="10 6" rx="16" opacity="0.8" />
-                          <rect x="18" y="18" width="364" height="614" fill="none" stroke="url(#goldGradient)" strokeWidth="0.5" rx="12" opacity="0.3" />
+                          <rect
+                            x="12"
+                            y="12"
+                            width="376"
+                            height="626"
+                            fill="none"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="2"
+                            strokeDasharray="10 6"
+                            rx="16"
+                            opacity="0.8"
+                          />
+                          <rect
+                            x="18"
+                            y="18"
+                            width="364"
+                            height="614"
+                            fill="none"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="0.5"
+                            rx="12"
+                            opacity="0.3"
+                          />
 
                           {/* Header / Branding */}
-                          <path d="M 20 100 Q 200 130 380 100 L 380 20 L 20 20 Z" fill="#000000" opacity="0.4" />
-                          <text x="200" y="50" fill="#94a3b8" fontSize="10" fontWeight="800" letterSpacing="6" textAnchor="middle">
+                          <path
+                            d="M 20 100 Q 200 130 380 100 L 380 20 L 20 20 Z"
+                            fill="#000000"
+                            opacity="0.4"
+                          />
+                          <text
+                            x="200"
+                            y="50"
+                            fill="#94a3b8"
+                            fontSize="10"
+                            fontWeight="800"
+                            letterSpacing="6"
+                            textAnchor="middle"
+                          >
                             THE VILLAGE · PODOR
                           </text>
-                          <text x="200" y="75" fill="url(#goldGradient)" fontSize="18" fontWeight="900" letterSpacing="3" textAnchor="middle" filter="url(#glow)">
+                          <text
+                            x="200"
+                            y="75"
+                            fill="url(#goldGradient)"
+                            fontSize="18"
+                            fontWeight="900"
+                            letterSpacing="3"
+                            textAnchor="middle"
+                            filter="url(#glow)"
+                          >
                             FESTIVAL BLUES DU FLEUVE
                           </text>
-                          
-                          <circle cx="200" cy="110" r="15" fill="#0f172a" stroke="url(#goldGradient)" strokeWidth="1" />
-                          <text x="200" y="114" fill="#fbbf24" fontSize="12" textAnchor="middle">★</text>
+
+                          <circle
+                            cx="200"
+                            cy="110"
+                            r="15"
+                            fill="#0f172a"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="1"
+                          />
+                          <text x="200" y="114" fill="#fbbf24" fontSize="12" textAnchor="middle">
+                            ★
+                          </text>
 
                           {/* Event info */}
-                          <rect x="50" y="140" width="300" height="40" fill="rgba(202, 138, 4, 0.05)" rx="8" />
-                          <text x="200" y="157" fill="#fbbf24" fontSize="10" fontWeight="bold" letterSpacing="2" textAnchor="middle">
+                          <rect
+                            x="50"
+                            y="140"
+                            width="300"
+                            height="40"
+                            fill="rgba(202, 138, 4, 0.05)"
+                            rx="8"
+                          />
+                          <text
+                            x="200"
+                            y="157"
+                            fill="#fbbf24"
+                            fontSize="10"
+                            fontWeight="bold"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
                             ÉDITION {FESTIVAL_CONFIG.editionYear}
                           </text>
-                          <text x="200" y="172" fill="#ffffff" fontSize="11" fontWeight="600" letterSpacing="1" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="172"
+                            fill="#ffffff"
+                            fontSize="11"
+                            fontWeight="600"
+                            letterSpacing="1"
+                            textAnchor="middle"
+                          >
                             {FESTIVAL_CONFIG.dateTexte.toUpperCase()}
                           </text>
 
                           {/* Pass Type Badge */}
-                          <rect x="60" y="210" width="280" height="60" fill="url(#goldGradient)" rx="12" opacity="0.1" />
-                          <rect x="60" y="210" width="280" height="60" fill="none" stroke="url(#goldGradient)" strokeWidth="1.5" rx="12" />
-                          <text x="200" y="235" fill="#fbbf24" fontSize="10" fontWeight="bold" letterSpacing="3" textAnchor="middle">
+                          <rect
+                            x="60"
+                            y="210"
+                            width="280"
+                            height="60"
+                            fill="url(#goldGradient)"
+                            rx="12"
+                            opacity="0.1"
+                          />
+                          <rect
+                            x="60"
+                            y="210"
+                            width="280"
+                            height="60"
+                            fill="none"
+                            stroke="url(#goldGradient)"
+                            strokeWidth="1.5"
+                            rx="12"
+                          />
+                          <text
+                            x="200"
+                            y="235"
+                            fill="#fbbf24"
+                            fontSize="10"
+                            fontWeight="bold"
+                            letterSpacing="3"
+                            textAnchor="middle"
+                          >
                             TICKET OFFICIEL
                           </text>
-                          <text x="200" y="258" fill="#ffffff" fontSize="22" fontWeight="900" letterSpacing="2" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="258"
+                            fill="#ffffff"
+                            fontSize="22"
+                            fontWeight="900"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
                             {selectedPass.name.toUpperCase()}
                           </text>
 
                           {/* Attendee Info */}
-                          <text x="200" y="315" fill="#94a3b8" fontSize="9" fontWeight="bold" letterSpacing="2" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="315"
+                            fill="#94a3b8"
+                            fontSize="9"
+                            fontWeight="bold"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
                             TITULAIRE DU BILLET
                           </text>
-                          <text x="200" y="340" fill="#ffffff" fontSize="20" fontWeight="700" letterSpacing="1" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="340"
+                            fill="#ffffff"
+                            fontSize="20"
+                            fontWeight="700"
+                            letterSpacing="1"
+                            textAnchor="middle"
+                          >
                             {`${firstName} ${lastName}`.toUpperCase()}
                           </text>
 
                           {/* Perforation Line */}
-                          <path d="M 0 390 L 400 390" stroke="#ca8a04" strokeWidth="2" strokeDasharray="8 8" opacity="0.4" />
+                          <path
+                            d="M 0 390 L 400 390"
+                            stroke="#ca8a04"
+                            strokeWidth="2"
+                            strokeDasharray="8 8"
+                            opacity="0.4"
+                          />
                           <circle cx="0" cy="390" r="12" fill="#0f172a" />
                           <circle cx="400" cy="390" r="12" fill="#0f172a" />
 
@@ -890,10 +1026,26 @@ function Billetterie() {
 
                           {/* Ticket ID & Footer */}
                           <rect x="120" y="580" width="160" height="25" fill="#020617" rx="4" />
-                          <text x="200" y="597" fill="#94a3b8" fontSize="12" fontWeight="bold" letterSpacing="4" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="597"
+                            fill="#94a3b8"
+                            fontSize="12"
+                            fontWeight="bold"
+                            letterSpacing="4"
+                            textAnchor="middle"
+                          >
                             {generatedTicketId}
                           </text>
-                          <text x="200" y="625" fill="#d97706" fontSize="9" fontWeight="900" letterSpacing="2" textAnchor="middle">
+                          <text
+                            x="200"
+                            y="625"
+                            fill="#d97706"
+                            fontSize="9"
+                            fontWeight="900"
+                            letterSpacing="2"
+                            textAnchor="middle"
+                          >
                             ENTRÉE VALABLE UNIQUE
                           </text>
                         </svg>

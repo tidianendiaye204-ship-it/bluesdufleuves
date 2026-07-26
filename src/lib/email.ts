@@ -14,9 +14,6 @@ export function getResendClient(): Resend | null {
 // Admin email to receive notifications
 const ADMIN_EMAIL = "contact@levillagepodor.com";
 
-// If domain is not verified, Resend requires using this default address for testing:
-const FALLBACK_SENDER = "onboarding@resend.dev";
-
 function getSender(): string {
   return `Les Blues du Fleuve <contact@levillagepodor.com>`;
 }

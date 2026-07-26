@@ -16,13 +16,10 @@ import {
   ChevronUp,
   ChevronRight,
   Play,
-  Clock,
   Star,
   ArrowRight,
   Zap,
-  Waves,
   Shield,
-  Trophy,
   Crown,
   Diamond,
   X,
@@ -675,7 +672,7 @@ function BluesDuFleuve() {
           </motion.div>
 
           <div className="flex flex-col items-center justify-center p-12 md:p-20 rounded-3xl border border-border bg-card/50 backdrop-blur-sm text-center shadow-xl">
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -687,7 +684,9 @@ function BluesDuFleuve() {
               Programme <span className="text-primary">à venir</span>
             </h3>
             <p className="text-muted-foreground font-serif text-lg md:text-xl max-w-2xl leading-relaxed">
-              Les détails de la programmation de la 19ème édition seront dévoilés très prochainement. Restez connectés pour découvrir les artistes et les activités exceptionnelles de cette année !
+              Les détails de la programmation de la 19ème édition seront dévoilés très
+              prochainement. Restez connectés pour découvrir les artistes et les activités
+              exceptionnelles de cette année !
             </p>
           </div>
 
