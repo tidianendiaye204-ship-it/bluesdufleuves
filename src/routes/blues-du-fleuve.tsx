@@ -674,106 +674,21 @@ function BluesDuFleuve() {
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                day: t("festival.day1"),
-                title: t("festival.day1Title"),
-                date: "5 Décembre 2026",
-                location: t("festival.culturalCenter"),
-                events: [
-                  { time: "10:00", event: t("festival.day1Event1") },
-                  { time: "15:00", event: t("festival.day1Event2") },
-                  { time: "21:00", event: t("festival.day1Event3") },
-                ],
-                gradient: "from-emerald-500/20 to-emerald-500/5",
-                border: "border-emerald-500/30",
-                icon: Sparkles,
-              },
-              {
-                day: t("festival.day2"),
-                title: t("festival.day2Title"),
-                date: "6 Décembre 2026",
-                location: t("festival.mainStage"),
-                events: [
-                  { time: "10:00", event: t("festival.day2Event1") },
-                  { time: "16:00", event: t("festival.day2Event2") },
-                  { time: "22:00", event: t("festival.day2Event3") },
-                ],
-                gradient: "from-sky-500/20 to-sky-500/5",
-                border: "border-sky-500/30",
-                icon: Waves,
-              },
-              {
-                day: t("festival.day3"),
-                title: t("festival.day3Title"),
-                date: "7 Décembre 2026",
-                location: t("festival.mainStage"),
-                events: [
-                  { time: "09:00", event: t("festival.day3Event1") },
-                  { time: "15:00", event: t("festival.day3Event2") },
-                  { time: "22:00", event: t("festival.day3Event3") },
-                ],
-                gradient: "from-amber-500/20 to-amber-500/5",
-                border: "border-amber-500/30",
-                icon: Trophy,
-              },
-            ].map((day, idx) => (
-              <motion.div
-                key={day.day}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="group relative rounded-3xl border border-border bg-card/50 backdrop-blur-sm overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-              >
-                {/* Gradient overlay */}
-                <div
-                  className={`absolute inset-0 bg-linear-to-br ${day.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-
-                <div className="relative z-10 p-8">
-                  {/* Day badge */}
-                  <div
-                    className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${day.border} border bg-white/5 mb-4`}
-                  >
-                    <day.icon size={14} className="text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
-                      {day.day}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {day.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">{day.date}</p>
-                  <p className="text-xs text-muted-foreground/70 mb-6 flex items-center gap-2">
-                    <MapPin size={12} />
-                    {day.location}
-                  </p>
-
-                  <div className="space-y-3">
-                    {day.events.map((evt, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50 group-hover:border-primary/30 transition-colors"
-                      >
-                        <Clock size={14} className="text-primary mt-0.5 shrink-0" />
-                        <div>
-                          <span className="text-xs font-bold text-primary">{evt.time}</span>
-                          <p className="text-sm text-foreground mt-0.5">{evt.event}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Decorative corner */}
-                <div
-                  className={`absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-primary/10 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-              </motion.div>
-            ))}
+          <div className="flex flex-col items-center justify-center p-12 md:p-20 rounded-3xl border border-border bg-card/50 backdrop-blur-sm text-center shadow-xl">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="w-24 h-24 rounded-full bg-linear-to-br from-primary/20 to-amber-500/5 flex items-center justify-center mb-8 border border-primary/20"
+            >
+              <Calendar className="w-10 h-10 text-primary" />
+            </motion.div>
+            <h3 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-foreground mb-6">
+              Programme <span className="text-primary">à venir</span>
+            </h3>
+            <p className="text-muted-foreground font-serif text-lg md:text-xl max-w-2xl leading-relaxed">
+              Les détails de la programmation de la 19ème édition seront dévoilés très prochainement. Restez connectés pour découvrir les artistes et les activités exceptionnelles de cette année !
+            </p>
           </div>
 
           <motion.div

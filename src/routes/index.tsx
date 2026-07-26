@@ -193,9 +193,6 @@ function Home() {
               text={t("home.presentation")}
               className="luxury-text text-5xl md:text-7xl uppercase tracking-tighter mb-4"
             />
-            <p className="text-xl md:text-2xl font-serif text-muted-foreground tracking-widest italic">
-              {t("home.wuroPodor")}
-            </p>
           </div>
 
           <motion.div
@@ -213,9 +210,6 @@ function Home() {
             </p>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
               {t("home.introText3")}
-            </p>
-            <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-              {t("home.introText4")}
             </p>
           </motion.div>
 

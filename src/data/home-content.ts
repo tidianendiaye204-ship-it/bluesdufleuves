@@ -38,7 +38,7 @@ export const instruments = [
     desc: "Tambour wolof joué à la main et à la baguette, central dans les cérémonies. Son langage rythmique servait jadis à transmettre des messages à travers les villages.",
   },
   {
-    nom: "La Tama",
+    nom: "Le Tama",
     desc: "Petit tambour d'aisselle à tension variable, surnommé « tambour parlant ». Le musicien module sa voix en pressant les cordes contre son corps.",
   },
 ];
