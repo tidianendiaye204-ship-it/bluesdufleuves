@@ -32,7 +32,6 @@ import { useTranslation } from "react-i18next";
 import { createSeoMeta, createStructuredData } from "@/lib/seo";
 import { PageSkeleton } from "@/components/PageSkeleton";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { ParallaxImage } from "@/components/ParallaxImage";
 import { Lightbox } from "@/components/Lightbox";
 import { AnimatedText } from "@/components/AnimatedText";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";

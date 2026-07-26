@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Ticket, X, Calendar, Bell } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 export function FloatingTicketButton() {
-  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -39,7 +37,7 @@ export function FloatingTicketButton() {
               onClick={() => setShowModal(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
-            
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -47,9 +45,10 @@ export function FloatingTicketButton() {
               className="relative w-full max-w-md bg-card border border-primary/20 rounded-3xl p-8 shadow-2xl overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-amber-400 via-primary to-amber-600"></div>
-              
-              <button 
+
+              <button
                 onClick={() => setShowModal(false)}
+                aria-label="Fermer la modale"
                 className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted"
               >
                 <X size={20} />
@@ -61,7 +60,8 @@ export function FloatingTicketButton() {
 
               <h2 className="text-3xl font-display font-bold text-foreground mb-2">Billetterie</h2>
               <p className="text-muted-foreground mb-8">
-                L'ouverture officielle de la billetterie pour l'édition 2026 n'a pas encore commencé. Préparez-vous pour un événement historique.
+                L'ouverture officielle de la billetterie pour l'édition 2026 n'a pas encore
+                commencé. Préparez-vous pour un événement historique.
               </p>
 
               <div className="space-y-4">
@@ -73,7 +73,7 @@ export function FloatingTicketButton() {
                   </div>
                 </div>
 
-                <a 
+                <a
                   href="#newsletter"
                   onClick={() => setShowModal(false)}
                   className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-xl font-bold hover:bg-primary transition-colors"

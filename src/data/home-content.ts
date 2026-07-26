@@ -1,4 +1,3 @@
-
 export const galleryImages = [
   { src: "/gal1.webp", alt: "Concert", objectPosition: "top" },
   { src: "/gal2.webp", alt: "Exposition", objectPosition: "top" },

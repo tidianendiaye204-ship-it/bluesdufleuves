@@ -26,7 +26,7 @@ export function ImmersiveAudio() {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(e => console.error("Audio play failed", e));
+      audioRef.current.play().catch((e) => console.error("Audio play failed", e));
     }
     setIsPlaying(!isPlaying);
   };
@@ -47,9 +47,10 @@ export function ImmersiveAudio() {
 
         <button
           onClick={togglePlay}
+          aria-label={isPlaying ? "Mettre en pause" : "Jouer la musique d'ambiance"}
           className={`relative w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 overflow-hidden ${
-            isPlaying 
-              ? "bg-primary shadow-[0_0_20px_rgba(245,158,11,0.5)] border-transparent" 
+            isPlaying
+              ? "bg-primary shadow-[0_0_20px_rgba(245,158,11,0.5)] border-transparent"
               : "bg-card/80 backdrop-blur-md border border-primary/30 hover:border-primary/60"
           }`}
         >
