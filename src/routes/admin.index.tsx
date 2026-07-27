@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
 import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
-import { desc } from "drizzle-orm";
-import { FileText, Download, Users, Mail, GraduationCap, BarChart2 } from "lucide-react";
+import { desc, eq } from "drizzle-orm";
+import { FileText, Download, Users, Mail, GraduationCap, BarChart2, Trash2, Reply } from "lucide-react";
 import { requireAuth } from "@/lib/session-middleware";
 import {
   BarChart,
@@ -51,14 +51,47 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
   return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts };
 });
 
+const deleteContactFn = createServerFn({ method: "POST" })
+  .validator((d: { id: number }) => d)
+  .handler(async ({ data }) => {
+    await requireAuth();
+    const db = getDb();
+    await db.delete(contacts).where(eq(contacts.id, data.id));
+    return { success: true };
+  });
+
+const deleteInscriptionFn = createServerFn({ method: "POST" })
+  .validator((d: { id: number }) => d)
+  .handler(async ({ data }) => {
+    await requireAuth();
+    const db = getDb();
+    await db.delete(inscriptions).where(eq(inscriptions.id, data.id));
+    return { success: true };
+  });
+
 export const Route = createFileRoute("/admin/")({
   loader: async () => await getAdminData(),
   component: AdminDashboard,
 });
 
 function AdminDashboard() {
+  const router = useRouter();
   const { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts } =
     Route.useLoaderData();
+
+  const handleDeleteContact = async (id: number) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
+      await deleteContactFn({ data: { id } });
+      router.invalidate();
+    }
+  };
+
+  const handleDeleteInscription = async (id: number) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cette inscription ?")) {
+      await deleteInscriptionFn({ data: { id } });
+      router.invalidate();
+    }
+  };
 
   // ──────────────── DATA AGGREGATION FOR CHARTS ────────────────
 
@@ -192,14 +225,14 @@ function AdminDashboard() {
         <div className="flex flex-wrap gap-3">
           <button
             onClick={exportInscriptionsCSV}
-            className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl font-bold hover:bg-muted transition text-xs uppercase tracking-wider cursor-pointer"
+            className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl font-bold hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 shadow-sm hover:shadow text-xs uppercase tracking-wider cursor-pointer"
           >
             <Download size={14} />
             Export Inscriptions
           </button>
           <button
             onClick={exportContactsCSV}
-            className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl font-bold hover:bg-muted transition text-xs uppercase tracking-wider cursor-pointer"
+            className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl font-bold hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 shadow-sm hover:shadow text-xs uppercase tracking-wider cursor-pointer"
           >
             <Download size={14} />
             Export Contacts
@@ -216,7 +249,8 @@ function AdminDashboard() {
 
       {/* Highlights Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-xs flex items-center gap-5">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="p-4 bg-primary/10 text-primary rounded-xl">
             <GraduationCap size={24} />
           </div>
@@ -228,7 +262,8 @@ function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-xs flex items-center gap-5">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-linear-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="p-4 bg-emerald-500/10 text-emerald-600 rounded-xl">
             <Mail size={24} />
           </div>
@@ -240,7 +275,8 @@ function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-xs flex items-center gap-5">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="p-4 bg-amber-500/10 text-amber-600 rounded-xl">
             <Users size={24} />
           </div>
@@ -256,7 +292,7 @@ function AdminDashboard() {
       {/* ──────────────── CHARTS SECTION ──────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Chart 1: Inscriptions by formation */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
           <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
             <BarChart2 className="w-5 h-5 text-primary" />
             <span>Répartition des Inscriptions par Formation</span>
@@ -288,7 +324,7 @@ function AdminDashboard() {
         </div>
 
         {/* Chart 2: Timeline activity */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
           <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
             <BarChart2 className="w-5 h-5 text-primary" />
             <span>Activité des Inscriptions & Messages Récentes</span>
@@ -337,7 +373,7 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentArticles.map((a: any) => (
-                <div key={a.id} className="p-4 bg-muted/50 rounded-lg">
+                <div key={a.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold line-clamp-1">{a.title}</span>
                     <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full">
@@ -360,7 +396,7 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentContacts.map((c: any) => (
-                <div key={c.id} className="p-4 bg-muted/50 rounded-lg">
+                <div key={c.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">{c.nom}</span>
                     <span className="text-xs text-muted-foreground">
@@ -369,10 +405,21 @@ function AdminDashboard() {
                   </div>
                   <p className="text-sm font-medium mb-1">{c.sujet}</p>
                   <p className="text-sm text-muted-foreground line-clamp-2">{c.message}</p>
-                  <div className="mt-2 text-xs">
-                    <a href={`mailto:${c.email}`} className="text-primary hover:underline">
-                      {c.email}
+                  <div className="mt-4 flex items-center gap-2">
+                    <a
+                      href={`mailto:${c.email}?subject=RE: ${c.sujet}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-md transition-colors"
+                    >
+                      <Reply size={14} />
+                      Répondre
                     </a>
+                    <button
+                      onClick={() => handleDeleteContact(c.id)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-red-500/10 text-red-600 hover:bg-red-500 hover:text-white rounded-md transition-colors cursor-pointer"
+                    >
+                      <Trash2 size={14} />
+                      Supprimer
+                    </button>
                   </div>
                 </div>
               ))}
@@ -389,7 +436,7 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentInscriptions.map((i: any) => (
-                <div key={i.id} className="p-4 bg-muted/50 rounded-lg">
+                <div key={i.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm group">
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">
                       {i.prenom} {i.nom}
@@ -400,11 +447,22 @@ function AdminDashboard() {
                   </div>
                   <p className="text-sm font-medium text-primary mb-1">{i.formation}</p>
                   <p className="text-sm text-muted-foreground line-clamp-2">{i.motivation}</p>
-                  <div className="mt-2 text-xs flex gap-4">
-                    <a href={`mailto:${i.email}`} className="text-primary hover:underline">
-                      {i.email}
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <a
+                      href={`mailto:${i.email}?subject=Concernant votre inscription à ${i.formation}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-md transition-colors"
+                    >
+                      <Reply size={14} />
+                      Répondre
                     </a>
-                    <span>{i.tel}</span>
+                    <button
+                      onClick={() => handleDeleteInscription(i.id)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-red-500/10 text-red-600 hover:bg-red-500 hover:text-white rounded-md transition-colors cursor-pointer"
+                    >
+                      <Trash2 size={14} />
+                      Supprimer
+                    </button>
+                    <span className="ml-auto text-xs text-muted-foreground">{i.tel}</span>
                   </div>
                 </div>
               ))}
