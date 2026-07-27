@@ -106,8 +106,7 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminDashboard() {
   const router = useRouter();
-  const { recentArticles, allInscriptions, allContacts } =
-    Route.useLoaderData();
+  const { recentArticles, allInscriptions, allContacts } = Route.useLoaderData();
 
   const [contactSearch, setContactSearch] = useState("");
   const [inscriptionSearch, setInscriptionSearch] = useState("");
@@ -163,29 +162,27 @@ function AdminDashboard() {
     }
   };
 
-  const allFilteredContacts = allContacts
-    .filter((c: any) => {
-      if (!contactSearch) return true;
-      const term = contactSearch.toLowerCase();
-      return (
-        c.nom.toLowerCase().includes(term) ||
-        c.email.toLowerCase().includes(term) ||
-        c.sujet.toLowerCase().includes(term)
-      );
-    });
+  const allFilteredContacts = allContacts.filter((c: any) => {
+    if (!contactSearch) return true;
+    const term = contactSearch.toLowerCase();
+    return (
+      c.nom.toLowerCase().includes(term) ||
+      c.email.toLowerCase().includes(term) ||
+      c.sujet.toLowerCase().includes(term)
+    );
+  });
   const filteredContacts = allFilteredContacts.slice(0, visibleContactsCount);
 
-  const allFilteredInscriptions = allInscriptions
-    .filter((i: any) => {
-      if (!inscriptionSearch) return true;
-      const term = inscriptionSearch.toLowerCase();
-      return (
-        i.prenom.toLowerCase().includes(term) ||
-        i.nom.toLowerCase().includes(term) ||
-        i.email.toLowerCase().includes(term) ||
-        i.formation.toLowerCase().includes(term)
-      );
-    });
+  const allFilteredInscriptions = allInscriptions.filter((i: any) => {
+    if (!inscriptionSearch) return true;
+    const term = inscriptionSearch.toLowerCase();
+    return (
+      i.prenom.toLowerCase().includes(term) ||
+      i.nom.toLowerCase().includes(term) ||
+      i.email.toLowerCase().includes(term) ||
+      i.formation.toLowerCase().includes(term)
+    );
+  });
   const filteredInscriptions = allFilteredInscriptions.slice(0, visibleInscriptionsCount);
 
   // ──────────────── DATA AGGREGATION FOR CHARTS ────────────────
