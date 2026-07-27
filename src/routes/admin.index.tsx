@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useState } from "react";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
 import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
@@ -13,6 +14,8 @@ import {
   BarChart2,
   Trash2,
   Reply,
+  Search,
+  ChevronDown,
 } from "lucide-react";
 import { requireAuth } from "@/lib/session-middleware";
 import {
@@ -60,6 +63,24 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
   return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts };
 });
 
+const updateContactStatusFn = createServerFn({ method: "POST" })
+  .validator((d: { id: number; status: "non_lu" | "lu" | "traite" }) => d)
+  .handler(async ({ data }) => {
+    await requireAuth();
+    const db = getDb();
+    await db.update(contacts).set({ statut: data.status }).where(eq(contacts.id, data.id));
+    return { success: true };
+  });
+
+const updateInscriptionStatusFn = createServerFn({ method: "POST" })
+  .validator((d: { id: number; status: "en_attente" | "accepte" | "refuse" }) => d)
+  .handler(async ({ data }) => {
+    await requireAuth();
+    const db = getDb();
+    await db.update(inscriptions).set({ statut: data.status }).where(eq(inscriptions.id, data.id));
+    return { success: true };
+  });
+
 const deleteContactFn = createServerFn({ method: "POST" })
   .validator((d: { id: number }) => d)
   .handler(async ({ data }) => {
@@ -85,8 +106,48 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminDashboard() {
   const router = useRouter();
-  const { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts } =
+  const { recentArticles, allInscriptions, allContacts } =
     Route.useLoaderData();
+
+  const [contactSearch, setContactSearch] = useState("");
+  const [inscriptionSearch, setInscriptionSearch] = useState("");
+  const [visibleContactsCount, setVisibleContactsCount] = useState(10);
+  const [visibleInscriptionsCount, setVisibleInscriptionsCount] = useState(10);
+
+  const handleUpdateContactStatus = async (id: number, status: "non_lu" | "lu" | "traite") => {
+    await updateContactStatusFn({ data: { id, status } });
+    router.invalidate();
+  };
+
+  const handleUpdateInscriptionStatus = async (
+    id: number,
+    status: "en_attente" | "accepte" | "refuse",
+  ) => {
+    await updateInscriptionStatusFn({ data: { id, status } });
+    router.invalidate();
+  };
+
+  const getInscriptionStatusColor = (status: string) => {
+    switch (status) {
+      case "accepte":
+        return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800";
+      case "refuse":
+        return "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800";
+      default:
+        return "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800";
+    }
+  };
+
+  const getContactStatusColor = (status: string) => {
+    switch (status) {
+      case "lu":
+        return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700";
+      case "traite":
+        return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800";
+      default:
+        return "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800";
+    }
+  };
 
   const handleDeleteContact = async (id: number) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
@@ -101,6 +162,31 @@ function AdminDashboard() {
       router.invalidate();
     }
   };
+
+  const allFilteredContacts = allContacts
+    .filter((c: any) => {
+      if (!contactSearch) return true;
+      const term = contactSearch.toLowerCase();
+      return (
+        c.nom.toLowerCase().includes(term) ||
+        c.email.toLowerCase().includes(term) ||
+        c.sujet.toLowerCase().includes(term)
+      );
+    });
+  const filteredContacts = allFilteredContacts.slice(0, visibleContactsCount);
+
+  const allFilteredInscriptions = allInscriptions
+    .filter((i: any) => {
+      if (!inscriptionSearch) return true;
+      const term = inscriptionSearch.toLowerCase();
+      return (
+        i.prenom.toLowerCase().includes(term) ||
+        i.nom.toLowerCase().includes(term) ||
+        i.email.toLowerCase().includes(term) ||
+        i.formation.toLowerCase().includes(term)
+      );
+    });
+  const filteredInscriptions = allFilteredInscriptions.slice(0, visibleInscriptionsCount);
 
   // ──────────────── DATA AGGREGATION FOR CHARTS ────────────────
 
@@ -400,23 +486,51 @@ function AdminDashboard() {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
-          <h3 className="font-bold text-xl mb-4 border-b border-border pb-2">
-            Derniers Messages (Contact)
-          </h3>
-          {recentContacts.length === 0 ? (
-            <p className="text-muted-foreground text-sm">Aucun message pour le moment.</p>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4 border-b border-border pb-4">
+            <h3 className="font-bold text-xl">Derniers Messages (Contact)</h3>
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Rechercher (nom, email...)"
+                value={contactSearch}
+                onChange={(e) => setContactSearch(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
+          </div>
+          {filteredContacts.length === 0 ? (
+            <p className="text-muted-foreground text-sm">
+              Aucun message ne correspond à votre recherche.
+            </p>
           ) : (
             <div className="space-y-4">
-              {recentContacts.map((c: any) => (
+              {filteredContacts.map((c: any) => (
                 <div
                   key={c.id}
                   className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">{c.nom}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(c.dateEnvoi).toLocaleDateString("fr-FR")}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <select
+                        value={c.statut}
+                        onChange={(e) =>
+                          handleUpdateContactStatus(
+                            c.id,
+                            e.target.value as "non_lu" | "lu" | "traite",
+                          )
+                        }
+                        className={`text-xs font-semibold px-2.5 py-1 rounded-full border cursor-pointer appearance-none transition-colors ${getContactStatusColor(c.statut)} outline-none focus:ring-2 focus:ring-primary/20`}
+                      >
+                        <option value="non_lu">Non Lu</option>
+                        <option value="lu">Lu</option>
+                        <option value="traite">Traité</option>
+                      </select>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(c.dateEnvoi).toLocaleDateString("fr-FR")}
+                      </span>
+                    </div>
                   </div>
                   <p className="text-sm font-medium mb-1">{c.sujet}</p>
                   <p className="text-sm text-muted-foreground line-clamp-2">{c.message}</p>
@@ -438,19 +552,39 @@ function AdminDashboard() {
                   </div>
                 </div>
               ))}
+              {allFilteredContacts.length > visibleContactsCount && (
+                <button
+                  onClick={() => setVisibleContactsCount((prev) => prev + 10)}
+                  className="w-full mt-4 py-2 border border-border rounded-lg text-sm font-semibold hover:bg-muted transition-colors flex justify-center items-center gap-2 cursor-pointer"
+                >
+                  Voir plus <ChevronDown size={16} />
+                </button>
+              )}
             </div>
           )}
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm lg:col-span-2">
-          <h3 className="font-bold text-xl mb-4 border-b border-border pb-2">
-            Inscriptions aux Formations
-          </h3>
-          {recentInscriptions.length === 0 ? (
-            <p className="text-muted-foreground text-sm">Aucune inscription pour le moment.</p>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4 border-b border-border pb-4">
+            <h3 className="font-bold text-xl">Inscriptions aux Formations</h3>
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Rechercher (nom, formation...)"
+                value={inscriptionSearch}
+                onChange={(e) => setInscriptionSearch(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
+          </div>
+          {filteredInscriptions.length === 0 ? (
+            <p className="text-muted-foreground text-sm">
+              Aucune inscription ne correspond à votre recherche.
+            </p>
           ) : (
             <div className="space-y-4">
-              {recentInscriptions.map((i: any) => (
+              {filteredInscriptions.map((i: any) => (
                 <div
                   key={i.id}
                   className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm group"
@@ -459,9 +593,25 @@ function AdminDashboard() {
                     <span className="font-semibold">
                       {i.prenom} {i.nom}
                     </span>
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(i.dateInscription).toLocaleDateString("fr-FR")}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <select
+                        value={i.statut}
+                        onChange={(e) =>
+                          handleUpdateInscriptionStatus(
+                            i.id,
+                            e.target.value as "en_attente" | "accepte" | "refuse",
+                          )
+                        }
+                        className={`text-xs font-semibold px-2.5 py-1 rounded-full border cursor-pointer appearance-none transition-colors ${getInscriptionStatusColor(i.statut)} outline-none focus:ring-2 focus:ring-primary/20`}
+                      >
+                        <option value="en_attente">En attente</option>
+                        <option value="accepte">Accepté</option>
+                        <option value="refuse">Refusé</option>
+                      </select>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(i.dateInscription).toLocaleDateString("fr-FR")}
+                      </span>
+                    </div>
                   </div>
                   <p className="text-sm font-medium text-primary mb-1">{i.formation}</p>
                   <p className="text-sm text-muted-foreground line-clamp-2">{i.motivation}</p>
@@ -484,6 +634,14 @@ function AdminDashboard() {
                   </div>
                 </div>
               ))}
+              {allFilteredInscriptions.length > visibleInscriptionsCount && (
+                <button
+                  onClick={() => setVisibleInscriptionsCount((prev) => prev + 10)}
+                  className="w-full mt-4 py-2 border border-border rounded-lg text-sm font-semibold hover:bg-muted transition-colors flex justify-center items-center gap-2 cursor-pointer"
+                >
+                  Voir plus <ChevronDown size={16} />
+                </button>
+              )}
             </div>
           )}
         </div>
