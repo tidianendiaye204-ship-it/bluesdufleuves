@@ -4,7 +4,16 @@ import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
 import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
-import { FileText, Download, Users, Mail, GraduationCap, BarChart2, Trash2, Reply } from "lucide-react";
+import {
+  FileText,
+  Download,
+  Users,
+  Mail,
+  GraduationCap,
+  BarChart2,
+  Trash2,
+  Reply,
+} from "lucide-react";
 import { requireAuth } from "@/lib/session-middleware";
 import {
   BarChart,
@@ -373,7 +382,10 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentArticles.map((a: any) => (
-                <div key={a.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm">
+                <div
+                  key={a.id}
+                  className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm"
+                >
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold line-clamp-1">{a.title}</span>
                     <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full">
@@ -396,7 +408,10 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentContacts.map((c: any) => (
-                <div key={c.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm">
+                <div
+                  key={c.id}
+                  className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm"
+                >
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">{c.nom}</span>
                     <span className="text-xs text-muted-foreground">
@@ -436,7 +451,10 @@ function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {recentInscriptions.map((i: any) => (
-                <div key={i.id} className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm group">
+                <div
+                  key={i.id}
+                  className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm group"
+                >
                   <div className="flex justify-between items-start mb-2">
                     <span className="font-semibold">
                       {i.prenom} {i.nom}

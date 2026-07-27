@@ -203,6 +203,7 @@ function RootComponent() {
   const [isHydrated, setIsHydrated] = useState(false);
   const { t } = useTranslation();
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
 
   useEffect(() => {
     setIsHydrated(true);
@@ -238,7 +239,7 @@ function RootComponent() {
         >
           {t("root.skipToContent")}
         </a>
-        <Navbar />
+        {!isAdminRoute && <Navbar />}
         <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -253,10 +254,14 @@ function RootComponent() {
             </motion.div>
           </AnimatePresence>
         </main>
-        <Footer />
-        <PWAInstallPrompt />
-        <FloatingTicketButton />
-        <ImmersiveAudio />
+        {!isAdminRoute && (
+          <>
+            <Footer />
+            <PWAInstallPrompt />
+            <FloatingTicketButton />
+            <ImmersiveAudio />
+          </>
+        )}
       </div>
     </QueryClientProvider>
   );
