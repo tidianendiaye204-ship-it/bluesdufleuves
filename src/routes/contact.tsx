@@ -24,8 +24,8 @@ import { createSeoMeta } from "@/lib/seo";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { lazy, Suspense } from "react";
 // Lazy load de la carte interactive pour les performances
-const InteractiveMap = lazy(() => 
-  import("@/components/InteractiveMap").then((mod) => ({ default: mod.InteractiveMap }))
+const InteractiveMap = lazy(() =>
+  import("@/components/InteractiveMap").then((mod) => ({ default: mod.InteractiveMap })),
 );
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

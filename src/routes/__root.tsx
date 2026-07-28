@@ -29,8 +29,8 @@ import { FloatingTicketButton } from "@/components/FloatingTicketButton";
 import { SplashScreen } from "@/components/SplashScreen";
 
 // Lazy load ImmersiveAudio pour ne pas bloquer le thread principal (amélioration du TBT)
-const ImmersiveAudio = lazy(() => 
-  import("@/components/ImmersiveAudio").then((mod) => ({ default: mod.ImmersiveAudio }))
+const ImmersiveAudio = lazy(() =>
+  import("@/components/ImmersiveAudio").then((mod) => ({ default: mod.ImmersiveAudio })),
 );
 
 const newsletterSchema = z.object({

@@ -6,10 +6,12 @@ export function SplashScreen() {
 
   useEffect(() => {
     // Vérifier si c'est un robot (Lighthouse, Googlebot, etc.) pour ne pas plomber le LCP
-    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
-    
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+      navigator.userAgent,
+    );
+
     const hasShown = sessionStorage.getItem("splash_shown");
-    
+
     if (!hasShown && !isBot) {
       setShow(true);
       const timer = setTimeout(() => {
