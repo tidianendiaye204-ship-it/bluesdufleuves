@@ -108,8 +108,8 @@ function Home() {
             loop
             muted
             playsInline
-            preload="metadata"
-            poster="/centre culturel.webp"
+            preload="auto"
+            poster="/centre%20culturel.webp"
             className="h-full w-full object-cover scale-105"
           >
             <source src="/video the village.mp4" type="video/mp4" />

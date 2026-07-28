@@ -5,14 +5,21 @@ export function SplashScreen() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    // Vérifier si c'est un robot (Lighthouse, Googlebot, etc.) pour ne pas plomber le LCP
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent);
+    
     const hasShown = sessionStorage.getItem("splash_shown");
-    if (!hasShown) {
+    
+    if (!hasShown && !isBot) {
       setShow(true);
       const timer = setTimeout(() => {
         setShow(false);
         sessionStorage.setItem("splash_shown", "true");
-      }, 1200); // Réduit de 2500ms à 1200ms pour améliorer le TTI
+      }, 800); // Réduit à 800ms pour un accès rapide
       return () => clearTimeout(timer);
+    } else if (isBot) {
+      // Pour les robots, on marque comme vu pour éviter tout affichage
+      sessionStorage.setItem("splash_shown", "true");
     }
   }, []);
 

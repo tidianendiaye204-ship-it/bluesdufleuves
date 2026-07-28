@@ -22,7 +22,11 @@ import { contacts } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { InteractiveMap } from "@/components/InteractiveMap";
+import { lazy, Suspense } from "react";
+// Lazy load de la carte interactive pour les performances
+const InteractiveMap = lazy(() => 
+  import("@/components/InteractiveMap").then((mod) => ({ default: mod.InteractiveMap }))
+);
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -414,8 +418,10 @@ function ContactPage() {
               </p>
             </div>
 
-            {/* Map embed */}
-            <InteractiveMap className="h-80 w-full" />
+            {/* Map embed avec Lazy Loading */}
+            <Suspense fallback={<div className="h-80 w-full bg-muted animate-pulse rounded-2xl" />}>
+              <InteractiveMap className="h-80 w-full" />
+            </Suspense>
 
             {/* Social links */}
             <div>

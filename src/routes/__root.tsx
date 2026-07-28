@@ -13,7 +13,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,9 +26,12 @@ import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { FloatingTicketButton } from "@/components/FloatingTicketButton";
-import { ImmersiveAudio } from "@/components/ImmersiveAudio";
 import { SplashScreen } from "@/components/SplashScreen";
-import { CustomCursor } from "@/components/CustomCursor";
+
+// Lazy load ImmersiveAudio pour ne pas bloquer le thread principal (amélioration du TBT)
+const ImmersiveAudio = lazy(() => 
+  import("@/components/ImmersiveAudio").then((mod) => ({ default: mod.ImmersiveAudio }))
+);
 
 const newsletterSchema = z.object({
   email: z.string().email(),
@@ -222,7 +225,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CustomCursor />
       {!isAdminRoute && <SplashScreen />}
       <div className="flex flex-col min-h-screen">
         {/* Skip to Content Link */}
@@ -254,7 +256,9 @@ function RootComponent() {
             <Footer />
             <PWAInstallPrompt />
             <FloatingTicketButton />
-            <ImmersiveAudio />
+            <Suspense fallback={null}>
+              <ImmersiveAudio />
+            </Suspense>
           </>
         )}
       </div>
