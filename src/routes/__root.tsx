@@ -35,7 +35,7 @@ const newsletterSchema = z.object({
 });
 
 export const subscribeNewsletterFn = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .validator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
   .handler(async ({ data }) => {
     try {
       const db = getDb();
@@ -229,6 +229,7 @@ function RootComponent() {
         <a
           href="#main-content"
           className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
+          suppressHydrationWarning
         >
           {t("root.skipToContent")}
         </a>

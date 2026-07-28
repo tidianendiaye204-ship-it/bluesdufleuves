@@ -51,7 +51,7 @@ export const inscriptionSchema = z.object({
 type InscriptionFormData = z.infer<typeof inscriptionSchema>;
 
 export const soumettreInscription = createServerFn({ method: "POST" })
-  .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
+  .validator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
     // CSRF verification would go here in a real production app with session management
 
@@ -106,8 +106,8 @@ export const soumettreInscription = createServerFn({ method: "POST" })
           }) as Promise<any>,
       );
 
-      // Envoi de l'email de confirmation en arrière-plan
-      sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
+      // Envoi de l'email de confirmation (doit être awaité en serverless)
+      await sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
         (err) => {
           console.error("Failed to send formation confirmation email", err);
         },
@@ -1025,21 +1025,24 @@ function Formations() {
                               </span>
                             )}
                           </label>
-                          <textarea
-                            id="motivation"
-                            rows={6}
-                            {...register("motivation")}
-                            className={`w-full bg-background text-foreground border ${errors.motivation ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
-                            placeholder="Partagez vos ambitions..."
-                          />
-                          <p
-                            className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
-                          >
-                            {motivationLength} / min. 10 caractères
-                          </p>
-                        </div>
+                            <textarea
+                              id="motivation"
+                              rows={6}
+                              {...register("motivation")}
+                              className={`w-full bg-background text-foreground border ${errors.motivation ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
+                              placeholder="Partagez vos ambitions..."
+                            />
+                            <p
+                              className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
+                            >
+                              {motivationLength} / min. 10 caractères
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
 
-                        {/* Captcha - Only active in production */}
+                      {/* Captcha - Toujours rendu pour assurer l'initialisation, mais caché si pas étape 3 */}
+                      <div className={step === 3 ? "block mt-6" : "hidden"}>
                         {import.meta.env.PROD ? (
                           <div className="space-y-1 flex flex-col items-center">
                             <Turnstile
@@ -1065,8 +1068,7 @@ function Formations() {
                             value="dummy-token-dev"
                           />
                         )}
-                      </motion.div>
-                    )}
+                      </div>
 
                     {/* Navigation Buttons */}
                     <div className="flex gap-4 pt-4">

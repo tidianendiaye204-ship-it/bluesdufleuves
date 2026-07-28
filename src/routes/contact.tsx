@@ -42,7 +42,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const soumettreContact = createServerFn({ method: "POST" })
-  .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
+  .validator((data: ContactFormValues) => contactSchema.parse(data))
   .handler(async ({ data }) => {
     const csrfValidation = await validateCSRFTokenServer({ data: { token: data.csrfToken } });
     if (!csrfValidation.valid) {
@@ -112,8 +112,8 @@ export const soumettreContact = createServerFn({ method: "POST" })
 
       logger.info("Contact message saved successfully", { email: data.email });
 
-      // Envoi de l'email de confirmation en arrière-plan (ne bloque pas la réponse)
-      sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
+      // Envoi de l'email de confirmation (doit être awaité en serverless)
+      await sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
         logger.error("Failed to send contact confirmation email", err);
       });
 
