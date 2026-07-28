@@ -118,7 +118,10 @@ export function Navbar() {
                 className={`hidden md:flex items-center gap-2 border-r pr-4 transition-colors ${isTransparent ? "border-white/20" : "border-border text-foreground"}`}
               >
                 <button
-                  onClick={() => i18n.changeLanguage("fr")}
+                  onClick={() => {
+                    i18n.changeLanguage("fr");
+                    localStorage.setItem("village_lang", "fr");
+                  }}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "fr"
                       ? "text-primary font-black"
@@ -135,7 +138,10 @@ export function Navbar() {
                   |
                 </span>
                 <button
-                  onClick={() => i18n.changeLanguage("en")}
+                  onClick={() => {
+                    i18n.changeLanguage("en");
+                    localStorage.setItem("village_lang", "en");
+                  }}
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "en"
                       ? "text-primary font-black"
@@ -296,6 +302,7 @@ export function Navbar() {
                     <button
                       onClick={() => {
                         i18n.changeLanguage("fr");
+                        localStorage.setItem("village_lang", "fr");
                         setOpen(false);
                       }}
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
@@ -309,6 +316,7 @@ export function Navbar() {
                     <button
                       onClick={() => {
                         i18n.changeLanguage("en");
+                        localStorage.setItem("village_lang", "en");
                         setOpen(false);
                       }}
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${

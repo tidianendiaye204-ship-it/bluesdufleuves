@@ -208,9 +208,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+
+  useEffect(() => {
+    // Restaurer la langue après l'hydratation côté client
+    // Cela évite l'erreur React #418 (Hydration mismatch) tout en gardant le choix de l'utilisateur
+    const savedLng = localStorage.getItem("village_lang");
+    if (savedLng && savedLng !== "fr") {
+      i18n.changeLanguage(savedLng);
+    } else if (!savedLng && navigator.language.startsWith("en")) {
+      i18n.changeLanguage("en");
+    }
+  }, [i18n]);
 
   useEffect(() => {
     // Enregistrer le service worker pour le PWA (différé pour ne pas bloquer le rendu)
