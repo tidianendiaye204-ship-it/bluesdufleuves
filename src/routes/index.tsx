@@ -111,8 +111,7 @@ function Home() {
             preload="metadata"
             poster="/centre culturel.webp"
             className="h-full w-full object-cover scale-105"
-            // @ts-expect-error fetchpriority est un attribut HTML5 valide
-            fetchpriority="high"
+            fetchPriority="high"
           >
             <source src="/video the village.mp4" type="video/mp4" />
           </video>

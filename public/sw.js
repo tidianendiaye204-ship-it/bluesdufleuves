@@ -1,29 +1,21 @@
 const CACHE_NAME = "village-podor-v1";
 
 // Ressources à mettre en cache lors de l'installation
-const PRECACHE_URLS = [
-  "/",
-  "/logo the village.webp",
-  "/centre culturel.webp",
-];
+const PRECACHE_URLS = ["/", "/logo the village.webp", "/centre culturel.webp"];
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-  );
+  e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)));
 });
 
 self.addEventListener("activate", (e) => {
   // Supprimer les anciens caches
   e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+      ),
   );
   self.clients.claim();
 });
@@ -56,6 +48,6 @@ self.addEventListener("fetch", (e) => {
 
       // Si on a un cache, on le retourne immédiatement + revalidation en arrière-plan
       return cached || fetchPromise;
-    })
+    }),
   );
 });

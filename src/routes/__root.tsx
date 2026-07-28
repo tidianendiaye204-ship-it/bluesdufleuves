@@ -220,11 +220,9 @@ function RootComponent() {
     // Enregistrer le service worker pour le PWA (différé pour ne pas bloquer le rendu)
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .catch((error) => {
-            console.error("Échec de l'enregistrement du Service Worker:", error);
-          });
+        navigator.serviceWorker.register("/sw.js").catch((error) => {
+          console.error("Échec de l'enregistrement du Service Worker:", error);
+        });
       });
     }
   }, []);
