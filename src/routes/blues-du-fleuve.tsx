@@ -237,7 +237,7 @@ function BluesDuFleuve() {
           </div>
           <div className="rounded-3xl overflow-hidden border border-white/20 aspect-4/5 shadow-2xl max-w-sm mx-auto lg:max-w-none w-full">
             <OptimizedImage
-              src="/festival baba maal.webp"
+              src="/festival-baba-maal.webp"
               alt="Baaba Maal"
               className="h-full w-full transition-transform duration-700 hover:scale-105"
               objectPosition="center 10%"

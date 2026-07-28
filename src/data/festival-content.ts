@@ -7,7 +7,7 @@ export const artistes = [
     role: "Fondateur · Légende",
     origine: "Podor, Sénégal",
     desc: "Baaba Maal est né 1953 à Podor dans la province du Fouta au Sénégal. Il fait partie du peuple Toucouleur ou Haalpulaar (ceux qui parlent le pulaar), des Peuls du nord du pays.",
-    img: "/festival baba maal.webp",
+    img: "/festival-baba-maal.webp",
     objectPosition: "top",
   },
   {
@@ -85,7 +85,7 @@ export const galleryImages = [
   },
   {
     id: 2,
-    src: "/festival baba maal.webp",
+    src: "/festival-baba-maal.webp",
     alt: "Baaba Maal",
     span: "md:col-span-1 md:row-span-1",
     objectPosition: "top",

@@ -8,13 +8,13 @@
   "theme_color": "#ffc107",
   "icons": [
     {
-      "src": "/logo the village.webp",
+      "src": "/logo-the-village.webp",
       "sizes": "192x192",
       "type": "image/webp",
       "purpose": "any maskable"
     },
     {
-      "src": "/logo the village.webp",
+      "src": "/logo-the-village.webp",
       "sizes": "512x512",
       "type": "image/webp",
       "purpose": "any maskable"

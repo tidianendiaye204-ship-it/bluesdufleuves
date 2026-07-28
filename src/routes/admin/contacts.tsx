@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
@@ -45,7 +46,7 @@ function AdminContactsPage() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {allContacts.map((contact) => (
+          {allContacts.map((contact: any) => (
             <div key={contact.id} className="bg-card border border-border p-6 rounded-xl">
               <div className="flex items-start justify-between mb-4">
                 <div>

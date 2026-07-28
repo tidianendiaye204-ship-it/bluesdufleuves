@@ -159,11 +159,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "icon",
         type: "image/webp",
-        href: "/logo the village.webp",
+        href: "/logo-the-village.webp",
       },
       {
         rel: "apple-touch-icon",
-        href: "/logo the village.webp",
+        href: "/logo-the-village.webp",
       },
       {
         rel: "manifest",

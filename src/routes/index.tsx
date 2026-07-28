@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
         lang === "fr"
           ? "Visitez The Village, l'épicentre culturel de Podor. Festival Blues du Fleuve, musée, formations musicales et artisanales, dans un village authentique au bord du fleuve Sénégal."
           : "Visit The Village, the cultural epicenter of Podor. Blues du Fleuve festival, museum, musical and craft training, in an authentic village on the banks of the Senegal River.",
-      ogImage: "/logo the village.webp",
+      ogImage: "/logo-the-village.webp",
       keywords:
         lang === "fr"
           ? "The Village, The Village Podor, village Podor, village culturel, centre culturel Podor, Baaba Maal, Blues du Fleuve, festival Sénégal, Fouta Toro, Halpulaar, NANN-k, patrimoine sénégalais"
@@ -98,10 +98,10 @@ function Home() {
             loop
             muted
             playsInline
-            poster="/centre culturel.webp"
+            poster="/centre-culturel.webp"
             className="h-full w-full object-cover scale-105"
           >
-            <source src="/video the village.mp4" type="video/mp4" />
+            <source src="/video-the-village.mp4" type="video/mp4" />
           </video>
           <motion.div
             className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
@@ -341,7 +341,7 @@ function Home() {
             {/* Photo principale — portrait Baaba Maal */}
             <div className="relative rounded-2xl overflow-hidden shadow-elegant bg-black/20">
               <OptimizedImage
-                src="/photo baba maal.webp"
+                src="/photo-baba-maal.webp"
                 alt="Portrait Baaba Maal"
                 className="w-full h-auto transition-transform duration-700 hover:scale-105"
                 objectFit="contain"

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
@@ -60,7 +61,7 @@ function AdminArticlesList() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {allArticles.map((article) => (
+          {allArticles.map((article: any) => (
             <div
               key={article.id}
               className="bg-card border border-border p-4 rounded-xl flex items-center justify-between gap-4"

@@ -14,7 +14,7 @@ export const articles = [
     excerpt:
       "Une édition historique qui réunira les cultures des quatre pays du fleuve pour célébrer l'unité et la fraternité.",
     date: "Aujourd'hui",
-    img: "/festival baba maal.jpg",
+    img: "/festival-baba-maal.jpg",
     featured: true,
   },
   {
@@ -24,7 +24,7 @@ export const articles = [
     excerpt:
       "L'artisanat local mis à l'honneur dans une rétrospective exceptionnelle au cœur de la ville, attirant de nombreux visiteurs.",
     date: "Hier",
-    img: "/centre culturel.webp",
+    img: "/centre-culturel.webp",
   },
 ];
 

@@ -18,9 +18,9 @@ import {
   Check,
   AlertCircle,
 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // Centre culturel image from public folder
-const centreCulturelImg = "/centre culturel.webp";
+const centreCulturelImg = "/centre-culturel.webp";
 import instrumentsImg from "@/assets/instruments.webp";
 const baabaVideo =
   "https://raw.githubusercontent.com/tidianendiaye204-ship-it/bluesdufleuves/main/src/assets/baaba-maal-helping-francais-compressed.mp4";
@@ -306,6 +306,11 @@ function Formations() {
   });
 
   const [sent, setSent] = useState(false);
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const [sentFormation, setSentFormation] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -594,7 +599,7 @@ function Formations() {
           </blockquote>
           <div className="flex items-center justify-center gap-4">
             <img
-              src="/festival baba maal.webp"
+              src="/festival-baba-maal.webp"
               alt="Baaba Maal"
               className="w-14 h-14 rounded-full object-cover border-2 border-amber-400/50"
               style={{ objectPosition: "center 10%" }}
@@ -1040,7 +1045,7 @@ function Formations() {
                         </div>
 
                         {/* Captcha - Only active in production */}
-                        {import.meta.env.PROD ? (
+                        {import.meta.env.PROD && isMounted ? (
                           <div className="space-y-1 flex flex-col items-center">
                             <Turnstile
                               siteKey={

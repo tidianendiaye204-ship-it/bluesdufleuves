@@ -219,6 +219,11 @@ function ContactPage() {
     },
   });
 
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const selectedSujet = watch("sujet");
 
   useEffect(() => {
@@ -703,29 +708,31 @@ function ContactPage() {
                     </div>
 
                     {/* Captcha - Only active in production */}
-                    {import.meta.env.PROD ? (
-                      <div className="space-y-1">
-                        <Turnstile
-                          siteKey={
-                            import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
-                          }
-                          onSuccess={(token) => {
-                            setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                          }}
+                    <div className="mt-4">
+                      {import.meta.env.PROD && isMounted ? (
+                        <div className="space-y-1">
+                          <Turnstile
+                            siteKey={
+                              import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
+                            }
+                            onSuccess={(token) => {
+                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                            }}
+                          />
+                          {errors.cfTurnstileResponse && (
+                            <p className="text-red-500 text-xs mt-2 font-medium">
+                              {errors.cfTurnstileResponse.message}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <input
+                          type="hidden"
+                          {...register("cfTurnstileResponse")}
+                          value="dummy-token-dev"
                         />
-                        {errors.cfTurnstileResponse && (
-                          <p className="text-red-500 text-xs mt-2 font-medium">
-                            {errors.cfTurnstileResponse.message}
-                          </p>
-                        )}
-                      </div>
-                    ) : (
-                      <input
-                        type="hidden"
-                        {...register("cfTurnstileResponse")}
-                        value="dummy-token-dev"
-                      />
-                    )}
+                      )}
+                    </div>
 
                     <input type="hidden" {...register("csrfToken")} value={csrfToken} />
 
