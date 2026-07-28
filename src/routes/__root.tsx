@@ -154,19 +154,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      // Préchargement du poster de la vidéo hero (LCP)
-      {
-        rel: "preload",
-        as: "image",
-        href: "/centre%20culturel.webp",
-        fetchpriority: "high",
-      },
-      // Fonts en chargement non-bloquant (media trick)
+      // Fonts avec display=swap — non-bloquant côté rendu
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Montserrat:wght@400;500;600;700&display=swap",
-        media: "print",
-        onload: "this.media='all'",
       },
       {
         rel: "icon",
@@ -193,6 +184,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
+        {/* Preload poster vidéo hero pour améliorer le LCP */}
+        <link rel="preload" as="image" href="/centre%20culturel.webp" fetchPriority="high" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__name = (target, value) => Object.defineProperty(target, "name", { value, configurable: true });`,

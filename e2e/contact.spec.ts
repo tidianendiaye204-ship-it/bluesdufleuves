@@ -3,15 +3,12 @@ import { test, expect } from "@playwright/test";
 test("Contact form should display validation errors for empty fields", async ({ page }) => {
   await page.goto("/contact");
 
-  // Try submitting without filling any field
+  // Attendre que la page soit chargée et que le formulaire soit visible
+  await page.waitForSelector('button[type="submit"]', { state: "visible", timeout: 10000 });
+
+  // Cliquer sur le bouton submit sans remplir les champs
   await page.click('button[type="submit"]');
 
-  // Verify validation messages appear (since they are required natively or via RHF)
-  // Assuming the user tries to submit, HTML5 validation will trigger first if 'required' is present,
-  // but let's check for custom RHF error classes or texts if they bypass HTML5.
-
-  // As we used required in HTML before and now use RHF, we can check for RHF error messages
-  // We need to wait for the validation to happen after clicking submit
-  // React Hook Form validation might take a tiny bit of time
-  await expect(page.getByText("Le nom complet est requis")).toBeVisible();
+  // React Hook Form valide de manière asynchrone — attendre l'apparition du message
+  await expect(page.getByText("Le nom complet est requis")).toBeVisible({ timeout: 8000 });
 });
