@@ -17,7 +17,7 @@ export const getInscriptionsFn = createServerFn({ method: "GET" }).handler(async
 });
 
 export const updateInscriptionStatusFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: number; status: "en_attente" | "accepte" | "refuse" }) => data)
+  .validator((data: { id: number; status: "en_attente" | "accepte" | "refuse" }) => data)
   .handler(async ({ data }) => {
     await requireAuth();
     const db = getDb();
@@ -50,7 +50,7 @@ function AdminInscriptionsPage() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {allInscriptions.map((inscription) => (
+          {allInscriptions.map((inscription: any) => (
             <div key={inscription.id} className="bg-card border border-border p-6 rounded-xl">
               <div className="flex items-start justify-between mb-4">
                 <div>

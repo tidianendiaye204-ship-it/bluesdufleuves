@@ -14,7 +14,7 @@ export const getArticlesFn = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const deleteArticleFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: number }) => data)
+  .validator((data: { id: number }) => data)
   .handler(async ({ data }) => {
     const db = getDb();
     await db.delete(articles).where(eq(articles.id, data.id));
@@ -60,7 +60,7 @@ function AdminArticlesList() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {allArticles.map((article) => (
+          {allArticles.map((article: any) => (
             <div
               key={article.id}
               className="bg-card border border-border p-4 rounded-xl flex items-center justify-between gap-4"
