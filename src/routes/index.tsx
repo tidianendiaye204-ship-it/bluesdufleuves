@@ -111,7 +111,6 @@ function Home() {
             preload="metadata"
             poster="/centre culturel.webp"
             className="h-full w-full object-cover scale-105"
-            fetchPriority="high"
           >
             <source src="/video the village.mp4" type="video/mp4" />
           </video>
