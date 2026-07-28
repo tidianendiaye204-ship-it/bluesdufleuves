@@ -107,11 +107,13 @@ export const soumettreInscription = createServerFn({ method: "POST" })
       );
 
       // Envoi de l'email de confirmation (doit être awaité en serverless)
-      await sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
-        (err) => {
-          console.error("Failed to send formation confirmation email", err);
-        },
-      );
+      await sendFormationConfirmation(
+        data.email,
+        data.prenom + " " + data.nom,
+        data.formation,
+      ).catch((err) => {
+        console.error("Failed to send formation confirmation email", err);
+      });
 
       return { success: true, message: "Votre inscription a été enregistrée avec succès." };
     } catch (error) {
@@ -1025,50 +1027,49 @@ function Formations() {
                               </span>
                             )}
                           </label>
-                            <textarea
-                              id="motivation"
-                              rows={6}
-                              {...register("motivation")}
-                              className={`w-full bg-background text-foreground border ${errors.motivation ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
-                              placeholder="Partagez vos ambitions..."
-                            />
-                            <p
-                              className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
-                            >
-                              {motivationLength} / min. 10 caractères
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-
-                      {/* Captcha - Toujours rendu pour assurer l'initialisation, mais caché si pas étape 3 */}
-                      <div className={step === 3 ? "block mt-6" : "hidden"}>
-                        {import.meta.env.PROD ? (
-                          <div className="space-y-1 flex flex-col items-center">
-                            <Turnstile
-                              siteKey={
-                                import.meta.env.VITE_TURNSTILE_SITE_KEY ||
-                                "1x00000000000000000000AA"
-                              }
-                              onSuccess={(token) => {
-                                setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                                setTurnstileToken(token);
-                              }}
-                            />
-                            {errors.cfTurnstileResponse && (
-                              <p className="text-red-500 text-xs mt-2 font-medium">
-                                {errors.cfTurnstileResponse.message}
-                              </p>
-                            )}
-                          </div>
-                        ) : (
-                          <input
-                            type="hidden"
-                            {...register("cfTurnstileResponse")}
-                            value="dummy-token-dev"
+                          <textarea
+                            id="motivation"
+                            rows={6}
+                            {...register("motivation")}
+                            className={`w-full bg-background text-foreground border ${errors.motivation ? "border-red-500" : "border-input"} rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none`}
+                            placeholder="Partagez vos ambitions..."
                           />
-                        )}
-                      </div>
+                          <p
+                            className={`text-xs text-right ${motivationLength < 10 && motivationLength > 0 ? "text-red-500" : "text-muted-foreground"}`}
+                          >
+                            {motivationLength} / min. 10 caractères
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Captcha - Toujours rendu pour assurer l'initialisation, mais caché si pas étape 3 */}
+                    <div className={step === 3 ? "block mt-6" : "hidden"}>
+                      {import.meta.env.PROD ? (
+                        <div className="space-y-1 flex flex-col items-center">
+                          <Turnstile
+                            siteKey={
+                              import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+                            }
+                            onSuccess={(token) => {
+                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                              setTurnstileToken(token);
+                            }}
+                          />
+                          {errors.cfTurnstileResponse && (
+                            <p className="text-red-500 text-xs mt-2 font-medium">
+                              {errors.cfTurnstileResponse.message}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <input
+                          type="hidden"
+                          {...register("cfTurnstileResponse")}
+                          value="dummy-token-dev"
+                        />
+                      )}
+                    </div>
 
                     {/* Navigation Buttons */}
                     <div className="flex gap-4 pt-4">
