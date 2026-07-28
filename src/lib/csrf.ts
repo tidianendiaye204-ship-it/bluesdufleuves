@@ -36,7 +36,7 @@ export const getCSRFToken = createServerFn({ method: "GET" }).handler(async () =
 });
 
 export const validateCSRFTokenServer = createServerFn({ method: "POST" })
-  .validator((data: { token: string }) => data)
+  .inputValidator((data: { token: string }) => data)
   .handler(async ({ data }) => {
     const isValid = validateCSRFToken(data.token);
     return { valid: isValid };

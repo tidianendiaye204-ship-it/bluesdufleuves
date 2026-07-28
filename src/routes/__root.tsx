@@ -13,32 +13,27 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
-import { useEffect, Suspense, lazy } from "react";
-
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 
 import "../styles.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { FloatingTicketButton } from "@/components/FloatingTicketButton";
-import { SplashScreen } from "@/components/SplashScreen";
+import { ImmersiveAudio } from "@/components/ImmersiveAudio";
 
-// Lazy load ImmersiveAudio pour ne pas bloquer le thread principal (amélioration du TBT)
-const ImmersiveAudio = lazy(() =>
-  import("@/components/ImmersiveAudio").then((mod) => ({ default: mod.ImmersiveAudio })),
-);
+import { CustomCursor } from "@/components/CustomCursor";
 
 const newsletterSchema = z.object({
   email: z.string().email(),
 });
 
 export const subscribeNewsletterFn = createServerFn({ method: "POST" })
-  .validator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
   .handler(async ({ data }) => {
     try {
       const db = getDb();
@@ -157,10 +152,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      // Fonts avec display=swap — non-bloquant côté rendu
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Montserrat:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap",
       },
       {
         rel: "icon",
@@ -187,8 +181,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        {/* Preload poster vidéo hero pour améliorer le LCP */}
-        <link rel="preload" as="image" href="/centre%20culturel.webp" fetchPriority="high" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__name = (target, value) => Object.defineProperty(target, "name", { value, configurable: true });`,
@@ -208,41 +200,42 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { t, i18n } = useTranslation();
+  const [isHydrated, setIsHydrated] = useState(false);
+  const { t } = useTranslation();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   useEffect(() => {
-    // Restaurer la langue après l'hydratation côté client
-    // Cela évite l'erreur React #418 (Hydration mismatch) tout en gardant le choix de l'utilisateur
-    const savedLng = localStorage.getItem("village_lang");
-    if (savedLng && savedLng !== "fr") {
-      i18n.changeLanguage(savedLng);
-    } else if (!savedLng && navigator.language.startsWith("en")) {
-      i18n.changeLanguage("en");
-    }
-  }, [i18n]);
-
-  useEffect(() => {
-    // Enregistrer le service worker pour le PWA (différé pour ne pas bloquer le rendu)
+    setIsHydrated(true);
+    // Enregistrer le service worker pour le PWA
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js").catch((error) => {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((registration) => {
+          console.log("Service Worker enregistré avec succès:", registration);
+        })
+        .catch((error) => {
           console.error("Échec de l'enregistrement du Service Worker:", error);
         });
-      });
     }
   }, []);
 
+  if (!isHydrated) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-background">
+        <div className="animate-pulse w-8 h-8 rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
-      {!isAdminRoute && <SplashScreen />}
+      <CustomCursor />
       <div className="flex flex-col min-h-screen">
         {/* Skip to Content Link */}
         <a
           href="#main-content"
           className="fixed -top-10 left-0 bg-primary text-primary-foreground px-4 py-2 z-50 transition-all duration-200 focus:top-0"
-          suppressHydrationWarning
         >
           {t("root.skipToContent")}
         </a>
@@ -263,13 +256,10 @@ function RootComponent() {
         </main>
         {!isAdminRoute && (
           <>
-            <NewsletterCTA />
             <Footer />
             <PWAInstallPrompt />
             <FloatingTicketButton />
-            <Suspense fallback={null}>
-              <ImmersiveAudio />
-            </Suspense>
+            <ImmersiveAudio />
           </>
         )}
       </div>

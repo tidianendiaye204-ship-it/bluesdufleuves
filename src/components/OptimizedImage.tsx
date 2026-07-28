@@ -84,8 +84,8 @@ export function OptimizedImage({
           ref={imgRef}
           src={src}
           alt={alt}
-          width={width ?? "auto"}
-          height={height ?? "auto"}
+          width={width}
+          height={height}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
           sizes={sizes}

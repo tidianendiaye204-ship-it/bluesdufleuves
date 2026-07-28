@@ -18,7 +18,7 @@ import {
   Check,
   AlertCircle,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 // Centre culturel image from public folder
 const centreCulturelImg = "/centre culturel.webp";
 import instrumentsImg from "@/assets/instruments.webp";
@@ -51,7 +51,7 @@ export const inscriptionSchema = z.object({
 type InscriptionFormData = z.infer<typeof inscriptionSchema>;
 
 export const soumettreInscription = createServerFn({ method: "POST" })
-  .validator((data: InscriptionFormData) => inscriptionSchema.parse(data))
+  .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
     // CSRF verification would go here in a real production app with session management
 
@@ -106,14 +106,12 @@ export const soumettreInscription = createServerFn({ method: "POST" })
           }) as Promise<any>,
       );
 
-      // Envoi de l'email de confirmation (doit être awaité en serverless)
-      await sendFormationConfirmation(
-        data.email,
-        data.prenom + " " + data.nom,
-        data.formation,
-      ).catch((err) => {
-        console.error("Failed to send formation confirmation email", err);
-      });
+      // Envoi de l'email de confirmation en arrière-plan
+      sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
+        (err) => {
+          console.error("Failed to send formation confirmation email", err);
+        },
+      );
 
       return { success: true, message: "Votre inscription a été enregistrée avec succès." };
     } catch (error) {
@@ -306,11 +304,6 @@ function Formations() {
       csrfToken: "dummy-csrf-token",
     },
   });
-
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const [sent, setSent] = useState(false);
   const [sentFormation, setSentFormation] = useState<string | null>(null);
@@ -1045,36 +1038,35 @@ function Formations() {
                             {motivationLength} / min. 10 caractères
                           </p>
                         </div>
+
+                        {/* Captcha - Only active in production */}
+                        {import.meta.env.PROD ? (
+                          <div className="space-y-1 flex flex-col items-center">
+                            <Turnstile
+                              siteKey={
+                                import.meta.env.VITE_TURNSTILE_SITE_KEY ||
+                                "1x00000000000000000000AA"
+                              }
+                              onSuccess={(token) => {
+                                setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                                setTurnstileToken(token);
+                              }}
+                            />
+                            {errors.cfTurnstileResponse && (
+                              <p className="text-red-500 text-xs mt-2 font-medium">
+                                {errors.cfTurnstileResponse.message}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <input
+                            type="hidden"
+                            {...register("cfTurnstileResponse")}
+                            value="dummy-token-dev"
+                          />
+                        )}
                       </motion.div>
                     )}
-
-                    {/* Captcha - Toujours rendu pour assurer l'initialisation, mais caché si pas étape 3 */}
-                    <div className={step === 3 ? "block mt-6" : "hidden"}>
-                      {import.meta.env.PROD && isMounted ? (
-                        <div className="space-y-1 flex flex-col items-center">
-                          <Turnstile
-                            siteKey={
-                              import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
-                            }
-                            onSuccess={(token) => {
-                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                              setTurnstileToken(token);
-                            }}
-                          />
-                          {errors.cfTurnstileResponse && (
-                            <p className="text-red-500 text-xs mt-2 font-medium">
-                              {errors.cfTurnstileResponse.message}
-                            </p>
-                          )}
-                        </div>
-                      ) : (
-                        <input
-                          type="hidden"
-                          {...register("cfTurnstileResponse")}
-                          value="dummy-token-dev"
-                        />
-                      )}
-                    </div>
 
                     {/* Navigation Buttons */}
                     <div className="flex gap-4 pt-4">

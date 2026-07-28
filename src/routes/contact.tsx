@@ -22,11 +22,6 @@ import { contacts } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { lazy, Suspense } from "react";
-// Lazy load de la carte interactive pour les performances
-const InteractiveMap = lazy(() =>
-  import("@/components/InteractiveMap").then((mod) => ({ default: mod.InteractiveMap })),
-);
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -46,7 +41,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const soumettreContact = createServerFn({ method: "POST" })
-  .validator((data: ContactFormValues) => contactSchema.parse(data))
+  .inputValidator((data: ContactFormValues) => contactSchema.parse(data))
   .handler(async ({ data }) => {
     const csrfValidation = await validateCSRFTokenServer({ data: { token: data.csrfToken } });
     if (!csrfValidation.valid) {
@@ -116,8 +111,8 @@ export const soumettreContact = createServerFn({ method: "POST" })
 
       logger.info("Contact message saved successfully", { email: data.email });
 
-      // Envoi de l'email de confirmation (doit être awaité en serverless)
-      await sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
+      // Envoi de l'email de confirmation en arrière-plan (ne bloque pas la réponse)
+      sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
         logger.error("Failed to send contact confirmation email", err);
       });
 
@@ -223,11 +218,6 @@ function ContactPage() {
       csrfToken: "",
     },
   });
-
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const selectedSujet = watch("sujet");
 
@@ -423,10 +413,15 @@ function ContactPage() {
               </p>
             </div>
 
-            {/* Map embed avec Lazy Loading */}
-            <Suspense fallback={<div className="h-80 w-full bg-muted animate-pulse rounded-2xl" />}>
-              <InteractiveMap className="h-80 w-full" />
-            </Suspense>
+            {/* Map embed */}
+            <div className="rounded-2xl overflow-hidden border border-border/30 bg-card shadow-xl h-80">
+              <iframe
+                title="Localisation Podor, Sénégal"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
+                className="w-full h-full"
+                loading="lazy"
+              />
+            </div>
 
             {/* Social links */}
             <div>
@@ -707,32 +702,30 @@ function ContactPage() {
                       )}
                     </div>
 
-                    {/* Captcha */}
-                    <div className="mt-8">
-                      {import.meta.env.PROD && isMounted ? (
-                        <div className="flex flex-col items-center">
-                          <Turnstile
-                            siteKey={
-                              import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
-                            }
-                            onSuccess={(token) => {
-                              setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                            }}
-                          />
-                          {errors.cfTurnstileResponse && (
-                            <p className="text-red-500 text-xs mt-2 font-medium">
-                              {errors.cfTurnstileResponse.message}
-                            </p>
-                          )}
-                        </div>
-                      ) : (
-                        <input
-                          type="hidden"
-                          {...register("cfTurnstileResponse")}
-                          value="dummy-token-dev"
+                    {/* Captcha - Only active in production */}
+                    {import.meta.env.PROD ? (
+                      <div className="space-y-1">
+                        <Turnstile
+                          siteKey={
+                            import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
+                          }
+                          onSuccess={(token) => {
+                            setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                          }}
                         />
-                      )}
-                    </div>
+                        {errors.cfTurnstileResponse && (
+                          <p className="text-red-500 text-xs mt-2 font-medium">
+                            {errors.cfTurnstileResponse.message}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <input
+                        type="hidden"
+                        {...register("cfTurnstileResponse")}
+                        value="dummy-token-dev"
+                      />
+                    )}
 
                     <input type="hidden" {...register("csrfToken")} value={csrfToken} />
 

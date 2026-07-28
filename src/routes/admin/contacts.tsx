@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
@@ -15,7 +14,7 @@ export const getContactsFn = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const updateContactStatusFn = createServerFn({ method: "POST" })
-  .validator((data: { id: number; status: "non_lu" | "lu" | "traite" }) => data)
+  .inputValidator((data: { id: number; status: "non_lu" | "lu" | "traite" }) => data)
   .handler(async ({ data }) => {
     await requireAuth();
     const db = getDb();
@@ -46,7 +45,7 @@ function AdminContactsPage() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {allContacts.map((contact: any) => (
+          {allContacts.map((contact) => (
             <div key={contact.id} className="bg-card border border-border p-6 rounded-xl">
               <div className="flex items-start justify-between mb-4">
                 <div>

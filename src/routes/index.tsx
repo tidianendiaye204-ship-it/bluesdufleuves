@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Landmark, Music, GraduationCap, Calendar } from "lucide-react";
@@ -10,12 +10,8 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { Lightbox } from "@/components/Lightbox";
 import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
-
-// Lazy loading des cartes sous la ligne de flottaison pour réduire le TBT
-const ActivityCard = lazy(() =>
-  import("@/components/ActivityCard").then((m) => ({ default: m.ActivityCard })),
-);
-const NewsCard = lazy(() => import("@/components/NewsCard").then((m) => ({ default: m.NewsCard })));
+import { ActivityCard } from "@/components/ActivityCard";
+import { NewsCard } from "@/components/NewsCard";
 import { RotatingWelcomeText } from "@/components/RotatingWelcomeText";
 import { AnimatedText } from "@/components/AnimatedText";
 
@@ -70,17 +66,7 @@ export const Route = createFileRoute("/")({
       },
     ];
 
-    // Preload du poster vidéo hero (LCP critique)
-    const linksExtra = [
-      {
-        rel: "preload",
-        as: "image",
-        href: "/centre%20culturel.webp",
-        fetchPriority: "high",
-      },
-    ];
-
-    return { meta, links: [...links, ...linksExtra], scripts };
+    return { meta, links, scripts };
   },
   component: Home,
 });
@@ -92,15 +78,6 @@ function Home() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string }>>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  const [loadVideo, setLoadVideo] = useState(false);
-
-  useEffect(() => {
-    // Déclenche le chargement de la vidéo lourde (2.6Mo) uniquement après
-    // que la page principale soit affichée (LCP ultra-rapide sur le poster image)
-    const timer = setTimeout(() => setLoadVideo(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
 
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], ["0%", "40%"]);
@@ -121,11 +98,10 @@ function Home() {
             loop
             muted
             playsInline
-            preload="auto"
-            poster="/centre%20culturel.webp"
+            poster="/centre culturel.webp"
             className="h-full w-full object-cover scale-105"
           >
-            {loadVideo && <source src="/video the village.mp4" type="video/mp4" />}
+            <source src="/video the village.mp4" type="video/mp4" />
           </video>
           <motion.div
             className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
@@ -447,64 +423,66 @@ function Home() {
         </div>
 
         <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <Suspense fallback={<div className="h-96 w-full bg-muted animate-pulse rounded-3xl" />}>
-            <ActivityCard
-              imageSrc={galleryImages[0].src}
-              imageAlt="Concert"
-              category={t("home.categoryMusical")}
-              title={t("home.activityConcertsTitle")}
-              description={t("home.activityConcertsDesc")}
-              linkTo="/blues-du-fleuve"
-              linkText={t("home.learnMore")}
-              onImageClick={() => openLightbox(galleryImages, 0)}
-              objectPosition={galleryImages[0].objectPosition}
-              className="md:col-span-2 lg:col-span-2"
-            />
-            <ActivityCard
-              imageSrc={galleryImages[1].src}
-              imageAlt="Exposition"
-              category={t("home.categoryArtistic")}
-              title={t("home.activityExhibitionsTitle")}
-              description={t("home.activityExhibitionsDesc")}
-              linkTo="/nann-k-media"
-              linkText={t("home.learnMore")}
-              onImageClick={() => openLightbox(galleryImages, 1)}
-              objectPosition={galleryImages[1].objectPosition}
-            />
-            <ActivityCard
-              imageSrc={galleryImages[2].src}
-              imageAlt="Conférence"
-              category={t("home.categoryDebate")}
-              title={t("home.activityConferencesTitle")}
-              description={t("home.activityConferencesDesc")}
-              linkTo="/nann-k-media"
-              linkText={t("home.learnMore")}
-              onImageClick={() => openLightbox(galleryImages, 2)}
-              objectPosition={galleryImages[2].objectPosition}
-            />
-            <ActivityCard
-              imageSrc={galleryImages[3].src}
-              imageAlt="Master Class"
-              category={t("home.categoryFormation")}
-              title={t("home.activityMasterclassTitle")}
-              description={t("home.activityMasterclassDesc")}
-              linkTo="/formations"
-              linkText={t("home.learnMore")}
-              onImageClick={() => openLightbox(galleryImages, 3)}
-              objectPosition={galleryImages[3].objectPosition}
-            />
-            <ActivityCard
-              imageSrc={galleryImages[4].src}
-              imageAlt="Défilé de Mode"
-              category={t("home.categoryCreation")}
-              title={t("home.activityFashionTitle")}
-              description={t("home.activityFashionDesc")}
-              linkTo="/nann-k-media"
-              linkText={t("home.learnMore")}
-              onImageClick={() => openLightbox(galleryImages, 4)}
-              objectPosition={galleryImages[4].objectPosition}
-            />
-          </Suspense>
+          <ActivityCard
+            imageSrc={galleryImages[0].src}
+            imageAlt="Concert"
+            category={t("home.categoryMusical")}
+            title={t("home.activityConcertsTitle")}
+            description={t("home.activityConcertsDesc")}
+            linkTo="/blues-du-fleuve"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 0)}
+            objectPosition={galleryImages[0].objectPosition}
+            className="md:col-span-2 lg:col-span-2"
+          />
+
+          <ActivityCard
+            imageSrc={galleryImages[1].src}
+            imageAlt="Exposition"
+            category={t("home.categoryArtistic")}
+            title={t("home.activityExhibitionsTitle")}
+            description={t("home.activityExhibitionsDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 1)}
+            objectPosition={galleryImages[1].objectPosition}
+          />
+
+          <ActivityCard
+            imageSrc={galleryImages[2].src}
+            imageAlt="Conférence"
+            category={t("home.categoryDebate")}
+            title={t("home.activityConferencesTitle")}
+            description={t("home.activityConferencesDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 2)}
+            objectPosition={galleryImages[2].objectPosition}
+          />
+
+          <ActivityCard
+            imageSrc={galleryImages[3].src}
+            imageAlt="Master Class"
+            category={t("home.categoryFormation")}
+            title={t("home.activityMasterclassTitle")}
+            description={t("home.activityMasterclassDesc")}
+            linkTo="/formations"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 3)}
+            objectPosition={galleryImages[3].objectPosition}
+          />
+
+          <ActivityCard
+            imageSrc={galleryImages[4].src}
+            imageAlt="Défilé de Mode"
+            category={t("home.categoryCreation")}
+            title={t("home.activityFashionTitle")}
+            description={t("home.activityFashionDesc")}
+            linkTo="/nann-k-media"
+            linkText={t("home.learnMore")}
+            onImageClick={() => openLightbox(galleryImages, 4)}
+            objectPosition={galleryImages[4].objectPosition}
+          />
         </div>
       </section>
 
@@ -530,12 +508,40 @@ function Home() {
             </Link>
           </div>
 
-          <motion.div>
-            <Suspense fallback={<div className="h-96 w-full bg-muted animate-pulse rounded-3xl" />}>
-              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-                {articles.map((article, index) => (
+          <div className="space-y-10">
+            {/* Article à la Une en grand */}
+            {articles[0] && (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <NewsCard
+                  to={articles[0].to}
+                  imgSrc={articles[0].img}
+                  category={articles[0].category}
+                  date={articles[0].date}
+                  title={articles[0].title}
+                  excerpt={articles[0].excerpt}
+                  readMoreText={t("home.readMore")}
+                  featured
+                />
+              </motion.div>
+            )}
+
+            {/* Autres articles */}
+            <div className="grid md:grid-cols-2 gap-10">
+              {articles.slice(1).map((article, idx) => (
+                <motion.div
+                  key={article.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-full"
+                >
                   <NewsCard
-                    key={index}
                     to={article.to}
                     imgSrc={article.img}
                     category={article.category}
@@ -543,12 +549,11 @@ function Home() {
                     title={article.title}
                     excerpt={article.excerpt}
                     readMoreText={t("home.readMore")}
-                    featured={index === 0}
                   />
-                ))}
-              </div>
-            </Suspense>
-          </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -569,6 +574,7 @@ function Home() {
             {t("home.heritageTitle")}
           </h2>
         </div>
+
         <div className="grid md:grid-cols-3 gap-12">
           {instruments.map((inst, idx) => (
             <motion.div
