@@ -28,9 +28,7 @@ self.addEventListener("fetch", (e) => {
 
   // Stratégie NETWORK-FIRST pour la navigation (HTML) pour avoir toujours la dernière version !
   if (e.request.mode === "navigate") {
-    e.respondWith(
-      fetch(e.request).catch(() => caches.match(e.request))
-    );
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
 
