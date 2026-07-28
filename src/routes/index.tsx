@@ -72,7 +72,7 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         href: "/centre%20culturel.webp",
-        fetchpriority: "high",
+        fetchPriority: "high",
       },
     ];
 
