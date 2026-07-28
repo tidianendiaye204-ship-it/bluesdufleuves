@@ -18,7 +18,7 @@ import {
   Check,
   AlertCircle,
 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // Centre culturel image from public folder
 const centreCulturelImg = "/centre culturel.webp";
 import instrumentsImg from "@/assets/instruments.webp";
@@ -306,6 +306,11 @@ function Formations() {
       csrfToken: "dummy-csrf-token",
     },
   });
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const [sent, setSent] = useState(false);
   const [sentFormation, setSentFormation] = useState<string | null>(null);
@@ -1045,7 +1050,7 @@ function Formations() {
 
                     {/* Captcha - Toujours rendu pour assurer l'initialisation, mais caché si pas étape 3 */}
                     <div className={step === 3 ? "block mt-6" : "hidden"}>
-                      {import.meta.env.PROD ? (
+                      {import.meta.env.PROD && isMounted ? (
                         <div className="space-y-1 flex flex-col items-center">
                           <Turnstile
                             siteKey={
