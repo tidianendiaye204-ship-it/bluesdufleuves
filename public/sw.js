@@ -1,7 +1,7 @@
-const CACHE_NAME = "village-podor-v1";
+const CACHE_NAME = "village-podor-v2"; // Force le vidage de l'ancien cache
 
-// Ressources à mettre en cache lors de l'installation
-const PRECACHE_URLS = ["/", "/logo the village.webp", "/centre culturel.webp"];
+// Ressources à mettre en cache lors de l'installation (on ne met plus "/" pour éviter de bloquer l'HTML)
+const PRECACHE_URLS = ["/logo the village.webp", "/centre culturel.webp"];
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
@@ -23,16 +23,22 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
 
-  // Ne pas intercepter les requêtes non-GET ou cross-origin vers des APIs
+  // Ne pas intercepter les requêtes non-GET
   if (e.request.method !== "GET") return;
 
-  // Strategy: Stale-While-Revalidate pour les assets statiques
-  // Cache-First pour les images et fonts déjà en cache
+  // Stratégie NETWORK-FIRST pour la navigation (HTML) pour avoir toujours la dernière version !
+  if (e.request.mode === "navigate") {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Stratégie CACHE-FIRST avec revalidation en arrière-plan pour les assets statiques
   e.respondWith(
     caches.match(e.request).then((cached) => {
       const fetchPromise = fetch(e.request)
         .then((response) => {
-          // Mettre en cache uniquement les réponses valides et les assets statiques
           if (
             response.ok &&
             (url.pathname.match(/\.(webp|jpg|jpeg|png|svg|woff2|woff|css)$/) ||
@@ -46,7 +52,6 @@ self.addEventListener("fetch", (e) => {
         })
         .catch(() => cached); // En cas d'erreur réseau, servir le cache
 
-      // Si on a un cache, on le retourne immédiatement + revalidation en arrière-plan
       return cached || fetchPromise;
     }),
   );
