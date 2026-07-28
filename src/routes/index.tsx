@@ -12,7 +12,9 @@ import { galleryImages, articles, instruments } from "@/data/home-content";
 import { MagneticButton } from "@/components/MagneticButton";
 
 // Lazy loading des cartes sous la ligne de flottaison pour réduire le TBT
-const ActivityCard = lazy(() => import("@/components/ActivityCard").then((m) => ({ default: m.ActivityCard })));
+const ActivityCard = lazy(() =>
+  import("@/components/ActivityCard").then((m) => ({ default: m.ActivityCard })),
+);
 const NewsCard = lazy(() => import("@/components/NewsCard").then((m) => ({ default: m.NewsCard })));
 import { RotatingWelcomeText } from "@/components/RotatingWelcomeText";
 import { AnimatedText } from "@/components/AnimatedText";
