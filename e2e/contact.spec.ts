@@ -8,14 +8,15 @@ test("Contact form should display validation errors for empty fields", async ({ 
 
   await page.goto("/contact");
 
-  // Attendre que la page soit chargée et que le formulaire soit visible
-  await page.waitForSelector('button[type="submit"]', { state: "visible", timeout: 10000 });
+  // Attendre que la page soit chargée et que le bouton de contact soit visible
+  const submitButton = page.getByRole('button', { name: /envoyer le message/i });
+  await expect(submitButton).toBeVisible({ timeout: 10000 });
 
   // Attendre que React ait le temps d'hydrater et splash screen fade
   await page.waitForTimeout(2500);
 
-  // Cliquer sur le bouton submit sans remplir les champs
-  await page.click('button[type="submit"]');
+  // Cliquer sur le bouton submit spécifique au formulaire de contact
+  await submitButton.click();
 
   // React Hook Form valide de manière asynchrone — attendre l'apparition du message
   await expect(page.getByText("Le nom complet est requis")).toBeVisible({ timeout: 8000 });
