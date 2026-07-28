@@ -22,6 +22,7 @@ import { contacts } from "@/db/schema";
 import { z } from "zod";
 import { createSeoMeta } from "@/lib/seo";
 import { OptimizedImage } from "@/components/OptimizedImage";
+import { InteractiveMap } from "@/components/InteractiveMap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -414,14 +415,7 @@ function ContactPage() {
             </div>
 
             {/* Map embed */}
-            <div className="rounded-2xl overflow-hidden border border-border/30 bg-card shadow-xl h-80">
-              <iframe
-                title="Localisation Podor, Sénégal"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-14.976%2C16.604%2C-14.929%2C16.638&layer=mapnik&marker=16.621%2C-14.953"
-                className="w-full h-full"
-                loading="lazy"
-              />
-            </div>
+            <InteractiveMap className="h-80 w-full" />
 
             {/* Social links */}
             <div>

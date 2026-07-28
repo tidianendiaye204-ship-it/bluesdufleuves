@@ -35,6 +35,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { artistes, piliers, videos, galleryImages } from "@/data/festival-content";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Countdown } from "@/components/Countdown";
+import { InteractiveMap } from "@/components/InteractiveMap";
 import { FESTIVAL_CONFIG } from "@/config/festival";
 
 export const Route = createFileRoute("/blues-du-fleuve")({
@@ -485,6 +486,17 @@ function BluesDuFleuve() {
                   </span>
                 ))}
               </div>
+            </motion.div>
+
+            {/* Carte de localisation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-8"
+            >
+              <InteractiveMap className="w-full h-96 lg:h-100" />
             </motion.div>
           </motion.div>
         </div>

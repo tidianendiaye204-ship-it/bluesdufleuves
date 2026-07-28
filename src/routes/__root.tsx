@@ -20,12 +20,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../styles.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { DEFAULT_SEO } from "@/lib/seo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { FloatingTicketButton } from "@/components/FloatingTicketButton";
 import { ImmersiveAudio } from "@/components/ImmersiveAudio";
-
+import { SplashScreen } from "@/components/SplashScreen";
 import { CustomCursor } from "@/components/CustomCursor";
 
 const newsletterSchema = z.object({
@@ -231,6 +232,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <CustomCursor />
+      {!isAdminRoute && <SplashScreen />}
       <div className="flex flex-col min-h-screen">
         {/* Skip to Content Link */}
         <a
@@ -256,6 +258,7 @@ function RootComponent() {
         </main>
         {!isAdminRoute && (
           <>
+            <NewsletterCTA />
             <Footer />
             <PWAInstallPrompt />
             <FloatingTicketButton />
