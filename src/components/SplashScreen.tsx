@@ -11,7 +11,7 @@ export function SplashScreen() {
       const timer = setTimeout(() => {
         setShow(false);
         sessionStorage.setItem("splash_shown", "true");
-      }, 2500); // 2.5 seconds splash screen
+      }, 1200); // Réduit de 2500ms à 1200ms pour améliorer le TTI
       return () => clearTimeout(timer);
     }
   }, []);

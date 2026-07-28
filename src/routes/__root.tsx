@@ -13,7 +13,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { getDb, withRetry } from "@/lib/db";
 import { newsletter } from "@/db/schema";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -153,9 +154,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      // Préchargement du poster de la vidéo hero (LCP)
+      {
+        rel: "preload",
+        as: "image",
+        href: "/centre%20culturel.webp",
+        fetchpriority: "high",
+      },
+      // Fonts en chargement non-bloquant (media trick)
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Montserrat:wght@400;500;600;700&display=swap",
+        media: "print",
+        onload: "this.media='all'",
       },
       {
         rel: "icon",
@@ -201,33 +212,22 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const [isHydrated, setIsHydrated] = useState(false);
   const { t } = useTranslation();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   useEffect(() => {
-    setIsHydrated(true);
-    // Enregistrer le service worker pour le PWA
+    // Enregistrer le service worker pour le PWA (différé pour ne pas bloquer le rendu)
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then((registration) => {
-          console.log("Service Worker enregistré avec succès:", registration);
-        })
-        .catch((error) => {
-          console.error("Échec de l'enregistrement du Service Worker:", error);
-        });
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .catch((error) => {
+            console.error("Échec de l'enregistrement du Service Worker:", error);
+          });
+      });
     }
   }, []);
-
-  if (!isHydrated) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="animate-pulse w-8 h-8 rounded-full border-4 border-primary border-t-transparent" />
-      </div>
-    );
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

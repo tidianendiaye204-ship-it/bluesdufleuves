@@ -66,7 +66,17 @@ export const Route = createFileRoute("/")({
       },
     ];
 
-    return { meta, links, scripts };
+    // Preload du poster vidéo hero (LCP critique)
+    const linksExtra = [
+      {
+        rel: "preload",
+        as: "image",
+        href: "/centre%20culturel.webp",
+        fetchpriority: "high",
+      },
+    ];
+
+    return { meta, links: [...links, ...linksExtra], scripts };
   },
   component: Home,
 });
@@ -98,8 +108,11 @@ function Home() {
             loop
             muted
             playsInline
+            preload="metadata"
             poster="/centre culturel.webp"
             className="h-full w-full object-cover scale-105"
+            // @ts-expect-error fetchpriority est un attribut HTML5 valide
+            fetchpriority="high"
           >
             <source src="/video the village.mp4" type="video/mp4" />
           </video>
