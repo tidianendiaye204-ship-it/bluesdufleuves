@@ -360,10 +360,9 @@ function Home() {
               <OptimizedImage
                 src="/Baba.webp"
                 alt="Baaba Maal en concert"
-                width={400}
-                height={400}
                 className="w-full h-full transition-transform duration-700 hover:scale-110"
                 objectPosition="right top"
+                priority
               />
             </div>
           </motion.div>
