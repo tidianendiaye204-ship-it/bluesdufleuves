@@ -627,7 +627,13 @@ function NannkMedia() {
         >
           <div className="flex justify-center">
             <div className="w-40 h-40 rounded-2xl overflow-hidden bg-white border border-border/50 flex items-center justify-center p-2 shadow-sm">
-              <img src={logoNannk} alt="NANN-k TV Logo" width="102" height="102" className="w-full h-full object-contain" />
+              <img
+                src={logoNannk}
+                alt="NANN-k TV Logo"
+                width="102"
+                height="102"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           <div>
