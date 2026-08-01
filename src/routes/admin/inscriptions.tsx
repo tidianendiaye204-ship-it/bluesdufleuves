@@ -52,7 +52,10 @@ function AdminInscriptionsPage() {
       ) : (
         <div className="grid gap-4">
           {allInscriptions.map((inscription: any) => (
-            <div key={inscription.id} className="bg-card border border-border p-4 md:p-6 rounded-xl">
+            <div
+              key={inscription.id}
+              className="bg-card border border-border p-4 md:p-6 rounded-xl"
+            >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-2">
                 <div>
                   <h3 className="font-bold text-foreground flex items-center gap-2 text-sm md:text-base">
