@@ -56,10 +56,18 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
         fullError: e,
       });
 
-      const errorMessage = (e.message || "").toUpperCase();
+      const errorMessage = [
+        e.message,
+        e.cause?.message,
+        e.cause?.name,
+        e.name,
+        e.code
+      ].filter(Boolean).join(" ").toUpperCase();
+
       if (
         errorMessage.includes("UNIQUE") ||
         errorMessage.includes("SQLITE_CONSTRAINT_UNIQUE") ||
+        errorMessage.includes("ALREADY EXISTS") ||
         e.code === "SQLITE_CONSTRAINT_UNIQUE"
       ) {
         return { error: "Cet email est déjà inscrit à notre newsletter." };
