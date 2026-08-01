@@ -56,11 +56,11 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
         fullError: e,
       });
 
-      const errorMessage = e.message || "";
+      const errorMessage = (e.message || "").toUpperCase();
       if (
         errorMessage.includes("UNIQUE") ||
-        errorMessage.includes("UNIQUE constraint failed") ||
-        errorMessage.includes("D1_ERROR: UNIQUE")
+        errorMessage.includes("SQLITE_CONSTRAINT_UNIQUE") ||
+        e.code === "SQLITE_CONSTRAINT_UNIQUE"
       ) {
         return { error: "Cet email est déjà inscrit à notre newsletter." };
       }
@@ -168,7 +168,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "manifest",
-        href: "/manifest.json?v=6",
+        href: "/manifest.json?v=7",
       },
     ],
   }),

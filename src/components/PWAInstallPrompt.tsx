@@ -11,10 +11,23 @@ export function PWAInstallPrompt() {
   const [showPrompt, setShowPrompt] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const ua = window.navigator.userAgent;
+      const isIOSDevice = /iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream;
+      setIsIOS(isIOSDevice);
+    }
+  }, []);
+
   useEffect(() => {
     // Si l'application est déjà installée (ouverte en mode standalone), on ne fait rien
     if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
       return;
+    }
+    if ((window.navigator as any).standalone === true) {
+      return; // iOS standalone check
     }
 
     // Listen for PWA install event
@@ -30,29 +43,33 @@ export function PWAInstallPrompt() {
       handleBeforeInstallPrompt,
     );
 
-    // On remet un minuteur (8 secondes) pour forcer l'affichage
-    // si le navigateur ne déclenche pas l'événement nativement (souvent le cas sur PC)
-    const fallbackTimer = setTimeout(() => {
-      if (!deferredPrompt) {
+    // Si on est sur iOS, beforeinstallprompt n'existe pas, on l'affiche quand même au bout d'un moment
+    let fallbackTimer: NodeJS.Timeout;
+    if (isIOS) {
+      fallbackTimer = setTimeout(() => {
         setShowPrompt(true);
-      }
-    }, 8000);
+      }, 5000);
+    }
 
     return () => {
       window.removeEventListener(
         "beforeinstallprompt" as keyof WindowEventMap,
         handleBeforeInstallPrompt,
       );
-      clearTimeout(fallbackTimer);
+      if (fallbackTimer) clearTimeout(fallbackTimer);
     };
-  }, [deferredPrompt]);
+  }, [deferredPrompt, isIOS]);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) {
-      // If we are just showing the demo UI and they click it
+    if (isIOS && !deferredPrompt) {
       alert(
-        "L'installation s'activera lorsque vous visiterez ce site depuis un mobile ou Chrome, et que le Manifest PWA sera configuré !",
+        "Pour installer sur iPhone/iPad : appuyez sur l'icône 'Partager' (le carré avec une flèche) en bas de l'écran, puis sélectionnez 'Sur l'écran d'accueil'.",
       );
+      return;
+    }
+
+    if (!deferredPrompt) {
+      alert("L'application est déjà installée ou votre navigateur ne la supporte pas.");
       setShowPrompt(false);
       return;
     }
