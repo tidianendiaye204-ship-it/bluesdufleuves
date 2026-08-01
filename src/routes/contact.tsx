@@ -108,8 +108,8 @@ export const soumettreContact = createServerFn({ method: "POST" })
 
       logger.info("Contact message saved successfully", { email: data.email });
 
-      // Envoi de l'email de confirmation en arrière-plan (ne bloque pas la réponse)
-      sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
+      // Envoi de l'email de confirmation (await obligatoire sur Cloudflare Workers)
+      await sendContactConfirmation(data.email, data.nom, data.sujet).catch((err) => {
         logger.error("Failed to send contact confirmation email", err);
       });
 

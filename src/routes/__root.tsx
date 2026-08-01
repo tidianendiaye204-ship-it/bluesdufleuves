@@ -30,7 +30,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { GlobalSearch } from "@/components/GlobalSearch";
 
 const newsletterSchema = z.object({
-  email: z.string().email(),
+  email: z.string().trim().toLowerCase().email(),
 });
 
 export const subscribeNewsletterFn = createServerFn({ method: "POST" })
