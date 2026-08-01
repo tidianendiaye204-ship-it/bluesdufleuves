@@ -363,7 +363,7 @@ function Home() {
                 width={400}
                 height={400}
                 className="w-full h-full transition-transform duration-700 hover:scale-110"
-                objectPosition="right top"
+                objectPosition="left center"
               />
             </div>
           </motion.div>
