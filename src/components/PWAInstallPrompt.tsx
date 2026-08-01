@@ -16,6 +16,7 @@ export function PWAInstallPrompt() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const ua = window.navigator.userAgent;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const isIOSDevice = /iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream;
       setIsIOS(isIOSDevice);
     }
@@ -26,6 +27,7 @@ export function PWAInstallPrompt() {
     if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
       return;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window.navigator as any).standalone === true) {
       return; // iOS standalone check
     }
