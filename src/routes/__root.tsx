@@ -168,7 +168,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "manifest",
-        href: "/manifest.json?v=4",
+        href: "/manifest.json?v=5",
       },
     ],
   }),

@@ -356,14 +356,14 @@ function Home() {
                 <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
               </div>
             </div>
-            <div className="absolute -bottom-8 right-0 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-square rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10 -scale-x-100">
+            <div className="absolute -bottom-8 right-0 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-square rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10">
               <OptimizedImage
                 src="/Baba.webp"
                 alt="Baaba Maal en concert"
                 width={400}
                 height={400}
-                className="w-full h-full transition-transform duration-700 hover:scale-110"
-                objectPosition="left center"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                objectPosition="center"
               />
             </div>
           </motion.div>
