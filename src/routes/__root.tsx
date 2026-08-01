@@ -73,7 +73,7 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
       }
 
       return {
-        error: "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+        error: `Une erreur est survenue : ${e.message || "inconnue"}. Veuillez réessayer plus tard.`,
       };
     }
   });
