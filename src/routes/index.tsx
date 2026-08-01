@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
     const structuredData = createStructuredData("Organization", {
       name: "The Village Podor",
       url: "https://levillagepodor.com/",
-      logo: "https://levillagepodor.com/logo%20the%20village.webp",
+      logo: "https://levillagepodor.com/logo-the-village.webp",
       description:
         lang === "fr"
           ? "Centre culturel unique initié par Baaba Maal au cœur de la vallée du fleuve Sénégal à Podor, regroupant musée, espaces de création et de formation."
