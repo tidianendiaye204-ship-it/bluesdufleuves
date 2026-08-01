@@ -346,7 +346,7 @@ function Home() {
               <OptimizedImage
                 src="/photo-baba-maal.webp"
                 alt="Portrait Baaba Maal"
-                className="w-full h-auto transition-transform duration-700 hover:scale-105"
+                className="w-full aspect-3/4 transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-8 left-8">
