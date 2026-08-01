@@ -115,11 +115,13 @@ export const soumettreInscription = createServerFn({ method: "POST" })
       );
 
       // Envoi de l'email de confirmation (await obligatoire sur Cloudflare Workers)
-      await sendFormationConfirmation(data.email, data.prenom + " " + data.nom, data.formation).catch(
-        (err) => {
-          console.error("Failed to send formation confirmation email", err);
-        },
-      );
+      await sendFormationConfirmation(
+        data.email,
+        data.prenom + " " + data.nom,
+        data.formation,
+      ).catch((err) => {
+        console.error("Failed to send formation confirmation email", err);
+      });
 
       return { success: true, message: "Votre inscription a été enregistrée avec succès." };
     } catch (error) {
