@@ -56,13 +56,10 @@ export const subscribeNewsletterFn = createServerFn({ method: "POST" })
         fullError: e,
       });
 
-      const errorMessage = [
-        e.message,
-        e.cause?.message,
-        e.cause?.name,
-        e.name,
-        e.code
-      ].filter(Boolean).join(" ").toUpperCase();
+      const errorMessage = [e.message, e.cause?.message, e.cause?.name, e.name, e.code]
+        .filter(Boolean)
+        .join(" ")
+        .toUpperCase();
 
       if (
         errorMessage.includes("UNIQUE") ||
