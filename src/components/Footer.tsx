@@ -98,10 +98,10 @@ export function Footer() {
 
         {/* Navigation Column */}
         <div className="md:col-span-1">
-          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
+          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
             <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
             {t("footer.navigation")}
-          </h3>
+          </h2>
           <ul className="space-y-3">
             {navLinks.map((item) => (
               <li key={item.to}>
@@ -122,10 +122,10 @@ export function Footer() {
         <div className="md:col-span-2 space-y-10">
           {/* Newsletter */}
           <div>
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
+            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-4 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               {t("footer.editorLetter")}
-            </h3>
+            </h2>
             <p className="text-sm text-white/60 mb-6 font-serif">{t("footer.newsletterDesc")}</p>
             <form className="flex gap-3" onSubmit={handleSubscribe}>
               <div className="relative flex-1 group">
@@ -193,10 +193,10 @@ export function Footer() {
 
           {/* Social Links */}
           <div>
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
+            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6 flex items-center gap-2">
               <span className="w-6 h-px bg-linear-to-r from-primary/50 to-transparent" />
               {t("footer.followAdventure")}
-            </h3>
+            </h2>
             <div className="flex gap-3">
               {[
                 {

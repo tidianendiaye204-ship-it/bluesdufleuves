@@ -28,6 +28,7 @@ export function NewsCard({
       <>
         <Link
           to={to}
+          aria-label={title}
           className="group flex flex-col md:flex-row bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
         >
           <div className="relative md:w-1/2 aspect-video md:aspect-auto overflow-hidden bg-muted/30">
@@ -65,6 +66,7 @@ export function NewsCard({
     <>
       <Link
         to={to}
+        aria-label={title}
         className="group flex flex-col h-full bg-background rounded-2xl overflow-hidden shadow-elegant hover:-translate-y-2 transition-all duration-500"
       >
         <div className="relative aspect-4/3 overflow-hidden bg-muted/30">

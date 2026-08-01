@@ -112,7 +112,7 @@ function BluesDuFleuve() {
       >
         <div className="absolute inset-0 bg-black overflow-hidden">
           <iframe
-            src="https://www.youtube.com/embed/IHAWprBOmzs?autoplay=1&mute=1&loop=1&playlist=IHAWprBOmzs&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            src="https://www.youtube-nocookie.com/embed/IHAWprBOmzs?autoplay=1&mute=1&loop=1&playlist=IHAWprBOmzs&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
             title="Festival Background Video"
             allow="autoplay; encrypted-media"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-80"
@@ -937,8 +937,8 @@ function BluesDuFleuve() {
                 <div className="aspect-video bg-black/40 relative overflow-hidden">
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src={`https://www.youtube.com/embed/${v.id}`}
-                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}'><span>▶</span></a>`}
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1><img src=https://img.youtube.com/vi/${v.id}/hqdefault.jpg alt='${v.title}' width='480' height='360'><span>▶</span></a>`}
                     title={v.title}
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

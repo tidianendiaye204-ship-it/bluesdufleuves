@@ -211,7 +211,7 @@ function CreateArticlePage() {
         <div className="bg-card border border-border rounded-xl p-6 md:p-10 shadow-sm space-y-8">
           {form.imageUrl && (
             <div className="w-full h-64 md:h-96 rounded-2xl overflow-hidden relative shadow-md">
-              <img src={form.imageUrl} alt={form.title} className="w-full h-full object-cover" />
+              <img src={form.imageUrl} alt={form.title} width="800" height="400" className="w-full h-full object-cover" />
             </div>
           )}
           <div className="space-y-4">
