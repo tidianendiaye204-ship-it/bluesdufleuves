@@ -8,14 +8,8 @@
   "theme_color": "#ffc107",
   "icons": [
     {
-      "src": "/logo-the-village.webp",
-      "sizes": "192x192",
-      "type": "image/webp",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/logo-the-village.webp",
-      "sizes": "512x512",
+      "src": "/favicon.webp",
+      "sizes": "192x192 512x512 any",
       "type": "image/webp",
       "purpose": "any maskable"
     }
