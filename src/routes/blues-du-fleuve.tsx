@@ -240,7 +240,7 @@ function BluesDuFleuve() {
               src="/festival-baba-maal.webp"
               alt="Baaba Maal"
               className="h-full w-full transition-transform duration-700 hover:scale-105"
-              objectPosition="left center"
+              objectPosition="center 10%"
               priority
             />
           </div>
