@@ -36,8 +36,10 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import { MagneticButton } from "@/components/MagneticButton";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { sendFormationConfirmation } from "@/lib/email";
+import { getCSRFToken, validateCSRFTokenServer } from "@/lib/csrf";
+import { logger } from "@/lib/logger";
 
-export const inscriptionSchema = z.object({
+const inscriptionSchema = z.object({
   prenom: z.string().min(1, "Le prénom est requis"),
   nom: z.string().min(1, "Le nom est requis"),
   email: z.string().email("Email invalide"),
@@ -45,24 +47,30 @@ export const inscriptionSchema = z.object({
   formation: z.string().min(1, "La formation est requise"),
   motivation: z.string().min(10, "La motivation doit faire au moins 10 caractères"),
   cfTurnstileResponse: z.string().min(1, "Veuillez valider le captcha"),
-  csrfToken: z.string().optional(),
+  csrfToken: z.string().min(1, "Token de sécurité invalide"),
 });
 
 type InscriptionFormData = z.infer<typeof inscriptionSchema>;
 
 export const soumettreInscription = createServerFn({ method: "POST" })
-  .inputValidator((data: InscriptionFormData) => inscriptionSchema.parse(data))
+  .validator((data: InscriptionFormData) => inscriptionSchema.parse(data))
   .handler(async ({ data }) => {
-    // CSRF verification would go here in a real production app with session management
+    const csrfValidation = await validateCSRFTokenServer({ data: { token: data.csrfToken } });
+    if (!csrfValidation.valid) {
+      logger.warn("CSRF token validation failed in formations", { email: data.email });
+      throw new Error("Token de sécurité invalide. Veuillez réessayer.");
+    }
+
+    logger.info("Formation form submission received", {
+      email: data.email,
+      formation: data.formation,
+    });
 
     if (process.env.NODE_ENV === "production") {
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cfEnv = (globalThis as any).__CF_ENV__ || process.env;
-      const secret =
-        cfEnv.TURNSTILE_SECRET ||
-        cfEnv.TURNSTILE_SECRET_KEY ||
-        (cfEnv as Record<string, string>)[" TURNSTILE_SECRET"];
+      const secret = cfEnv.TURNSTILE_SECRET || cfEnv.TURNSTILE_SECRET_KEY;
       if (!secret) {
         throw new Error("Service de validation temporairement indisponible.");
       }
@@ -301,7 +309,7 @@ function Formations() {
       formation: "",
       motivation: "",
       cfTurnstileResponse: "",
-      csrfToken: "dummy-csrf-token",
+      csrfToken: "",
     },
   });
 
@@ -310,7 +318,23 @@ function Formations() {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    if (!import.meta.env.PROD) {
+      setValue("cfTurnstileResponse", "dummy-token-dev", { shouldValidate: true });
+      setTurnstileToken("dummy-token-dev");
+    }
+  }, [setValue]);
+
+  useEffect(() => {
+    const fetchCSRFToken = async () => {
+      try {
+        const result = await getCSRFToken();
+        setValue("csrfToken", result.token);
+      } catch (error) {
+        console.error("Failed to fetch CSRF token:", error);
+      }
+    };
+    fetchCSRFToken();
+  }, [setValue]);
   const [sentFormation, setSentFormation] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const [turnstileToken, setTurnstileToken] = useState("");

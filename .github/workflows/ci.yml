@@ -25,6 +25,9 @@ jobs:
       - name: Run linter
         run: npm run lint
 
+      - name: Run Unit Tests
+        run: npm run test
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 

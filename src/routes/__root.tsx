@@ -27,13 +27,14 @@ import { FloatingTicketButton } from "@/components/FloatingTicketButton";
 import { ImmersiveAudio } from "@/components/ImmersiveAudio";
 
 import { CustomCursor } from "@/components/CustomCursor";
+import { GlobalSearch } from "@/components/GlobalSearch";
 
 const newsletterSchema = z.object({
   email: z.string().email(),
 });
 
 export const subscribeNewsletterFn = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
+  .validator((data: z.infer<typeof newsletterSchema>) => newsletterSchema.parse(data))
   .handler(async ({ data }) => {
     try {
       const db = getDb();
@@ -231,6 +232,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <CustomCursor />
+      <GlobalSearch />
       <div className="flex flex-col min-h-screen">
         {/* Skip to Content Link */}
         <a
@@ -245,8 +247,8 @@ function RootComponent() {
             <motion.div
               key={location.pathname}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              animate={{ opacity: 1, pointerEvents: "auto" }}
+              exit={{ opacity: 0, pointerEvents: "none" }}
               transition={{ duration: 0.2, ease: "easeOut" }}
               className="w-full flex-1 flex flex-col"
             >

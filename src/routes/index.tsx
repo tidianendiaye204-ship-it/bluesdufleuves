@@ -89,7 +89,7 @@ function Home() {
   };
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen overflow-x-hidden">
       {/* Hero Section: Le Centre Culturel - Grandiose & Apple Style */}
       <section className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: heroY }}>
@@ -98,6 +98,9 @@ function Home() {
             loop
             muted
             playsInline
+            preload="none"
+            width="1920"
+            height="1080"
             poster="/centre-culturel.webp"
             className="h-full w-full object-cover scale-105"
           >
@@ -344,8 +347,6 @@ function Home() {
                 src="/photo-baba-maal.webp"
                 alt="Portrait Baaba Maal"
                 className="w-full h-auto transition-transform duration-700 hover:scale-105"
-                objectFit="contain"
-                objectPosition="center"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-8 left-8">
@@ -355,13 +356,14 @@ function Home() {
                 <h3 className="luxury-text text-3xl text-white uppercase">Baaba Maal</h3>
               </div>
             </div>
-            {/* Photo secondaire — concert — positionnée en bas à droite */}
-            <div className="absolute -bottom-8 -right-8 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-square rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10">
+            <div className="absolute -bottom-8 right-0 md:-bottom-12 md:-right-12 w-40 md:w-56 lg:w-64 aspect-square rounded-2xl overflow-hidden shadow-2xl border-[6px] border-background z-10 -scale-x-100">
               <OptimizedImage
                 src="/Baba.webp"
                 alt="Baaba Maal en concert"
+                width={400}
+                height={400}
                 className="w-full h-full transition-transform duration-700 hover:scale-110"
-                objectPosition="top"
+                objectPosition="right top"
               />
             </div>
           </motion.div>

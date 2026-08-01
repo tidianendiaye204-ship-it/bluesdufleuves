@@ -17,7 +17,7 @@ const articleSchema = z.object({
 });
 
 export const createArticleFn = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof articleSchema>) => articleSchema.parse(data))
+  .validator((data: z.infer<typeof articleSchema>) => articleSchema.parse(data))
   .handler(async ({ data }) => {
     const db = getDb();
     await db.insert(articles).values({

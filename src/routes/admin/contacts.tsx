@@ -15,7 +15,7 @@ export const getContactsFn = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const updateContactStatusFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: number; status: "non_lu" | "lu" | "traite" }) => data)
+  .validator((data: { id: number; status: "non_lu" | "lu" | "traite" }) => data)
   .handler(async ({ data }) => {
     await requireAuth();
     const db = getDb();
@@ -47,10 +47,10 @@ function AdminContactsPage() {
       ) : (
         <div className="grid gap-4">
           {allContacts.map((contact: any) => (
-            <div key={contact.id} className="bg-card border border-border p-6 rounded-xl">
-              <div className="flex items-start justify-between mb-4">
+            <div key={contact.id} className="bg-card border border-border p-4 md:p-6 rounded-xl">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-2">
                 <div>
-                  <h3 className="font-bold text-foreground flex items-center gap-2">
+                  <h3 className="font-bold text-foreground flex items-center gap-2 text-sm md:text-base">
                     {contact.nom}
                     {contact.statut === "non_lu" && (
                       <span className="w-2 h-2 bg-red-500 rounded-full"></span>

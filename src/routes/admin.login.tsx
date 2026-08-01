@@ -14,7 +14,7 @@ const loginSchema = z.object({
 });
 
 export const loginAdmin = createServerFn({ method: "POST" })
-  .inputValidator((data: z.infer<typeof loginSchema>) => loginSchema.parse(data))
+  .validator((data: z.infer<typeof loginSchema>) => loginSchema.parse(data))
   .handler(async ({ data }) => {
     const db = getDb();
     const adminRows = await db.select().from(admins).where(eq(admins.email, data.email));

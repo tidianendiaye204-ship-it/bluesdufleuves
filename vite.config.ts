@@ -11,5 +11,8 @@ export default defineConfig({
     server: {
       preset: "cloudflare-pages",
     },
+    serverFns: {
+      disableCsrfMiddlewareWarning: true,
+    },
   },
 });

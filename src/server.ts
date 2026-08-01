@@ -2,6 +2,9 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { getDb } from "./lib/db";
+import { articles } from "./db/schema";
+import { eq } from "drizzle-orm";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -92,11 +95,77 @@ export default {
       //   await ensureD1Schema(env.DB);
       // }
 
+      const urlObj = new URL(request.url);
+
+      // Intercepter la requête pour le Sitemap XML dynamique
+      if (urlObj.pathname === "/api/sitemap.xml") {
+        const db = getDb();
+        const publishedArticles = await db
+          .select()
+          .from(articles)
+          .where(eq(articles.isPublished, true));
+        const staticPages = [
+          "",
+          "/contact",
+          "/blues-du-fleuve",
+          "/nann-k-media",
+          "/formations",
+          "/nannka-tv",
+          "/billetterie",
+        ];
+        const baseUrl = "https://lesbluesdufleuve.sn";
+        const date = new Date().toISOString().split("T")[0];
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+        staticPages.forEach((page) => {
+          xml += `  <url>\n    <loc>${baseUrl}${page}</loc>\n    <lastmod>${date}</lastmod>\n    <changefreq>${page === "" ? "weekly" : "monthly"}</changefreq>\n    <priority>${page === "" ? "1.0" : "0.8"}</priority>\n  </url>\n`;
+        });
+        publishedArticles.forEach((article: typeof articles.$inferSelect) => {
+          const articleDate = new Date(article.publishedAt || article.createdAt);
+          xml += `  <url>\n    <loc>${baseUrl}/articles/${article.slug}</loc>\n    <lastmod>${articleDate.toISOString().split("T")[0]}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+        });
+        xml += `</urlset>`;
+        return new Response(xml, {
+          headers: {
+            "Content-Type": "text/xml",
+            "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate",
+          },
+        });
+      }
+
+      // Intercepter la requête pour la recherche globale
+      if (urlObj.pathname === "/api/search") {
+        const q = urlObj.searchParams.get("q");
+        if (!q) return new Response("[]", { headers: { "Content-Type": "application/json" } });
+
+        const db = getDb();
+        const searchResults = await db
+          .select({ title: articles.title, slug: articles.slug, category: articles.category })
+          .from(articles)
+          .where(eq(articles.isPublished, true)) // Temporary fallback for basic filtering
+          .limit(10);
+
+        // On filtre en JS car l'import dynamique de "like" pose parfois des problèmes selon le module
+        const filtered = searchResults.filter(
+          (a: { title: string; slug: string; category: string }) =>
+            a.title.toLowerCase().includes(q.toLowerCase()),
+        );
+
+        return new Response(JSON.stringify(filtered), {
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
 
       const newResponse = new Response(normalizedResponse.body, normalizedResponse);
+
+      // En-têtes de sécurité (Lighthouse Best Practices)
+      newResponse.headers.set("X-Content-Type-Options", "nosniff");
+      newResponse.headers.set("X-Frame-Options", "DENY");
+      newResponse.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+
       const url = new URL(request.url);
 
       // Cache ultra-agressif (1 an) pour les assets statiques (images, css, js, fonts)

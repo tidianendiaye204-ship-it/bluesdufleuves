@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lesbluesdufleuve.sn/sitemap.xml
+Sitemap: https://lesbluesdufleuve.sn/api/sitemap.xml

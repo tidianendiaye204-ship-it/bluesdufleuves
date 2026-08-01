@@ -15,7 +15,7 @@ export const getArticlesFn = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const deleteArticleFn = createServerFn({ method: "POST" })
-  .inputValidator((data: { id: number }) => data)
+  .validator((data: { id: number }) => data)
   .handler(async ({ data }) => {
     const db = getDb();
     await db.delete(articles).where(eq(articles.id, data.id));

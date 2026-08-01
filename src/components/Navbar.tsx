@@ -17,7 +17,6 @@ export function Navbar() {
   const { i18n, t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -109,6 +108,13 @@ export function Navbar() {
             {/* Actions droite */}
             <div className="flex items-center gap-2 md:gap-5 shrink-0">
               {/* Theme toggle mobile */}
+              <button
+                onClick={() => window.dispatchEvent(new Event("open-search"))}
+                className={`md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all ${isTransparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-foreground/5"}`}
+                aria-label="Rechercher"
+              >
+                <Search size={20} strokeWidth={1.5} />
+              </button>
               <div className="md:hidden">
                 <ThemeToggle />
               </div>
@@ -119,6 +125,7 @@ export function Navbar() {
               >
                 <button
                   onClick={() => i18n.changeLanguage("fr")}
+                  aria-label="Passer en Français"
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "fr"
                       ? "text-primary font-black"
@@ -136,6 +143,7 @@ export function Navbar() {
                 </span>
                 <button
                   onClick={() => i18n.changeLanguage("en")}
+                  aria-label="Switch to English"
                   className={`text-[8px] font-semibold tracking-widest transition-all ${
                     i18n.language === "en"
                       ? "text-primary font-black"
@@ -150,42 +158,20 @@ export function Navbar() {
 
               {/* Recherche desktop */}
               <div className="relative hidden md:flex items-center">
-                <AnimatePresence>
-                  {searchOpen && (
-                    <motion.div
-                      initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: 200, opacity: 1 }}
-                      exit={{ width: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <input
-                        type="text"
-                        placeholder="Rechercher..."
-                        className={`w-full h-8 px-3 text-sm rounded-l-full border-y border-l focus:outline-none transition-colors ${
-                          isTransparent
-                            ? "bg-white/10 border-white/20 text-white placeholder-white/50"
-                            : "bg-background border-border text-foreground placeholder-muted-foreground"
-                        }`}
-                        autoFocus
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
                 <button
-                  onClick={() => setSearchOpen(!searchOpen)}
-                  className={`h-8 w-8 items-center justify-center rounded-r-full transition-all duration-300 flex ${
-                    searchOpen && isTransparent
-                      ? "bg-white/10 border-y border-r border-white/20 text-white"
-                      : searchOpen && !isTransparent
-                        ? "bg-background border-y border-r border-border text-foreground"
-                        : isTransparent
-                          ? "text-white hover:bg-white/10 rounded-full"
-                          : "text-foreground hover:bg-foreground/5 rounded-full"
+                  onClick={() => window.dispatchEvent(new Event("open-search"))}
+                  className={`flex items-center gap-2 h-8 px-3 text-xs rounded-full border transition-colors ${
+                    isTransparent
+                      ? "bg-white/10 border-white/20 text-white/70 hover:text-white"
+                      : "bg-background border-border text-muted-foreground hover:text-foreground"
                   }`}
                   aria-label="Rechercher"
                 >
-                  <Search size={16} strokeWidth={1.5} />
+                  <Search size={14} />
+                  <span>Rechercher...</span>
+                  <kbd className="hidden lg:inline-flex ml-2 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
+                    <span className="text-xs">⌘</span>K
+                  </kbd>
                 </button>
               </div>
 
@@ -298,6 +284,7 @@ export function Navbar() {
                         i18n.changeLanguage("fr");
                         setOpen(false);
                       }}
+                      aria-label="Passer en Français"
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
                         i18n.language === "fr"
                           ? "bg-primary text-primary-foreground shadow-md"
@@ -311,6 +298,7 @@ export function Navbar() {
                         i18n.changeLanguage("en");
                         setOpen(false);
                       }}
+                      aria-label="Switch to English"
                       className={`text-[10px] font-black tracking-widest px-4 py-2 rounded-full transition-all ${
                         i18n.language === "en"
                           ? "bg-primary text-primary-foreground shadow-md"

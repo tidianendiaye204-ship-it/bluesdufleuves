@@ -3,7 +3,10 @@ import { logger } from "./logger";
 
 // Helper to get Resend instance safely
 export function getResendClient(): Resend | null {
-  const apiKey = process.env.RESEND_API_KEY;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const env = typeof globalThis !== "undefined" ? (globalThis as any).__CF_ENV__ || process.env : process.env;
+  const apiKey = env?.RESEND_API_KEY;
+  
   if (!apiKey) {
     logger.warn("RESEND_API_KEY non configurée. L'envoi d'email est désactivé.");
     return null;

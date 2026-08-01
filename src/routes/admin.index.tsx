@@ -507,9 +507,9 @@ function AdminDashboard() {
                   key={c.id}
                   className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm"
                 >
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex flex-col sm:flex-row sm:justify-between items-start mb-2 gap-2">
                     <span className="font-semibold">{c.nom}</span>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <select
                         value={c.statut}
                         onChange={(e) =>
@@ -586,11 +586,11 @@ function AdminDashboard() {
                   key={i.id}
                   className="p-4 bg-muted/30 hover:bg-muted/80 border border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 hover:shadow-sm group"
                 >
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex flex-col sm:flex-row sm:justify-between items-start mb-2 gap-2">
                     <span className="font-semibold">
                       {i.prenom} {i.nom}
                     </span>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <select
                         value={i.statut}
                         onChange={(e) =>
