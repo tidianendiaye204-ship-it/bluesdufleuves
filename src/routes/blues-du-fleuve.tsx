@@ -1048,68 +1048,7 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-      <section className="container-page py-12 border-t border-border bg-card/30">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold">{t("festival.contactUs")}</h2>
-          <p className="mt-4 text-muted-foreground">{t("festival.contactDesc")}</p>
-          <div className="mt-8 flex flex-col md:flex-row justify-center gap-8 md:gap-16">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                {t("festival.address")}
-              </span>
-              <span className="text-lg font-medium">Dakar, Dakar - Sénégal</span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                {t("festival.phone")}
-              </span>
-              <a
-                href="tel:+221774967531"
-                className="text-lg font-medium hover:text-primary transition whitespace-nowrap"
-              >
-                +221 77 496 75 31
-              </a>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                Email
-              </span>
-              <a
-                href="mailto:contact@bluesdufleuve.sn"
-                className="text-lg font-medium hover:text-primary transition"
-              >
-                contact@bluesdufleuve.sn
-              </a>
-            </div>
-          </div>
-          <div className="mt-10 flex justify-center gap-6">
-            <a
-              href="https://www.facebook.com/festivalbluesdufleuve"
-              target="_blank"
-              rel="noreferrer"
-              className="text-muted-foreground hover:text-primary transition"
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/nannkmedia"
-              target="_blank"
-              rel="noreferrer"
-              className="text-muted-foreground hover:text-primary transition"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.youtube.com/@nannktv"
-              target="_blank"
-              rel="noreferrer"
-              className="text-muted-foreground hover:text-primary transition"
-            >
-              Youtube
-            </a>
-          </div>
-        </div>
-      </section>
+
 
       {/* ──────────────────── MODAL ARTISTE ──────────────────── */}
       <AnimatePresence>
