@@ -19,7 +19,7 @@ export function getResendClient(): Resend | null {
 const ADMIN_EMAIL = "contact@levillagepodor.com";
 
 function getSender(): string {
-  return `Les Blues du Fleuve <no-reply@send.levillagepodor.com>`;
+  return `Les Blues du Fleuve <no-reply@levillagepodor.com>`;
 }
 
 export async function sendContactConfirmation(
