@@ -1048,8 +1048,6 @@ function BluesDuFleuve() {
         </div>
       </section>
 
-
-
       {/* ──────────────────── MODAL ARTISTE ──────────────────── */}
       <AnimatePresence>
         {selectedArtist && (
