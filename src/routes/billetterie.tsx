@@ -24,7 +24,7 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { MagneticButton } from "@/components/MagneticButton";
 
 // Import images
-import crowdImg from "@/assets/festival-crowd.webp";
+import crowdImg from "@/assets/baaba-maal.webp";
 
 export const Route = createFileRoute("/billetterie")({
   head: () => {
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/billetterie")({
       country: "Sénégal",
       description:
         "Billetterie officielle pour réserver vos pass pour le festival Blues du Fleuve au centre culturel The Village Podor.",
-      image: "/festival-crowd.webp",
+      image: "/baaba-maal.webp",
       url: "https://levillagepodor.com/billetterie",
       organizer: "The Village Podor",
       organizerUrl: "https://levillagepodor.com",

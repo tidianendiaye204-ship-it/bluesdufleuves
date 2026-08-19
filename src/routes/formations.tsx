@@ -21,7 +21,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 // Centre culturel image from public folder
 const centreCulturelImg = "/centre-culturel.webp";
-import instrumentsImg from "@/assets/instruments.webp";
+import instrumentsImg from "@/assets/pirogues.webp";
 const baabaVideo =
   "https://raw.githubusercontent.com/tidianendiaye204-ship-it/bluesdufleuves/main/src/assets/baaba-maal-helping-francais-compressed.mp4";
 import { createServerFn } from "@tanstack/react-start";

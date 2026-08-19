@@ -4,8 +4,10 @@ import { getDb } from "@/lib/db";
 import { articles } from "@/db/schema";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, Save, Eye, Edit3 } from "lucide-react";
+import { ArrowLeft, Save, Eye, Edit3, Send } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { sendNewsletterBlast } from "@/lib/email";
+import { newsletter } from "@/db/schema";
 
 const articleSchema = z.object({
   title: z.string().min(1),
@@ -14,17 +16,35 @@ const articleSchema = z.object({
   excerpt: z.string().min(1),
   content: z.string().min(1),
   imageUrl: z.string().min(1),
+  sendNewsletter: z.boolean().default(false),
 });
 
 export const createArticleFn = createServerFn({ method: "POST" })
   .validator((data: z.infer<typeof articleSchema>) => articleSchema.parse(data))
   .handler(async ({ data }) => {
     const db = getDb();
+    const { sendNewsletter, ...articleData } = data;
+    
     await db.insert(articles).values({
-      ...data,
+      ...articleData,
       publishedAt: new Date(),
       createdAt: new Date(),
     });
+
+    if (sendNewsletter) {
+      // Fetch all newsletter subscribers
+      const subscribers = await db.select({ email: newsletter.email }).from(newsletter);
+      const emails = subscribers.map((s: { email: string | null }) => s.email).filter((email: string | null): email is string => email !== null);
+      
+      if (emails.length > 0) {
+        await sendNewsletterBlast(emails, {
+          title: articleData.title,
+          excerpt: articleData.excerpt,
+          slug: articleData.slug,
+        });
+      }
+    }
+
     return { success: true };
   });
 
@@ -43,6 +63,7 @@ function CreateArticlePage() {
     excerpt: "",
     content: "",
     imageUrl: "",
+    sendNewsletter: true,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -188,6 +209,22 @@ function CreateArticlePage() {
               className="w-full bg-background border border-border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
               required
             />
+          </div>
+
+          <div className="flex items-center gap-3 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+            <input
+              type="checkbox"
+              id="sendNewsletter"
+              checked={form.sendNewsletter}
+              onChange={(e) => setForm((prev) => ({ ...prev, sendNewsletter: e.target.checked }))}
+              className="w-5 h-5 rounded border-border text-primary focus:ring-primary"
+            />
+            <label htmlFor="sendNewsletter" className="text-sm font-semibold flex flex-col cursor-pointer">
+              <span>Envoyer cet article à la newsletter</span>
+              <span className="text-xs text-muted-foreground font-normal">
+                Les abonnés recevront un email avec le titre et l'extrait.
+              </span>
+            </label>
           </div>
 
           <div className="flex justify-end gap-4">

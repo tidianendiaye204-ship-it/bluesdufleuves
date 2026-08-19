@@ -21,9 +21,9 @@ import { createSeoMeta } from "@/lib/seo";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { useTranslation } from "react-i18next";
 
-import instrumentsImg from "@/assets/instruments.webp";
+import instrumentsImg from "@/assets/pirogues.webp";
 import piroguesImg from "@/assets/pirogues.webp";
-import crowdImg from "@/assets/festival-crowd.webp";
+import crowdImg from "@/assets/baaba-maal.webp";
 import fleuveImg from "@/assets/fleuve.webp";
 import logoNannk from "@/assets/logo-nannk-new.webp";
 import agri1Img from "@/assets/nann-k-agri1.webp";

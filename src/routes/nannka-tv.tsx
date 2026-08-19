@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useEmblaCarousel from "embla-carousel-react";
 import { createSeoMeta } from "@/lib/seo";
-import instrumentsImg from "@/assets/instruments.webp";
+import instrumentsImg from "@/assets/pirogues.webp";
 import piroguesImg from "@/assets/pirogues.webp";
-import crowdImg from "@/assets/festival-crowd.webp";
+import crowdImg from "@/assets/baaba-maal.webp";
 import fleuveImg from "@/assets/fleuve.webp";
 
 const heroPoster = fleuveImg;

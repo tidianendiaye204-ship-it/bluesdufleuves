@@ -3,7 +3,7 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { createServerFn } from "@tanstack/react-start";
 import { getDb } from "@/lib/db";
-import { contacts, inscriptions, articles as articlesTable } from "@/db/schema";
+import { contacts, inscriptions, articles as articlesTable, newsletter } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import {
   FileText,
@@ -16,6 +16,7 @@ import {
   Reply,
   Search,
   ChevronDown,
+  Rss,
 } from "lucide-react";
 import { requireAuth } from "@/lib/session-middleware";
 import {
@@ -59,8 +60,9 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
     .from(inscriptions)
     .orderBy(desc(inscriptions.dateInscription));
   const allContacts = await db.select().from(contacts).orderBy(desc(contacts.dateEnvoi));
+  const allNewsletter = await db.select().from(newsletter).orderBy(desc(newsletter.dateInscription));
 
-  return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts };
+  return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts, allNewsletter };
 });
 
 const updateContactStatusFn = createServerFn({ method: "POST" })
@@ -99,6 +101,15 @@ const deleteInscriptionFn = createServerFn({ method: "POST" })
     return { success: true };
   });
 
+const deleteNewsletterFn = createServerFn({ method: "POST" })
+  .validator((d: { id: number }) => d)
+  .handler(async ({ data }) => {
+    await requireAuth();
+    const db = getDb();
+    await db.delete(newsletter).where(eq(newsletter.id, data.id));
+    return { success: true };
+  });
+
 export const Route = createFileRoute("/admin/")({
   loader: async () => await getAdminData(),
   component: AdminDashboard,
@@ -106,12 +117,14 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminDashboard() {
   const router = useRouter();
-  const { recentArticles, allInscriptions, allContacts } = Route.useLoaderData();
+  const { recentArticles, allInscriptions, allContacts, allNewsletter } = Route.useLoaderData();
 
   const [contactSearch, setContactSearch] = useState("");
   const [inscriptionSearch, setInscriptionSearch] = useState("");
+  const [newsletterSearch, setNewsletterSearch] = useState("");
   const [visibleContactsCount, setVisibleContactsCount] = useState(10);
   const [visibleInscriptionsCount, setVisibleInscriptionsCount] = useState(10);
+  const [visibleNewsletterCount, setVisibleNewsletterCount] = useState(20);
 
   const handleUpdateContactStatus = async (id: number, status: "non_lu" | "lu" | "traite") => {
     await updateContactStatusFn({ data: { id, status } });
@@ -162,6 +175,13 @@ function AdminDashboard() {
     }
   };
 
+  const handleDeleteNewsletter = async (id: number) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet abonné ?")) {
+      await deleteNewsletterFn({ data: { id } });
+      router.invalidate();
+    }
+  };
+
   const allFilteredContacts = allContacts.filter((c: any) => {
     if (!contactSearch) return true;
     const term = contactSearch.toLowerCase();
@@ -184,6 +204,12 @@ function AdminDashboard() {
     );
   });
   const filteredInscriptions = allFilteredInscriptions.slice(0, visibleInscriptionsCount);
+
+  const allFilteredNewsletter = allNewsletter.filter((n: any) => {
+    if (!newsletterSearch) return true;
+    return n.email.toLowerCase().includes(newsletterSearch.toLowerCase());
+  });
+  const filteredNewsletter = allFilteredNewsletter.slice(0, visibleNewsletterCount);
 
   // ──────────────── DATA AGGREGATION FOR CHARTS ────────────────
 
@@ -274,6 +300,16 @@ function AdminDashboard() {
     triggerCSVDownload(rows, "contacts.csv", headers);
   };
 
+  const exportNewsletterCSV = () => {
+    const headers = ["id", "email", "dateInscription"];
+    const rows = allNewsletter.map((n: any) => ({
+      id: n.id,
+      email: n.email,
+      dateInscription: new Date(n.dateInscription).toISOString(),
+    }));
+    triggerCSVDownload(rows, "newsletter.csv", headers);
+  };
+
   const triggerCSVDownload = (
     data: Record<string, unknown>[],
     filename: string,
@@ -329,6 +365,13 @@ function AdminDashboard() {
             <Download size={14} />
             Export Contacts
           </button>
+          <button
+            onClick={exportNewsletterCSV}
+            className="flex items-center gap-2 bg-card border border-border text-foreground px-4 py-2.5 rounded-xl font-bold hover:bg-emerald-500/5 hover:border-emerald-500/30 hover:text-emerald-500 transition-all duration-300 shadow-sm hover:shadow text-xs uppercase tracking-wider cursor-pointer"
+          >
+            <Download size={14} />
+            Export Newsletter
+          </button>
           <Link
             to="/admin/articles"
             className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-bold hover:bg-primary/95 transition text-xs uppercase tracking-wider shadow-lg"
@@ -340,7 +383,7 @@ function AdminDashboard() {
       </div>
 
       {/* Highlights Metrics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden group">
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="p-4 bg-primary/10 text-primary rounded-xl">
@@ -376,6 +419,19 @@ function AdminDashboard() {
             <span className="block text-2xl font-black">{recentArticles.length}</span>
             <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
               Articles Publiés
+            </span>
+          </div>
+        </div>
+
+        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-linear-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="p-4 bg-purple-500/10 text-purple-600 rounded-xl">
+            <Rss size={24} />
+          </div>
+          <div>
+            <span className="block text-2xl font-black">{allNewsletter.length}</span>
+            <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+              Abonnés Newsletter
             </span>
           </div>
         </div>
@@ -642,6 +698,58 @@ function AdminDashboard() {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4 border-b border-border pb-4">
+          <h3 className="font-bold text-xl">Abonnés Newsletter ({allNewsletter.length})</h3>
+          <div className="relative w-full sm:w-64">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Rechercher un email..."
+              value={newsletterSearch}
+              onChange={(e) => setNewsletterSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-muted/50 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+            />
+          </div>
+        </div>
+        {filteredNewsletter.length === 0 ? (
+          <p className="text-muted-foreground text-sm">Aucun abonné trouvé.</p>
+        ) : (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {filteredNewsletter.map((n: any) => (
+                <div
+                  key={n.id}
+                  className="p-3 bg-muted/30 border border-transparent hover:border-primary/20 rounded-xl flex items-center justify-between group transition-all"
+                >
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="font-medium text-sm truncate">{n.email}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(n.dateInscription).toLocaleDateString("fr-FR")}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteNewsletter(n.id)}
+                    className="opacity-0 group-hover:opacity-100 p-1.5 text-red-500 hover:bg-red-500/10 rounded-md transition-all cursor-pointer shrink-0"
+                    title="Supprimer l'abonné"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            {allFilteredNewsletter.length > visibleNewsletterCount && (
+              <button
+                onClick={() => setVisibleNewsletterCount((prev) => prev + 20)}
+                className="w-full mt-4 py-2 border border-border rounded-lg text-sm font-semibold hover:bg-muted transition-colors flex justify-center items-center gap-2 cursor-pointer"
+              >
+                Voir plus <ChevronDown size={16} />
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

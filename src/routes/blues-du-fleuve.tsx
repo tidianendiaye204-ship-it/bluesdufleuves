@@ -46,7 +46,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       ogTitle: "Blues du Fleuve — Festival au The Village Podor",
       ogDescription:
         "Découvrez la 19ème édition du Festival Blues du Fleuve avec Baaba Maal à Podor et Ndioum, et des artistes de la région du Fouta Toro.",
-      ogImage: "/festival-crowd.webp",
+      ogImage: "/festival-baba-maal.webp",
       keywords:
         "Blues du Fleuve, Festival Podor, The Village, Baaba Maal, musique Sénégal, Fouta Toro, festival 2026, culture Halpulaar",
       canonical: "https://levillagepodor.com/blues-du-fleuve",
@@ -61,7 +61,7 @@ export const Route = createFileRoute("/blues-du-fleuve")({
       country: "Sénégal",
       description:
         "Festival Blues du Fleuve au The Village, le centre culturel de Podor, fondé par Baaba Maal. Célébration de l'intégration, de la solidarité et de la culture de la vallée du fleuve Sénégal.",
-      image: "/festival-crowd.webp",
+      image: "/festival-baba-maal.webp",
       url: "https://levillagepodor.com/blues-du-fleuve",
       performers: artistes.map((artist) => ({ name: artist.nom })),
       organizer: "The Village Podor",
@@ -901,7 +901,7 @@ function BluesDuFleuve() {
           >
             <div className="rounded-3xl overflow-hidden border border-border shadow-2xl aspect-21/9 relative group">
               <img
-                src="/festival-crowd.webp"
+                src="/gal19.webp"
                 alt="Foule au festival"
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 loading="lazy"
