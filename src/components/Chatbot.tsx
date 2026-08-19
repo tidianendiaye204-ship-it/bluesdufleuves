@@ -55,7 +55,7 @@ export function Chatbot() {
       } else if (result.response) {
         setMessages((prev) => [...prev, { role: "model", text: result.response as string }]);
       }
-    } catch (_err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: "model", text: "Une erreur est survenue lors de la communication." },
