@@ -135,7 +135,7 @@ export async function sendNewsletterBlast(
     const articleUrl = `https://levillagepodor.com/admin/articles`; // We will adjust link later if there's a public article page, for now we can just point to homepage or if they have a dynamic route. Actually wait, do they have a public article route?
     // Let's check if they have a public article route. For now I'll just use a generic or # placeholder, but I will put a proper link if I find it.
     // Let me just link to the main site for now, or / (home).
-    
+
     // I will write the function assuming the article page is at / (for now).
 
     for (const batch of batches) {
@@ -154,7 +154,7 @@ export async function sendNewsletterBlast(
             </p>
             <br/>
             <div style="text-align: center;">
-              <a href="https://levillagepodor.com/" style="display: inline-block; padding: 12px 24px; background-color: #0c4a6e; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold;">
+              <a href="${articleUrl}" style="display: inline-block; padding: 12px 24px; background-color: #0c4a6e; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold;">
                 Lire la suite sur le site
               </a>
             </div>

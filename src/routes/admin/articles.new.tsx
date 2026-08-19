@@ -4,7 +4,7 @@ import { getDb } from "@/lib/db";
 import { articles } from "@/db/schema";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, Save, Eye, Edit3, Send } from "lucide-react";
+import { ArrowLeft, Save, Eye, Edit3 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { sendNewsletterBlast } from "@/lib/email";
 import { newsletter } from "@/db/schema";
@@ -24,7 +24,7 @@ export const createArticleFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const db = getDb();
     const { sendNewsletter, ...articleData } = data;
-    
+
     await db.insert(articles).values({
       ...articleData,
       publishedAt: new Date(),
@@ -34,8 +34,10 @@ export const createArticleFn = createServerFn({ method: "POST" })
     if (sendNewsletter) {
       // Fetch all newsletter subscribers
       const subscribers = await db.select({ email: newsletter.email }).from(newsletter);
-      const emails = subscribers.map((s: { email: string | null }) => s.email).filter((email: string | null): email is string => email !== null);
-      
+      const emails = subscribers
+        .map((s: { email: string | null }) => s.email)
+        .filter((email: string | null): email is string => email !== null);
+
       if (emails.length > 0) {
         await sendNewsletterBlast(emails, {
           title: articleData.title,
@@ -219,7 +221,10 @@ function CreateArticlePage() {
               onChange={(e) => setForm((prev) => ({ ...prev, sendNewsletter: e.target.checked }))}
               className="w-5 h-5 rounded border-border text-primary focus:ring-primary"
             />
-            <label htmlFor="sendNewsletter" className="text-sm font-semibold flex flex-col cursor-pointer">
+            <label
+              htmlFor="sendNewsletter"
+              className="text-sm font-semibold flex flex-col cursor-pointer"
+            >
               <span>Envoyer cet article à la newsletter</span>
               <span className="text-xs text-muted-foreground font-normal">
                 Les abonnés recevront un email avec le titre et l'extrait.

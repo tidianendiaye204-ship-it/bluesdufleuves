@@ -60,9 +60,19 @@ const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
     .from(inscriptions)
     .orderBy(desc(inscriptions.dateInscription));
   const allContacts = await db.select().from(contacts).orderBy(desc(contacts.dateEnvoi));
-  const allNewsletter = await db.select().from(newsletter).orderBy(desc(newsletter.dateInscription));
+  const allNewsletter = await db
+    .select()
+    .from(newsletter)
+    .orderBy(desc(newsletter.dateInscription));
 
-  return { recentContacts, recentInscriptions, recentArticles, allInscriptions, allContacts, allNewsletter };
+  return {
+    recentContacts,
+    recentInscriptions,
+    recentArticles,
+    allInscriptions,
+    allContacts,
+    allNewsletter,
+  };
 });
 
 const updateContactStatusFn = createServerFn({ method: "POST" })
