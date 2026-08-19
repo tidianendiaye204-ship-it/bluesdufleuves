@@ -1,9 +1,18 @@
 import { createServerFn } from "@tanstack/react-start";
 import { GoogleGenAI } from "@google/genai";
 
-// Le SDK @google/genai utilise automatiquement process.env.GEMINI_API_KEY
-// mais on peut le passer explicitement si on veut être sûr.
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// Helper pour obtenir le client Gemini en toute sécurité sur Cloudflare Workers
+function getGeminiClient(): GoogleGenAI | null {
+  const env =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    typeof globalThis !== "undefined" ? (globalThis as any).__CF_ENV__ || process.env : process.env;
+  const apiKey = env?.GEMINI_API_KEY;
+
+  if (!apiKey) {
+    return null;
+  }
+  return new GoogleGenAI({ apiKey });
+}
 
 const SYSTEM_PROMPT = `Tu es "BluesBot", l'assistant virtuel officiel du festival "Les Blues du Fleuve" et du centre culturel "The Village Podor", fondé par Baaba Maal.
 Ton but est de répondre aux questions des visiteurs de manière concise, chaleureuse et précise, en français.
@@ -30,7 +39,8 @@ export const chatFn = createServerFn({ method: "POST" })
       data,
   )
   .handler(async ({ data }) => {
-    if (!process.env.GEMINI_API_KEY) {
+    const ai = getGeminiClient();
+    if (!ai) {
       return { error: "La clé API Gemini n'est pas configurée côté serveur." };
     }
 
