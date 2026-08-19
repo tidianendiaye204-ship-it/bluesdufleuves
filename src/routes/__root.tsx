@@ -25,6 +25,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { FloatingTicketButton } from "@/components/FloatingTicketButton";
 import { ImmersiveAudio } from "@/components/ImmersiveAudio";
+import { Chatbot } from "@/components/Chatbot";
 
 import { CustomCursor } from "@/components/CustomCursor";
 import { GlobalSearch } from "@/components/GlobalSearch";
@@ -267,6 +268,7 @@ function RootComponent() {
             <PWAInstallPrompt />
             <FloatingTicketButton />
             <ImmersiveAudio />
+            <Chatbot />
           </>
         )}
       </div>
