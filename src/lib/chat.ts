@@ -46,16 +46,12 @@ export const chatFn = createServerFn({ method: "POST" })
 
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: [
-          { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
-          { role: "model", parts: [{ text: "Compris. Je suis BluesBot, prêt à aider !" }] },
-          ...data.history,
-          { role: "user", parts: [{ text: data.message }] },
-        ],
+        model: "gemini-2.5-flash",
+        contents: [...data.history, { role: "user", parts: [{ text: data.message }] }],
         config: {
+          systemInstruction: SYSTEM_PROMPT,
           temperature: 0.7,
-          maxOutputTokens: 150,
+          maxOutputTokens: 500,
         },
       });
 

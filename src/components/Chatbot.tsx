@@ -38,9 +38,8 @@ export function Chatbot() {
     setInput("");
 
     // Conversion de l'historique pour l'API Gemini
-    // On ignore le tout premier message d'accueil pour éviter de surcharger le contexte s'il n'est pas nécessaire,
-    // mais on peut le laisser. Le SDK Gemini attend "user" et "model".
-    const history = messages.map((m) => ({
+    // On ignore le tout premier message d'accueil car Gemini exige que l'historique commence par un "user" et non un "model".
+    const history = messages.slice(1).map((m) => ({
       role: m.role,
       parts: [{ text: m.text }],
     }));
