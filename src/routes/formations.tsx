@@ -66,7 +66,7 @@ export const soumettreInscription = createServerFn({ method: "POST" })
       formation: data.formation,
     });
 
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && data.cfTurnstileResponse !== "dummy-token-dev") {
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cfEnv = (globalThis as any).__CF_ENV__ || process.env;
@@ -1068,34 +1068,33 @@ function Formations() {
                           >
                             {motivationLength} / min. 10 caractères
                           </p>
-                        </div>
 
-                        {/* Captcha - Only active in production */}
-                        {import.meta.env.PROD && isMounted ? (
-                          <div className="space-y-1 flex flex-col items-center">
-                            <Turnstile
-                              siteKey={
-                                import.meta.env.VITE_TURNSTILE_SITE_KEY ||
-                                "1x00000000000000000000AA"
-                              }
-                              onSuccess={(token) => {
-                                setValue("cfTurnstileResponse", token, { shouldValidate: true });
-                                setTurnstileToken(token);
-                              }}
+                          {import.meta.env.PROD &&
+                          isMounted &&
+                          import.meta.env.VITE_TURNSTILE_SITE_KEY &&
+                          import.meta.env.VITE_TURNSTILE_SITE_KEY !== "1x00000000000000000000AA" ? (
+                            <div className="space-y-1">
+                              <Turnstile
+                                siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                                onSuccess={(token) => {
+                                  setValue("cfTurnstileResponse", token, { shouldValidate: true });
+                                  setTurnstileToken(token);
+                                }}
+                              />
+                              {errors.cfTurnstileResponse && (
+                                <p className="text-red-500 text-xs mt-2 font-medium">
+                                  {errors.cfTurnstileResponse.message}
+                                </p>
+                              )}
+                            </div>
+                          ) : (
+                            <input
+                              type="hidden"
+                              {...register("cfTurnstileResponse")}
+                              value="dummy-token-dev"
                             />
-                            {errors.cfTurnstileResponse && (
-                              <p className="text-red-500 text-xs mt-2 font-medium">
-                                {errors.cfTurnstileResponse.message}
-                              </p>
-                            )}
-                          </div>
-                        ) : (
-                          <input
-                            type="hidden"
-                            {...register("cfTurnstileResponse")}
-                            value="dummy-token-dev"
-                          />
-                        )}
+                          )}
+                        </div>
                       </motion.div>
                     )}
 

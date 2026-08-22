@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
-import { Home, FileText, MessageSquare, Users, LogOut } from "lucide-react";
+import { Home, FileText, MessageSquare, Users, LogOut, Megaphone } from "lucide-react";
 import { logoutFn } from "./admin.login";
 
 export const getSessionId = createServerFn({ method: "GET" }).handler(async () => {
@@ -38,6 +38,7 @@ function AdminLayout() {
     { to: "/admin/articles", label: "Articles", icon: FileText },
     { to: "/admin/contacts", label: "Messages", icon: MessageSquare },
     { to: "/admin/inscriptions", label: "Inscriptions", icon: Users },
+    { to: "/admin/announcements", label: "Annonces", icon: Megaphone },
   ];
 
   const handleLogout = async () => {

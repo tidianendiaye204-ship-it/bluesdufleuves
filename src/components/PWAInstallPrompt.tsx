@@ -34,7 +34,6 @@ export function PWAInstallPrompt() {
 
     // Listen for PWA install event
     const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       // Show the prompt after a short delay so it doesn't attack the user immediately
       setTimeout(() => setShowPrompt(true), 3000);

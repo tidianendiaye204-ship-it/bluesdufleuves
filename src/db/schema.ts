@@ -103,3 +103,22 @@ export const articles = sqliteTable(
     isPublishedIdx: index("articles_is_published_idx").on(table.isPublished),
   }),
 );
+
+export const announcements = sqliteTable(
+  "announcements",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    message: text("message").notNull(),
+    type: text("type").default("info").notNull(),
+    mediaUrl: text("media_url"),
+    actionUrl: text("action_url"),
+    isActive: integer("is_active", { mode: "boolean" }).default(false).notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp" }).$onUpdate(() => new Date()),
+  },
+  (table) => ({
+    isActiveIdx: index("announcements_is_active_idx").on(table.isActive),
+  }),
+);

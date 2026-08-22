@@ -29,6 +29,7 @@ import { Chatbot } from "@/components/Chatbot";
 
 import { CustomCursor } from "@/components/CustomCursor";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { LiveAnnouncement } from "@/components/LiveAnnouncement";
 
 const newsletterSchema = z.object({
   email: z.string().trim().toLowerCase().email(),
@@ -247,6 +248,7 @@ function RootComponent() {
         >
           {t("root.skipToContent")}
         </a>
+        {!isAdminRoute && <LiveAnnouncement />}
         {!isAdminRoute && <Navbar />}
         <main id="main-content" className="flex-1 flex flex-col relative overflow-hidden">
           <AnimatePresence mode="popLayout">

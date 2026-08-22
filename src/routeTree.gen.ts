@@ -21,6 +21,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminInscriptionsRouteImport } from './routes/admin/inscriptions'
 import { Route as AdminContactsRouteImport } from './routes/admin/contacts'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 import { Route as AdminArticlesIndexRouteImport } from './routes/admin/articles.index'
 import { Route as AdminArticlesNewRouteImport } from './routes/admin/articles.new'
 
@@ -84,6 +85,11 @@ const AdminContactsRoute = AdminContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminArticlesIndexRoute = AdminArticlesIndexRouteImport.update({
   id: '/articles/',
   path: '/articles/',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/formations': typeof FormationsRoute
   '/nann-k-media': typeof NannKMediaRoute
   '/nannka-tv': typeof NannkaTvRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/inscriptions': typeof AdminInscriptionsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/announcements'
     | '/admin/contacts'
     | '/admin/inscriptions'
     | '/admin/login'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/announcements'
     | '/admin/contacts'
     | '/admin/inscriptions'
     | '/admin/login'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/formations'
     | '/nann-k-media'
     | '/nannka-tv'
+    | '/admin/announcements'
     | '/admin/contacts'
     | '/admin/inscriptions'
     | '/admin/login'
@@ -290,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContactsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/articles/': {
       id: '/admin/articles/'
       path: '/articles'
@@ -308,6 +327,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
   AdminContactsRoute: typeof AdminContactsRoute
   AdminInscriptionsRoute: typeof AdminInscriptionsRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -317,6 +337,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
   AdminContactsRoute: AdminContactsRoute,
   AdminInscriptionsRoute: AdminInscriptionsRoute,
   AdminLoginRoute: AdminLoginRoute,

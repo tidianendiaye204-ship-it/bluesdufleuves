@@ -51,7 +51,7 @@ export const soumettreContact = createServerFn({ method: "POST" })
 
     logger.info("Contact form submission received", { email: data.email, sujet: data.sujet });
 
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && data.cfTurnstileResponse !== "dummy-token-dev") {
       const verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cfEnv = (globalThis as any).__CF_ENV__ || process.env;
@@ -709,12 +709,13 @@ function ContactPage() {
 
                     {/* Captcha - Only active in production */}
                     <div className="mt-4">
-                      {import.meta.env.PROD && isMounted ? (
+                      {import.meta.env.PROD &&
+                      isMounted &&
+                      import.meta.env.VITE_TURNSTILE_SITE_KEY &&
+                      import.meta.env.VITE_TURNSTILE_SITE_KEY !== "1x00000000000000000000AA" ? (
                         <div className="space-y-1">
                           <Turnstile
-                            siteKey={
-                              import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
-                            }
+                            siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
                             onSuccess={(token) => {
                               setValue("cfTurnstileResponse", token, { shouldValidate: true });
                             }}

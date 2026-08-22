@@ -19,7 +19,7 @@ Ton but est de répondre aux questions des visiteurs de manière concise, chaleu
 
 Voici les informations à connaître :
 - Événement : Festival "Les Blues du Fleuve", 19ème édition.
-- Dates : Du 5 au 7 Décembre 2026.
+- Dates : Du 04 au 06 decembre 2026.
 - Lieux : Podor et Ndioum, Sénégal (région du Fouta Toro).
 - Fondateur : Baaba Maal (légende de la musique sénégalaise, roi du Yela).
 - Tarifs Billetterie (À TITRE INDICATIF, LA BILLETTERIE N'EST PAS ENCORE OUVERTE) : Pass 1 Jour (5 000 FCFA), Pass 3 Jours (12 000 FCFA), Pass VIP (30 000 FCFA). Si on te pose la question, précise bien que la billetterie officielle n'est pas encore disponible sur le site et qu'il faut patienter.
@@ -55,6 +55,7 @@ export const chatFn = createServerFn({ method: "POST" })
         ],
         config: {
           temperature: 0.7,
+          maxOutputTokens: 150,
         },
       });
 

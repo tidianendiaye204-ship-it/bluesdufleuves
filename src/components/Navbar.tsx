@@ -52,11 +52,12 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 ${
           scrolled || open
             ? "bg-background/95 backdrop-blur-2xl border-b border-border/50 shadow-sm py-2"
             : "bg-transparent border-transparent py-5"
         }`}
+        style={{ top: "var(--announcement-height, 0px)" }}
       >
         <div className="container-page">
           <div className="flex items-center justify-between h-14 md:h-20 gap-4 md:gap-8">
