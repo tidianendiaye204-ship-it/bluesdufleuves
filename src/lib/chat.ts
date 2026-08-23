@@ -46,7 +46,7 @@ export const chatFn = createServerFn({ method: "POST" })
 
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: [...data.history, { role: "user", parts: [{ text: data.message }] }],
         config: {
           systemInstruction: SYSTEM_PROMPT,
@@ -58,6 +58,6 @@ export const chatFn = createServerFn({ method: "POST" })
       return { response: response.text };
     } catch (error) {
       console.error("Erreur avec l'API Gemini:", error);
-      return { error: "Désolé, mes circuits sont un peu surchargés. Réessayez dans un instant." };
+      return { error: "Une erreur est survenue. Veuillez réessayer." };
     }
   });
