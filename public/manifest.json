@@ -1,0 +1,25 @@
+{
+  "name": "The Village - Centre Culturel Podor",
+  "short_name": "The Village",
+  "description": "Centre culturel et artistique unique de Podor, initié par Baaba Maal. Le festival Blues du Fleuve, la culture Halpulaar et la musique du fleuve Sénégal.",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffc107",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

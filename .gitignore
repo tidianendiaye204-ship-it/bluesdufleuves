@@ -1,0 +1,10 @@
+node_modules
+src/assets/baaba-maal-helping-francais.mp4
+local-dev.db
+*.db
+*.db-shm
+*.db-wal
+dist
+.wrangler
+.env
+.DS_Store

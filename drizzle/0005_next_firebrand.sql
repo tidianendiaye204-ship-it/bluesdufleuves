@@ -1,0 +1,1 @@
+ALTER TABLE `announcements` ADD `type` text DEFAULT 'info' NOT NULL;
