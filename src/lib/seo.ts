@@ -93,6 +93,9 @@ export const createStructuredData = (type: "Event" | "Organization" | "MusicEven
     structuredData.description = data.description;
     structuredData.image = data.image;
     structuredData.url = data.url;
+    if (data.sameAs) {
+      structuredData.sameAs = data.sameAs;
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     structuredData.performer = data.performers?.map((performer: any) => ({
       "@type": "MusicGroup",

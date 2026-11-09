@@ -48,21 +48,31 @@ export const piliers = [
   {
     Icon: Music2,
     titre: "Arts Vivants",
+    tag: "Musique · Danse · Tradition",
     desc: "Musique et danses traditionnelles représentatives de la richesse Halpular et Toucouleur.",
+    img: "/gal19.webp",
   },
   {
     Icon: Palette,
     titre: "Artisanat",
+    tag: "Savoir-Faire · Patrimoine",
     desc: "Exposition du savoir-faire local et des objets d'art traditionnels de la vallée.",
+    img: "/gal12.webp",
   },
   {
     Icon: Mic,
     titre: "Conférences",
+    tag: "Panels · Émergence & Avenir",
     desc: "Panels de développement et réflexions thématiques sur les préoccupations des populations.",
+    img: "/gal15.webp",
   },
 ];
 
 export const videos = [
+  {
+    title: "En route vers les Blues du Fleuve — Présentation & Festival 2026",
+    id: "mzXLB9vo8CQ",
+  },
   { title: "Festival Les Blues du Fleuve", id: "6HaDTK0ICDE" },
   { title: "Festival Les Blues du Fleuve", id: "cGUML8xR5UU" },
   { title: "Festival Les Blues du Fleuve", id: "V5RcwQAl-_g" },
@@ -76,6 +86,13 @@ export const videos = [
 ];
 
 export const galleryImages = [
+  {
+    id: 100,
+    src: "/en-route-blues-du-fleuve.webp",
+    alt: "En route vers les Blues du Fleuve — Baaba Maal au Théâtre National Daniel Sorano (27 Novembre 2026)",
+    span: "md:col-span-1 md:row-span-1",
+    objectPosition: "center",
+  },
   {
     id: 16,
     src: "/gal10.webp",

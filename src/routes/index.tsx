@@ -56,7 +56,11 @@ export const Route = createFileRoute("/")({
       founder: "Baaba Maal",
       city: "Podor",
       country: "Senegal",
-      socialLinks: ["https://www.facebook.com/baabamaal", "https://twitter.com/baabamaal"],
+      socialLinks: [
+        "https://lesbluesdufleuve.com/",
+        "https://www.facebook.com/baabamaal",
+        "https://twitter.com/baabamaal",
+      ],
     });
 
     const scripts = [
@@ -284,6 +288,15 @@ function Home() {
             >
               {t("home.ctaDiscoverFestival")}
             </Link>
+            <a
+              href="https://lesbluesdufleuve.com/"
+              target="_blank"
+              rel="noopener"
+              title="Site officiel du Festival Les Blues du Fleuve — lesbluesdufleuve.com"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-amber-500/60 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-slate-950 transition-all duration-300"
+            >
+              Festival Les Blues du Fleuve · Site Officiel
+            </a>
             <a
               href="#instruments"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-primary text-primary text-sm font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300"

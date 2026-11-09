@@ -936,6 +936,7 @@ function NannkMedia() {
               <button
                 key={i}
                 onClick={() => emblaApi?.scrollTo(i)}
+
                 className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
                   i === selectedIndex ? "bg-primary w-6" : "bg-primary/20"
                 }`}
