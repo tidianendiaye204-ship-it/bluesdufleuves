@@ -18,7 +18,7 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
   useEffect(() => {
     const target = new Date(targetDate).getTime();
 
-    const interval = setInterval(() => {
+    const updateCountdown = () => {
       const now = new Date().getTime();
       const difference = target - now;
 
@@ -30,50 +30,57 @@ export function Countdown({ targetDate, className = "" }: CountdownProps) {
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
         });
       }
-    }, 1000);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
   }, [targetDate]);
 
   return (
     <div
-      className={`bg-black/20 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group ${className}`}
+      className={`bg-[#04111f]/75 backdrop-blur-xl border border-white/15 rounded-2xl p-4 sm:p-6 relative overflow-hidden group ${className}`}
     >
-      <div className="absolute inset-0 bg-linear-to-br from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute inset-0 bg-linear-to-br from-sky-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
-        <div className="text-center md:text-left space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 mb-4">
-            <Calendar className="text-amber-400" size={14} />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">
-              Patience
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+        <div className="space-y-1.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/35 bg-sky-500/15">
+            <Calendar className="text-sky-300" size={13} />
+            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-sky-300">
+              Compte à rebours
             </span>
           </div>
-          <h3 className="luxury-text text-3xl md:text-4xl font-bold text-white uppercase tracking-tighter leading-tight">
-            Le Festival
-            <br />
-            Approche
+          <h3 className="font-display text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-tight">
+            Le Festival Approche
           </h3>
         </div>
 
-        <div className="flex items-baseline gap-4">
-          <motion.div
-            key={timeLeft.days}
-            initial={{ scale: 0.9, opacity: 0, y: 10 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            className="text-7xl md:text-9xl font-black text-transparent bg-clip-text"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
-            }}
-          >
-            {timeLeft.days}
-          </motion.div>
-          <div className="flex flex-col gap-1 pb-2 md:pb-4 text-left">
-            <span className="text-xl md:text-2xl font-bold text-white/90 uppercase tracking-widest">
-              Jours
-            </span>
-            <span className="text-sm text-white/50 font-serif italic">avant l'événement</span>
-          </div>
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+          {[
+            { value: timeLeft.days, label: "Jours" },
+            { value: timeLeft.hours, label: "Heures" },
+            { value: timeLeft.minutes, label: "Min" },
+            { value: timeLeft.seconds, label: "Sec" },
+          ].map((unit) => (
+            <div
+              key={unit.label}
+              className="rounded-xl bg-white/8 border border-white/15 px-2.5 py-2 sm:px-3.5 sm:py-2.5 text-center min-w-14 sm:min-w-16"
+            >
+              <motion.div
+                key={`${unit.label}-${unit.value}`}
+                initial={{ opacity: 0.7, y: 3 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-display text-xl sm:text-2xl md:text-3xl font-black text-sky-300 leading-none"
+              >
+                {String(unit.value).padStart(2, "0")}
+              </motion.div>
+              <span className="mt-1 block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-white/75">
+                {unit.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

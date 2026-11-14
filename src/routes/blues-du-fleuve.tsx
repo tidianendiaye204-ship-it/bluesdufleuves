@@ -232,10 +232,7 @@ function BluesDuFleuve() {
   return (
     <>
       {/* ──────────────────── HERO : TEXTES & PHOTOS DÉFILANTS (STYLE CJS) ──────────────────── */}
-      <section
-        ref={heroRef}
-        className="relative min-h-[90vh] overflow-hidden bg-[#04111f]"
-      >
+      <section ref={heroRef} className="relative min-h-[90vh] overflow-hidden bg-[#04111f]">
         <motion.div style={{ y: bgY }} className="absolute inset-0 bg-[#04111f] overflow-hidden">
           {/* Fallback local immédiat pendant le chargement du flux YouTube */}
           <video
@@ -264,20 +261,20 @@ function BluesDuFleuve() {
           <div className="absolute inset-0 bg-linear-to-b from-[#04111f]/50 via-transparent to-[#04111f]" />
         </motion.div>
 
-        <div className="container-page pt-28 pb-16 md:pt-36 md:pb-24 relative grid gap-10 lg:grid-cols-12 lg:items-center z-10">
+        <div className="container-page pt-24 pb-16 md:pt-36 md:pb-24 relative grid gap-8 lg:gap-10 lg:grid-cols-12 lg:items-center z-10">
           {/* Colonne Gauche (7 cols) : Identité + Texte Rotatif Dynamique + Actions */}
-          <div className="lg:col-span-7">
-            <div className="mb-5">
+          <div className="lg:col-span-7 min-w-0">
+            <div className="mb-4 sm:mb-5">
               <img
                 src="/logo-festival.webp"
                 alt="Les Blues du Fleuve — Logo officiel"
-                className="h-20 md:h-24 w-auto object-contain rounded-xl shadow-lg"
+                className="h-16 sm:h-20 md:h-24 w-auto object-contain rounded-xl shadow-lg"
               />
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.28em] text-sky-300">
-                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
+            <div className="flex flex-wrap items-center gap-3 mb-4 sm:mb-5">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] sm:tracking-[0.28em] text-sky-300">
+                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse shrink-0" />
                 <span>{t("festival.internationalFestival")}</span>
               </div>
             </div>
@@ -290,18 +287,18 @@ function BluesDuFleuve() {
             />
 
             {/* Bandeau de texte rotatif animé (Style Bokk | Jang | Ligeey) */}
-            <div className="my-5 rounded-2xl bg-white/[0.07] backdrop-blur-xl border border-white/15 p-4 sm:px-5 sm:py-4 overflow-hidden">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-sky-400">
+            <div className="my-4 sm:my-5 rounded-2xl bg-white/[0.07] backdrop-blur-xl border border-white/15 p-3.5 sm:px-5 sm:py-4 overflow-hidden">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-sky-400">
                   Piliers en mouvement
                 </span>
-                <div className="flex items-center gap-1.5 ml-auto">
+                <div className="flex flex-wrap items-center gap-1.5">
                   {heroSlides.map((s, idx) => (
                     <button
                       key={s.word}
                       type="button"
                       onClick={() => setHeroSlideIdx(idx)}
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider transition-all cursor-pointer ${
+                      className={`px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider transition-all cursor-pointer ${
                         idx === heroSlideIdx
                           ? "bg-sky-500 text-white shadow-sm"
                           : "bg-white/10 text-white/60 hover:text-white"
@@ -320,10 +317,10 @@ function BluesDuFleuve() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -16 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-3 min-w-0"
                   >
                     <span className="h-8 w-1 rounded-full bg-sky-400 shrink-0" />
-                    <p className="text-sm sm:text-base md:text-lg font-serif italic text-white/95">
+                    <p className="text-sm sm:text-base md:text-lg font-serif italic text-white/95 break-words">
                       « {currentHero.motto} »
                     </p>
                   </motion.div>
@@ -332,7 +329,7 @@ function BluesDuFleuve() {
             </div>
 
             <div className="space-y-4 max-w-2xl">
-              <p className="text-base sm:text-lg font-light text-white/90 leading-relaxed">
+              <p className="text-sm sm:text-lg font-light text-white/90 leading-relaxed">
                 {t("festival.heroDesc1")}{" "}
                 <strong className="font-extrabold text-sky-300">Baaba MAAL</strong>
                 {t("festival.heroDesc1b")}
@@ -370,21 +367,21 @@ function BluesDuFleuve() {
               </AnimatePresence>
 
               {/* Badges d'information */}
-              <div className="pt-1 flex flex-wrap gap-2.5">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-white">
-                  <MapPin size={15} className="text-sky-400 shrink-0" />
+              <div className="pt-1 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-white">
+                  <MapPin size={14} className="text-sky-400 shrink-0" />
                   <span className="text-xs sm:text-sm font-semibold">
                     {FESTIVAL_CONFIG.location}
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-white">
-                  <Calendar size={15} className="text-sky-400 shrink-0" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-white">
+                  <Calendar size={14} className="text-sky-400 shrink-0" />
                   <span className="text-xs sm:text-sm font-semibold">
                     {FESTIVAL_CONFIG.dateTexte}
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500/20 backdrop-blur-md border border-sky-400/40 text-sky-200">
-                  <Sparkles size={15} className="text-sky-300 shrink-0" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-sky-500/20 backdrop-blur-md border border-sky-400/40 text-sky-200">
+                  <Sparkles size={14} className="text-sky-300 shrink-0" />
                   <span className="text-xs sm:text-sm font-bold">Sorano (Dakar) · 27 Nov 2026</span>
                 </div>
               </div>
@@ -395,16 +392,16 @@ function BluesDuFleuve() {
               </div>
 
               {/* Boutons d'action */}
-              <div className="pt-3 flex flex-wrap items-center gap-3">
+              <div className="pt-3 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <a
                   href="#en-route"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById("en-route")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="inline-flex items-center gap-2.5 relative z-50 w-fit bg-sky-500 hover:bg-sky-400 px-6 py-3.5 rounded-full text-white font-bold uppercase tracking-widest text-xs shadow-lg shadow-sky-500/25 transition-all hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2.5 relative z-50 w-full sm:w-fit bg-sky-500 hover:bg-sky-400 px-5 sm:px-6 py-3.5 rounded-full text-white font-bold uppercase tracking-widest text-[11px] sm:text-xs shadow-lg shadow-sky-500/25 transition-all hover:-translate-y-0.5"
                 >
-                  <Sparkles size={15} />
+                  <Sparkles size={15} className="shrink-0" />
                   <span>En route vers les Blues · 27 Nov</span>
                 </a>
                 <a
@@ -413,19 +410,19 @@ function BluesDuFleuve() {
                     e.preventDefault();
                     document.getElementById("billetterie")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="inline-flex items-center gap-2 relative z-50 w-fit px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white font-bold uppercase tracking-widest text-xs transition-all"
+                  className="inline-flex items-center justify-center gap-2 relative z-50 w-full sm:w-fit px-5 sm:px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white font-bold uppercase tracking-widest text-[11px] sm:text-xs transition-all"
                 >
                   <span>{t("festival.viewProgram")}</span>
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} className="shrink-0" />
                 </a>
                 <a
                   href="https://lesbluesdufleuve.com/"
                   target="_blank"
                   rel="noopener"
                   title="Site officiel du Festival Les Blues du Fleuve — lesbluesdufleuve.com"
-                  className="inline-flex items-center gap-2 relative z-50 w-fit px-5 py-3.5 rounded-full bg-white/5 hover:bg-white/15 backdrop-blur-md border border-sky-400/35 text-sky-200 font-bold uppercase tracking-widest text-xs transition-all"
+                  className="inline-flex items-center justify-center gap-2 relative z-50 w-full sm:w-fit px-5 py-3.5 rounded-full bg-white/5 hover:bg-white/15 backdrop-blur-md border border-sky-400/35 text-sky-200 font-bold uppercase tracking-widest text-[11px] sm:text-xs transition-all"
                 >
-                  <Globe size={14} className="text-sky-400" />
+                  <Globe size={14} className="text-sky-400 shrink-0" />
                   <span>lesbluesdufleuve.com</span>
                 </a>
               </div>
@@ -433,7 +430,7 @@ function BluesDuFleuve() {
           </div>
 
           {/* Colonne Droite (5 cols) : Carrousel Photo & Story Automatique */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 min-w-0">
             <div className="relative mx-auto max-w-sm lg:max-w-md">
               <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-[#06182c] shadow-[0_25px_70px_rgba(0,0,0,0.65)] aspect-4/5">
                 <AnimatePresence mode="wait">
@@ -1060,7 +1057,12 @@ function BluesDuFleuve() {
             {/* Navigation par onglets glissants (Objectifs | Retombées | Activités Phares | Bénéficiaires) */}
             <div className="flex flex-wrap items-center gap-2 mb-6">
               {[
-                { id: 0, label: t("festival.objectives"), sub: "04 Axes Stratégiques", icon: Target },
+                {
+                  id: 0,
+                  label: t("festival.objectives"),
+                  sub: "04 Axes Stratégiques",
+                  icon: Target,
+                },
                 { id: 1, label: t("festival.outcomes"), sub: "Impact Territorial", icon: Sparkles },
                 {
                   id: 2,
@@ -1339,7 +1341,9 @@ function BluesDuFleuve() {
                     <Award size={18} />
                   </div>
                   <div className="text-xs sm:text-sm">
-                    <span className="text-muted-foreground">{t("festival.enRoutePatronLabel")} : </span>
+                    <span className="text-muted-foreground">
+                      {t("festival.enRoutePatronLabel")} :{" "}
+                    </span>
                     <strong className="text-foreground">{t("festival.enRoutePatronValue")}</strong>
                   </div>
                 </div>
@@ -1432,8 +1436,7 @@ function BluesDuFleuve() {
                       Tribune Officielle · Édition 2026
                     </p>
                     <h2 className="luxury-text text-3xl sm:text-4xl lg:text-5xl font-black text-foreground uppercase tracking-tighter leading-tight">
-                      {t("festival.producerTitle")}{" "}
-                      <span className="text-primary">Oumar Wade</span>
+                      {t("festival.producerTitle")} <span className="text-primary">Oumar Wade</span>
                     </h2>
                     <div className="h-1 w-20 rounded-full bg-primary mt-4" />
                   </div>

@@ -7,26 +7,26 @@ export function FloatingTicketButton() {
 
   return (
     <>
-      {/* Bouton Flottant (Côté droit) */}
+      {/* Bouton Flottant (Côté droit — masqué sur très petits écrans pour ne jamais gêner la lecture) */}
       <motion.button
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1, type: "spring", stiffness: 100 }}
         onClick={() => setShowModal(true)}
-        className="fixed top-1/2 right-0 -translate-y-1/2 z-40 group flex items-center"
+        className="hidden md:flex fixed top-1/2 right-0 -translate-y-1/2 z-40 group items-center cursor-pointer"
       >
-        <div className="relative flex items-center justify-center w-12 h-32 bg-card/90 backdrop-blur-md border border-r-0 border-primary/30 rounded-l-2xl shadow-[-10px_0_30px_-10px_rgba(245,158,11,0.3)] hover:w-14 hover:shadow-[-15px_0_40px_-10px_rgba(245,158,11,0.5)] transition-all duration-300">
-          <span className="absolute inset-0 bg-linear-to-b from-amber-400/20 to-primary/20 rounded-l-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></span>
+        <div className="relative flex items-center justify-center w-11 h-32 bg-[#04111f]/90 backdrop-blur-md border border-r-0 border-sky-400/35 rounded-l-2xl shadow-xl hover:w-13 transition-all duration-300">
+          <span className="absolute inset-0 bg-linear-to-b from-sky-400/20 to-primary/20 rounded-l-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="rotate-180" style={{ writingMode: "vertical-rl" }}>
-            <span className="flex items-center gap-3 text-primary text-sm font-black uppercase tracking-[0.2em]">
-              <Ticket size={16} className="rotate-90 animate-pulse" />
+            <span className="flex items-center gap-3 text-sky-300 text-xs font-black uppercase tracking-[0.2em]">
+              <Ticket size={15} className="rotate-90 animate-pulse text-sky-400" />
               Réserver
             </span>
           </div>
         </div>
       </motion.button>
 
-      {/* Modale de Billetterie (Coming Soon) */}
+      {/* Modale de Billetterie */}
       <AnimatePresence>
         {showModal && (
           <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
@@ -44,7 +44,7 @@ export function FloatingTicketButton() {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="relative w-full max-w-md bg-card border border-primary/20 rounded-3xl p-8 shadow-2xl overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-amber-400 via-primary to-amber-600"></div>
+              <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-primary via-sky-500 to-cyan-400" />
 
               <button
                 onClick={() => setShowModal(false)}
@@ -60,23 +60,25 @@ export function FloatingTicketButton() {
 
               <h2 className="text-3xl font-display font-bold text-foreground mb-2">Billetterie</h2>
               <p className="text-muted-foreground mb-8">
-                L'ouverture officielle de la billetterie pour l'édition 2026 n'a pas encore
-                commencé. Préparez-vous pour un événement historique.
+                L'ouverture officielle de la billetterie pour la 18ème édition approche.
+                Préparez-vous pour un événement historique à Dakar (Sorano) puis à Podor et Ndioum.
               </p>
 
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 border border-border">
                   <Calendar className="text-primary" size={24} />
                   <div>
-                    <h4 className="font-bold text-sm">Ouverture prévue</h4>
-                    <p className="text-xs text-muted-foreground">Automne 2026</p>
+                    <h4 className="font-bold text-sm">Dates Officielles</h4>
+                    <p className="text-xs text-muted-foreground">
+                      27 Nov 2026 (Sorano) · 04–06 Déc 2026 (Podor & Ndioum)
+                    </p>
                   </div>
                 </div>
 
                 <a
                   href="#newsletter"
                   onClick={() => setShowModal(false)}
-                  className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-xl font-bold hover:bg-primary transition-colors"
+                  className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-primary/90 transition-colors"
                 >
                   <Bell size={18} />
                   Être alerté de l'ouverture
