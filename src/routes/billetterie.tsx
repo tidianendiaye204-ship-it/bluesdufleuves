@@ -43,7 +43,7 @@ export const Route = createFileRoute("/billetterie")({
     });
 
     const structuredData = createStructuredData("Event", {
-      name: "Billetterie Festival Blues du Fleuve 19ème édition",
+      name: "Billetterie Festival Blues du Fleuve 18ème édition",
       startDate: FESTIVAL_CONFIG.startDate,
       endDate: FESTIVAL_CONFIG.endDate,
       locationName: "The Village Podor",

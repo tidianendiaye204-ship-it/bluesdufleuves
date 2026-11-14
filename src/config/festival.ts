@@ -3,6 +3,6 @@ export const FESTIVAL_CONFIG = {
   startDate: "2026-12-04T18:00:00",
   endDate: "2026-12-06T23:59:59",
   location: "Podor et Ndioum, Sénégal",
-  editionTexte: "19ème édition",
+  editionTexte: "18ème édition",
   editionYear: "2026",
 };

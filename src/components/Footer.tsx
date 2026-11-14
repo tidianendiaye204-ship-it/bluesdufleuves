@@ -121,9 +121,9 @@ export function Footer() {
                 target="_blank"
                 rel="noopener"
                 title="Site officiel du Festival Les Blues du Fleuve"
-                className="group flex items-center gap-2 text-sm text-amber-400/90 hover:text-amber-300 font-medium transition-all duration-300 py-1"
+                className="group flex items-center gap-2 text-sm text-sky-400/90 hover:text-sky-300 font-medium transition-all duration-300 py-1"
               >
-                <span className="w-2 h-px bg-amber-400 group-hover:w-4 transition-all duration-300" />
+                <span className="w-2 h-px bg-sky-400 group-hover:w-4 transition-all duration-300" />
                 Site Officiel Les Blues du Fleuve
               </a>
             </li>
