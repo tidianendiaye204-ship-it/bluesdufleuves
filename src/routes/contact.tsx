@@ -153,7 +153,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         />
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-40" : "max-h-0"}`}
+        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-96" : "max-h-0"}`}
       >
         <p className="px-6 pb-5 text-sm text-muted-foreground font-serif leading-relaxed">{a}</p>
       </div>
@@ -243,12 +243,27 @@ function ContactPage() {
     setLoading(true);
     setFormError(null);
     try {
-      const result = await soumettreContact({ data });
+      let tokenToSend = data.csrfToken || csrfToken;
+      if (!tokenToSend) {
+        const csrfResult = await getCSRFToken();
+        tokenToSend = csrfResult.token;
+        setCsrfToken(tokenToSend);
+        setValue("csrfToken", tokenToSend);
+      }
+      const result = await soumettreContact({
+        data: { ...data, csrfToken: tokenToSend },
+      });
       if (result.success) {
         setSentData({ nom: data.nom, email: data.email, sujet: data.sujet });
         setSent(true);
         setTimeout(() => {
           reset();
+          if (tokenToSend) {
+            setValue("csrfToken", tokenToSend);
+          }
+          if (!import.meta.env.PROD) {
+            setValue("cfTurnstileResponse", "dummy-token-dev");
+          }
           setSent(false);
           setSentData(null);
         }, 8000);
@@ -269,34 +284,39 @@ function ContactPage() {
     {
       icon: MapPin,
       title: "Adresse",
-      lines: ["Avenue Cheikh Oumar TALL", "Sénégal"],
-      color: "from-emerald-500/20 to-emerald-500/5",
+      lines: [
+        { label: "Avenue Cheikh Oumar TALL", href: undefined },
+        { label: "Podor, Sénégal", href: undefined },
+      ],
       iconBg: "bg-emerald-500/10",
       iconColor: "text-emerald-600 dark:text-emerald-400",
     },
     {
       icon: Phone,
       title: "Téléphone",
-      lines: ["+221 77 496 75 31", "+221 33 917 94 81"],
-      color: "from-sky-500/20 to-sky-500/5",
+      lines: [
+        { label: "+221 77 496 75 31", href: "tel:+221774967531" },
+        { label: "+221 33 917 94 81", href: "tel:+221339179481" },
+      ],
       iconBg: "bg-sky-500/10",
       iconColor: "text-sky-600 dark:text-sky-400",
     },
     {
       icon: Mail,
       title: "Email",
-      lines: ["contact@levillagepodor.com"],
-      color: "from-violet-500/20 to-violet-500/5",
-      iconBg: "bg-violet-500/10",
-      iconColor: "text-violet-600 dark:text-violet-400",
+      lines: [{ label: "contact@levillagepodor.com", href: "mailto:contact@levillagepodor.com" }],
+      iconBg: "bg-primary/10",
+      iconColor: "text-primary",
     },
     {
       icon: Clock,
       title: "Disponibilité",
-      lines: ["Lun – Ven : 9h – 18h", "Sam : 9h – 13h"],
-      color: "from-amber-500/20 to-amber-500/5",
-      iconBg: "bg-amber-500/10",
-      iconColor: "text-amber-600 dark:text-amber-400",
+      lines: [
+        { label: "Lun – Ven : 9h – 18h", href: undefined },
+        { label: "Sam : 9h – 13h", href: undefined },
+      ],
+      iconBg: "bg-cyan-500/10",
+      iconColor: "text-cyan-600 dark:text-cyan-400",
     },
   ];
 
@@ -354,13 +374,13 @@ function ContactPage() {
               Échangeons ensemble
             </span>
           </div>
-          <h1 className="luxury-text text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none text-foreground">
-            Nous <span className="text-gradient-gold">Contacter</span>
+          <h1 className="luxury-text text-4xl sm:text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none text-foreground">
+            Nous <span className="text-primary">Contacter</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-serif max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed font-serif max-w-2xl mx-auto">
             Une question sur le festival, un projet de partenariat ou une demande d'information sur
             nos formations au{" "}
-            <Link to="/" className="text-sky-300 hover:underline font-medium">
+            <Link to="/" className="text-primary hover:underline font-semibold">
               The Village Podor
             </Link>{" "}
             ? Notre équipe est à votre écoute.
@@ -389,11 +409,21 @@ function ContactPage() {
                 <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-2">
                   {item.title}
                 </h3>
-                {item.lines.map((line) => (
-                  <p key={line} className="text-sm text-muted-foreground font-serif">
-                    {line}
-                  </p>
-                ))}
+                {item.lines.map((line) =>
+                  line.href ? (
+                    <a
+                      key={line.label}
+                      href={line.href}
+                      className="block text-sm text-muted-foreground hover:text-primary font-serif transition-colors"
+                    >
+                      {line.label}
+                    </a>
+                  ) : (
+                    <p key={line.label} className="text-sm text-muted-foreground font-serif">
+                      {line.label}
+                    </p>
+                  ),
+                )}
               </div>
             );
           })}
@@ -476,12 +506,12 @@ function ContactPage() {
           >
             <div className="bg-card/40 backdrop-blur-2xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden relative">
               {/* Form header */}
-              <div className="relative bg-linear-to-r from-amber-500/10 to-orange-600/10 border-b border-border/50 px-8 py-8">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-                <h3 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground relative z-10">
+              <div className="relative bg-linear-to-r from-primary/15 via-sky-500/10 to-transparent border-b border-border/50 px-6 sm:px-8 py-7 sm:py-8">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+                <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-foreground relative z-10">
                   Envoyez-nous un message
                 </h3>
-                <p className="text-base text-muted-foreground font-serif mt-2 relative z-10">
+                <p className="text-sm sm:text-base text-muted-foreground font-serif mt-2 relative z-10">
                   Réponse garantie sous 48h ouvrées
                 </p>
               </div>
@@ -742,12 +772,7 @@ function ContactPage() {
                       type="submit"
                       disabled={loading}
                       aria-busy={loading}
-                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest px-8 py-5 text-sm rounded-2xl transition-all duration-500 disabled:opacity-60 disabled:cursor-not-allowed text-white hover:scale-[1.02] active:scale-[0.98]"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #ea580c 0%, #f97316 50%, #f59e0b 100%)",
-                        boxShadow: "0 10px 30px -10px rgba(234, 88, 12, 0.5)",
-                      }}
+                      className="relative w-full overflow-hidden group inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 font-bold uppercase tracking-widest px-8 py-5 text-sm rounded-2xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed text-white shadow-lg shadow-primary/25 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                     >
                       {/* Shine effect */}
                       <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 skew-x-12 pointer-events-none" />

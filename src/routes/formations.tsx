@@ -448,43 +448,43 @@ function Formations() {
         {/* Décoration ornemental */}
         <div className="absolute top-12 right-12 w-64 h-64 rounded-full border border-white/5 hidden lg:block" />
         <div className="absolute top-20 right-20 w-48 h-48 rounded-full border border-white/5 hidden lg:block" />
-        <div className="absolute bottom-12 right-32 w-32 h-32 rounded-full border border-amber-400/10 hidden lg:block" />
+        <div className="absolute bottom-12 right-32 w-32 h-32 rounded-full border border-sky-400/15 hidden lg:block" />
 
-        <div className="container-page relative z-10 py-24 md:py-32">
+        <div className="container-page relative z-10 pt-28 pb-16 md:pt-36 md:pb-24">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-              <Star size={12} className="text-amber-400 fill-amber-400" />
-              <span className="text-xs uppercase tracking-[0.25em] text-white/90 font-semibold">
+              <Star size={12} className="text-sky-400 fill-sky-400" />
+              <span className="text-xs uppercase tracking-[0.25em] text-sky-200 font-semibold">
                 {t("formations.subtitle")}
               </span>
             </div>
 
-            <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
               {t("formations.title")}
             </h1>
 
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl font-serif">
+            <p className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed mb-8 sm:mb-10 max-w-2xl font-serif">
               {t("formations.heroSubtitle")}{" "}
               <Link
                 to="/"
-                className="text-amber-300 hover:text-amber-200 font-semibold underline underline-offset-4 transition-colors"
+                className="text-sky-300 hover:text-sky-200 font-semibold underline underline-offset-4 transition-colors"
               >
                 The Village Podor
               </Link>{" "}
               {t("formations.heroDesc")}
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               <a
                 href="#programmes"
-                className="inline-flex items-center gap-2 btn-gradient-gold font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold uppercase tracking-widest px-8 py-4 text-xs sm:text-sm rounded-full shadow-lg shadow-sky-500/25 transition-all"
               >
                 {t("formations.discoverPrograms")}
                 <ChevronRight size={16} />
               </a>
               <a
                 href="#inscription"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold uppercase tracking-widest px-8 py-4 text-xs sm:text-sm rounded-full transition-all"
               >
                 {t("formations.apply")}
               </a>
@@ -604,7 +604,7 @@ function Formations() {
 
             {/* Badge flottant */}
             <div className="absolute -bottom-5 -right-5 hidden md:flex bg-card border border-border rounded-2xl p-4 shadow-xl items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
                 <Award size={22} />
               </div>
               <div>
@@ -644,7 +644,7 @@ function Formations() {
             <img
               src="/festival-baba-maal.webp"
               alt="Baaba Maal"
-              className="w-14 h-14 rounded-full object-cover border-2 border-amber-400/50"
+              className="w-14 h-14 rounded-full object-cover border-2 border-sky-400/60"
               style={{ objectPosition: "center 10%" }}
               width="56"
               height="56"
@@ -724,16 +724,30 @@ function Formations() {
                 {prog.desc}
               </p>
 
-              {/* Métadonnées */}
-              <div className="flex items-center gap-4 pt-4 border-t border-border/60">
-                <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <Clock size={13} />
-                  <span className="text-xs font-semibold">{prog.duree}</span>
+              {/* Métadonnées + Bouton d'inscription directe */}
+              <div className="flex items-center justify-between gap-3 pt-4 border-t border-border/60">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <Clock size={13} />
+                    <span className="text-xs font-semibold">{prog.duree}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
+                    <Users size={13} />
+                    <span className="text-xs font-semibold">{prog.niveau}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <Users size={13} />
-                  <span className="text-xs font-semibold">{prog.niveau}</span>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("formation", prog.titre, { shouldValidate: true });
+                    setSent(false);
+                    document.getElementById("inscription")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-sky-500 transition-colors cursor-pointer"
+                >
+                  <span>Choisir</span>
+                  <ChevronRight size={14} />
+                </button>
               </div>
             </article>
           ))}
@@ -742,7 +756,7 @@ function Formations() {
         <div className="text-center mt-12">
           <a
             href="#inscription"
-            className="inline-flex items-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-10 py-5 text-sm rounded-xl shadow-lg"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest px-10 py-4 text-xs sm:text-sm rounded-full shadow-lg shadow-primary/25 transition-all"
           >
             S'inscrire à une formation
             <ChevronRight size={16} />
@@ -771,7 +785,7 @@ function Formations() {
             {/* Card formulaire */}
             <div className="bg-card border border-border rounded-3xl shadow-sm overflow-hidden">
               {/* Bandeau de couleur en haut */}
-              <div className="h-2 bg-linear-to-r from-primary via-sky-500 to-amber-500" />
+              <div className="h-2 bg-linear-to-r from-primary via-sky-500 to-cyan-400" />
 
               <div className="p-8 md:p-10">
                 {sent ? (
@@ -1132,7 +1146,7 @@ function Formations() {
                         <button
                           type="button"
                           onClick={handleNextStep}
-                          className="flex-1 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                          className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg shadow-primary/20 transition-all cursor-pointer"
                         >
                           Suivant
                         </button>
@@ -1141,7 +1155,7 @@ function Formations() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full inline-flex items-center justify-center gap-2 btn-gradient-premium text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:shadow-[0_10px_60px_rgba(245,158,11,0.5)] transition-all cursor-pointer ${isSubmitting ? "opacity-70 pointer-events-none" : ""}`}
+                            className={`w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest px-8 py-4 text-sm rounded-xl shadow-lg shadow-primary/25 transition-all cursor-pointer ${isSubmitting ? "opacity-70 pointer-events-none" : ""}`}
                           >
                             <Send size={16} />
                             {isSubmitting ? "Envoi en cours..." : "Soumettre"}
