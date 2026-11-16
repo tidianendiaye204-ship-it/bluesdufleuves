@@ -57,7 +57,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative mt-24 bg-[#04111f] text-white overflow-hidden">
+    <footer className="relative bg-[#04111f] text-white overflow-hidden">
       {/* Ligne supérieure Bleu Fleuve */}
       <div className="h-1 w-full bg-linear-to-r from-primary via-sky-500 to-cyan-400" />
 
