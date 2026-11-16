@@ -11,8 +11,7 @@ function setCSRFCookie(token: string): void {
   setCookie(CSRF_COOKIE_NAME, token, {
     path: "/",
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 60 * 60 * 24, // 24 hours
   });
 }
@@ -29,8 +28,9 @@ function validateCSRFToken(token: string): boolean {
   return storedToken === token;
 }
 
-export const getCSRFToken = createServerFn({ method: "GET" }).handler(async () => {
-  const token = generateCSRFToken();
+export const getCSRFToken = createServerFn({ method: "POST" }).handler(async () => {
+  const existingToken = getCSRFCookie();
+  const token = existingToken || generateCSRFToken();
   setCSRFCookie(token);
   return { token };
 });

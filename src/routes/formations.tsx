@@ -316,6 +316,7 @@ function Formations() {
   });
 
   const [sent, setSent] = useState(false);
+  const [csrfToken, setCsrfToken] = useState("");
 
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
@@ -330,7 +331,8 @@ function Formations() {
     const fetchCSRFToken = async () => {
       try {
         const result = await getCSRFToken();
-        setValue("csrfToken", result.token);
+        setCsrfToken(result.token);
+        setValue("csrfToken", result.token, { shouldValidate: true });
       } catch (error) {
         console.error("Failed to fetch CSRF token:", error);
       }
@@ -386,12 +388,27 @@ function Formations() {
       return;
     }
     try {
-      const result = await soumettreInscription({ data });
+      let tokenToSend = data.csrfToken || csrfToken;
+      if (!tokenToSend) {
+        const csrfResult = await getCSRFToken();
+        tokenToSend = csrfResult.token;
+        setCsrfToken(tokenToSend);
+        setValue("csrfToken", tokenToSend);
+      }
+      const result = await soumettreInscription({
+        data: { ...data, csrfToken: tokenToSend },
+      });
       if (result.success) {
         setSentFormation(data.formation);
         setSent(true);
         setTimeout(() => {
           reset();
+          if (tokenToSend) {
+            setValue("csrfToken", tokenToSend);
+          }
+          if (!import.meta.env.PROD) {
+            setValue("cfTurnstileResponse", "dummy-token-dev");
+          }
           setSent(false);
           setSentFormation(null);
           setStep(1);
@@ -825,6 +842,7 @@ function Formations() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <input type="hidden" {...register("csrfToken")} value={csrfToken} />
                     {/* Stepper Indicator */}
                     <div className="flex items-center justify-between mb-8 relative">
                       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-muted rounded-full z-0" />
