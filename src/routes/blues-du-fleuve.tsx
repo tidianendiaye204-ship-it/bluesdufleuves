@@ -25,6 +25,7 @@ import {
   Diamond,
   Ticket,
   Clock,
+  ExternalLink,
   X,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
@@ -766,14 +767,60 @@ function BluesDuFleuve() {
                   </div>
                 </div>
 
-                <Link
-                  to="/billetterie"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs text-white bg-sky-500 hover:bg-sky-400 transition-all shadow-lg shadow-sky-500/25 shrink-0"
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs text-white bg-sky-500 hover:bg-sky-400 transition-all shadow-lg shadow-sky-500/25 shrink-0"
+                  >
+                    <Ticket size={15} />
+                    <span>Acheter mon ticket (27 Nov)</span>
+                    <ExternalLink size={14} />
+                  </a>
+                  <Link
+                    to="/billetterie"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs text-white/90 bg-white/10 hover:bg-white/20 border border-white/20 transition-all shrink-0"
+                  >
+                    <span>QR &amp; Détails</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Carte QR Code Officiel IN-TICKETS */}
+              <div className="rounded-2xl p-4 sm:p-5 border border-sky-400/25 bg-white/[0.04] backdrop-blur-md flex flex-col sm:flex-row items-center gap-4">
+                <a
+                  href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-24 sm:w-28 aspect-4/5 rounded-xl overflow-hidden border border-white/20 shrink-0 shadow-lg hover:scale-105 transition-transform"
                 >
-                  <Ticket size={15} />
-                  <span>{t("festival.ticketing")}</span>
-                  <ArrowRight size={14} />
-                </Link>
+                  <img
+                    src="/en-route-qr-sorano.jpg"
+                    alt="QR Code Billetterie Officielle — En route vers les Blues du Fleuve (27 Nov 2026)"
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+                <div className="text-center sm:text-left">
+                  <span className="text-[10px] font-black uppercase tracking-[0.22em] text-sky-300 block">
+                    Billetterie Officielle · IN-TICKETS
+                  </span>
+                  <h4 className="font-display text-base sm:text-lg font-bold text-white mt-0.5">
+                    Scannez le QR Code ou réservez en ligne
+                  </h4>
+                  <p className="text-xs text-white/75 font-serif mt-1">
+                    Vendredi 27 novembre 2026 à 21h00 au Théâtre National Daniel Sorano (Dakar).
+                  </p>
+                  <a
+                    href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-bold text-sky-300 hover:text-white underline underline-offset-4 transition-colors"
+                  >
+                    <span>events.in-tickets-sn.com/evenements/les-blues-du-fleuves</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -1579,16 +1626,28 @@ function BluesDuFleuve() {
                     </span>
                   </div>
                 </div>
-                <a
-                  href="#en-route"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById("en-route")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1"
-                >
-                  Voir l&apos;affiche &amp; vidéo <ChevronRight size={14} />
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider hover:bg-primary/90 transition-colors"
+                  >
+                    <Ticket size={13} />
+                    <span>Acheter sur IN-TICKETS</span>
+                    <ExternalLink size={12} />
+                  </a>
+                  <a
+                    href="#en-route"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("en-route")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1"
+                  >
+                    Voir l&apos;affiche &amp; QR <ChevronRight size={14} />
+                  </a>
+                </div>
               </div>
             </motion.div>
 

@@ -190,12 +190,6 @@ function Billetterie() {
     }
   };
 
-  const openCheckout = (pass: Pass) => {
-    setSelectedPass(pass);
-    setIsCheckoutOpen(true);
-    setCheckoutStep("personal_info");
-  };
-
   const closeCheckout = () => {
     setIsCheckoutOpen(false);
     setSelectedPass(null);
@@ -440,44 +434,52 @@ function Billetterie() {
 
       {/* ──────────────── EN ROUTE VERS LES BLUES DU FLEUVE (SORANO) ──────────────── */}
       <section className="container-page pb-16">
-        <div className="max-w-6xl mx-auto rounded-3xl border-2 border-amber-500/35 bg-linear-to-br from-[#081324] via-[#0c1d36] to-[#081324] text-white p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-6xl mx-auto rounded-3xl border border-sky-400/35 bg-linear-to-br from-[#04111f] via-[#071c33] to-[#04111f] text-white p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-24 -right-24 w-80 h-80 bg-sky-500/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
-            {/* Poster */}
-            <div className="lg:col-span-4">
-              <div className="rounded-2xl overflow-hidden border border-amber-400/40 shadow-2xl aspect-4/5 max-w-xs mx-auto">
+            {/* Poster avec QR Code Officiel */}
+            <div className="lg:col-span-4 space-y-3">
+              <a
+                href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-2xl overflow-hidden border border-sky-400/40 shadow-2xl aspect-4/5 max-w-xs mx-auto group"
+              >
                 <OptimizedImage
-                  src="/en-route-blues-du-fleuve.webp"
-                  alt="En route vers les Blues du Fleuve — Baaba Maal au Théâtre National Daniel Sorano"
-                  className="w-full h-full object-cover"
+                  src="/en-route-qr-sorano.jpg"
+                  alt="En route vers les Blues du Fleuve — QR Code Billetterie Théâtre National Daniel Sorano"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
+              </a>
+              <p className="text-center text-[11px] font-bold uppercase tracking-wider text-sky-300">
+                Scannez le QR code ou cliquez pour acheter
+              </p>
             </div>
 
             {/* Info & Sorano Tickets */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[11px] font-extrabold uppercase tracking-widest">
-                <Crown size={14} className="text-amber-400" />
+              <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/40 text-sky-300 text-[11px] font-extrabold uppercase tracking-widest">
+                <Crown size={14} className="text-sky-400" />
                 <span>Les Blues du Fleuve &amp; MARVA Group · Théâtre National Daniel Sorano</span>
               </div>
 
               <div>
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white">
-                  En route vers les <span className="text-amber-400">Blues du Fleuve</span>
+                  En route vers les <span className="text-sky-400">Blues du Fleuve</span>
                 </h2>
-                <p className="text-white/80 font-serif text-base sm:text-lg mt-2">
+                <p className="text-white/85 font-serif text-base sm:text-lg mt-2">
                   Vendredi <strong>27 Novembre 2026 à 21h00</strong> au{" "}
                   <strong>Théâtre National Daniel Sorano</strong> (Dakar) avec{" "}
                   <strong>Baaba Maal</strong> &amp; l&apos;Ensemble Lyrique Traditionnel.
                 </p>
-                <p className="text-xs uppercase tracking-widest text-amber-300/90 font-bold mt-2 flex items-center gap-2">
+                <p className="text-xs uppercase tracking-widest text-sky-300 font-bold mt-2 flex items-center gap-2">
                   <Award size={14} /> Parrain de l&apos;Édition 2026 : Dr. Cheikh Oumar Anne, Maire
                   de Ndioum
                 </p>
               </div>
 
-              {/* 2 Official Ticket Cards for Sorano */}
+              {/* 2 Official Ticket Cards for Sorano (Redirection IN-TICKETS) */}
               <div className="grid sm:grid-cols-2 gap-4 pt-2">
                 <div className="rounded-2xl p-5 border border-white/15 bg-white/[0.05] backdrop-blur-md flex flex-col justify-between">
                   <div>
@@ -487,7 +489,7 @@ function Billetterie() {
                     <h3 className="font-display text-xl font-bold text-white mt-1">
                       Entrée Unique
                     </h3>
-                    <div className="font-display text-3xl font-black text-amber-400 my-3">
+                    <div className="font-display text-3xl font-black text-sky-300 my-3">
                       10.000 <span className="text-sm font-bold text-white">FCFA</span>
                     </div>
                     <p className="text-xs text-white/75 font-serif mb-4">
@@ -495,31 +497,23 @@ function Billetterie() {
                       National Daniel Sorano à 21h.
                     </p>
                   </div>
-                  <button
-                    onClick={() =>
-                      openCheckout({
-                        name: "Sorano · Entrée Unique (27 Nov)",
-                        priceValue: "10 000 FCFA",
-                        priceLabel: "10 000 FCFA",
-                        desc: "Concert En route vers les Blues du Fleuve — Théâtre National Daniel Sorano",
-                        features: ["Entrée Unique — Vendredi 27 Novembre 2026 à 21h"],
-                        color: "from-sky-500/10 to-blue-500/5",
-                        border: "border-sky-500/20",
-                      })
-                    }
-                    className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold uppercase tracking-widest text-xs transition-all cursor-pointer"
+                  <a
+                    href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold uppercase tracking-widest text-xs transition-all text-center block"
                   >
-                    Réserver · 10.000 FCFA
-                  </button>
+                    Acheter · 10.000 FCFA
+                  </a>
                 </div>
 
-                <div className="rounded-2xl p-5 border-2 border-amber-400/50 bg-linear-to-br from-amber-500/20 via-amber-500/5 to-transparent backdrop-blur-md flex flex-col justify-between">
+                <div className="rounded-2xl p-5 border-2 border-sky-400/60 bg-linear-to-br from-sky-500/20 via-sky-500/5 to-transparent backdrop-blur-md flex flex-col justify-between">
                   <div>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest text-amber-300">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest text-sky-300">
                       <Sparkles size={12} /> Prestige Sorano · 27 Nov 2026
                     </span>
                     <h3 className="font-display text-xl font-bold text-white mt-1">Pass VIP</h3>
-                    <div className="font-display text-3xl font-black text-amber-400 my-3">
+                    <div className="font-display text-3xl font-black text-sky-300 my-3">
                       20.000 <span className="text-sm font-bold text-white">FCFA</span>
                     </div>
                     <p className="text-xs text-white/80 font-serif mb-4">
@@ -527,23 +521,14 @@ function Billetterie() {
                       prioritaire.
                     </p>
                   </div>
-                  <button
-                    onClick={() =>
-                      openCheckout({
-                        name: "Sorano · Pass VIP (27 Nov)",
-                        priceValue: "20 000 FCFA",
-                        priceLabel: "20 000 FCFA",
-                        desc: "Pass VIP — Concert En route vers les Blues du Fleuve au Théâtre National Daniel Sorano",
-                        features: ["Placement VIP — Vendredi 27 Novembre 2026 à 21h"],
-                        color: "from-amber-500/20 to-orange-500/5",
-                        border: "border-amber-500/40",
-                        popular: true,
-                      })
-                    }
-                    className="w-full py-3 rounded-xl bg-linear-to-r from-amber-400 to-amber-500 hover:brightness-110 text-slate-950 font-black uppercase tracking-widest text-xs transition-all shadow-lg shadow-amber-500/25 cursor-pointer"
+                  <a
+                    href="https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black uppercase tracking-widest text-xs transition-all shadow-lg shadow-sky-500/25 text-center block"
                   >
-                    Réserver VIP · 20.000 FCFA
-                  </button>
+                    Acheter VIP · 20.000 FCFA
+                  </a>
                 </div>
               </div>
             </div>

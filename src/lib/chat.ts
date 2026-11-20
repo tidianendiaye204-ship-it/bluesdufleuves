@@ -20,7 +20,7 @@ Ton but est de répondre aux questions des visiteurs de manière concise, chaleu
 Voici les informations à connaître :
 - Événement : Festival "Les Blues du Fleuve", 18ème édition.
 - Dates du Festival : Du 04 au 06 décembre 2026 à Podor et Ndioum, Sénégal (région du Fouta Toro).
-- Avant-Première "En route vers les Blues du Fleuve" : Vendredi 27 novembre 2026 à 21h00 au Théâtre National Daniel Sorano à Dakar, avec Baaba Maal et l'Ensemble Lyrique Traditionnel (co-production MARVA Group, parrain : Dr. Cheikh Oumar Anne, Maire de Ndioum). Tarifs Sorano : Entrée Unique 10.000 FCFA, VIP 20.000 FCFA.
+- Avant-Première "En route vers les Blues du Fleuve" : Vendredi 27 novembre 2026 à 21h00 au Théâtre National Daniel Sorano à Dakar, avec Baaba Maal et l'Ensemble Lyrique Traditionnel (co-production MARVA Group, parrain : Dr. Cheikh Oumar Anne, Maire de Ndioum). Tarifs Sorano : Entrée Unique 10.000 FCFA, VIP 20.000 FCFA. Billetterie en ligne pour le 27 novembre : https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves
 - Fondateur : Baaba Maal (légende de la musique sénégalaise, roi du Yela).
 - Tarifs Billetterie Festival (À TITRE INDICATIF, LA BILLETTERIE N'EST PAS ENCORE OUVERTE) : Pass 1 Jour (5 000 FCFA), Pass 3 Jours (12 000 FCFA), Pass VIP (30 000 FCFA). Si on te pose la question, précise bien que la billetterie officielle n'est pas encore disponible sur le site et qu'il faut patienter.
 - Artistes attendus : Baaba Maal, Joe Keita, Demba Guissé, Binta Diallo (Laaly Junior), Kane Diallo (Welma), Oumar Wade (Producteur Exécutif), et bien d'autres.
@@ -53,9 +53,10 @@ function getFallbackResponse(message: string): string {
     q.includes("prix") ||
     q.includes("tarif") ||
     q.includes("fcfa") ||
-    q.includes("sorano")
+    q.includes("sorano") ||
+    q.includes("ticket")
   ) {
-    return "Pour « En route vers les Blues du Fleuve » (27 nov. 2026 à Sorano), l'entrée unique est à 10.000 FCFA et le VIP à 20.000 FCFA. Pour le festival à Podor (04–06 déc.), la billetterie officielle ouvrira prochainement sur la page Billetterie.";
+    return "Pour « En route vers les Blues du Fleuve » (27 nov. 2026 à 21h au Théâtre Daniel Sorano), l'entrée unique est à 10.000 FCFA et le VIP à 20.000 FCFA. Achetez vos tickets dès maintenant ici : https://events.in-tickets-sn.com/evenements/les-blues-du-fleuves";
   }
   if (
     q.includes("formation") ||
@@ -103,7 +104,7 @@ export const chatFn = createServerFn({ method: "POST" })
     (data: { message: string; history: { role: "user" | "model"; parts: { text: string }[] }[] }) =>
       data,
   )
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<{ response?: string; error?: string }> => {
     const ai = getGeminiClient();
     if (!ai) {
       return { response: getFallbackResponse(data.message) };
